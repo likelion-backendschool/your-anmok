@@ -35,6 +35,16 @@
 
     let map = new kakao.maps.Map(container, options);
 
+    // markerPosition(포지션)을 Latlng로 포지션화(좌표화) -> 스타벅스 홍대점 좌표 구해서 넣었습니다.
+    let markerPosition = new kakao.maps.LatLng(37.55751541928109, 126.92520449490704);
+
+    let marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커를 지도 위에 표시 -> setMap
+    marker.setMap(map);
+
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
             pos.coords.latitude,
