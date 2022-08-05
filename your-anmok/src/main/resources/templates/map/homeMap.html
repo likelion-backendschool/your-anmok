@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Kakao 지도 시작하기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+<div id="wrapper">
+    <div id="map" class="w-screen h-screen" style="z-index: 1">
+        <button id="current_pos_btn"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                style="z-index:0"
+                onclick="getCurrentPosBtn()"
+        >
+            내 위치 찾기
+        </button>
+    </div>
+
+</div>
+<script
+        type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"
+></script>
+
+<script>
+    let container = document.getElementById("map");
+    let options = {
+        // 일단 홍대를 중심으로 잡는 맵 생성
+        center: new kakao.maps.LatLng(37.55698559918365, 126.92444391816313),
+        // // 일단 적당한 지도의 높이 레벨 5 정도로 잡았슴다
+        level: 5,
+    };
+
+    let map = new kakao.maps.Map(container, options);
+
+    function locationLoadSuccess(pos) {
+        let currentPos = new kakao.maps.LatLng(
+            pos.coords.latitude,
+            pos.coords.longitude
+        );
+
+        map.panTo(currentPos);
+
+        let marker = new kakao.maps.Marker({
+            position: currentPos,
+        });
+
+        marker.setMap(null);
+        marker.setMap(map);
+    }
+
+    function getCurrentPosBtn() {
+        navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
+        console.log("현재위치 버튼 클릭됨");
+    }
+</script>
+
+</body>
+</html>
