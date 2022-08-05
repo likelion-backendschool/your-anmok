@@ -7,18 +7,10 @@
 </head>
 
 <body>
-<div id="wrapper">
-    <div id="map" class="w-screen h-screen" style="z-index: 1">
-        <button id="current_pos_btn"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                style="z-index:0"
-                onclick="getCurrentPosBtn()"
-        >
-            내 위치 찾기
-        </button>
+    <div id="map" class="w-screen h-screen" style="position: relative">
+
     </div>
 
-</div>
 <script
         type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"
@@ -36,14 +28,24 @@
     let map = new kakao.maps.Map(container, options);
 
     // markerPosition(포지션)을 Latlng로 포지션화(좌표화) -> 스타벅스 홍대점 좌표 구해서 넣었습니다.
-    let markerPosition = new kakao.maps.LatLng(37.55751541928109, 126.92520449490704);
+    let starbucksHondaeMarkerPosition = new kakao.maps.LatLng(37.55751541928109, 126.92520449490704);
 
-    let marker = new kakao.maps.Marker({
-        position: markerPosition
+    let starbucksHondaeMarker = new kakao.maps.Marker({
+        position: starbucksHondaeMarkerPosition
     });
 
     // 마커를 지도 위에 표시 -> setMap
-    marker.setMap(map);
+    starbucksHondaeMarker.setMap(map);
+
+
+    let customOverlayCurrentPosButton = new kakao.maps.CustomOverlay({
+        map: map,
+        clickable:true,
+        position: new kakao.maps.LatLng(37.55698559918365, 126.92444391816313),
+        content: '<button id="current_pos_btn" class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">내 위치 버튼</button>',
+    });
+
+    customOverlayCurrentPosButton.setMap(map);
 
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
