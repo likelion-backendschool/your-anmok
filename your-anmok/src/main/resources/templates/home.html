@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<a href="/#">login</a>
+
+<form action="/category/search" method="post">
+  <input type="text" placeholder="카테고리 키워드를 입력하세요" name="keyword" />
+  <button type="submit">검색</button>
+</form>
+
+<div>
+  <ul>
+    <li th:each="category : ${categories}">[[${category.getTitle}]]</li>
+  </ul>
+</div>
+
+</body>
+</html>
