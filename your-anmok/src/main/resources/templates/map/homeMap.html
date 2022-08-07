@@ -7,8 +7,9 @@
     <style>
         #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
         /*팝업 박스*/
-        .popup_box{position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
-
+        #popup_box{border-radius:10px;position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+        /*팝업 닫기 버튼*/
+        #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
     </style>
 </head>
 
@@ -74,15 +75,18 @@
     }
 
     kakao.maps.event.addListener(marker, 'click', function (){
-       document.getElementById("popup_layer").style.display='inline'
+        document.getElementById("popup_layer").style.display='inline'
     });
 </script>
 
 <!--팝업창 레이아웃 html-->
 <div id="popup_layer">
-    <div class="popup_box">
+    <div id="popup_box">
         <!--팝업 컨텐츠 영역-->
-        <div class="popup_contents">
+        <div id="popup_contents ">
+            <div class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
+                <div id="close"><img src="/images/cross.png"></div>
+            </div>
             <h2>상세 팝업</h2>
         </div>
     </div>
