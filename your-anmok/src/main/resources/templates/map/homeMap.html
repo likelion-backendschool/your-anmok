@@ -10,6 +10,8 @@
         #popup_box{border-radius:10px;position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
         /*팝업 닫기 버튼*/
         #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
+        .usr_img{width:280px;height:210px;background-color:#afafaf}
+        .next_btn_img, .prev_btn_img{position:absolute;vertical-align:middle;width:30px;height:30px;top:50%;left:50%;transform:translate(-50%, -50%);}
     </style>
 </head>
 
@@ -88,10 +90,16 @@
     <div id="popup_box">
         <!--팝업 컨텐츠 영역-->
         <div id="popup_contents ">
-            <div class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
+            <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
                 <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
             </div>
-            <h2>상세 팝업</h2>
+            <div id="popup_bottom" class="flex justify-around mt-[28px]">
+                <div class="h-[210px] w-[70px] text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
+                <div class="usr_img"></div>
+                <div class="usr_img"></div>
+                <div class="usr_img"></div>
+                <div class="h-[210px] w-[70px] text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
+            </div>
         </div>
     </div>
 </div>
