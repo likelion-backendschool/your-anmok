@@ -75,8 +75,12 @@
     }
 
     kakao.maps.event.addListener(marker, 'click', function (){
-        document.getElementById("popup_layer").style.display='inline'
+        document.getElementById("popup_layer").style.display='block'
     });
+
+    function closePopup(){
+        document.getElementById("popup_layer").style.display="none"
+    };
 </script>
 
 <!--팝업창 레이아웃 html-->
@@ -85,7 +89,7 @@
         <!--팝업 컨텐츠 영역-->
         <div id="popup_contents ">
             <div class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
-                <div id="close"><img src="/images/cross.png"></div>
+                <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
             </div>
             <h2>상세 팝업</h2>
         </div>
