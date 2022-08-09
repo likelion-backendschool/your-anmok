@@ -12,6 +12,7 @@
         #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
         .usr_img{width:280px;height:210px;background-color:#afafaf}
         .next_btn_img, .prev_btn_img{position:absolute;vertical-align:middle;width:30px;height:30px;top:50%;left:50%;transform:translate(-50%, -50%);}
+        .inner_contents_box{width:445px;height:112px;background-color:#e8f8f5;}
     </style>
 </head>
 
@@ -93,12 +94,19 @@
             <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
                 <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
             </div>
-            <div id="popup_bottom" class="flex justify-around mt-[28px]">
+            <div id="popup_bottom_01" class="flex justify-around mt-[25px]">
                 <div class="h-[210px] w-[70px] text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
                 <div class="usr_img"></div>
                 <div class="usr_img"></div>
                 <div class="usr_img"></div>
                 <div class="h-[210px] w-[70px] text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
+            </div>
+            <div id="popup_bottom_02" class="flex justify-between align-middle left-[50%] w-[896px] mt-[18px] mx-auto">
+                <div id="tag_box" class="w-[445px] h-[252px] bg-[#e8f8f5] mr-[28px] rounded-[10px]"></div>
+                <div>
+                    <div id="star_box" class="inner_contents_box rounded-[10px]"></div>
+                    <div id="article_box" class="inner_contents_box mt-[28px] rounded-[10px]"></div>
+                </div>
             </div>
         </div>
     </div>
