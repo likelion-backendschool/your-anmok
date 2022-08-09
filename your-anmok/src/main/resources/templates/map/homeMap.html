@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Kakao 지도 시작하기</title>
+    <style>
+        /*.map_wrap {position:relative;width:100%;height:500px;}*/
+        #my_location_button{position: absolute;top:0;left:0;z-index: 100}
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
+        /*팝업 박스*/
+        #popup_box{border-radius:10px;position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+        /*팝업 닫기 버튼*/
+        #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
+    </style>
+
+</head>
+
+<body>
+<div class="map_wrap" style="position: relative;">
+    <div id="map" class="w-screen h-screen" >
+
+    </div>
+    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
+        마이로케이션버튼
+    </button>
+
+
+</div>
+
+<script
+        type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"
+></script>
+
+<script>
+    let container = document.getElementById("map");
+    let options = {
+        // 일단 홍대를 중심으로 잡는 맵 생성
+        center: new kakao.maps.LatLng(37.55698559918365, 126.92444391816313),
+        // // 일단 적당한 지도의 높이 레벨 5 정도로 잡았슴다
+        level: 5,
+    };
+
+    let map = new kakao.maps.Map(container, options);
+
+    // markerPosition(포지션)을 Latlng로 포지션화(좌표화) -> 스타벅스 홍대점 좌표 구해서 넣었습니다.
+    let starbucksHondaeMarkerPosition = new kakao.maps.LatLng(37.55751541928109, 126.92520449490704);
+
+    // starbucksHondaeMarker 생성자
+    let starbucksHondaeMarker = new kakao.maps.Marker({
+        position: starbucksHondaeMarkerPosition,
+        clickable: true
+    })
+
+    // starbucksHongdaeMarker를 지도 위에 표시 -> setMap
+    starbucksHondaeMarker.setMap(map);
+
+    //starbucksHondaeMarker로 명칭 변경했습니다..
+    // let marker = new kakao.maps.Marker({
+    //     position: markerPosition,
+    //     clickable:true
+    //
+    // });
+
+    function locationLoadSuccess(pos) {
+        let currentPos = new kakao.maps.LatLng(
+            pos.coords.latitude,
+            pos.coords.longitude
+        );
+
+        map.panTo(currentPos);
+
+        let marker = new kakao.maps.Marker({
+            position: currentPos,
+        });
+
+        marker.setMap(null);
+        marker.setMap(map);
+    }
+
+    function getCurrentPosBtn() {
+        navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
+        console.log("현재위치 버튼 클릭됨");
+    }
+
+    kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function (){
+        document.getElementById("popup_layer").style.display='block'
+        console.log("스타벅스 클릭");
+    });
+
+    function closePopup(){
+        document.getElementById("popup_layer").style.display="none"
+    };
+</script>
+
+<!--팝업창 레이아웃 html-->
+<div id="popup_layer">
+    <div id="popup_box">
+        <!--팝업 컨텐츠 영역-->
+        <div id="popup_contents ">
+            <div class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
+                <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
+            </div>
+            <h2>상세 팝업</h2>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<!--git remote update  -> git checkout 해당 브랜치 -> git merge  -->
+<!-- -->
