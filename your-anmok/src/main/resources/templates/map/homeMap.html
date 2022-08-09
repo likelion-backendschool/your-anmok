@@ -5,20 +5,21 @@
     <title>Kakao 지도 시작하기</title>
     <style>
         /*.map_wrap {position:relative;width:100%;height:500px;}*/
-        #my_location_button{position: absolute;top:0;left:0;z-index: 1}
+        #my_location_button{position: absolute;top:0;left:0;z-index: 100}
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body>
-<div class="map_wrap">
-    <div id="map" class="w-screen h-screen" style="position: relative;">
+<div class="map_wrap" style="position: relative;">
+    <div id="map" class="w-screen h-screen" >
 
     </div>
     <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
         마이로케이션버튼
     </button>
+
 
 </div>
 
