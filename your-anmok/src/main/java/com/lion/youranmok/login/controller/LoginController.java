@@ -1,4 +1,4 @@
-package com.lion.youranmok.gathering.controller;
+package com.lion.youranmok.login.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-@RequestMapping("/gathering")
-public class GatheringListController {
+@RequestMapping("/login")
+public class LoginController {
 
-    @GetMapping("/list")
+    @GetMapping("/hi")
     public String getList() {
 
-        return "gathering/list";
+        return "login/hi";
     }
 }
