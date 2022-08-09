@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class YourAnmokApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(YourAnmokApplication.class, args);
 	}
 
