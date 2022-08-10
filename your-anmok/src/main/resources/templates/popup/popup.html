@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="contentsTop">
+    <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
+        <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
+    </div>
+</th:block>
+<th:block th:fragment="contentsMiddle">
+    <div id="popup_bottom_01" class="flex justify-center mt-[25px]">
+        <div class="h-[210px] w-[70px] text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
+        <div class="flex w-[896px] justify-between">
+            <div class="usr_img"></div>
+            <div class="usr_img"></div>
+            <div class="usr_img"></div>
+        </div>
+        <div class="h-[210px] w-[70px] text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
+    </div>
+</th:block>
+<th:block th:fragment="contentsBottom">
+    <div id="popup_bottom_02" class="flex justify-between align-middle left-[50%] w-[896px] mt-[18px] mx-auto">
+        <div id="tag_box" class="w-[445px] h-[252px] bg-[#e8f8f5] mr-[28px] rounded-[10px]"></div>
+        <div>
+            <div id="star_box" class="inner_contents_box rounded-[10px]"></div>
+            <div id="article_box" class="inner_contents_box mt-[18px] rounded-[10px]"></div>
+        </div>
+    </div>
+</th:block>
+
+</html>
