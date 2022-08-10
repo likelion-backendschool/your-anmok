@@ -3,24 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="/css/style.css" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<div class="row wrapper border-bottom white-bg " id="pageTitle">
-    <div class="col-sm-4">
-        <h2>목록</h2>
+<section id="container">
+    <div class="gathering-title">
+        <h1>같이 갈사람🤚🏻</h1>
     </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <ol class="breadcrumb">
-                <li>
-                    <a href="">Home</a>
-                </li>
-                <li class="active">
-                    <strong>게시물 목록</strong>
-                </li>
-            </ol>
+    <button class="write-gather"><a href="#">모집하기</a></button>
+<!--    <div>-->
+    <div class="gather-category">
+        <div th:each="category,index:${categoryList}">
+            <button type="button" class="btn btn-outline-info" th:text="${category.categoryName}"></button>
+    <!--        <button type="button" class="btn btn-outline-info">#혼자 생각하기 좋은 장소</button>-->
         </div>
     </div>
-</div>
+<!--    </div>-->
+    <div class="search">
+
+        <form>
+            <select id="status" name="status" tabindex="-1" aria-hidden="true">
+                <option value="">분류</option>
+                <!-- 카테고리/주소/이름 -->
+                <option value="category">카테고리</option>
+                <option value="address">주소</option>
+                <option value="name">이름</option>
+            </select>
+
+            <div class="bar">
+                <input type="text" placeholder="검색어를 입력하세요">
+                <input type="button" value="검색">
+            </div>
+        </form>
+    </div>
+
+    <div class="places">
+        <div th:each="gathering,index:${gatheringList}">
+            <img src="images/a.jpg" alt="어니언 성수점ㅇㅇ">
+            <div>
+                <div th:text="${gathering.store}"></div>
+                <div th:text="${gathering.title}"></div>
+<!--                <p>"${gathering.store}"</p>-->
+<!--                <p>빵지순례 다녀오실분!</p>-->
+            </div>
+            <div th:text="${gathering.meetAt}+${gathering.recruitCnt}"></div>
+<!--            <p>2022년 8월 4일 n명 모집중</p>-->
+        </div>
+<!--        <div>-->
+<!--            <img src="images/a.jpg" alt="밀도 성수점">-->
+<!--            <div>-->
+<!--                <p>밀도 성수점</p>-->
+<!--                <p>맛있는 디저트 같이 먹어요</p>-->
+<!--            </div>-->
+<!--            <p>2022년 8월 4일 n명</p>-->
+<!--        </div>-->
+    </div>
+</section>
 </body>
 </html>
