@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,7 +21,29 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @PostMapping("search")
+    /**
+     * url 접속시 초기 화면
+     * 모든 카테고리 표시됨
+     */
+    @GetMapping({"", "/home"})
+    public String home(Model model) {
+
+        List<CategoryDto> categories = new ArrayList<>();
+
+        categories = categoryService.findAll();
+
+        model.addAttribute("categories", categories);
+
+        return "/category/home";
+
+    }
+
+    /**
+     * 카테고리 검색 시 표시 화면
+     * 해당하는 카테고리만 표시됨
+     */
+
+    @PostMapping("/search")
     public String showList(String keyword, Model model) {
 
         List<CategoryDto> categories = new ArrayList<>();
@@ -29,7 +52,7 @@ public class CategoryController {
 
         model.addAttribute("categories", categories);
 
-        return "/home";
+        return "/category/home";
     }
 
 }
