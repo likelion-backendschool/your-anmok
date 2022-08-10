@@ -13,14 +13,11 @@
         <h1>같이 갈사람🤚🏻</h1>
     </div>
     <button class="write-gather"><a href="#">모집하기</a></button>
-<!--    <div>-->
     <div class="gather-category">
         <div th:each="category,index:${categoryList}">
             <button type="button" class="btn btn-outline-info" th:text="${category.categoryName}"></button>
-    <!--        <button type="button" class="btn btn-outline-info">#혼자 생각하기 좋은 장소</button>-->
         </div>
     </div>
-<!--    </div>-->
     <div class="search">
 
         <form>
@@ -41,24 +38,10 @@
 
     <div class="places">
         <div th:each="gathering,index:${gatheringList}">
-            <img src="images/a.jpg" alt="어니언 성수점ㅇㅇ">
-            <div>
-                <div th:text="${gathering.store}"></div>
-                <div th:text="${gathering.title}"></div>
-<!--                <p>"${gathering.store}"</p>-->
-<!--                <p>빵지순례 다녀오실분!</p>-->
-            </div>
-            <div th:text="${gathering.meetAt}+${gathering.recruitCnt}"></div>
-<!--            <p>2022년 8월 4일 n명 모집중</p>-->
+            <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><img src="/images/gathering-image-test.png" alt="이미지"/></a>
+            <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
+            <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.curCnt}+'/'+${gathering.recruitCnt}+'명'"></div>
         </div>
-<!--        <div>-->
-<!--            <img src="images/a.jpg" alt="밀도 성수점">-->
-<!--            <div>-->
-<!--                <p>밀도 성수점</p>-->
-<!--                <p>맛있는 디저트 같이 먹어요</p>-->
-<!--            </div>-->
-<!--            <p>2022년 8월 4일 n명</p>-->
-<!--        </div>-->
     </div>
 </section>
 </body>
