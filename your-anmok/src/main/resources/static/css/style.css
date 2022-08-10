@@ -1,0 +1,142 @@
+@charset "utf-8";
+
+
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dt,li,dt,table,tr,td,th,input,select,option,textarea {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+places{
+    color: black; text-decoration: none;
+}
+
+button{
+    background: none; border: 0; cursor: pointer;
+}
+
+
+#container{
+    width: 1200px; margin: 0 auto;
+    /*background-color: red;*/
+}
+h1{
+    margin: 30px 30px; font-size: 35px; font-weight: bold;
+}
+
+.gathering-title {
+    /*background-color: blue;*/
+    padding: 50px 0;
+}
+.write-gather{
+    float: right;
+    /*margin: 30px 0;*/
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    background: #01C9C6;
+    border-radius: 25px;
+}
+
+.gather-category {
+
+    margin: 10px;
+    clear: both;
+    display: flex;
+    flex-flow : row wrap;
+    /*background: red;*/
+}
+
+.gather-category button {
+    color:#01C9C6;
+    font-size: 14px;
+    outline-color: #01C9C6;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    white-space: nowrap;
+}
+/*.gather-category button > a {*/
+/*    white-space: nowrap;*/
+/*}*/
+/*.category p {*/
+/*    font-size: 16px;*/
+/*}*/
+
+.search{
+    margin: 25px 0 ;
+}
+form{
+    display: flex;
+}
+.search select{
+    width: 200px;
+    height: 50px;
+    padding: 0 40px;
+    font-size: 16px;
+    border: 0;
+    background: #E8F8F5;
+    border-radius: 15px;
+}
+
+
+.bar>input:first-child{
+    width: 250px;
+    height: 50px;
+    border: 0;
+    background: #E8F8F5;
+    border-radius: 15px;
+    margin-left: 15px;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.bar>input:last-child{
+    width: 100px;
+    height: 50px;
+    border: 0;
+    border-radius: 15px;
+    background: #01C9C6;
+    margin-left: 15px;
+    font-size: 16px;
+}
+
+.places>div{
+    width: 1200px;
+    height: 200px;
+    border-radius: 15px;
+    background: #01C9C6;
+    margin-bottom: 20px;
+}
+
+.places >div img{
+    width: 300px;
+    height: 150px;
+    margin: 25px 35px;
+    float: left;
+}
+.places>div>div{
+    padding-top: 60px ;
+    font-size: 25px;
+    display: flex;
+    line-height: 20px;
+}
+.places>div>div p:first-child{
+    margin-right: 15px;
+    padding-right: 15px;
+    height: 25px;
+    border-right: 2px solid;
+}
+.places>div>p:last-child{
+    margin-top: 15px;
+    font-size: 16px;
+}
+
