@@ -6,7 +6,9 @@
 </head>
 <body>
 
-<a href="/#">login</a>
+<!--TODO 로그인, 회원가입 링크 수정 필요 -->
+<a href="#">login</a>
+<a href="#">회원 가입</a>
 <a href="/category/home">전체 보기</a>
 
 <form action="/category/search" method="post">
@@ -16,7 +18,8 @@
 
 <div>
   <ul>
-    <li th:each="category : ${categories}">[[${category.tagName}]]</li>
+    <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
+    <li th:each="category : ${categories}"><a href="#">[[${category.tagName}]]</a></li>
   </ul>
 </div>
 
