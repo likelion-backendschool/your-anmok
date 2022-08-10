@@ -7,6 +7,7 @@
 <body>
 
 <a href="/#">login</a>
+<a href="/category/home">전체 보기</a>
 
 <form action="/category/search" method="post">
   <input type="text" placeholder="카테고리 키워드를 입력하세요" name="keyword" />
@@ -15,7 +16,7 @@
 
 <div>
   <ul>
-    <li th:each="category : ${categories}">[[${category.getTitle}]]</li>
+    <li th:each="category : ${categories}">[[${category.tagName}]]</li>
   </ul>
 </div>
 

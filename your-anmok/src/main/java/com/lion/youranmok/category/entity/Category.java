@@ -14,10 +14,12 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(length = 100, nullable = false)
-    private String title;
+    @Column(name = "tag_name", nullable = false)
+    private String tagName;
+
+    //TODO placeId 추가 필요(FK)
 
 
 }

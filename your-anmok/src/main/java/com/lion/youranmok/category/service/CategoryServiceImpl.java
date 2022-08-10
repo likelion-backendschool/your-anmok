@@ -31,11 +31,11 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public List<CategoryDto> findByTitleContaining(String keyword) {
+    public List<CategoryDto> findByTagNameContaining(String keyword) {
 
         List<CategoryDto> categories = new ArrayList<>();
 
-        categories = categoryRepository.findByTitleContaining(keyword).stream().map(i -> {
+        categories = categoryRepository.findByTagNameContaining(keyword).stream().map(i -> {
             CategoryDto dto = entityToDto(i);
             return dto;
         }).collect(Collectors.toList());

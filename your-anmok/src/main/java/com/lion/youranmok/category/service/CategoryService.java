@@ -8,13 +8,13 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryDto> findAll();
-    List<CategoryDto> findByTitleContaining(String keyword);
+    List<CategoryDto> findByTagNameContaining(String keyword);
 
     default Category dtoToEntity(CategoryDto dto) {
 
         Category entity = Category.builder()
                 .id(dto.getId())
-                .title(dto.getTitle())
+                .tagName(dto.getTagName())
                 .build();
 
         return entity;
@@ -25,7 +25,7 @@ public interface CategoryService {
 
         CategoryDto dto = CategoryDto.builder()
                 .id(entity.getId())
-                .title(entity.getTitle())
+                .tagName(entity.getTagName())
                 .build();
 
         return dto;

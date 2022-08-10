@@ -48,7 +48,7 @@ public class CategoryController {
 
         List<CategoryDto> categories = new ArrayList<>();
 
-        categories = categoryService.findByTitleContaining(keyword);
+        categories = categoryService.findByTagNameContaining(keyword);
 
         model.addAttribute("categories", categories);
 
