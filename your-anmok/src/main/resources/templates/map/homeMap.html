@@ -5,9 +5,11 @@
     <title>Kakao 지도 시작하기</title>
     <style>
         /*.map_wrap {position:relative;width:100%;height:500px;}*/
-        #my_location_button{position: absolute;top:0;left:0;z-index: 100}
+        #my_location_button{position: absolute;bottom:0;right:0;z-index: 100}
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
+
     <style>
         #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
         /*팝업 박스*/
@@ -97,8 +99,49 @@
     function closePopup(){
         document.getElementById("popup_layer").style.display="none"
     };
-</script>
 
+    // 마커 클릭시 장소명 표출하는 인포윈도우
+    let infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+    // 장소 검색 객체를 생성
+    let ps = new kakao.maps.services.Places();
+
+    // 키워드로 장소를 검색
+    ps.keywordSearch('홍대 맛집', placesSearchCB);
+
+    // 키워드로 검색 완료시 호출되는 콜백함수
+    function placesSearchCB (data, status, pagination){
+        if(status === kakao.maps.services.Status.OK){
+            // 검색된 장소 위치를 기준으로 지도 범위 재설정하기 위해
+            // LatLngBounds 객체에 좌표를 추가한다.
+            let bounds = new kakao.maps.LatLngBounds();
+
+            for(let i=0; i<data.length;i++){
+                displayMarker(data[i]);
+                bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+            }
+
+            //  검색된 장소 위치를 기준으로 지도 범위를 재설정 -> setBounds
+            map.setBounds(bounds);
+        }
+    }
+
+    // 지도에 마커를 표시하는 함수인 displayMarker
+    function displayMarker(place){
+
+        // 마커 생성
+        let placeMarker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(place.y, place.x)
+        });
+
+        kakao.maps.event.addListener(placeMarker,'click',function(){
+            infowindow.setContent('<div style="padding:5px; font-size:12px;">'+place.place_name+'</div>')
+            infowindow.open(map, placeMarker);
+        });
+    }
+
+</script>
 <!--팝업창 레이아웃 html-->
 <div id="popup_layer">
     <div id="popup_box">
