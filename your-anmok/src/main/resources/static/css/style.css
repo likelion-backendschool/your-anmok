@@ -87,7 +87,6 @@ form{
     border-radius: 15px;
 }
 
-
 .bar>input:first-child{
     width: 250px;
     height: 50px;
@@ -117,26 +116,38 @@ form{
     margin-bottom: 20px;
 }
 
+.places>div:hover{
+    background: #E8F8F5;
+}
+
 .places >div img{
     width: 300px;
     height: 150px;
     margin: 25px 35px;
     float: left;
 }
-.places>div>div{
-    padding-top: 60px ;
+
+.places>div>a>.place-main{
+    color: black;
+    padding-top: 60px;
     font-size: 25px;
     display: flex;
     line-height: 20px;
 }
-.places>div>div p:first-child{
-    margin-right: 15px;
-    padding-right: 15px;
-    height: 25px;
-    border-right: 2px solid;
+.places>div>div{
+    padding-top: 30px ;
+    font-size: 15px;
+    display: flex;
+    line-height: 20px;
 }
-.places>div>p:last-child{
-    margin-top: 15px;
-    font-size: 16px;
-}
+/*.places>div>div p:first-child{*/
+/*    margin-right: 15px;*/
+/*    padding-right: 15px;*/
+/*    height: 25px;*/
+/*    border-right: 2px solid;*/
+/*}*/
+/*.places>div>p:last-child{*/
+/*    margin-top: 15px;*/
+/*    font-size: 16px;*/
+/*}*/
 
