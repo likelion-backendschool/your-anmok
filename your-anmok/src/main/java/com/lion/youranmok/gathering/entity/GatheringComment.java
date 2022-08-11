@@ -6,17 +6,15 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Entity
 @Table
+@Entity
 @Data
-public class GatheringBoard {
+public class GatheringComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -24,29 +22,20 @@ public class GatheringBoard {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-//    @OneToOne(mappedBy = "place", cascade = CascadeType.REMOVE)
-    @Column
-    private Integer placeId;
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private GatheringBoard board;
 
     @Column
     private Integer userId;
 
-    @Column(length = 50)
-    private String title;
-
-    @Column(length = 500)
-    private String text;
+    @Column(length = 100)
+    private String commentText;
 
     @Column
-    private LocalDate date;
-
-    @Column(length = 1)
-    private Boolean isExpired;
+    private Integer replyTo;
 
     @Column
-    private Integer totalCnt;
-
-    @Column
-    private Integer gatherCnt;
+    private Integer mentionId;
 
 }
