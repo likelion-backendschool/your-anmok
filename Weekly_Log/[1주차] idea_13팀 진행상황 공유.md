@@ -81,4 +81,4 @@
 
 Github Repository URL: https://github.com/likelion-backendschool/your-anmok
 
-![img.png](img.png)
+![img.png](dev/lion/your-anmok/Weekly_Log/img/0808.png)
