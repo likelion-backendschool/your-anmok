@@ -1,6 +1,6 @@
 package com.lion.youranmok.category.entity;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
@@ -8,6 +8,10 @@ import javax.persistence.*;
 @Data
 @Table
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +20,7 @@ public class Category {
     @Column
     private Integer placeId;
 
-    @Column(length = 100)
+    @Column(name = "tag_name", nullable = false)
     private String tagName;
+
 }

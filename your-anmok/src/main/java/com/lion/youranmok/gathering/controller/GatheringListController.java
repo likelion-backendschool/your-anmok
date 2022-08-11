@@ -3,14 +3,16 @@ package com.lion.youranmok.gathering.controller;
 import com.lion.youranmok.category.dto.CategoryNameDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
-import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
