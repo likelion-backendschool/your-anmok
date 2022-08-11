@@ -3,25 +3,35 @@ package com.lion.youranmok.gathering.controller;
 import com.lion.youranmok.category.dto.CategoryNameDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
+import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.service.GatheringService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/gathering")
 public class GatheringListController {
+    private final GatheringService gatheringService;
+
+    GatheringListController(GatheringService gatheringService) {
+        this.gatheringService = gatheringService;
+    }
 
     @GetMapping("/list")
     public String getList(Model model) {
+
         GatheringListDto gatheringListDto = new GatheringListDto();
         List<GatheringListDetailDto> gatheringList = new ArrayList<>();
         List<CategoryNameDto> categoryList = new ArrayList<>();
+
 
         //번개모임 정보 세팅
         for(int i = 0; i < 50; i++) {
@@ -55,7 +65,7 @@ public class GatheringListController {
 
     @GetMapping("/{boardId}")
     public String getDetail(@PathVariable int boardId, Model model) {
-        
+
         model.addAttribute("bId", boardId);
         return "gathering/detail";
     }
