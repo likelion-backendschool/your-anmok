@@ -112,12 +112,12 @@ form{
     width: 1200px;
     height: 200px;
     border-radius: 15px;
-    background: #01C9C6;
+    background: #E8F8F5;
     margin-bottom: 20px;
 }
 
 .places>div:hover{
-    background: #E8F8F5;
+    background: #01C9C6;
 }
 
 .places >div img{
