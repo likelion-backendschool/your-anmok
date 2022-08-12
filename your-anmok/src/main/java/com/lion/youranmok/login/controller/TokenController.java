@@ -1,5 +1,10 @@
 package com.lion.youranmok.login.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lion.youranmok.login.model.KakaoProfile;
+import com.lion.youranmok.login.model.OauthToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,7 +26,7 @@ public class TokenController {
         }
 
     @GetMapping("/auth/kakao/callback")
-    public @ResponseBody String kakaoCallback(String code) {
+    public @ResponseBody String kakaoCallback(String code) throws JsonProcessingException {
         //Post 방식으로 key=value 데이터를 요청(카카오쪽으로)
         RestTemplate rt = new RestTemplate();
 
@@ -47,8 +52,46 @@ public class TokenController {
                 kakaoTokenRequest,
                 String.class
         );
+        //Gson, Json Simple, ObjectMapper
+        ObjectMapper objectMapper = new ObjectMapper();
+        OauthToken oauthToken = null;
+        oauthToken = objectMapper.readValue(response.getBody(),OauthToken.class);
 
-        return "카카오 토큰 요청 완료: 토큰 요청에 대한 응답 "+ response.getBody();
+        System.out.println("Kakao Access Token :" + oauthToken.getAccess_token());
+        //Post 방식으로 key=value 데이터를 요청(카카오쪽으로)
+        RestTemplate rt2 = new RestTemplate();
+
+        //httpHeaders 오브젝트 생성
+        HttpHeaders headers2 = new HttpHeaders();
+        headers2.add("Authorization","Bearer "+oauthToken.getAccess_token());
+        headers2.add("Content-type","application/x-www-form-urlencoded;charset=utf-8");
+
+        //httpHeader와 HttpBody를 하나의 오브젝트에 담기
+        HttpEntity<MultiValueMap<String,String>> kakaoProfileRequest2 =
+                new HttpEntity<>(headers2);
+
+        //Http 요청하기 - Post방식으로 - 그리고 Response변수의 응답 받음.
+        ResponseEntity<String> response2 = rt2.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoProfileRequest2,
+                String.class
+        );
+        System.out.println(response2.getBody());
+        ObjectMapper objectMapper2 = new ObjectMapper();
+        KakaoProfile kakaoProfile = null;
+        try{
+            kakaoProfile = objectMapper2.readValue(response2.getBody(),KakaoProfile.class);
+        }catch (JsonMappingException e){
+            e.printStackTrace();
+        }catch (JsonProcessingException e){
+            e.printStackTrace();
+        }
+
+        System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
+        System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
+        return response2.getBody();
+
 
     }
 }
