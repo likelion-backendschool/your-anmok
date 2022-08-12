@@ -1,7 +1,6 @@
 package com.lion.youranmok.gathering.controller;
 
 import com.lion.youranmok.category.dto.CategoryNameDto;
-import com.lion.youranmok.gathering.converter.GatheringListConverter;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,24 +33,23 @@ public class GatheringListController {
     public String getList(Model model) {
 
         GatheringListDto gatheringListDto = new GatheringListDto();
-        List<GatheringListDetailDto> gatheringList = new ArrayList<>();
+//        List<GatheringListDetailDto> gatheringList = new ArrayList<>();
         List<CategoryNameDto> categoryList = new ArrayList<>();
 
-        List<GatheringBoard> gatheringBoardList = gatheringService.listByExpiredFalse();
-        GatheringListConverter gatheringListConverter = new GatheringListConverter();
+        List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria();
 
-        //번개모임 정보 세팅
-        for(int i = 0; i < 50; i++) {
-            GatheringListDetailDto gatheringListDetailDto = new GatheringListDetailDto();
-            gatheringListDetailDto.setBoardId(i+1);
-            gatheringListDetailDto.setGatherCnt(5);
-            gatheringListDetailDto.setMeetAt(LocalDateTime.now());
-            gatheringListDetailDto.setStore("스타벅스 상도"+(i+1)+"호점");
-            gatheringListDetailDto.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
-            gatheringListDetailDto.setTotalCnt(10);
-
-            gatheringList.add(gatheringListDetailDto);
-        }
+//        //번개모임 정보 세팅
+//        for(int i = 0; i < 50; i++) {
+//            GatheringListDetailDto gatheringListDetailDto = new GatheringListDetailDto();
+//            gatheringListDetailDto.setBoardId(i+1);
+//            gatheringListDetailDto.setGatherCnt(5);
+//            gatheringListDetailDto.setMeetAt(LocalDate.now());
+//            gatheringListDetailDto.setStore("스타벅스 상도"+(i+1)+"호점");
+//            gatheringListDetailDto.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
+//            gatheringListDetailDto.setTotalCnt(10);
+//
+//            gatheringList.add(gatheringListDetailDto);
+//        }
 
         //카테고리 정보 세팅(test data)
         categoryList.add(new CategoryNameDto(1, "#코딩하기 좋은 카페💻"));
@@ -61,10 +60,10 @@ public class GatheringListController {
         categoryList.add(new CategoryNameDto(6, "#오늘은 차박🚘"));
         categoryList.add(new CategoryNameDto(7, "#소개팅으로 좋은 맛집🔥"));
 
-        gatheringListDto.setGatheringList(gatheringList);
+        gatheringListDto.setGatheringList(gatheringBoardList);
 
         model.addAttribute("categoryList", categoryList);
-        model.addAttribute("gatheringList", gatheringList);
+        model.addAttribute("gatheringList", gatheringBoardList);
 
         return "gathering/list";
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +20,7 @@ public class GatheringListDetailDto {
     private Integer totalCnt;
     private Integer gatherCnt;
 
-    public GatheringListDetailDto(Integer boardId, String store, String title, LocalDateTime meetAt, Integer totalCnt, Integer gatherCnt) {
+    public GatheringListDetailDto(Integer boardId, String store, String title, LocalDate meetAt, Integer totalCnt, Integer gatherCnt) {
         this.boardId = boardId;
         this.store = store;
         this.title = title;
@@ -28,7 +29,7 @@ public class GatheringListDetailDto {
         this.gatherCnt = gatherCnt;
     }
 
-    public void setMeetAt(LocalDateTime meetAt) {
+    public void setMeetAt(LocalDate meetAt) {
         this.meetAt = meetAt.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
     }
 }

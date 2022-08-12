@@ -40,7 +40,7 @@
         <div th:each="gathering,index:${gatheringList}">
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><img src="/images/gathering-image-test.png" alt="이미지"/></a>
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
-            <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.curCnt}+'/'+${gathering.recruitCnt}+'명'"></div>
+            <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
         </div>
     </div>
 </section>

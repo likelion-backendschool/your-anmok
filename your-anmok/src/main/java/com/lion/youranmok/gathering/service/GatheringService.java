@@ -1,6 +1,6 @@
 package com.lion.youranmok.gathering.service;
 
-import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ public class GatheringService {
     }
 
 
-    public List<GatheringBoard> listByExpiredFalse() {
-        return gatheringRepository.listByExpiredFalse();
+    public List<GatheringListDetailDto> listByCriteria() {
+        return gatheringRepository.listByCriteria();
     }
 
 }
