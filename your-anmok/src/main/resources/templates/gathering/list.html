@@ -15,7 +15,7 @@
     <button class="write-gather"><a href="#">모집하기</a></button>
     <div class="gather-category">
         <div th:each="category,index:${categoryList}">
-            <button type="button" class="btn btn-outline-info" th:text="${category.categoryName}"></button>
+            <button type="button" class="btn btn-outline-info" th:text="${category.tagName}"></button>
         </div>
     </div>
     <div class="search">

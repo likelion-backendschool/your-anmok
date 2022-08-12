@@ -1,6 +1,8 @@
 package com.lion.youranmok.gathering.controller;
 
-import com.lion.youranmok.category.dto.CategoryNameDto;
+import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.entity.Category;
+import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
@@ -24,43 +26,18 @@ import java.util.List;
 @RequestMapping("/gathering")
 public class GatheringListController {
     private final GatheringService gatheringService;
+    private final CategoryService categoryService;
 
-    GatheringListController(GatheringService gatheringService) {
+    GatheringListController(GatheringService gatheringService, CategoryService categoryService) {
         this.gatheringService = gatheringService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/list")
     public String getList(Model model) {
-
-        GatheringListDto gatheringListDto = new GatheringListDto();
-//        List<GatheringListDetailDto> gatheringList = new ArrayList<>();
-        List<CategoryNameDto> categoryList = new ArrayList<>();
-
         List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria();
+        List<CategoryDto> categoryList = categoryService.findAll();
 
-//        //번개모임 정보 세팅
-//        for(int i = 0; i < 50; i++) {
-//            GatheringListDetailDto gatheringListDetailDto = new GatheringListDetailDto();
-//            gatheringListDetailDto.setBoardId(i+1);
-//            gatheringListDetailDto.setGatherCnt(5);
-//            gatheringListDetailDto.setMeetAt(LocalDate.now());
-//            gatheringListDetailDto.setStore("스타벅스 상도"+(i+1)+"호점");
-//            gatheringListDetailDto.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
-//            gatheringListDetailDto.setTotalCnt(10);
-//
-//            gatheringList.add(gatheringListDetailDto);
-//        }
-
-        //카테고리 정보 세팅(test data)
-        categoryList.add(new CategoryNameDto(1, "#코딩하기 좋은 카페💻"));
-        categoryList.add(new CategoryNameDto(2, "#혼자 맥주한잔 하고싶을때🍺"));
-        categoryList.add(new CategoryNameDto(3, "#노을맛집🌅"));
-        categoryList.add(new CategoryNameDto(4, "#보기만해도 마음이 편해지는 바다🌊"));
-        categoryList.add(new CategoryNameDto(5, "#담배피기 좋은 장소🚬"));
-        categoryList.add(new CategoryNameDto(6, "#오늘은 차박🚘"));
-        categoryList.add(new CategoryNameDto(7, "#소개팅으로 좋은 맛집🔥"));
-
-        gatheringListDto.setGatheringList(gatheringBoardList);
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("gatheringList", gatheringBoardList);
