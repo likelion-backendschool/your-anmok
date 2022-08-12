@@ -18,4 +18,5 @@ public class GatheringService {
     public List<GatheringBoard> listByExpiredFalse() {
         return gatheringRepository.listByExpiredFalse();
     }
+
 }

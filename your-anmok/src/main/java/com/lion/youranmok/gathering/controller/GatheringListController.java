@@ -1,8 +1,10 @@
 package com.lion.youranmok.gathering.controller;
 
 import com.lion.youranmok.category.dto.CategoryNameDto;
+import com.lion.youranmok.gathering.converter.GatheringListConverter;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
+import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,16 +36,18 @@ public class GatheringListController {
         List<GatheringListDetailDto> gatheringList = new ArrayList<>();
         List<CategoryNameDto> categoryList = new ArrayList<>();
 
+        List<GatheringBoard> gatheringBoardList = gatheringService.listByExpiredFalse();
+        GatheringListConverter gatheringListConverter = new GatheringListConverter();
 
         //번개모임 정보 세팅
         for(int i = 0; i < 50; i++) {
             GatheringListDetailDto gatheringListDetailDto = new GatheringListDetailDto();
             gatheringListDetailDto.setBoardId(i+1);
-            gatheringListDetailDto.setCurCnt(5);
+            gatheringListDetailDto.setGatherCnt(5);
             gatheringListDetailDto.setMeetAt(LocalDateTime.now());
             gatheringListDetailDto.setStore("스타벅스 상도"+(i+1)+"호점");
             gatheringListDetailDto.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
-            gatheringListDetailDto.setRecruitCnt(10);
+            gatheringListDetailDto.setTotalCnt(10);
 
             gatheringList.add(gatheringListDetailDto);
         }
