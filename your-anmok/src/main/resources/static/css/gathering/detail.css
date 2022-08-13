@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dt,li,dt,table,tr,td,th,input,select,option,textarea
+{margin: 0; padding: 0;}
+li{list-style: none;}
+a{color: black; text-decoration: none;}
+button{background: none; border: 0; cursor: pointer;}
+
+#container{width: 1200px; margin: 100px auto 0 auto;}
+
+.content{ width: 830px; background: #c8eeed; border-radius: 20px;}
+.map{ width: 350px; background: #c8eeed; border-radius: 20px; position: fixed; z-index: 1; right:150px; top:100px;}
+
+.content_wrap{margin: 0 30px;}
+
+.content_wrap div:first-child{margin: 15px 0; display: flex; border-bottom: 2px solid #b4d1d0;}
+
+h1{font-size: 30px; margin-bottom: 15px;}
+.number{ font-size: 30px; line-height: 35px;  margin-left: 10px;}
+.number span{font-weight: bold;}
+.number span:first-child{color: #45a5a3}
+
+
+.name{ height: 35px; line-height: 18px;}
+.name p:first-child{float: left; font-size: 18px; font-weight: bold;}
+.name p:last-child{float: right; font-size: 15px; color: #959999;}
+
+
+
+.text{clear: both;  border-top: 2px solid #b4d1d0;}
+.text p{font-size: 20px; margin-top: 30px; margin: 45px 15px 45px 15px;}
+
+.comment{display: flex; margin-bottom: 15px; font-size: 15px; border-bottom: 2px solid #b4d1d0; }
+.comment p{margin-bottom: 15px;}
+.comment p:first-child{ font-weight: bold; margin-right: 10px;}
+.comment p:last-child{line-height: 20px;}
+.comment p span{font-weight: bold; color: #45a5a3}
+
+.iop li{display: flex; margin: 30px  0;}
+.iop li img{margin-right: 30px;}
+.iop li >div p:first-child{float: left; font-size: 18px; font-weight: bold; margin-right: 15px ;}
+.iop li >div p:nth-child(2){float: right; font-size: 15px; color: #959999; line-height: 30px; margin-bottom: 5px; }
+.iop li >div p:last-child{clear: both;}
+
+
+.map {
+
+}
+.map h2{font-size: 30px; margin: 15px 30px 0 30px; }
+.map img{margin: 35px 25px;}
+.map p{margin: 10px 30px;}
+
+.map div>div:not(:last-child){display: flex;}
+.map>div p:first-child{font-size: 20px; font-weight: bold;}
+
+.map>div>div p:first-child{font-size: 18px; font-weight: bold;}
