@@ -1,8 +1,12 @@
 package com.lion.youranmok.category.service;
 
 import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categories;
     }
 
+
     @Override
     public List<CategoryDto> findByTagNameContaining(String keyword) {
 
@@ -39,6 +44,21 @@ public class CategoryServiceImpl implements CategoryService{
             CategoryDto dto = entityToDto(i);
             return dto;
         }).collect(Collectors.toList());
+
+        return categories;
+    }
+
+    @Override
+    public Page<CategoryDto> getListByPaging(int page) {
+
+        Pageable pageable = PageRequest.of(page, 9);
+
+        Page<Category> categoryPage = categoryRepository.findAll(pageable);
+
+        Page<CategoryDto> categories = categoryPage.map(i -> {
+            CategoryDto dto = entityToDto(i);
+            return dto;
+        });
 
         return categories;
     }
