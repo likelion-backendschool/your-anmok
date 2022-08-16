@@ -43,7 +43,7 @@
   <div id="category_container" class="flex items-center mt-[25px]">
 
     <!-- back 버튼 -->
-    <div id="back" class="h-[70px] w-[70px] flex text-center relative"><a th:href="@{|?page=${categories.number-1}|}"><img src="/images/back.png" class="prev_btn_img"></a></div>
+    <div id="back" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasPrevious}"><a th:href="@{|?page=${categories.number-1}|}"><img src="/images/back.png" class="prev_btn_img"></a></div>
 
     <!-- 카테고리 -->
     <!-- TODO 카테고리 한 장에 표시할 개수 정해야함 -->
@@ -58,7 +58,7 @@
     </div>
 
     <!-- next 버튼 -->
-    <div id="next" class="h-[70px] w-[70px] flex text-center relative"><a th:href="@{|?page=${categories.number+1}|}"><img src="/images/next.png" class="next_btn_img"></a></div>
+    <div id="next" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasNext}"><a th:href="@{|?page=${categories.number+1}|}"><img src="/images/next.png" class="next_btn_img"></a></div>
 
   </div>
 
