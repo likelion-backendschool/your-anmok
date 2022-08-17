@@ -8,12 +8,43 @@ button{background: none; border: 0; cursor: pointer;}
 
 #container{width: 1200px; margin: 100px auto 0 auto;}
 
-.content{ width: 830px; background: #c8eeed; border-radius: 20px;}
-.map{ width: 350px; background: #c8eeed; border-radius: 20px; position: fixed; z-index: 1; right:150px; top:100px;}
+@media ( min-width:1001px ) {
+    .content { width:950px; }
+}
+@media ( max-width:1000px ) and ( max-width:701px ) {
+    .content { width:500px; }
+}
+@media ( max-width:700px ) {
+    .content { width:400px; }
+}
 
-.content_wrap{margin: 0 30px;}
+.content {
+    width: 950px;
+    /*right: calc(50%);*/
+    background: #c8eeed;
+    border-radius: 15px;
+    margin-right: 50px;
+    /*min-width: 1000px;*/
+}
 
-.content_wrap div:first-child{margin: 15px 0; display: flex; border-bottom: 2px solid #b4d1d0;}
+.map{
+    width: 350px;
+    background: #c8eeed;
+    border-radius: 15px;
+    margin-left: 30px;
+    position: fixed;
+    z-index: 1;
+    left:calc(50% + 280px);
+    /*top:100px;*/
+    display: inline-block;
+}
+
+.content_wrap{margin: 15px 30px;}
+
+.content_wrap div:first-child{
+    margin: 30px 0 15px;
+    /*background:red; */
+    display: flex; border-bottom: 2px solid #b4d1d0;}
 
 h1{font-size: 30px; margin-bottom: 15px;}
 .number{ font-size: 30px; line-height: 35px;  margin-left: 10px;}
@@ -36,17 +67,16 @@ h1{font-size: 30px; margin-bottom: 15px;}
 .comment p:last-child{line-height: 20px;}
 .comment p span{font-weight: bold; color: #45a5a3}
 
-.iop li{display: flex; margin: 30px  0;}
+.iop li{display: flex; margin: 30px 0;}
 .iop li img{margin-right: 30px;}
 .iop li >div p:first-child{float: left; font-size: 18px; font-weight: bold; margin-right: 15px ;}
 .iop li >div p:nth-child(2){float: right; font-size: 15px; color: #959999; line-height: 30px; margin-bottom: 5px; }
 .iop li >div p:last-child{clear: both;}
 
 
-.map {
-
+.map h2{font-size: 30px;
+    margin: 15px 30px 0 30px;
 }
-.map h2{font-size: 30px; margin: 15px 30px 0 30px; }
 .map img{margin: 35px 25px;}
 .map p{margin: 10px 30px;}
 

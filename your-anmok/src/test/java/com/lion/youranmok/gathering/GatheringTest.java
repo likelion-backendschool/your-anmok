@@ -7,6 +7,8 @@ import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
 import com.lion.youranmok.map.entity.Place;
 import com.lion.youranmok.map.repository.PlaceRepository;
+import com.lion.youranmok.user.entity.User;
+import com.lion.youranmok.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +31,10 @@ class GatheringTest {
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Test
     public void insertGatheringBoardTest() {
@@ -92,6 +98,20 @@ class GatheringTest {
             placeRepository.save(place);
         }
 
+    }
+
+    @Test
+    public void insertUserTest() {
+        List<String> userNameList = Arrays.asList("생갈치 1호의 행방불명", "오즈의 맙소사","반지하 제왕", "김대희","박다정", "순데렐라", "배숙희라빈스");
+
+        for(int i = 0; i < userNameList.size(); i++) {
+            User user = new User();
+            user.setNickname(userNameList.get(i));
+            user.setProfilePicture("/images/profile/%d.jpeg".formatted(i+1));
+            user.setToken("tmp%d".formatted(i));
+
+            userRepository.save(user);
+        }
     }
 
 }
