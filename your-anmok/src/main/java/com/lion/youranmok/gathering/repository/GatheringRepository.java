@@ -28,7 +28,9 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "p.id, " +
             "p.name, " +
             "p.address, " +
-            "p.star " +
+            "p.star," +
+            "p.lat," +
+            "p.lon " +
             ") from GatheringBoard as gb inner join Place as p on p.id = gb.placeId inner join User as u on u.id = gb.userId where gb.id = ?1")
     GatheringDetailDto getDetailById(int id);
 

@@ -28,4 +28,7 @@ public class GatheringDetailDto {
     private String placeName;
     private String address;
     private Integer star;
+
+    private double lat;
+    private double lon;
 }

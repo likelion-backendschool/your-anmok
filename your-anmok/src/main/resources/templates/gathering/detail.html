@@ -37,9 +37,9 @@
 
                 <ul class="iop">
                     <div class="detail" th:each="comment, index:${commentList}">
-<!--                    <li>-->
-<!--                        <img th:src="${comment.img}" alt="프로필 사진">-->
-
+                        <div class="box">
+                            <img th:src="${comment.img}" alt="프로필 사진">
+                        </div>
                         <div>
                             <p th:text="${comment.nickname}"></p>
                             <p th:text="${comment.createdAt}"></p>
@@ -54,7 +54,7 @@
 
         <div class="map">
             <h2>번개모임 장소 정보</h2>
-            <a href="#"><img src="/images/gather-map.jpg" alt="지도"></a>
+            <div id="map" style="width:100%; height:200px;"></div>
             <div>
                 <p th:text="${detailList.getPlaceName()}"></p>
                 <p th:text="${detailList.getAddress()}"></p>
@@ -84,6 +84,37 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"></script>
+<script>
+    var lat = [[${detailList.getLat()}]];
+    var lon = [[${detailList.getLon()}]];
+
+    console.log(lat);
+    console.log(lon);
+
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 마커가 표시될 위치입니다
+    var markerPosition  = new kakao.maps.LatLng(lat, lon);
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+    // marker.setMap(null);
+</script>
 </body>
 
 </html>
