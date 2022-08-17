@@ -21,4 +21,5 @@ public class GatheringService {
         return gatheringRepository.getDetailById(id);
     }
 
+
 }

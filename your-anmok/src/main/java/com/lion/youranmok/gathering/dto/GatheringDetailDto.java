@@ -16,7 +16,7 @@ import java.util.List;
 public class GatheringDetailDto {
 
     private String title;
-//    private String nickname;
+    private String nickname;
     private LocalDateTime createdAt;
     private String text;
 

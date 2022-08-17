@@ -2,6 +2,7 @@ package com.lion.youranmok.gathering;
 
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.CategoryRepository;
+import com.lion.youranmok.gathering.dto.CommentDto;
 import com.lion.youranmok.gathering.dto.GatheringDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
@@ -31,6 +32,7 @@ class GatheringTest {
 
     @Autowired
     private GatheringCommentRepository gatheringCommentRepository;
+
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -139,8 +141,10 @@ class GatheringTest {
     @Test
     public void gatheringDetailTest() {
         GatheringDetailDto gatheringDetailDto = gatheringRepository.getDetailById(1);
+        List<CommentDto> commentList = gatheringCommentRepository.listByBoardId(1);
 
         System.out.println(gatheringDetailDto.toString());
+        System.out.println(commentList.toString());
 
     }
 

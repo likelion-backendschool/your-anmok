@@ -1,5 +1,6 @@
 package com.lion.youranmok.gathering.repository;
 
+import com.lion.youranmok.gathering.dto.CommentDto;
 import com.lion.youranmok.gathering.dto.GatheringDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
@@ -18,8 +19,9 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
 
     @Query("select new com.lion.youranmok.gathering.dto.GatheringDetailDto (" +
             "gb.title," +
-            " gb.createdAt," +
-            " gb.text, " +
+            "u.nickname, " +
+            "gb.createdAt," +
+            "gb.text, " +
             "gb.totalCnt, " +
             "gb.gatherCnt, " +
             "gb.date, " +
@@ -27,6 +29,8 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "p.name, " +
             "p.address, " +
             "p.star " +
-            ") from GatheringBoard as gb inner join Place as p on p.id = gb.placeId where gb.id = ?1")
+            ") from GatheringBoard as gb inner join Place as p on p.id = gb.placeId inner join User as u on u.id = gb.userId where gb.id = ?1")
     GatheringDetailDto getDetailById(int id);
+
+
 }
