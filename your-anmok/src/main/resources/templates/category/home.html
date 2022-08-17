@@ -6,15 +6,15 @@
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
-<body class="flex justify-center">
+<body class="flex justify-center bg-[white]">
 
-<div id="container" class="w-[70%] flex-col justify-center bg-[#e8f8f5]">
+<div id="container" class="w-[70%] flex-col justify-center bg-[inherit]">
 
   <!-- header(로그인, 로그아웃 등의 버튼 표시) -->
   <div id="header" class="flex justify-end mr-[25px] mt-[25px]">
     <!--TODO 로그인, 회원가입 링크 수정 필요 -->
-    <div class="badge badge-outline mx-[5px]"><a href="/#">로그인</a></div>
-    <div class="badge badge-outline mx-[5px]"><a href="/#">회원가입</a></div>
+    <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/#">로그인</a></div>
+    <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/#">회원가입</a></div>
   </div>
 
   <!-- 웹 페이지 이름 -->
@@ -24,14 +24,14 @@
 
   <!-- 카테고리 검색, 전체보기 기능 버튼 -->
   <!-- TODO 수평이 안맞음 해결 필요 -->
-  <div id="search" class="input-group flex items-center justify-start ml-[25px] mt-[25px]">
+  <div id="search" class="flex items-center justify-start m-[25px]">
 
     <div class="mr-[10px]">카테고리</div>
 
     <form action="/category/search" method="post">
-      <input type="text" placeholder="키워드를 입력하세요" name="keyword" class="input input-bordered"/>
-      <button type="submit" class="btn btn-square">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+      <input type="text" placeholder="키워드를 입력하세요" name="keyword" class="input input-bordered bg-[#e8f8f5] border-[#e8f8f5] w-[200px] h-[50px] rounded-[15px]"/>
+      <button type="submit" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+        검색
       </button>
       <a href="/category/home">전체 보기</a>
     </form>
@@ -43,22 +43,22 @@
   <div id="category_container" class="flex items-center mt-[25px]">
 
     <!-- back 버튼 -->
-    <div id="back" class="h-[70px] w-[70px] flex text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
+    <div id="back" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasPrevious}"><a th:href="@{|?page=${categories.number-1}|}"><img src="/images/back.png" class="prev_btn_img"></a></div>
 
     <!-- 카테고리 -->
     <!-- TODO 카테고리 한 장에 표시할 개수 정해야함 -->
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
       <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
-      <div class="tag_name flex h-[200px] w-[250px] bg-[white] mx-[15px] my-[15px] items-center justify-center" th:each="category : ${categories}">
+      <div class="tag_name flex h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center" th:each="category : ${categories}">
 
-        <div>[[${category.tagName}]]</div>
+        <div><a th:href="@{/map/category(id=${category.id})}">[[${category.tagName}]]</a></div>
       </div>
 
     </div>
 
     <!-- next 버튼 -->
-    <div id="next" class="h-[70px] w-[70px] flex text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
+    <div id="next" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasNext}"><a th:href="@{|?page=${categories.number+1}|}"><img src="/images/next.png" class="next_btn_img"></a></div>
 
   </div>
 
@@ -66,6 +66,7 @@
 
   <!-- 번개 리스트 & 맞춤형 카테고리 부분 -->
   <!-- TODO 번개 리스트 & 맞춤형 카테고리 부분 추가 필요 -->
+
   <div id="gathering-list">
 
     <div>⚡️같이 놀 사람</div>
@@ -83,6 +84,7 @@
     </div>
 
   </div>
+
 
 </div>
 
