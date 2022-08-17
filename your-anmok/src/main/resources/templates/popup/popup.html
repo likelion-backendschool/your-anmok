@@ -3,8 +3,10 @@
 
 <th:block th:fragment="contentsTop">
     <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
-        <p class="placeName" th:text="${place?.name}"></p>
-        <p class="placeAddress" th:text="${place?.address}"></p>
+        <div id="place_info">
+            <p class="placeName" th:text="${place?.name}"></p>
+            <p class="placeAddress" th:text="${place?.address}"></p>
+        </div>
         <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
     </div>
 </th:block>
