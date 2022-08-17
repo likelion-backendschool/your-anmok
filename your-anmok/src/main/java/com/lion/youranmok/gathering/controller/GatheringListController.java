@@ -3,6 +3,7 @@ package com.lion.youranmok.gathering.controller;
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
+import com.lion.youranmok.gathering.dto.GatheringDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
@@ -45,12 +46,15 @@ public class GatheringListController {
         return "gathering/list";
     }
 
-    @GetMapping("/{boardId}")
-    public String getDetail(@PathVariable int boardId, Model model) {
+    @GetMapping("/{id}")
+    public String getBoardDetail(@PathVariable int id, Model model) {
+        GatheringDetailDto gatheringDetailDto = gatheringService.getDetailById(id);
 
-        model.addAttribute("bId", boardId);
+        model.addAttribute("gatheringDetail", gatheringDetailDto);
+
         return "gathering/detail";
     }
+
 }
 
 
