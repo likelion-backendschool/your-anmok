@@ -67,11 +67,11 @@ h1{font-size: 30px; margin-bottom: 15px;}
 .comment p:last-child{line-height: 20px;}
 .comment p span{font-weight: bold; color: #45a5a3}
 
-.iop li{display: flex; margin: 30px 0;}
-.iop li img{margin-right: 30px;}
-.iop li >div p:first-child{float: left; font-size: 18px; font-weight: bold; margin-right: 15px ;}
-.iop li >div p:nth-child(2){float: right; font-size: 15px; color: #959999; line-height: 30px; margin-bottom: 5px; }
-.iop li >div p:last-child{clear: both;}
+.iop .detail {display: flex; margin: 30px 0;}
+.iop .detail  img{margin-right: 30px;}
+.iop .detail  >div p:first-child{float: left; font-size: 18px; font-weight: bold; margin-right: 15px ;}
+.iop .detail  >div p:nth-child(2){float: right; font-size: 15px; color: #959999; line-height: 30px; margin-bottom: 5px; }
+.iop .detail  >div p:last-child{clear: both;}
 
 
 .map h2{font-size: 30px;

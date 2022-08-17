@@ -13,115 +13,41 @@
         <section class="content">
             <div class="content_wrap">
                 <div class="title">
-                    <h1>같이 모각코 하실분 구합니다</h1>
+<!--                    <div class="h2" th:text="${detailList.getTitle()}"></div>-->
+                    <h2 th:text="${detailList.getTitle()}"></h2>
                 </div>
                 <div class="name">
-                    <p>신림동 노란바지</p>
-                    <p>2022년 8월 2일 오후 4:40</p>
+<!--                    <p>신림동 노란바지</p>-->
+<!--                    <p>2022년 8월 2일 오후 4:40</p>-->
+                    <p th:text="${detailList.getNickname()}"></p>
+                    <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></p>
                 </div>
 
                 <div class="text">
-                    <p>카페에서 같이 네 시간 정도 모각코 하실 분 구해요!! <br>
-                        모르는 부분 물어보면서 같이 코딩해요~~
-                    </p>
+<!--                    <p>카페에서 같이 네 시간 정도 모각코 하실 분 구해요!! <br>-->
+<!--                        모르는 부분 물어보면서 같이 코딩해요~~-->
+<!--                    </p>-->
+                    <p th:text="${detailList.getText()}"></p>
                 </div>
 
                 <div class="comment">
                     <p>댓글</p>
-                    <p>&#40; <span>3</span> &#41;</p>
+                    <p>&#40; <span th:text="${commentList.size()}"></span> &#41;</p>
                 </div>
 
                 <ul class="iop">
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
+                    <div class="detail" th:each="comment, index:${commentList}">
+<!--                    <li>-->
+<!--                        <img th:src="${comment.img}" alt="프로필 사진">-->
 
                         <div>
-                            <p>상도동 불주먹</p>
-                            <p>2022년 8월 2일 오후 4:55</p>
+                            <p th:text="${comment.nickname}"></p>
+                            <p th:text="${comment.createdAt}"></p>
 
-                            <p>저 참여하고 싶습니다!</p>
+                            <p th:text="${comment.comment}"></p>
                         </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>봉천동 파란새</p>
-                            <p>2022년 8월 2일 오후 4:56</p>
-
-                            <p>저도 하고 싶습니당!</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>상도동 물낙지</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>상도동 물낙지</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>상도동 물낙지</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>상도동 물낙지</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>상도동 물낙지</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>상도동 물낙지</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
-
-                    <li>
-                        <img src="/images/gather-profile.png" alt="프로필 사진">
-                        <div>
-                            <p>신림동 꼬마</p>
-                            <p>2022년 8월 2일 오후 4:59</p>
-
-                            <p>저요!!!! ㅎㅎ</p>
-                        </div>
-                    </li>
+<!--                    </li>-->
+                    </div>
                 </ul>
             </div>
         </section>
@@ -130,17 +56,17 @@
             <h2>번개모임 장소 정보</h2>
             <a href="#"><img src="/images/gather-map.jpg" alt="지도"></a>
             <div>
-                <p>숭실대점 스타벅스</p>
-                <p>서울 동작구 사당로 4</p>
+                <p th:text="${detailList.getPlaceName()}"></p>
+                <p th:text="${detailList.getAddress()}"></p>
 
                 <div>
                     <p>날짜</p>
-                    <p>2022.08.13</p>
+                    <p th:text="${#temporals.format(detailList.getGatheringDate(), 'yyyy.MM.dd')}"></p>
                 </div>
 
                 <div>
                     <p>인원</p>
-                    <p>&#40; <span>1</span> / <span>3</span> &#41;</p>
+                    <p>&#40; <span th:text="${detailList.getGatherCnt()}"></span> / <span th:text="${detailList.getTotalCnt()}"></span> &#41;</p>
                 </div>
 
                 <div>

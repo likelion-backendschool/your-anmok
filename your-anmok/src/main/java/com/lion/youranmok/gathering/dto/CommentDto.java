@@ -22,7 +22,7 @@ public class CommentDto {
         this.nickname = nickname;
         this.comment = comment;
         this.img = img;
-        this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 오후 H:mm"));
+        this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
 }
