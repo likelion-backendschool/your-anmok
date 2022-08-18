@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
 <!doctype html>
 <html lang="ko">
 <head>
@@ -6,156 +6,122 @@
     <title>상세보기</title>
     <link rel="stylesheet" type="text/css" href="/css/gathering/detail.css">
 </head>
-<body id="container">
-<section class="content">
-    <div class="content_wrap">
-        <div class="">
-            <h1>같이 모각코 하실분 구합니다</h1>
-            <div th:text="${bId}">번 글 상세입니다.</div>
-            <div class="number">
-                <p>&#40; <span>1</span> / <span>3</span> &#41;</p>
+<body>
+
+<div class="container my-3">
+    <div class="d-flex flex-row">
+        <section class="content w-75">
+            <div class="content_wrap">
+                <div class="title">
+<!--                    <div class="h2" th:text="${detailList.getTitle()}"></div>-->
+                    <h2 th:text="${detailList.getTitle()}"></h2>
+                </div>
+                <div class="name">
+<!--                    <p>신림동 노란바지</p>-->
+<!--                    <p>2022년 8월 2일 오후 4:40</p>-->
+                    <p th:text="${detailList.getNickname()}"></p>
+                    <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></p>
+                </div>
+
+                <div class="text">
+<!--                    <p>카페에서 같이 네 시간 정도 모각코 하실 분 구해요!! <br>-->
+<!--                        모르는 부분 물어보면서 같이 코딩해요~~-->
+<!--                    </p>-->
+                    <p th:text="${detailList.getText()}"></p>
+                </div>
+
+                <div class="comment">
+                    <p>댓글</p>
+                    <p>&#40; <span th:text="${commentList.size()}"></span> &#41;</p>
+                </div>
+
+
+                <div class="card my-3" th:each="comment, index:${commentList}">
+                    <div class="card-body">
+                        <div class="d-flex flex-row">
+                            <div class="box">
+                                <img th:src="${comment.img}" alt="프로필 사진">
+<!--                                <div th:text="${comment.nickname}"></div>-->
+                            </div>
+                            <div class="m-2 w-100">
+                                <div class="d-flex justify-content-between ">
+                                    <div th:text="${comment.nickname}"></div>
+                                    <div th:text="${comment.createdAt}"></div>
+                                </div>
+
+                                <div th:text="${comment.comment}"></div>
+                            </div>
+                        </div>
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="map w-20">
+            <h2>번개모임 장소 정보</h2>
+            <div id="map" style="width:100%; height:200px;"></div>
+            <div>
+                <p th:text="${detailList.getPlaceName()}"></p>
+                <p th:text="${detailList.getAddress()}"></p>
+
+                <div>
+                    <p>날짜</p>
+                    <p th:text="${#temporals.format(detailList.getGatheringDate(), 'yyyy.MM.dd')}"></p>
+                </div>
+
+                <div>
+                    <p>인원</p>
+                    <p>&#40; <span th:text="${detailList.getGatherCnt()}"></span> / <span th:text="${detailList.getTotalCnt()}"></span> &#41;</p>
+                </div>
+
+                <div>
+                    <p>별점</p>
+
+                </div>
+
+                <div>
+                    <p>상세 정보</p>
+                    <p>
+                        위치도 좋아 카공하기 좋은 카페로 추천합니다.
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="name">
-            <p>신림동 노란바지</p>
-            <p>2022년 8월 2일 오후 4:40</p>
-        </div>
-
-        <div class="text">
-            <p>카페에서 같이 네 시간 정도 모각코 하실 분 구해요!! <br>
-                모르는 부분 물어보면서 같이 코딩해요~~
-            </p>
-        </div>
-
-        <div class="comment">
-            <p>댓글</p>
-            <p>&#40; <span>3</span> &#41;</p>
-        </div>
-
-        <ul class="iop">
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-
-                <div>
-                    <p>상도동 불주먹</p>
-                    <p>2022년 8월 2일 오후 4:55</p>
-
-                    <p>저 참여하고 싶습니다!</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>봉천동 파란새</p>
-                    <p>2022년 8월 2일 오후 4:56</p>
-
-                    <p>저도 하고 싶습니당!</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>상도동 물낙지</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>상도동 물낙지</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>상도동 물낙지</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>상도동 물낙지</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>상도동 물낙지</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>상도동 물낙지</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-
-            <li>
-                <img src="/images/gather-profile.png" alt="프로필 사진">
-                <div>
-                    <p>신림동 꼬마</p>
-                    <p>2022년 8월 2일 오후 4:59</p>
-
-                    <p>저요!!!! ㅎㅎ</p>
-                </div>
-            </li>
-        </ul>
     </div>
-</section>
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"></script>
+<script>
+    var lat = [[${detailList.getLat()}]];
+    var lon = [[${detailList.getLon()}]];
 
-<section class="map">
-    <h2>번개모임 장소 정보</h2>
-    <a href="#"><img src="/images/gather-map.jpg" alt="지도"></a>
-    <div>
-        <p>숭실대점 스타벅스</p>
-        <p>서울 동작구 사당로 4</p>
+    console.log(lat);
+    console.log(lon);
 
-        <div>
-            <p>날짜</p>
-            <p>2022.08.13</p>
-        </div>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(lat, lon), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
 
-        <div>
-            <p>인원</p>
-            <p>&#40; <span>1</span> / <span>3</span> &#41;</p>
-        </div>
+    // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        <div>
-            <p>별점</p>
+    // 마커가 표시될 위치입니다
+    var markerPosition  = new kakao.maps.LatLng(lat, lon);
 
-        </div>
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
 
-        <div>
-            <p>상세 정보</p>
-            <p>
-                위치도 좋아 카공하기 좋은 카페로 추천합니다.
-            </p>
-        </div>
-    </div>
-</section>
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+
+    // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+    // marker.setMap(null);
+</script>
 </body>
+
 </html>
