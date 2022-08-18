@@ -60,6 +60,11 @@ public class GatheringListController {
         return "gathering/detail";
     }
 
+    @GetMapping("/comment")
+    public String getComment() {
+        return "gathering/gathering-comment";
+    }
+
 }
 
 
