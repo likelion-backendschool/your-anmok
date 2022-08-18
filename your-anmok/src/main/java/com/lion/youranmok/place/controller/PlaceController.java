@@ -14,7 +14,7 @@ public class PlaceController {
     private final PlaceService placeService;
 
     @RequestMapping("/place/{id}")
-    public String placeDetail(Model model, @PathVariable(value="id", required = false)Integer id){
+    public String placeDetail(Model model, @PathVariable(value="id")Integer id){
         Place place = this.placeService.getPlace(id);
         model.addAttribute("place", place);
         return "map/homeMap";
