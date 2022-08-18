@@ -3,10 +3,7 @@ package com.lion.youranmok.gathering.controller;
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
-import com.lion.youranmok.gathering.dto.CommentDto;
-import com.lion.youranmok.gathering.dto.GatheringDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDto;
+import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringCommentService;
 import com.lion.youranmok.gathering.service.GatheringService;
@@ -50,7 +47,7 @@ public class GatheringListController {
     }
 
     @GetMapping("/{id}")
-    public String getBoardDetail(@PathVariable int id, Model model) {
+    public String getBoardDetail(@PathVariable int id, Model model, CommentForm commentForm) {
         GatheringDetailDto gatheringDetailDto = gatheringService.getDetailById(id);
         List<CommentDto> commentList = gatheringCommentService.listByBoardId(id);
 
