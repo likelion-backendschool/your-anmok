@@ -33,7 +33,7 @@ public class CategoryController {
 //        List<CategoryDto> categories = new ArrayList<>();
 
         Page<CategoryDto> categories = categoryService.getListByPaging(page);
-        System.out.println(categories.hasNext());
+//        System.out.println(categories.hasNext());
 
         model.addAttribute("categories", categories);
 
