@@ -45,16 +45,15 @@
                                 </div>
                                 <div class="d-flex m-2 justify-content-between ">
                                     <div th:text="${comment.comment}"></div>
-                                    <div class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction()">⤴️ reply</div>
+                                    <div th:id="|comment-btn-${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id)">⤴️ reply</div>
                                 </div>
-                                <div class="d-flex m-2 justify-content-between ">
+                                <div style="display:none" th:field="|comment-${comment.commentId}|"  class="d-flex m-2 justify-content-between ">
                                     <input type="text" class="form-control rounded-pill" placeholder="Default Input">
                                     <!--                                    <textarea name="content" class="form-control rounded-pill"></textarea>-->
                                     <div class="btn btn-outline-dark btn-sm m-2">작성</div>
                                 </div>
                             </div>
                         </div>
-                        <!--                        </div>-->
                     </div>
                 </div>
 
@@ -133,8 +132,18 @@
     // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
     // marker.setMap(null);
 
-    function doAction() {
-        alert("Hello World");
+    function doAction(id) {
+        alert(id);
+        const btn1 = document.getElementById(id);
+        const toggleBtn = document.getElementById('comment-toggle');
+
+        if(btn1.style.display !== 'none') {
+            btn1.style.display = 'none';
+            toggleBtn.style.display = 'block';
+        }
+        // $("comment-btn").
+        // $("#comment-toggle").toggle();
+        // alert("Hello World");
     }
 </script>
 </body>
