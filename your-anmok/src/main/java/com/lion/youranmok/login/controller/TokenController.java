@@ -88,8 +88,9 @@ public class TokenController {
             e.printStackTrace();
         }
 
-        System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
+        //System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
         System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
+        System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
         return response2.getBody();
 
 
