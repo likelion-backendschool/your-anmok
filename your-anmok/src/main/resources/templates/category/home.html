@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
-<body class="flex justify-center bg-[white]">
+<body class="flex justify-center">
 
 <div id="container" class="w-[70%] flex-col justify-center bg-[inherit]">
 
@@ -32,7 +32,7 @@
       <button type="submit" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
         검색
       </button>
-      <a href="/category/home"><button type="submit" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+      <a href="/category/home"><button type="button" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
         초기화
       </button></a>
     </form>
@@ -68,11 +68,16 @@
   <!-- 번개 리스트 & 맞춤형 카테고리 부분 -->
   <!-- TODO 번개 리스트 & 맞춤형 카테고리 부분 추가 필요 -->
 
-  <div id="gathering-list">
+  <div id="gathering-list" class="h-[150px] w-[400px]">
 
-    <div>⚡️같이 놀 사람</div>
+    <div class="flex justify-between">
+      <div class="text-2xl mx-[10px] ">⚡️같이 놀 사람</div>
+      <a href="/gathering/list"><button type="button" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+        전체보기
+      </button></a>
+    </div>
 
-    <div class="tag_name h-[150px] w-[400px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center"
+    <div class="tag_name bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center"
          th:each="gathering : ${gatheringList}">
 
       <div th:text="${gathering.title}"></div>
