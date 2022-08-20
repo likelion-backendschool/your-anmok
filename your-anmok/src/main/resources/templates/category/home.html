@@ -8,7 +8,7 @@
 </head>
 <body class="flex justify-center">
 
-<div id="container" class="w-[70%] flex-col justify-center bg-[inherit]">
+<div id="container" class="w-[1050px] flex-col justify-center bg-[inherit] p-[20px]">
 
   <!-- header(로그인, 로그아웃 등의 버튼 표시) -->
   <div id="header" class="flex justify-end mr-[25px] mt-[25px]">
@@ -44,7 +44,13 @@
   <div id="category_container" class="flex items-center mt-[25px]">
 
     <!-- back 버튼 -->
-    <div id="back" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasPrevious}"><a th:href="@{|?page=${categories.number-1}&keyword=${keyword}|}"><img src="/images/back.png" class="prev_btn_img"></a></div>
+    <div id="back" class="h-[70px] w-[70px] flex text-center relative">
+      <th:block th:if="${categories.hasPrevious}">
+        <a th:href="@{|?page=${categories.number-1}&keyword=${keyword}|}">
+        <img src="/images/back.png" class="prev_btn_img">
+        </a>
+      </th:block>
+    </div>
 
     <!-- 카테고리 -->
     <!-- TODO 카테고리 한 장에 표시할 개수 정해야함 -->
@@ -59,7 +65,13 @@
     </div>
 
     <!-- next 버튼 -->
-    <div id="next" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasNext}"><a th:href="@{|?page=${categories.number+1}&keyword=${keyword}|}"><img src="/images/next.png" class="next_btn_img"></a></div>
+    <div id="next" class="h-[70px] w-[70px] flex text-center relative">
+      <th:block th:if="${categories.hasNext}">
+        <a th:href="@{|?page=${categories.number+1}&keyword=${keyword}|}">
+          <img src="/images/next.png" class="next_btn_img">
+        </a>
+      </th:block>
+    </div>
 
   </div>
 
