@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-    List<Category> findByTagNameContaining(String keyword);
+    Page<Category> findByTagNameContaining(Pageable pageable, String keyword);
 
     Page<Category> findAll(Pageable pageable);
 

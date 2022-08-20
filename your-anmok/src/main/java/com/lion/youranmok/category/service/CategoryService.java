@@ -3,13 +3,14 @@ package com.lion.youranmok.category.service;
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CategoryService {
 
     List<CategoryDto> findAll();
-    List<CategoryDto> findByTagNameContaining(String keyword);
+    Page<CategoryDto> findByTagNameContaining(int page, String keyword);
 
     Page<CategoryDto> getListByPaging(int page);
 

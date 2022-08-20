@@ -1,9 +1,6 @@
 package com.lion.youranmok.gathering.repository;
 
-import com.lion.youranmok.gathering.dto.CommentDto;
-import com.lion.youranmok.gathering.dto.GatheringDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDto;
+import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -34,5 +31,8 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             ") from GatheringBoard as gb inner join Place as p on p.id = gb.placeId inner join User as u on u.id = gb.userId where gb.id = ?1")
     GatheringDetailDto getDetailById(int id);
 
+    @Query("select new com.lion.youranmok.gathering.dto.GatheringPreviewDto (gb.id, gb.title, gb.date, p.name) " +
+            "from GatheringBoard as gb inner join Place as p on p.id = gb.placeId")
+    List<GatheringPreviewDto> getPreview();
 
 }
