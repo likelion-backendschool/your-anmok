@@ -66,21 +66,7 @@ class GatheringTest {
         }
     }
 
-    @Test
-    public void insertGatheringCommentTest() {
-        //번개모임 댓글 세팅
-        for(int i = 0; i < 20; i++) {
-            GatheringComment gatheringComment = new GatheringComment();
 
-            gatheringComment.setCommentText("%d번째 댓글".formatted(i));
-            gatheringComment.setCreatedAt(LocalDateTime.now());
-            gatheringComment.setModifiedAt(LocalDateTime.now());
-            gatheringComment.setUserId(1);
-            gatheringComment.setBoard(gatheringRepository.findById(1).orElse(null));
-
-            gatheringCommentRepository.save(gatheringComment);
-        }
-    }
 
     @Test
     public void insertCategoryTest() {
