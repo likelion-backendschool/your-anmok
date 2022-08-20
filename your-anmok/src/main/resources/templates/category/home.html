@@ -90,12 +90,17 @@
       </button></a>
     </div>
 
-    <div class="tag_name bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center"
+
+    <div class="tag_name"
          th:each="gathering : ${gatheringList}">
 
-      <div th:text="${gathering.title}"></div>
-      <div th:text="${gathering.gatheringDate}"></div>
-      <div th:text="${gathering.commentCnt}"></div>
+      <a th:href="@{/gathering/{id}(id=${gathering.boardId})}">
+        <div class="bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center hover:bg-[#01c9c6]">
+          <div th:text="${gathering.title}"></div>
+          <div th:text="${gathering.gatheringDate}"></div>
+          <div th:text="${gathering.commentCnt}"></div>
+        </div>
+      </a>
 
     </div>
 
