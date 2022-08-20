@@ -57,9 +57,10 @@
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
       <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
-      <div class="tag_name flex h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center" th:each="category : ${categories}">
-
-        <div><a th:href="@{/map/category(id=${category.id})}">[[${category.tagName}]]</a></div>
+      <div class="tag_name" th:each="category : ${categories}">
+        <a th:href="@{/map/category(id=${category.id})}">
+          <div class="h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center hover:bg-[#01c9c6]">[[${category.tagName}]]</div>
+        </a>
       </div>
 
     </div>

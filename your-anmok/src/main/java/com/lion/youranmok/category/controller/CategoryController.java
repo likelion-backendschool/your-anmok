@@ -31,7 +31,7 @@ public class CategoryController {
      * 모든 카테고리 표시됨
      */
     @GetMapping({"", "/home"})
-    public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam("keyword") String keyword) {
+    public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, String keyword) {
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
 
