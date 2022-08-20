@@ -23,17 +23,18 @@
   </div>
 
   <!-- 카테고리 검색, 전체보기 기능 버튼 -->
-  <!-- TODO 수평이 안맞음 해결 필요 -->
   <div id="search" class="flex items-center justify-start m-[25px]">
 
     <div class="mr-[10px]">카테고리</div>
 
-    <form action="/category/search" method="post">
+    <form action="/category/home">
       <input type="text" placeholder="키워드를 입력하세요" name="keyword" class="input input-bordered bg-[#e8f8f5] border-[#e8f8f5] w-[200px] h-[50px] rounded-[15px]"/>
       <button type="submit" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
         검색
       </button>
-      <a href="/category/home">전체 보기</a>
+      <a href="/category/home"><button type="submit" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+        초기화
+      </button></a>
     </form>
 
   </div>
@@ -43,7 +44,7 @@
   <div id="category_container" class="flex items-center mt-[25px]">
 
     <!-- back 버튼 -->
-    <div id="back" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasPrevious}"><a th:href="@{|?page=${categories.number-1}|}"><img src="/images/back.png" class="prev_btn_img"></a></div>
+    <div id="back" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasPrevious}"><a th:href="@{|?page=${categories.number-1}&keyword=${keyword}|}"><img src="/images/back.png" class="prev_btn_img"></a></div>
 
     <!-- 카테고리 -->
     <!-- TODO 카테고리 한 장에 표시할 개수 정해야함 -->
@@ -58,7 +59,7 @@
     </div>
 
     <!-- next 버튼 -->
-    <div id="next" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasNext}"><a th:href="@{|?page=${categories.number+1}|}"><img src="/images/next.png" class="next_btn_img"></a></div>
+    <div id="next" class="h-[70px] w-[70px] flex text-center relative" th:if="${categories.hasNext}"><a th:href="@{|?page=${categories.number+1}&keyword=${keyword}|}"><img src="/images/next.png" class="next_btn_img"></a></div>
 
   </div>
 
@@ -71,15 +72,12 @@
 
     <div>⚡️같이 놀 사람</div>
 
-    <div class="tag_name flex h-[150px] w-[400px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center">
+    <div class="tag_name h-[150px] w-[400px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center"
+         th:each="gathering : ${gatheringList}">
 
-      <div></div>
-
-    </div>
-
-    <div class="tag_name flex h-[150px] w-[400px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center">
-
-      <div></div>
+      <div th:text="${gathering.title}"></div>
+      <div th:text="${gathering.gatheringDate}"></div>
+      <div th:text="${gathering.commentCnt}"></div>
 
     </div>
 
