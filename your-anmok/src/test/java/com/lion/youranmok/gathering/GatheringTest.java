@@ -2,11 +2,17 @@ package com.lion.youranmok.gathering;
 
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.CategoryRepository;
+import com.lion.youranmok.gathering.dto.CommentDto;
+import com.lion.youranmok.gathering.dto.GatheringDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.entity.GatheringComment;
+import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
 import com.lion.youranmok.map.entity.Place;
 import com.lion.youranmok.map.repository.PlaceRepository;
+import com.lion.youranmok.user.entity.User;
+import com.lion.youranmok.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,10 +31,18 @@ class GatheringTest {
     private GatheringRepository gatheringRepository;
 
     @Autowired
+    private GatheringCommentRepository gatheringCommentRepository;
+
+
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
     private PlaceRepository placeRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
 
     @Test
     public void insertGatheringBoardTest() {
@@ -49,6 +63,22 @@ class GatheringTest {
             gatheringBoard.setIsExpired(false);
 
             gatheringRepository.save(gatheringBoard);
+        }
+    }
+
+    @Test
+    public void insertGatheringCommentTest() {
+        //번개모임 댓글 세팅
+        for(int i = 0; i < 20; i++) {
+            GatheringComment gatheringComment = new GatheringComment();
+
+            gatheringComment.setCommentText("%d번째 댓글".formatted(i));
+            gatheringComment.setCreatedAt(LocalDateTime.now());
+            gatheringComment.setModifiedAt(LocalDateTime.now());
+            gatheringComment.setUserId(1);
+            gatheringComment.setBoard(gatheringRepository.findById(1).orElse(null));
+
+            gatheringCommentRepository.save(gatheringComment);
         }
     }
 
@@ -91,6 +121,30 @@ class GatheringTest {
 
             placeRepository.save(place);
         }
+
+    }
+
+    @Test
+    public void insertUserTest() {
+        List<String> userNameList = Arrays.asList("생갈치 1호의 행방불명", "오즈의 맙소사","반지하 제왕", "김대희","박다정", "순데렐라", "배숙희라빈스");
+
+        for(int i = 0; i < userNameList.size(); i++) {
+            User user = new User();
+            user.setNickname(userNameList.get(i));
+            user.setProfilePicture("/images/profile/%d.jpeg".formatted(i+1));
+            user.setToken("tmp%d".formatted(i));
+
+            userRepository.save(user);
+        }
+    }
+
+    @Test
+    public void gatheringDetailTest() {
+        GatheringDetailDto gatheringDetailDto = gatheringRepository.getDetailById(1);
+        List<CommentDto> commentList = gatheringCommentRepository.listByBoardId(1);
+
+        System.out.println(gatheringDetailDto.toString());
+        System.out.println(commentList.toString());
 
     }
 

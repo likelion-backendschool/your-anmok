@@ -24,7 +24,6 @@ public class GatheringBoard {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-//    @OneToOne(mappedBy = "place", cascade = CascadeType.REMOVE)
     @Column
     private Integer placeId;
 
