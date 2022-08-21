@@ -23,9 +23,10 @@
 </th:block>
 <th:block th:fragment="contentsBottom">
     <div id="popup_bottom_02" class="flex justify-between align-middle left-[50%] w-[896px] mt-[18px] mx-auto">
-        <div id="tag_box" class="w-[445px] h-[252px] bg-[#e8f8f5] mr-[28px] rounded-[10px]">
+        <div id="tag_box" class="w-[445px] h-[252px] bg-[#e8f8f5] mr-[28px] rounded-[10px] px-3 py-2">
+            <p class="pb-2">TAG LIST🔖</p>
             <tr th:each="tagList : ${tagNameList}">
-                <td th:text="${tagList.tagName}"></td>
+                <button class="btn btn-accent rounded-[50px] btn-sm btn-outline pb-1"><p th:text="${tagList.tagName}"></p></button>
             </tr>
         </div>
         <div>
