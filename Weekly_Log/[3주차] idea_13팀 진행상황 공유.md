@@ -74,3 +74,9 @@ Q. Git branch 최신 상태 반영이 안될 때
 Github Repository URL: https://github.com/likelion-backendschool/your-anmok
 
 <br>
+
+## 📍 WBS 변동사항
+
+개발 진행 현황 업데이트
+
+<br>
