@@ -5,9 +5,47 @@
     <title>Kakao 지도 시작하기</title>
     <style>
         /*.map_wrap {position:relative;width:100%;height:500px;}*/
-        #my_location_button{position: absolute;top:0;left:0;z-index: 100}
+        #my_location_button{position: absolute;bottom:0;right:0;z-index: 100}
+        .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+        .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
+        .map_wrap {position:relative;width:100%;height:500px;}
+        #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+        .bg_white {background:#fff;}
+        #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+        #menu_wrap .option{text-align: center;}
+        #menu_wrap .option p {margin:10px 0;}
+        #menu_wrap .option button {margin-left:5px;}
+        #placesList li {list-style: none;}
+        #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
+        #placesList .item span {display: block;margin-top:4px;}
+        #placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+        #placesList .item .info{padding:10px 0 10px 55px;}
+        #placesList .info .gray {color:#8a8a8a;}
+        #placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
+        #placesList .info .tel {color:#009900;}
+        #placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
+        #placesList .item .marker_1 {background-position: 0 -10px;}
+        #placesList .item .marker_2 {background-position: 0 -56px;}
+        #placesList .item .marker_3 {background-position: 0 -102px}
+        #placesList .item .marker_4 {background-position: 0 -148px;}
+        #placesList .item .marker_5 {background-position: 0 -194px;}
+        #placesList .item .marker_6 {background-position: 0 -240px;}
+        #placesList .item .marker_7 {background-position: 0 -286px;}
+        #placesList .item .marker_8 {background-position: 0 -332px;}
+        #placesList .item .marker_9 {background-position: 0 -378px;}
+        #placesList .item .marker_10 {background-position: 0 -423px;}
+        #placesList .item .marker_11 {background-position: 0 -470px;}
+        #placesList .item .marker_12 {background-position: 0 -516px;}
+        #placesList .item .marker_13 {background-position: 0 -562px;}
+        #placesList .item .marker_14 {background-position: 0 -608px;}
+        #placesList .item .marker_15 {background-position: 0 -654px;}
+        #pagination {margin:10px auto;text-align: center;}
+        #pagination a {display:inline-block;margin-right:10px;}
+        #pagination .on {font-weight: bold; cursor: default;color:#777;}
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
+
     <style>
         #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
         /*팝업 박스*/
@@ -29,22 +67,30 @@
     <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
         마이로케이션버튼
     </button>
-
-
+    <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
+        <div class="option">
+            <div>
+                <form onsubmit="searchPlaces(); return false;">
+                    키워드 : <input type="text" value="" id="keyword" size="15" />
+                    <button type="submit">검색하기</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
+        <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
+    </div>
 </div>
 
-<script
-        type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"
-></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
 
 <script>
     let container = document.getElementById("map");
     let options = {
         // 일단 홍대를 중심으로 잡는 맵 생성
-        center: new kakao.maps.LatLng(37.55698559918365, 126.92444391816313),
-        // // 일단 적당한 지도의 높이 레벨 5 정도로 잡았슴다
-        level: 5,
+        center: new kakao.maps.LatLng(37.511133583298516, 126.97978788338133),
+        // // 일단 적당한 지도의 높이 레벨 7 정도로 수정
+        level: 7,
     };
 
     let map = new kakao.maps.Map(container, options);
@@ -97,6 +143,225 @@
     function closePopup(){
         document.getElementById("popup_layer").style.display="none"
     };
+
+    // 마커 클릭시 장소명 표출하는 인포윈도우
+    let infowindow = new kakao.maps.InfoWindow({zIndex:2});
+
+    // 장소 검색 객체를 생성
+    let ps = new kakao.maps.services.Places();
+
+    // ------------------------ 키워드 검색 ----------
+
+    let markers = [];
+
+    // 키워드로 장소를 검색
+    searchPlaces();
+
+    function searchPlaces(){
+        // input에 들어가는 키워드의 value값이 keyword
+        let keyword = document.getElementById('keyword').value;
+
+        // keyword가 공백이면 alert 뜨도록
+//         if(!keyword.replace(/^\s+|\s+$/g,'')){
+//             alert('키워드를 입력해주세요!');
+//             return false;
+//             // 잘 작동중
+//         }
+
+        // if(!keyword.replace(/^\s+|\s+$/g,'')){
+        //     alert('키워드를 입력해주세요!');
+        //     return false;
+        //     // 잘 작동중
+        // }
+
+        // 하.. kerword는 뭡니까?
+        ps.keywordSearch(keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
+        console.log("ps.keywordSearch 작동중")
+    }
+
+    // 키워드로 검색 완료시 호출되는 콜백함수
+    function placesSearchCB(data, status, pagination){
+        // 여기가 안 들어오네.. 왜 안 들어올까.. 오타 고치니까 들어옴 ㅎㅎ
+        console.log("placeSearhCB들어옴")
+        if(status === kakao.maps.services.Status.OK){
+            console.log("placeSearchCB status 일치");
+            // 검색된 장소 위치를 기준으로 지도 범위 재설정하기 위해
+            // LatLngBounds 객체에 좌표를 추가한다.
+
+            displayPlaces(data);
+
+            displayPagination(pagination);
+
+            console.log("displayplaces 통과");
+            // boundss와 data 개수에 따라 마커 표시하고 bound에 추가하는 코드는
+            // SearchListPlaces 함수로 넣어서 관리
+            // let bounds = new kakao.maps.LatLngBounds();
+
+            // for(let i=0; i<data.length;i++){
+            //     displayMarker(data[i]);
+            //     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+            // }
+
+            //  검색된 장소 위치를 기준으로 지도 범위를 재설정 -> setBounds
+            // map.setBounds(bounds);
+        }
+    }
+
+    function getListItem(index, places){
+        let el = document.createElement('li'),
+
+            itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+                '<div class="info">' +
+                '   <h5>' + places.place_name + '</h5>';
+
+        if(places.address_name){
+            itemStr += '<span>'+places.address_name+'</span>';
+        }
+
+        el.innerHTML = itemStr;
+        el.className = 'item';
+
+        return el;
+    }
+
+    // 얘 문제네
+    function addMarker(position, idx, title){
+        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+            imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+            imgOptions =  {
+                spriteSize : new kakao.maps.Size(36, 691), // 스프라이트 이미지의 크기
+                spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+                offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+            },
+            markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+            marker = new kakao.maps.Marker({
+                position: position, // 마커의 위치
+                image: markerImage
+            });
+        console.log(marker);
+        // 지도 위에 마커 표출
+        marker.setMap(map);
+        // 배열에 생성된 마커를 추가한다.
+        markers.push(marker);
+
+        return marker;
+    }
+
+
+    // 지도 위에 표시되는 마커를 모두 제거
+    function removeMarker(){
+        for (let i =0;i < markers.length; i++){
+            markers[i].setMap(null);
+        }
+        markers=[];
+    }
+
+    // infowindow에 장소명을 표시한다.
+    function displayInfowindow(marker, title){
+        let content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+        infowindow.setContent(content);
+        infowindow.open(map, marker);
+    }
+
+    function removeAllchildNodes(el){
+        while(el.hasChildNodes()){
+            el.removeChild(el.lastChild);
+        }
+    }
+
+    function displayPlaces(places){
+        let listEl = document.getElementById('placeList'),
+            menuEl = document.getElementById('search_wrap'),
+            fragment = document.createDocumentFragment(),
+            bounds = new kakao.maps.LatLngBounds();
+        let listStr = '';
+        // 아 진짜 오타 왜이리 많이 냄? 정신 안 차림?
+
+        // 검색 결과 목록에 추가된 항목들을 제거한다.
+        removeAllchildNodes(listEl);
+
+        // 지도에 표시되고 있는 마커를 제거한다.
+        removeMarker();
+
+        for (let i=0;i<places.length;i++){
+            console.log(places[i]);
+        }
+
+        for (let i=0;i<places.length;i++){
+            console.log(places[i]);
+            let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+                marker = addMarker(placePosition,i),
+                itemEl = getListItem(i, places[i]);
+
+            bounds.extend(placePosition);
+
+            console.log("여기까지 오나");
+            console.log(marker);
+            (function (){
+                console.log("익명함수 실행해보기");
+            })();
+
+            (function(marker, title) {
+
+                // kakao.maps.event.addListener(marker, 'mouseover', function() {
+                //     displayInfowindow(marker, title);
+                // });
+                //
+                // kakao.maps.event.addListener(marker, 'mouseout', function() {
+                //     infowindow.close();
+                // });
+
+
+                itemEl.onmouseover =  function () {
+                    displayInfowindow(marker, title);
+                };
+
+                itemEl.onmouseout =  function () {
+                    infowindow.close();
+                };
+            })(marker, places[i].place_name);
+
+            fragment.appendChild(itemEl);
+            console.log("반복문 도는지 확인");
+        }
+
+        console.log(fragment);
+        listEl.appendChild(fragment);
+        console.log(listEl);
+        menuEl.scrollTop = 0;
+        // 검색된 장소 위치를 기준으로 지도 범위 설정
+        map.setBounds(bounds);
+    }
+    function displayPagination(pagination) {
+        var paginationEl = document.getElementById('pagination'),
+            fragment = document.createDocumentFragment(),
+            i;
+
+        // 기존에 추가된 페이지번호를 삭제합니다
+        while (paginationEl.hasChildNodes()) {
+            paginationEl.removeChild (paginationEl.lastChild);
+        }
+
+        for (i=1; i<=pagination.last; i++) {
+            var el = document.createElement('a');
+            el.href = "#";
+            el.innerHTML = i;
+
+            if (i===pagination.current) {
+                el.className = 'on';
+            } else {
+                el.onclick = (function(i) {
+                    return function() {
+                        pagination.gotoPage(i);
+                    }
+                })(i);
+            }
+
+            fragment.appendChild(el);
+        }
+        paginationEl.appendChild(fragment);
+    }
 </script>
 
 <!--팝업창 레이아웃 html-->
@@ -110,8 +375,10 @@
         </div>
     </div>
 </div>
-
 </body>
+<script>
+
+</script>
 </html>
 <!--git remote update  -> git checkout 해당 브랜치 -> git merge  -->
 <!-- -->
