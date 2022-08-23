@@ -36,14 +36,16 @@ public class CategoryServiceImpl implements CategoryService{
 
 
     @Override
-    public List<CategoryDto> findByTagNameContaining(String keyword) {
+    public Page<CategoryDto> findByTagNameContaining(int page, String keyword) {
 
-        List<CategoryDto> categories = new ArrayList<>();
+        Pageable pageable = PageRequest.of(page, 9);
 
-        categories = categoryRepository.findByTagNameContaining(keyword).stream().map(i -> {
+        Page<Category> categoryPage = categoryRepository.findByTagNameContaining(pageable, keyword);
+
+        Page<CategoryDto> categories = categoryPage.map(i -> {
             CategoryDto dto = entityToDto(i);
             return dto;
-        }).collect(Collectors.toList());
+        });
 
         return categories;
     }

@@ -20,4 +20,7 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "gc.createdAt)" +
             "from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.board.id = ?1")
     List<CommentDto> listByBoardId(int id);
+
+    @Query("select count(gc.id) from GatheringComment gc where gc.board.id = :id")
+    Integer getCommentCnt(int id);
 }
