@@ -22,6 +22,8 @@ public class PlaceController {
         List<PlaceTagDto> placeTagDtos = this.placeService.getTagName(id);
         model.addAttribute("place", place);
         model.addAttribute("tagNameList", placeTagDtos);
+        model.addAttribute("stars", place.getStar());
+        model.addAttribute("emptystars", 5-place.getStar());
         return "map/homeMap";
     }
 

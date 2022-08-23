@@ -30,7 +30,15 @@
             </tr>
         </div>
         <div>
-            <div id="star_box" class="inner_contents_box rounded-[10px]"></div>
+            <div id="star_box" class="inner_contents_box rounded-[10px] px-3 py-2">
+                <p class="pb-2">별점⭐</p>
+                <tr th:each="star : ${#numbers.sequence(1, stars)}">
+                    <img src="/images/star.png" class="star">
+                </tr>
+                <tr th:each="star : ${#numbers.sequence(emptystars, 1, -1)}">
+                    <img src="/images/empty_star.png" class="star">
+                </tr>
+            </div>
             <div id="article_box" class="inner_contents_box mt-[18px] rounded-[10px]"></div>
         </div>
     </div>
