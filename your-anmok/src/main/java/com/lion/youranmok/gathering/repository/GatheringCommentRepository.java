@@ -17,7 +17,16 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "u.nickname," +
             "gc.commentText," +
             "u.profilePicture," +
-            "gc.createdAt)" +
-            "from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.board.id = ?1")
+            "gc.createdAt" +
+            ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.board.id = ?1 and gc.replyTo is null")
     List<CommentDto> listByBoardId(int id);
+
+    @Query("select new com.lion.youranmok.gathering.dto.CommentDto (" +
+            "gc.id," +
+            "u.nickname," +
+            "gc.commentText," +
+            "u.profilePicture," +
+            "gc.createdAt" +
+            ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.replyTo = ?1")
+    List<CommentDto> replyListByCommentId(int commentId);
 }

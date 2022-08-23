@@ -50,9 +50,9 @@
                 </div>
 
                 <h5 class="border-bottom my-3 py-2">📝 댓글작성</h5>
-                <form th:action="@{|/comment/create|}" th:object="${answerForm}" method="post" class="my-3">
+                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post" class="my-3">
                     <!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
-                    <textarea name="content" rows="2" class="form-control"></textarea>
+                    <textarea name="content" th:field="*{content}" rows="2" class="form-control"></textarea>
                     <div class="d-flex justify-content-end">
                         <input type="submit" value="댓글기달" class="btn btn-outline-dark btn-sm m-2">
                     </div>
