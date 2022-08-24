@@ -1,6 +1,8 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.DataNotFoundException;
+import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
+import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.repository.PlaceRepository;
@@ -27,5 +29,9 @@ public class PlaceService {
 
     public List<PlaceTagDto> getTagName(Integer id){
         return placeRepository.getTagNameById(id);
+    }
+
+    public List<PlaceGatheringDto> getGatheringListByPlaceId(Integer id) {
+        return placeRepository.getGatheringListByPlaceId(id);
     }
 }

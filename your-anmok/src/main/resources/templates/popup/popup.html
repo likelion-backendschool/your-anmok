@@ -41,7 +41,12 @@
                     </tr>
                 </div>
             </div>
-            <div id="article_box" class="inner_contents_box mt-[18px] rounded-[10px]"></div>
+            <div id="article_box" class="inner_contents_box mt-[18px] rounded-[10px]">
+                <p class="pb-2">GATHERING LIST📃</p>
+                <tr th:each="gatheringList : ${gatheringList}">
+                    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${gatheringList.title}"></button>
+                </tr>
+            </div>
         </div>
     </div>
 </th:block>
