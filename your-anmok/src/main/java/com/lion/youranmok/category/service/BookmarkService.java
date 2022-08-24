@@ -9,7 +9,9 @@ import java.awt.print.Book;
 
 public interface BookmarkService {
 
-    void register(int categoryId);
+    void register(int userId, int categoryId);
+
+    void remove(int userId, int categoryId);
 
     default Bookmark dtoToEntity(BookmarkDto dto) {
 
@@ -34,5 +36,6 @@ public interface BookmarkService {
         return dto;
 
     }
+
 
 }

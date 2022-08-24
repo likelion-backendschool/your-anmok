@@ -24,12 +24,18 @@ public class BookmarkServiceImpl implements BookmarkService{
 
 
     @Override
-    public void register(int categoryId) {
+    public void register(int userId, int categoryId) {
 
-        BookmarkDto bookmarkDto = BookmarkDto.builder().categoryId(categoryId).build();
+        BookmarkDto bookmarkDto = BookmarkDto.builder().categoryId(categoryId).userId(userId).build();
 
         Bookmark bookmark = dtoToEntity(bookmarkDto);
 
         bookmarkRepository.save(bookmark);
+    }
+
+    @Override
+    public void remove(int userId, int categoryId) {
+
+        bookmarkRepository.deleteBookmarkByUserIdAndCategoryId(userId, categoryId);
     }
 }
