@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
+<!-- 타임리프 html 연결 코드 -->
 <th:block th:fragment="contentsTop">
+    <!-- 팝업 상단부 -->
     <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
+        <!-- 장소명, 장소 주소 묶음 -->
         <div id="place_info">
             <p class="placeName" th:text="${place?.name}"></p>
             <p class="placeAddress" th:text="${place?.address}"></p>
@@ -10,26 +13,37 @@
         <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
     </div>
 </th:block>
+
+<!-- 타임리프 html 연결 코드 -->
 <th:block th:fragment="contentsMiddle">
+    <!-- 팝업 중간부(사진 영역) -->
     <div id="popup_bottom_01" class="flex justify-center mt-[25px]">
+        <!-- 좌 버튼 -->
         <div class="h-[210px] w-[70px] text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
+        <!-- 사진 리스트 -->
         <div class="flex w-[896px] justify-between">
             <div class="usr_img"></div>
             <div class="usr_img"></div>
             <div class="usr_img"></div>
         </div>
+        <!-- 우 버튼 -->
         <div class="h-[210px] w-[70px] text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
     </div>
 </th:block>
+<!-- 타임리프 html 연결 코드 -->
 <th:block th:fragment="contentsBottom">
+    <!-- 팝업 태그, 별점, 번개 묶음 -->
     <div id="popup_bottom_02" class="flex justify-between align-middle left-[50%] w-[896px] mt-[18px] mx-auto">
+        <!-- 팝업 - 태그 영역 -->
         <div id="tag_box" class="w-[445px] h-[252px] bg-[#e8f8f5] mr-[28px] rounded-[10px] px-3 py-2">
             <p class="mb-2">TAG LIST🔖</p>
             <tr th:each="tagList : ${tagNameList}">
                 <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${tagList.tagName}"></button>
             </tr>
         </div>
+        <!-- 팝업 - 별점, 번개모임 묶음 -->
         <div>
+            <!-- 팝업 - 별점 영역 -->
             <div class="inner_contents_box">
                 <p class="mb-2">별점⭐</p>
                 <div id="star_box">
@@ -41,10 +55,11 @@
                     </tr>
                 </div>
             </div>
+            <!-- 팝업 - 번개모임 리스트 영역 -->
             <div id="article_box" class="inner_contents_box mt-[18px]">
                 <p class="mb-2">GATHERING LIST📃</p>
                 <tr th:each="gatheringList : ${gatheringList}">
-                    <a class="" th:text="${gatheringList.title}"></a></br>
+                    <a href="" class="" th:text="${gatheringList.title}"></a></br>
                 </tr>
             </div>
         </div>
