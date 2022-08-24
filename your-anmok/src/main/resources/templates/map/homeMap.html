@@ -185,7 +185,6 @@
 
     // 키워드로 검색 완료시 호출되는 콜백함수
     function placesSearchCB(data, status, pagination){
-        // 여기가 안 들어오네.. 왜 안 들어올까.. 오타 고치니까 들어옴 ㅎㅎ
         console.log("placeSearhCB들어옴")
         if(status === kakao.maps.services.Status.OK){
             console.log("placeSearchCB status 일치");
@@ -221,6 +220,9 @@
         if(places.address_name){
             itemStr += '<span>'+places.address_name+'</span>';
         }
+
+        // 아이템 내 button 추가
+        itemStr += '<button class="btn btn-primary">장소 등록</button>'
 
         el.innerHTML = itemStr;
         el.className = 'item';
@@ -280,7 +282,6 @@
             fragment = document.createDocumentFragment(),
             bounds = new kakao.maps.LatLngBounds();
         let listStr = '';
-        // 아 진짜 오타 왜이리 많이 냄? 정신 안 차림?
 
         // 검색 결과 목록에 추가된 항목들을 제거한다.
         removeAllchildNodes(listEl);
