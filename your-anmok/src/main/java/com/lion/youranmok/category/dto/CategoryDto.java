@@ -13,5 +13,6 @@ public class CategoryDto {
 
     private Integer id;
     private String tagName;
+    private boolean isBookmark;
 
 }

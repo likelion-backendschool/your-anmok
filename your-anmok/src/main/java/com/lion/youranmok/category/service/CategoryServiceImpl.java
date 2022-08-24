@@ -1,7 +1,9 @@
 package com.lion.youranmok.category.service;
 
 import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.entity.Bookmark;
 import com.lion.youranmok.category.entity.Category;
+import com.lion.youranmok.category.repository.BookmarkRepository;
 import com.lion.youranmok.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
+    private final BookmarkRepository bookmarkRepository;
 
 
     @Override
@@ -34,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categories;
     }
 
+    // TODO 북마크 체크하는 함수 추출 리팩토링 필요
 
     @Override
     public Page<CategoryDto> findByTagNameContaining(int page, String keyword) {
@@ -44,6 +49,15 @@ public class CategoryServiceImpl implements CategoryService{
 
         Page<CategoryDto> categories = categoryPage.map(i -> {
             CategoryDto dto = entityToDto(i);
+
+            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
+
+            if (result.isPresent()) {
+                dto.setBookmark(true);
+            } else {
+                dto.setBookmark(false);
+            }
+
             return dto;
         });
 
@@ -59,8 +73,18 @@ public class CategoryServiceImpl implements CategoryService{
 
         Page<CategoryDto> categories = categoryPage.map(i -> {
             CategoryDto dto = entityToDto(i);
+
+            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
+
+            if (result.isPresent()) {
+                dto.setBookmark(true);
+            } else {
+                dto.setBookmark(false);
+            }
+
             return dto;
         });
+
 
         return categories;
     }

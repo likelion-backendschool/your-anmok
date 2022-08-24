@@ -35,7 +35,7 @@ public class CategoryController {
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
 
-        Page<CategoryDto>categories;
+        Page<CategoryDto> categories;
 
         if (keyword == null) {
             categories = categoryService.getListByPaging(page);
