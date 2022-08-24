@@ -24,9 +24,9 @@
                     <p>&#40; <span th:text="${commentList.size()}"></span> &#41;</p>
                 </div>
 
-
                 <div class="card my-3" th:each="comment, index:${commentList}">
                     <div class="card-body">
+                        <a th:id="${comment.commentId}"></a>
                         <div class="d-flex flex-row">
                             <div class="box">
                                 <img th:src="${comment.img}" alt="프로필 사진">
@@ -40,15 +40,40 @@
                                     <div th:text="${comment.comment}"></div>
                                     <div th:id="|comment-btn-${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'))">⤴️ reply</div>
                                 </div>
-                                <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
-                                    <input type="text" class="form-control rounded-pill" placeholder="Default Input">
-                                    <div class="btn btn-outline-dark btn-sm m-2">작성</div>
+                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
+                                    <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
+                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
+                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">
+                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="ms-5 d-flex flex-row">
+                            <div class="box">
+                                <img th:src="${comment.img}" alt="프로필 사진">
+                            </div>
+                            <div class="m-2 w-100">
+                                <div class="d-flex justify-content-between ">
+                                    <div th:text="${comment.nickname}"></div>
+                                    <div th:text="${comment.createdAt}"></div>
                                 </div>
+                                <div class="d-flex m-2 justify-content-between ">
+                                    <div th:text="${comment.comment}"></div>
+                                    <div th:id="|comment-btn-${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'))">⤴️ reply</div>
+                                </div>
+                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
+                                    <input type="hidden" id="applyTo" name="applyTo" th:value="${comment.commentId}" />
+                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
+                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">
+                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <h5 class="border-bottom my-3 py-2">📝 댓글작성</h5>
                 <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post" class="my-3">
                     <!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
