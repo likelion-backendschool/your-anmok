@@ -49,23 +49,23 @@
                                 </form>
                             </div>
                         </div>
-                        <br>
-                        <div class="ms-5 d-flex flex-row">
+                        <div class="ms-5 d-flex flex-row" th:each="reply, index:${comment.replyList}">
+                            <br>
                             <div class="box">
-                                <img th:src="${comment.img}" alt="프로필 사진">
+                                <img th:src="${reply.img}" alt="프로필 사진">
                             </div>
                             <div class="m-2 w-100">
                                 <div class="d-flex justify-content-between ">
-                                    <div th:text="${comment.nickname}"></div>
-                                    <div th:text="${comment.createdAt}"></div>
+                                    <div th:text="${reply.nickname}"></div>
+                                    <div th:text="${reply.createdAt}"></div>
                                 </div>
                                 <div class="d-flex m-2 justify-content-between ">
-                                    <div th:text="${comment.comment}"></div>
-                                    <div th:id="|comment-btn-${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'))">⤴️ reply</div>
+                                    <div th:text="${reply.comment}"></div>
+                                    <div th:id="|comment-btn-${reply.commentId}|" th:reply="|reply-${reply.commentId}|" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'))">⤴️ reply</div>
                                 </div>
                                 <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
-                                    <input type="hidden" id="applyTo" name="applyTo" th:value="${comment.commentId}" />
-                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
+                                    <input type="hidden" id="applyTo" name="applyTo" th:value="${reply.commentId}" />
+                                    <div style="display:none !important" th:id="|reply-${reply.commentId}|" th:field="|reply-${reply.commentId}|"  class=" d-flex m-2 justify-content-between ">
                                         <input type="text" th:field="*{content}" class="form-control rounded-pill">
                                         <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
                                     </div>

@@ -51,6 +51,11 @@ public class GatheringListController {
     public String getBoardDetail(@PathVariable int id, Model model, CommentForm commentForm) {
         GatheringDetailDto gatheringDetailDto = gatheringService.getDetailById(id);
         List<CommentDto> commentList = gatheringCommentService.listByBoardId(id);
+        for(CommentDto comment : commentList) {
+            List<CommentDto> replyComment = gatheringCommentService.replyListByCommentId(comment.getCommentId());
+
+            comment.setReplyList(replyComment);
+        }
 
         model.addAttribute("detailList", gatheringDetailDto);
         model.addAttribute("commentList", commentList);
