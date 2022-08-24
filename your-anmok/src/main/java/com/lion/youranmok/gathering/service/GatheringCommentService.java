@@ -39,7 +39,7 @@ public class GatheringCommentService {
         // TODO : 로그인 후 고유한 유저를 받아와서 저장해야함 지금은 랜덤유저임..
         Random random = new Random(); //랜덤 객체 생성(디폴트 시드값 : 현재시간)
         random.setSeed(System.currentTimeMillis()); //시드값 설정을 따로 할수도 있음
-        gatheringComment.setUserId(random.nextInt(7));
+        gatheringComment.setUserId(random.nextInt(7)+1);
 
         gatheringCommentRepository.save(gatheringComment);
     }

@@ -21,6 +21,8 @@ public class CommentController {
 
     @PostMapping("/create/{id}")
     public String createComment(@PathVariable int id, CommentForm commentForm) {
+//        System.out.println(commentForm.getContent());
+//        System.out.println(commentForm.getApplyTo());
         GatheringBoard gatheringBoard = gatheringService.findById(id);
         commentService.create(gatheringBoard, commentForm);
 
