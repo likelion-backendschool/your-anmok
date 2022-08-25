@@ -59,7 +59,7 @@
             <div id="article_box" class="inner_contents_box mt-[18px]">
                 <p class="mb-2">GATHERING LIST📃</p>
                 <tr th:each="gatheringList : ${gatheringList}">
-                    <a href="" class="" th:text="${gatheringList.title}"></a></br>
+                    <a href="" th:href="@{|/gathering/${gatheringList.id}|}" th:text="${gatheringList.title}"></a></br>
                 </tr>
             </div>
         </div>
