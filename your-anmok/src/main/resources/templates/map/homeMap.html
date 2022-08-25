@@ -46,21 +46,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
-
-    <style>
-        #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
-        /*팝업 박스*/
-        #popup_box{border-radius:10px;position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
-        /*팝업 닫기 버튼*/
-        #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
-        .usr_img{width:280px;height:210px;background-color:#afafaf}
-        .next_btn_img, .prev_btn_img{position:absolute;vertical-align:middle;width:30px;height:30px;top:50%;left:50%;transform:translate(-50%, -50%);}
-        .inner_contents_box{width:445px;height:117px;background-color:#e8f8f5;border-radius:10px;padding:8px 12px;}
-        #place_info{position:absolute;top:50%;transform:translate(0, -50%);margin-left: 56px;}
-        #star_box{display:flex;justify-content: center;}
-        .star {width:40px; height:40px;margin:5px;}
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
 </head>
 
 <body>

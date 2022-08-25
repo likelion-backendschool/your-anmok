@@ -35,7 +35,7 @@
     <!-- 팝업 태그, 별점, 번개 묶음 -->
     <div id="popup_bottom_02" class="flex justify-between align-middle left-[50%] w-[896px] mt-[18px] mx-auto">
         <!-- 팝업 - 태그 영역 -->
-        <div id="tag_box" class="w-[445px] h-[252px] bg-[#e8f8f5] mr-[28px] rounded-[10px] px-3 py-2">
+        <div id="tag_box" class="scrollbar">
             <p class="mb-2">TAG LIST🔖</p>
             <tr th:each="tagList : ${tagNameList}">
                 <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${tagList.tagName}"></button>
