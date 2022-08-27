@@ -3,10 +3,7 @@ package com.lion.youranmok.gathering.controller;
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
-import com.lion.youranmok.gathering.dto.CommentDto;
-import com.lion.youranmok.gathering.dto.GatheringDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDto;
+import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringCommentService;
 import com.lion.youranmok.gathering.service.GatheringService;
@@ -17,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
@@ -50,9 +48,14 @@ public class GatheringListController {
     }
 
     @GetMapping("/{id}")
-    public String getBoardDetail(@PathVariable int id, Model model) {
+    public String getBoardDetail(@PathVariable int id, Model model, CommentForm commentForm) {
         GatheringDetailDto gatheringDetailDto = gatheringService.getDetailById(id);
         List<CommentDto> commentList = gatheringCommentService.listByBoardId(id);
+        for(CommentDto comment : commentList) {
+            List<CommentDto> replyComment = gatheringCommentService.replyListByCommentId(comment.getCommentId());
+
+            comment.setReplyList(replyComment);
+        }
 
         model.addAttribute("detailList", gatheringDetailDto);
         model.addAttribute("commentList", commentList);
@@ -60,10 +63,7 @@ public class GatheringListController {
         return "gathering/detail";
     }
 
-    @GetMapping("/comment")
-    public String getComment() {
-        return "gathering/gathering-comment";
-    }
+
 
 }
 

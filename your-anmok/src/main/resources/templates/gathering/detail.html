@@ -1,10 +1,12 @@
+<!--폰트어썸-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
+
+
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <title>상세보기</title>
-    <link rel="stylesheet" type="text/css" href="/css/gathering/detail.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
 </head>
 <body>
 
@@ -13,48 +15,94 @@
         <section class="content w-75">
             <div class="content_wrap">
                 <div class="title">
-<!--                    <div class="h2" th:text="${detailList.getTitle()}"></div>-->
                     <h2 th:text="${detailList.getTitle()}"></h2>
                 </div>
                 <div class="name">
-<!--                    <p>신림동 노란바지</p>-->
-<!--                    <p>2022년 8월 2일 오후 4:40</p>-->
                     <p th:text="${detailList.getNickname()}"></p>
-                    <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></p>
+                    <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy.MM.dd HH:mm:ss')}"></p>
                 </div>
 
                 <div class="text">
-<!--                    <p>카페에서 같이 네 시간 정도 모각코 하실 분 구해요!! <br>-->
-<!--                        모르는 부분 물어보면서 같이 코딩해요~~-->
-<!--                    </p>-->
                     <p th:text="${detailList.getText()}"></p>
                 </div>
 
                 <div class="comment">
-                    <p>댓글</p>
+                    <p>💬 댓글</p>
                     <p>&#40; <span th:text="${commentList.size()}"></span> &#41;</p>
                 </div>
 
-
                 <div class="card my-3" th:each="comment, index:${commentList}">
                     <div class="card-body">
+                        <a th:id="${comment.commentId}"></a>
                         <div class="d-flex flex-row">
                             <div class="box">
                                 <img th:src="${comment.img}" alt="프로필 사진">
-<!--                                <div th:text="${comment.nickname}"></div>-->
                             </div>
                             <div class="m-2 w-100">
                                 <div class="d-flex justify-content-between ">
                                     <div th:text="${comment.nickname}"></div>
                                     <div th:text="${comment.createdAt}"></div>
                                 </div>
-
-                                <div th:text="${comment.comment}"></div>
+                                <div class="d-flex m-2 justify-content-between ">
+                                    <div th:text="${comment.comment}"></div>
+                                    <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|"
+                                         th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}"
+                                         onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
+                                </div>
+<!--                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">-->
+<!--                                    <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />-->
+<!--                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">-->
+<!--                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">-->
+<!--                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">-->
+<!--                                    </div>-->
+<!--                                </form>-->
                             </div>
                         </div>
-<!--                        </div>-->
+                        <div class="ms-5 d-flex flex-row" th:each="reply, index:${comment.replyList}">
+
+                            <br>
+                            <div class="box">
+                                <i class="fa-solid fa-arrow-turn-down-right"></i>
+                                <img th:src="${reply.img}" alt="프로필 사진">
+                            </div>
+                            <div class="m-2 w-100">
+                                <div class="d-flex justify-content-between ">
+                                    <div th:text="${reply.nickname}"></div>
+                                    <div th:text="${reply.createdAt}"></div>
+                                </div>
+                                <div class="d-flex m-2 justify-content-between ">
+                                    <div th:text="${reply.comment}"></div>
+                                    <div th:id="|${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
+                                </div>
+<!--                                    <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">-->
+<!--                                        <input type="hidden" id="applyTo" name="applyTo" th:value="${reply.commentId}" />-->
+<!--                                        <div style="display:none !important" th:id="|reply-${reply.commentId}|" th:field="|reply-${reply.commentId}|"  class=" d-flex m-2 justify-content-between ">-->
+<!--                                            <input type="text" th:field="*{content}" class="form-control rounded-pill">-->
+<!--                                            <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+                            </div>
+                        </div>
+                        <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
+                            <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
+                            <input type="hidden" th:id="mentionTo" name="mentionTo" value="" />
+                            <div name="mentionTo" class="badge bg-primary rounded-pill" th:id="|reply-nickname-${comment.commentId}|" value=""></div>
+<!--                            <div th:id="|reply-nickname-${comment.commentId}|" value=""></div>-->
+                            <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
+                                <input type="text" th:field="*{content}" class="form-control rounded-pill" >
+                                <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <h5 class="border-bottom my-3 py-2">📝 댓글작성</h5>
+                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post" class="my-3">
+                    <!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
+                    <textarea name="content" th:field="*{content}" rows="2" class="form-control"></textarea>
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" value="댓글기달" class="btn btn-outline-dark btn-sm m-2">
+                    </div>
+                </form>
             </div>
         </section>
 
@@ -121,7 +169,35 @@
 
     // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
     // marker.setMap(null);
+    // forms
+
+
+    function doAction(id, reply, nickname) {
+        // alert(nickname);
+        const btn1 = document.getElementById(id);
+        const replyInputForm = document.getElementById(reply);
+        const replyNickname = "reply-nickname-"+id;
+
+        // alert(replyNickname);
+        if(btn1.style.display != 'none') {
+            // btn1.style.display = 'none';
+            replyInputForm.style.display = 'block';
+            // $(replyInputForm).hide();
+            // alert(nickname);
+            // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
+            document.getElementById(replyNickname).innerHTML = "@"+nickname;
+            document.getElementById("mentionTo").value = nickname;
+            // $("#reply-nickname").text(nickname);
+        } else {
+            replyInputForm.style.display = 'block';
+        }
+    }
 </script>
 </body>
+<head>
+    <meta charset="utf-8">
+    <title>상세보기</title>
+    <link rel="stylesheet" type="text/css" href="/css/gathering/detail.css">
+</head>
 
 </html>
