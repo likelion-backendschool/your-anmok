@@ -16,4 +16,9 @@ public class HomeController {
     public String home(){
         return "map/homeMap";
     }
+
+    @GetMapping("/searchMap")
+    public String searchMap(){
+        return "map/searchMap";
+    }
 }

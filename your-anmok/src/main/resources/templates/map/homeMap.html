@@ -9,12 +9,12 @@
         .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
         .map_wrap {position:relative;width:100%;height:500px;}
-        #menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+        #search_wrap {position:absolute;top:0;right:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
         .bg_white {background:#fff;}
-        #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-        #menu_wrap .option{text-align: center;}
-        #menu_wrap .option p {margin:10px 0;}
-        #menu_wrap .option button {margin-left:5px;}
+        #search_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+        #search_wrap .option{text-align: center;}
+        #search_wrap .option p {margin:10px 0;}
+        #search_wrap .option button {margin-left:5px;}
         #placesList li {list-style: none;}
         #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
         #placesList .item span {display: block;margin-top:4px;}
@@ -105,6 +105,7 @@
         position: starbucksHondaeMarkerPosition,
         clickable: true
     })
+    // displayInfowindow(starbucksHondaeMarker, "스타벅스닷");
 
     // starbucksHongdaeMarker를 지도 위에 표시 -> setMap
     starbucksHondaeMarker.setMap(map);
@@ -147,10 +148,10 @@
     };
 
     // 마커 클릭시 장소명 표출하는 인포윈도우
-    let infowindow = new kakao.maps.InfoWindow({zIndex:2});
+    let infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
     // 장소 검색 객체를 생성
-    let ps = new kakao.maps.services.Places();
+    var ps = new kakao.maps.services.Places();
 
     // ------------------------ 키워드 검색 ----------
 
@@ -176,8 +177,7 @@
         //     // 잘 작동중
         // }
 
-        // 하.. kerword는 뭡니까?
-        ps.keywordSearch(keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
+        ps.keywordSearch( keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
         console.log("ps.keywordSearch 작동중")
     }
 
@@ -216,12 +216,28 @@
                 '   <h5>' + places.place_name + '</h5>';
 
         if(places.address_name){
-            itemStr += '<span>'+places.address_name+'</span>';
+            itemStr += '    <span class="jibun gray">'+places.address_name+'</span>';
+        }
+
+        let url = "localhost:8080";
+
+        let urlParams = new URLSearchParams("?");
+        urlParams.append("place_name",places.place_name);
+        urlParams.append("place_address",places.address_name);
+
+        let addPlaceUrl =  url + urlParams;
+        // let addPlaceUrl = "www.naver.com";
+        console.log("url은"+urlParams);
+
+        function hrefLink(){
+            location.href=addPlaceUrl;
         }
 
         // 아이템 내 button 추가
-        itemStr += '<button class="btn btn-primary">장소 등록</button>'
 
+        // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
+        itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+places.place_name+'>장소 등록</a>'
+        itemStr += '</div>'
         el.innerHTML = itemStr;
         el.className = 'item';
 
@@ -243,6 +259,9 @@
                 image: markerImage
             });
         console.log(marker);
+        console.log("가게이름은"+title);
+
+        displayInfowindow(marker,title);
         // 지도 위에 마커 표출
         marker.setMap(map);
         // 배열에 생성된 마커를 추가한다.
@@ -289,13 +308,14 @@
 
         for (let i=0;i<places.length;i++){
             console.log(places[i]);
+
         }
 
         for (let i=0;i<places.length;i++){
             console.log(places[i]);
             let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
-                marker = addMarker(placePosition,i),
-                itemEl = getListItem(i, places[i]);
+                marker = addMarker(placePosition,i,places[i].place_name),
+                itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
             bounds.extend(placePosition);
 
@@ -318,6 +338,7 @@
 
                 itemEl.onmouseover =  function () {
                     displayInfowindow(marker, title);
+                    console.log(title);
                 };
 
                 itemEl.onmouseout =  function () {
