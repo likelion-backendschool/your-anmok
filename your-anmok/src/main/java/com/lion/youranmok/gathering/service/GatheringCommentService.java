@@ -31,16 +31,21 @@ public class GatheringCommentService {
     }
 
     public void create(GatheringBoard board, CommentForm commentForm) {
-        User user = userRepository.findByNickname(commentForm.getMentionTo());
-
         GatheringComment gatheringComment = new GatheringComment();
 
         gatheringComment.setCreatedAt(LocalDateTime.now());
         gatheringComment.setModifiedAt(LocalDateTime.now());
         gatheringComment.setCommentText(commentForm.getContent());
         gatheringComment.setBoard(board);
-        gatheringComment.setMentionId(user.getId());
-        gatheringComment.setReplyTo(commentForm.getApplyTo());
+
+        User user = userRepository.findByNickname(commentForm.getMentionTo());
+        if(commentForm.getMentionTo() != null && user != null) {
+
+            gatheringComment.setMentionId(user.getId());
+        }
+        if(commentForm.getApplyTo() != null) {
+            gatheringComment.setReplyTo(commentForm.getApplyTo());
+        }
 
         // TODO : 로그인 후 고유한 유저를 받아와서 저장해야함 지금은 랜덤유저임..
         Random random = new Random(); //랜덤 객체 생성(디폴트 시드값 : 현재시간)
