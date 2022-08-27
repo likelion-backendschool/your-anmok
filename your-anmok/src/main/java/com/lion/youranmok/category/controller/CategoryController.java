@@ -10,11 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,7 +28,7 @@ public class CategoryController {
      * url 접속시 초기 화면
      * 모든 카테고리 표시됨
      */
-    @GetMapping({"", "/home"})
+    @GetMapping({"/home"})
     public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, String keyword) {
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
