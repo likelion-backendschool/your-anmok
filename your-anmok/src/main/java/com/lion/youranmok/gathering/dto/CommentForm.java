@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class CommentForm {
     private String content;
-    private Integer mentionTo;
+    private String mentionTo;
     private Integer applyTo;
 }

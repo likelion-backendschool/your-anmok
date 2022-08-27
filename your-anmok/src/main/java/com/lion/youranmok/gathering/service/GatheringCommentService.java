@@ -6,6 +6,8 @@ import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.entity.GatheringComment;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
+import com.lion.youranmok.user.entity.User;
+import com.lion.youranmok.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.Random;
 public class GatheringCommentService {
     private final GatheringCommentRepository gatheringCommentRepository;
 
+    private final UserRepository userRepository;
+
     public List<CommentDto> listByBoardId(int id) {
         return gatheringCommentRepository.listByBoardId(id);
     }
@@ -27,13 +31,15 @@ public class GatheringCommentService {
     }
 
     public void create(GatheringBoard board, CommentForm commentForm) {
+        User user = userRepository.findByNickname(commentForm.getMentionTo());
+
         GatheringComment gatheringComment = new GatheringComment();
 
         gatheringComment.setCreatedAt(LocalDateTime.now());
         gatheringComment.setModifiedAt(LocalDateTime.now());
         gatheringComment.setCommentText(commentForm.getContent());
         gatheringComment.setBoard(board);
-        gatheringComment.setMentionId(commentForm.getMentionTo());
+        gatheringComment.setMentionId(user.getId());
         gatheringComment.setReplyTo(commentForm.getApplyTo());
 
         // TODO : 로그인 후 고유한 유저를 받아와서 저장해야함 지금은 랜덤유저임..

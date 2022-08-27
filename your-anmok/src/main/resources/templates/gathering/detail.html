@@ -1,6 +1,13 @@
+<!--폰트어썸-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
+
+
 <!doctype html>
 <html lang="ko">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
+</head>
 <body>
 
 <div class="container my-3">
@@ -38,20 +45,24 @@
                                 </div>
                                 <div class="d-flex m-2 justify-content-between ">
                                     <div th:text="${comment.comment}"></div>
-                                    <div th:id="|comment-btn-${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'))">⤴️ reply</div>
+                                    <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|"
+                                         th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}"
+                                         onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
                                 </div>
-                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
-                                    <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
-                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
-                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">
-                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
-                                    </div>
-                                </form>
+<!--                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">-->
+<!--                                    <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />-->
+<!--                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">-->
+<!--                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">-->
+<!--                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">-->
+<!--                                    </div>-->
+<!--                                </form>-->
                             </div>
                         </div>
                         <div class="ms-5 d-flex flex-row" th:each="reply, index:${comment.replyList}">
+
                             <br>
                             <div class="box">
+                                <i class="fa-solid fa-arrow-turn-down-right"></i>
                                 <img th:src="${reply.img}" alt="프로필 사진">
                             </div>
                             <div class="m-2 w-100">
@@ -61,17 +72,27 @@
                                 </div>
                                 <div class="d-flex m-2 justify-content-between ">
                                     <div th:text="${reply.comment}"></div>
-                                    <div th:id="|comment-btn-${reply.commentId}|" th:reply="|reply-${reply.commentId}|" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'))">⤴️ reply</div>
+                                    <div th:id="|${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
                                 </div>
-                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
-                                    <input type="hidden" id="applyTo" name="applyTo" th:value="${reply.commentId}" />
-                                    <div style="display:none !important" th:id="|reply-${reply.commentId}|" th:field="|reply-${reply.commentId}|"  class=" d-flex m-2 justify-content-between ">
-                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">
-                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
-                                    </div>
-                                </form>
+<!--                                    <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">-->
+<!--                                        <input type="hidden" id="applyTo" name="applyTo" th:value="${reply.commentId}" />-->
+<!--                                        <div style="display:none !important" th:id="|reply-${reply.commentId}|" th:field="|reply-${reply.commentId}|"  class=" d-flex m-2 justify-content-between ">-->
+<!--                                            <input type="text" th:field="*{content}" class="form-control rounded-pill">-->
+<!--                                            <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">-->
+<!--                                        </div>-->
+<!--                                    </form>-->
                             </div>
                         </div>
+                        <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
+                            <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
+                            <input type="hidden" th:id="mentionTo" name="mentionTo" value="" />
+                            <div name="mentionTo" class="badge bg-primary rounded-pill" th:id="|reply-nickname-${comment.commentId}|" value=""></div>
+<!--                            <div th:id="|reply-nickname-${comment.commentId}|" value=""></div>-->
+                            <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
+                                <input type="text" th:field="*{content}" class="form-control rounded-pill" >
+                                <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <h5 class="border-bottom my-3 py-2">📝 댓글작성</h5>
@@ -151,15 +172,24 @@
     // forms
 
 
-    function doAction(id, reply) {
-        // alert(reply);
+    function doAction(id, reply, nickname) {
+        // alert(nickname);
         const btn1 = document.getElementById(id);
         const replyInputForm = document.getElementById(reply);
+        const replyNickname = "reply-nickname-"+id;
 
-        if(btn1.style.display !== 'none') {
-            btn1.style.display = 'none';
-            replyInputForm.style.display = 'none';
-            $(replyInputForm).hide();
+        // alert(replyNickname);
+        if(btn1.style.display != 'none') {
+            // btn1.style.display = 'none';
+            replyInputForm.style.display = 'block';
+            // $(replyInputForm).hide();
+            // alert(nickname);
+            // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
+            document.getElementById(replyNickname).innerHTML = "@"+nickname;
+            document.getElementById("mentionTo").value = nickname;
+            // $("#reply-nickname").text(nickname);
+        } else {
+            replyInputForm.style.display = 'block';
         }
     }
 </script>
