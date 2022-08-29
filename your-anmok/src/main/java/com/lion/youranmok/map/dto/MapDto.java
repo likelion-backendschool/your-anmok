@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 
 @Data
+@Builder
 @NoArgsConstructor
 public class MapDto {
 
