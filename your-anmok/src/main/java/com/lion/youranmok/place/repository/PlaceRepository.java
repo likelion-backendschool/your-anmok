@@ -20,6 +20,6 @@ public interface PlaceRepository extends JpaRepository<Place, Integer>  {
     List<PlaceTagDto> getTagNameById(int id);
 
     @Query("select new com.lion.youranmok.place.dto.PlaceGatheringDto (gb.id, p.id, gb.title)" +
-            "from GatheringBoard as gb inner join Place p on p.id = gb.placeId")
+            "from GatheringBoard as gb inner join Place p on p.id = gb.placeId order by gb.createdAt desc")
     List<PlaceGatheringDto> getGatheringListByPlaceId(Integer id);
 }

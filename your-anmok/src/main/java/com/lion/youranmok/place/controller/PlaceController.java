@@ -23,6 +23,7 @@ public class PlaceController {
         Place place = this.placeService.getPlace(id);
         List<PlaceTagDto> placeTagDtos = this.placeService.getTagName(id);
         List<PlaceGatheringDto> placeGatheringDtos = placeService.getGatheringListByPlaceId(id);
+
         model.addAttribute("place", place);
         model.addAttribute("tagNameList", placeTagDtos);
         model.addAttribute("stars", place.getStar());
