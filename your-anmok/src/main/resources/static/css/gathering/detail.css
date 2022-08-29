@@ -92,3 +92,25 @@ h1{font-size: 30px; margin-bottom: 15px;}
 .map>div p:first-child{font-size: 20px; font-weight: bold;}
 
 .map>div>div p:first-child{font-size: 18px; font-weight: bold;}
+
+body {
+    padding: 10px;
+}
+.input-group-type-1 {
+    margin : 0 !important;
+}
+
+.input-group-type-1 .input-group-text {
+    background: none;
+    border-right: none;
+    margin : 0 !important;
+}
+
+.input-group-type-1 .form-control {
+    border-left-color: transparent;
+    margin : 0 !important;
+}
+
+/*.input-group-type-1 .input-group-text {*/
+/*    align-items: flex-start;*/
+/*}*/

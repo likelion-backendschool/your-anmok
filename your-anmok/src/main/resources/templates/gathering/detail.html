@@ -49,13 +49,6 @@
                                          th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}"
                                          onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
                                 </div>
-<!--                                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">-->
-<!--                                    <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />-->
-<!--                                    <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">-->
-<!--                                        <input type="text" th:field="*{content}" class="form-control rounded-pill">-->
-<!--                                        <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">-->
-<!--                                    </div>-->
-<!--                                </form>-->
                             </div>
                         </div>
                         <div class="ms-5 d-flex flex-row" th:each="reply, index:${comment.replyList}">
@@ -74,23 +67,19 @@
                                     <div th:text="${reply.comment}"></div>
                                     <div th:id="|${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
                                 </div>
-<!--                                    <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">-->
-<!--                                        <input type="hidden" id="applyTo" name="applyTo" th:value="${reply.commentId}" />-->
-<!--                                        <div style="display:none !important" th:id="|reply-${reply.commentId}|" th:field="|reply-${reply.commentId}|"  class=" d-flex m-2 justify-content-between ">-->
-<!--                                            <input type="text" th:field="*{content}" class="form-control rounded-pill">-->
-<!--                                            <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">-->
-<!--                                        </div>-->
-<!--                                    </form>-->
+
                             </div>
                         </div>
                         <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
                             <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
                             <input type="hidden" th:id="mentionTo" name="mentionTo" value="" />
-                            <div name="mentionTo" class="badge bg-primary rounded-pill" th:id="|reply-nickname-${comment.commentId}|" value=""></div>
-<!--                            <div th:id="|reply-nickname-${comment.commentId}|" value=""></div>-->
-                            <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class=" d-flex m-2 justify-content-between ">
-                                <input type="text" th:field="*{content}" class="form-control rounded-pill" >
-                                <input type="submit" class="btn btn-outline-dark btn-sm m-2" value="작성">
+
+                            <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class="d-flex input-group input-group-type-1">
+                                  <span class="input-group-text" th:if="${comment.commentId != null}">
+                                      <span name="mentionTo" th:id="|reply-nickname-${comment.commentId}|" value="" class="badge bg-primary rounded-pill">@ 다정</span>
+                                  </span>
+                                <input type="text"  th:field="*{content}" class="form-control" aria-describedby="basic-addon3">
+                                <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="작성">
                             </div>
                         </form>
                     </div>
