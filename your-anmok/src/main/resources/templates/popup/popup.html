@@ -57,7 +57,13 @@
             </div>
             <!-- 팝업 - 번개모임 리스트 영역 -->
             <div id="article_box" class="inner_contents_box mt-[18px] scrollbar">
-                <p class="mb-2">GATHERING LIST📃</p>
+                <div class="flex justify-between">
+                    <p class="mb-2 w-max inline-block">GATHERING LIST📃</p>
+                    <div class="inline-block">
+                        <button class="btn btn-accent btn-xs">글쓰기</button>
+                        <button class="btn btn-accent btn-xs">전체 보기</button>
+                    </div>
+                </div>
                 <tr th:each="gatheringList : ${gatheringList}" class="m-[3px]">
                     <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:onclick="|location.href='@{|/gathering/${gatheringList.id}|}'|" th:text="${gatheringList.title}"></button>
                 </tr>
