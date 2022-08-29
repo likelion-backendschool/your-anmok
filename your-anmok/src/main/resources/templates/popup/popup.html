@@ -56,10 +56,10 @@
                 </div>
             </div>
             <!-- 팝업 - 번개모임 리스트 영역 -->
-            <div id="article_box" class="inner_contents_box mt-[18px]">
+            <div id="article_box" class="inner_contents_box mt-[18px] scrollbar">
                 <p class="mb-2">GATHERING LIST📃</p>
-                <tr th:each="gatheringList : ${gatheringList}">
-                    <a href="" th:href="@{|/gathering/${gatheringList.id}|}" th:text="${gatheringList.title}"></a></br>
+                <tr th:each="gatheringList : ${gatheringList}" class="m-[3px]">
+                    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:onclick="|location.href='@{|/gathering/${gatheringList.id}|}'|" th:text="${gatheringList.title}"></button>
                 </tr>
             </div>
         </div>
