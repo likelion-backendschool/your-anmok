@@ -37,7 +37,7 @@
         <!-- 팝업 - 태그 영역 -->
         <div id="tag_box" class="scrollbar">
             <p class="mb-2">TAG LIST🔖</p>
-            <tr th:each="tagList : ${tagNameList}">
+            <tr th:each="tagList : ${tagNameList}" th:if="${tagNameList != null}">
                 <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${tagList.tagName}"></button>
             </tr>
         </div>
@@ -46,7 +46,7 @@
             <!-- 팝업 - 별점 영역 -->
             <div class="inner_contents_box">
                 <p class="mb-2">별점⭐</p>
-                <div id="star_box">
+                <div id="star_box" th:if="${stars != null} or ${emptystars != null}">
                     <tr th:each="star : ${#numbers.sequence(1, stars, 1)}">
                         <img src="/images/star.png" class="star">
                     </tr>
@@ -64,7 +64,7 @@
                         <button class="btn btn-accent btn-xs">전체 보기</button>
                     </div>
                 </div>
-                <tr th:each="gatheringList : ${gatheringList}" class="m-[3px]">
+                <tr th:each="gatheringList : ${gatheringList}" th:if="${gatheringList != null}" class="m-[3px]">
                     <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:onclick="|location.href='@{|/gathering/${gatheringList.id}|}'|" th:text="${gatheringList.title}"></button>
                 </tr>
             </div>
