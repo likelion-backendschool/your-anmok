@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MapController {
     private final MapService mapService;
 
-    @GetMapping("/addPlace/{place_name}")
-    public String addPlace(@PathVariable String place_name){
-        mapService.add(place_name,null);
+    @GetMapping("/addPlace/{place_name}/{address_name}")
+    public String addPlace(@PathVariable String place_name, @PathVariable String address_name){
+        mapService.add(place_name,address_name);
 
         return "redirect:/";
+
     }
 
 
