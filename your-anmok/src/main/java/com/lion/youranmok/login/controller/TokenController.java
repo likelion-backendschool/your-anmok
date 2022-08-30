@@ -3,9 +3,11 @@ package com.lion.youranmok.login.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lion.youranmok.login.model.KakaoProfile;
-import com.lion.youranmok.login.model.OauthToken;
+import com.lion.youranmok.login.model.*;
+import com.lion.youranmok.login.repository.KakaoUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,21 +17,22 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
 
-
 @Controller
 @RequestMapping("/")
 public class TokenController {
+    @Autowired
+    private KakaoUserRepository kakaoUserRepository;
 
     @GetMapping("/login")
     public String getList() {
         return "LoginForm";
         }
 
+
     @GetMapping("/auth/kakao/callback")
     public @ResponseBody String kakaoCallback(String code) throws JsonProcessingException {
         //Post 방식으로 key=value 데이터를 요청(카카오쪽으로)
         RestTemplate rt = new RestTemplate();
-
         //httpHeaders 오브젝트 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type","application/x-www-form-urlencoded;charset=utf-8");
@@ -90,9 +93,14 @@ public class TokenController {
 
         //System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
         System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
-        System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
+        System.out.println("카카오 프로필:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
+
+
         return response2.getBody();
+    }
 
-
+    @RequestMapping("/UserData")
+    public Model toUserData(Model model){
+        return model;
     }
 }

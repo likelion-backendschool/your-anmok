@@ -1,4 +1,4 @@
-package com.lion.youranmok.login.model;
+package com.lion.youranmok.login.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -12,5 +12,5 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseTimeEntity {
     @CreatedDate
-    private LocalDateTime created_at;
+    public LocalDateTime created_at;
 }

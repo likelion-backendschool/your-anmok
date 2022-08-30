@@ -1,7 +1,7 @@
 package com.lion.youranmok.logintest;
 
-import com.lion.youranmok.login.model.Kakao_User;
-import com.lion.youranmok.login.model.KakaoUserRepository;
+import com.lion.youranmok.login.entity.Kakao_User;
+import com.lion.youranmok.login.repository.KakaoUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class KakaoUserRepositoryTest {
     @Test
     public void Datetime_Test() {
         //given
-        LocalDateTime created_at = LocalDateTime.of(2020,03,17,0,0,0);        String nickname = "테스트 닉네임";
+        LocalDateTime created_at = LocalDateTime.of(2020,03,17,0,0,0);
         kakaoUserRepository.save(Kakao_User.builder()
                 .nickname("nickname")
                 .email("email")
