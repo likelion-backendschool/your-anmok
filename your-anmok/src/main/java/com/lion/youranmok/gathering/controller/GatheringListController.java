@@ -62,9 +62,6 @@ public class GatheringListController {
 
         return "gathering/detail";
     }
-
-
-
 }
 
 

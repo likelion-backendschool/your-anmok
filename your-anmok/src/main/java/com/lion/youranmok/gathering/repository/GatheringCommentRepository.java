@@ -17,7 +17,8 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "u.nickname," +
             "gc.commentText," +
             "u.profilePicture," +
-            "gc.createdAt" +
+            "gc.createdAt," +
+            "u.nickname" +
             ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.board.id = ?1 and gc.replyTo is null")
     List<CommentDto> listByBoardId(int id);
 
@@ -29,7 +30,8 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "u.nickname," +
             "gc.commentText," +
             "u.profilePicture," +
-            "gc.createdAt" +
-            ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.replyTo = ?1")
+            "gc.createdAt," +
+            "ur.nickname" +
+            ") from GatheringComment as gc inner join User as u on u.id = gc.userId inner join User as ur on gc.mentionId = ur.id where gc.replyTo = ?1")
     List<CommentDto> replyListByCommentId(int commentId);
 }
