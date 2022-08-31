@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Kakao 지도 시작하기</title>
+    <title>당신의 안목</title>
     <style>
         /*.map_wrap {position:relative;width:100%;height:500px;}*/
         #my_location_button{position: absolute;bottom:0;right:0;z-index: 100}
@@ -110,7 +110,6 @@
     // starbucksHongdaeMarker를 지도 위에 표시 -> setMap
     starbucksHondaeMarker.setMap(map);
 
-    //starbucksHondaeMarker로 명칭 변경했습니다..
     // let marker = new kakao.maps.Marker({
     //     position: markerPosition,
     //     clickable:true
@@ -217,34 +216,22 @@
 
         if(places.address_name){
             itemStr += '    <span class="jibun gray">'+places.address_name+'</span>';
-        }
-
-        let url = "localhost:8080";
-
-        let urlParams = new URLSearchParams("?");
-        urlParams.append("place_name",places.place_name);
-        urlParams.append("place_address",places.address_name);
-
-        let addPlaceUrl =  url + urlParams;
-        // let addPlaceUrl = "www.naver.com";
-        console.log("url은"+urlParams);
-
-        function hrefLink(){
-            location.href=addPlaceUrl;
+            console.log("주소는 : "+places.address_name);
         }
 
         // 아이템 내 button 추가
 
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
-        itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+places.place_name+'>장소 등록</a>'
+        itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/"'+ encodeURI(places.place_name) +'"/"'+encodeURI(places.address_name)+'">장소 등록</a>'
         itemStr += '</div>'
+
         el.innerHTML = itemStr;
         el.className = 'item';
 
         return el;
     }
 
-    // 얘 문제네
+
     function addMarker(position, idx, title){
         var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
             imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
