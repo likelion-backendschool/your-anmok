@@ -222,10 +222,14 @@
         }
 
         // 아이템 내 button 추가
+<<<<<<< HEAD
 
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
         itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/"'+ encodeURI(places.place_name) +'"/"'+encodeURI(places.address_name)+'">장소 등록</a>'
         itemStr += '</div>'
+=======
+        itemStr += '<button class="btn btn-primary">장소 등록</button>'
+>>>>>>> a0ac334c3cfbef5c30b7454c2d69cfb3405c3caf
 
         el.innerHTML = itemStr;
         el.className = 'item';
