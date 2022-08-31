@@ -51,7 +51,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ms-5 d-flex flex-row" th:each="reply, index:${comment.replyList}">
+                        <div th:each="reply, index:${comment.replyList}">
+                        <div class="ms-5 d-flex flex-row" >
 
                             <br>
                             <div class="box">
@@ -65,17 +66,19 @@
                                 </div>
                                 <div class="d-flex m-2 justify-content-between ">
                                     <div class="d-flex flex-row">
-                                        <div name="mentionTo" th:text="${reply.tagTo}" class="badge bg-primary rounded-pill"></div>
+                                        <div class="badge bg-primary rounded-pill m-0" name="mentionTo" th:text="|@ ${reply.tagTo}|" ></div>
                                         <div th:text="${reply.comment}"></div>
                                     </div>
-                                    <div th:id="|${comment.commentId}|" th:reply="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ reply</div>
+                                    <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'))">⤴️ reply</div>
                                 </div>
 
                             </div>
                         </div>
+
+                        </div>
                         <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
                             <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
-                            <input type="hidden" th:id="mentionTo" name="mentionTo" value="" />
+                            <input type="hidden" id="mentionTo" name="mentionTo" value="" />
 
                             <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class="d-flex input-group input-group-type-1">
                                   <span class="input-group-text" th:if="${comment.commentId != null}">
@@ -164,22 +167,16 @@
     // forms
 
 
-    function doAction(id, reply, nickname) {
-        // alert(nickname);
+    function doAction(id, replys, nickname) {
         const btn1 = document.getElementById(id);
-        const replyInputForm = document.getElementById(reply);
-        const replyNickname = "reply-nickname-"+id;
+        const replyInputForm = document.getElementById(replys);
 
         // alert(replyNickname);
         if(btn1.style.display != 'none') {
-            // btn1.style.display = 'none';
             replyInputForm.style.display = 'block';
-            // $(replyInputForm).hide();
-            // alert(nickname);
             // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
-            document.getElementById(replyNickname).innerHTML = "@"+nickname;
+            // document.getElementById(replyNickname).text = "@";
             document.getElementById("mentionTo").value = nickname;
-            // $("#reply-nickname").text(nickname);
         } else {
             replyInputForm.style.display = 'block';
         }

@@ -32,6 +32,6 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "u.profilePicture," +
             "gc.createdAt," +
             "ur.nickname" +
-            ") from GatheringComment as gc inner join User as u on u.id = gc.userId inner join User as ur on gc.mentionId = ur.id where gc.replyTo = ?1")
+            ") from GatheringComment as gc inner join User as u on u.id = gc.userId left join User as ur on gc.mentionId = ur.id where gc.replyTo = ?1")
     List<CommentDto> replyListByCommentId(int commentId);
 }
