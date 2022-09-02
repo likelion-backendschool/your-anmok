@@ -43,16 +43,24 @@
                                     <div th:text="${comment.nickname}"></div>
                                     <div th:text="${comment.createdAt}"></div>
                                 </div>
-                                <div class="d-flex m-2 justify-content-between ">
-                                    <div th:text="${comment.comment}"></div>
+                                <div th:id="|origin-${comment.commentId}|" class="d-block d-flex m-2 justify-content-between ">
+                                    <div  th:text="${comment.comment}"></div>
+
                                     <div>
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|"
                                              th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}"
                                              onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ 답장</div>
-                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
-                                             th:href="@{|/comment/modify/${comment.commentId}|}">수정</div>
+
+                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|"
+                                             onclick="doModify(this.id)">수정</div>
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
                                              onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:href="@{|/comment/delete/${comment.commentId}|}">삭제</div>
+                                    </div>
+                                </div>
+                                <div th:id="|modify-${comment.commentId}|" class="d-none m-2 justify-content-between ">
+                                    <div class="d-flex input-group input-group-type-1">
+                                        <input type="text"  th:value="${comment.comment}" class="form-control" aria-describedby="basic-addon3">
+                                        <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="수정완료">
                                     </div>
                                 </div>
                             </div>
@@ -192,6 +200,22 @@
         } else {
             replyInputForm.style.display = 'block';
         }
+    }
+
+    function doModify(id) {
+        const originId = "origin-"+id;
+        const modifyId = "modify-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-block')
+        originForm.classList.add('d-none');
+
+        modifyForm.classList.remove('d-none');
+        modifyForm.classList.add('d-block');
+
+
     }
 </script>
 </body>
