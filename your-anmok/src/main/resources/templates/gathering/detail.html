@@ -60,7 +60,8 @@
                                 <div th:id="|modify-${comment.commentId}|" class="d-none m-2 justify-content-between ">
                                     <div class="d-flex input-group input-group-type-1">
                                         <input type="text"  th:value="${comment.comment}" class="form-control" aria-describedby="basic-addon3">
-                                        <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="수정완료">
+                                        <button class="btn btn-outline-danger btn-sm m-0" type="button" th:onclick="cancel([[${comment.commentId}]])">취소</button>
+                                        <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="완료">
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +94,8 @@
                                     <div th:id="|modify2-${reply.commentId}|" class="d-none m-2 justify-content-between ">
                                         <div class="d-flex input-group input-group-type-1">
                                             <input type="text"  th:value="${reply.comment}" class="form-control" aria-describedby="basic-addon3">
-                                            <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="수정완료">
+                                            <button class="btn btn-outline-danger btn-sm m-0" type="button" th:onclick="cancel2([[${reply.commentId}]])">취소</button>
+                                            <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="완료">
                                         </div>
                                     </div>
                                 </div>
@@ -231,6 +233,36 @@
 
         modifyForm.classList.remove('d-none');
         modifyForm.classList.add('d-block');
+    }
+
+    function cancel(id) {
+        const originId = "origin-"+id;
+        const modifyId = "modify-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-none');
+        originForm.classList.add('d-block')
+
+        modifyForm.classList.remove('d-block');
+        modifyForm.classList.add('d-none');
+
+    }
+
+    function cancel2(id) {
+        const originId = "origin2-"+id;
+        const modifyId = "modify2-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-none');
+        originForm.classList.add('d-block')
+
+        modifyForm.classList.remove('d-block');
+        modifyForm.classList.add('d-none');
+
     }
 </script>
 </body>
