@@ -66,35 +66,38 @@
                             </div>
                         </div>
                         <div th:each="reply, index:${comment.replyList}">
-                        <div class="ms-5 d-flex flex-row" >
-
-                            <br>
-                            <div class="box">
-                                <i class="fa-solid fa-arrow-turn-down-right"></i>
-                                <img th:src="${reply.img}" alt="프로필 사진">
-                            </div>
-                            <div class="m-2 w-100">
-                                <div class="d-flex justify-content-between ">
-                                    <div th:text="${reply.nickname}"></div>
-                                    <div th:text="${reply.createdAt}"></div>
+                            <div class="ms-5 d-flex flex-row" >
+                                <br>
+                                <div class="box">
+                                    <i class="fa-solid fa-arrow-turn-down-right"></i>
+                                    <img th:src="${reply.img}" alt="프로필 사진">
                                 </div>
-                                <div class="d-flex m-2 justify-content-between ">
-                                    <div class="d-flex flex-row">
-                                        <div class="badge bg-primary rounded-pill m-0" name="mentionTo" th:text="|@ ${reply.tagTo}|" ></div>
-                                        <div th:text="${reply.comment}"></div>
+                                <div class="m-2 w-100">
+                                    <div class="d-flex justify-content-between ">
+                                        <div th:text="${reply.nickname}"></div>
+                                        <div th:text="${reply.createdAt}"></div>
                                     </div>
-                                    <div>
-                                        <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'))">⤴️ 답장</div>
-                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
-                                             th:href="@{|/comment/modify/${reply.commentId}|}">수정</div>
-                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
-                                             onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:href="@{|/comment/delete/${reply.commentId}|}">삭제</div>
+                                    <div th:id="|origin2-${reply.commentId}|" class="d-block d-flex m-2 justify-content-between ">
+                                        <div class="d-flex flex-row">
+                                            <div class="badge bg-primary rounded-pill m-0" name="mentionTo" th:text="|@ ${reply.tagTo}|" ></div>
+                                            <div th:text="${reply.comment}"></div>
+                                        </div>
+                                        <div>
+                                            <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'))">⤴️ 답장</div>
+                                            <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${reply.commentId}|"
+                                                 onclick="doModify2(this.id)">수정</div>
+                                            <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                                 onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:href="@{|/comment/delete/${reply.commentId}|}">삭제</div>
+                                        </div>
+                                    </div>
+                                    <div th:id="|modify2-${reply.commentId}|" class="d-none m-2 justify-content-between ">
+                                        <div class="d-flex input-group input-group-type-1">
+                                            <input type="text"  th:value="${reply.comment}" class="form-control" aria-describedby="basic-addon3">
+                                            <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="수정완료">
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-
                         </div>
                         <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
                             <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
@@ -214,8 +217,20 @@
 
         modifyForm.classList.remove('d-none');
         modifyForm.classList.add('d-block');
+    }
 
+    function doModify2(id) {
+        const originId = "origin2-"+id;
+        const modifyId = "modify2-"+id;
 
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-block')
+        originForm.classList.add('d-none');
+
+        modifyForm.classList.remove('d-none');
+        modifyForm.classList.add('d-block');
     }
 </script>
 </body>
