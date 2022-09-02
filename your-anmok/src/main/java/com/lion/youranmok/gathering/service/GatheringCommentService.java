@@ -54,4 +54,16 @@ public class GatheringCommentService {
 
         gatheringCommentRepository.save(gatheringComment);
     }
+
+    public GatheringComment findById(int id) {
+        return gatheringCommentRepository.findById(id).orElse(null);
+    }
+
+    public void delete(GatheringComment gatheringComment) {
+        gatheringCommentRepository.delete(gatheringComment);
+    }
+
+    public void save(GatheringComment gatheringComment) {
+        gatheringCommentRepository.save(gatheringComment);
+    }
 }

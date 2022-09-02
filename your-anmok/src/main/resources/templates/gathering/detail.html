@@ -58,11 +58,12 @@
                                     </div>
                                 </div>
                                 <div th:id="|modify-${comment.commentId}|" class="d-none m-2 justify-content-between ">
-                                    <div class="d-flex input-group input-group-type-1">
-                                        <input type="text"  th:value="${comment.comment}" class="form-control" aria-describedby="basic-addon3">
+<!--                                    @{/agreements/{id}(id=${agreementsEntity.id})}-->
+                                    <form method="post" th:action="@{/comment/modify/{id}/{commentId}(id=${id},commentId=${comment.commentId})}" class="d-flex input-group input-group-type-1">
+                                        <input type="text" name="content" th:value="${comment.comment}" class="form-control" aria-describedby="basic-addon3">
                                         <button class="btn btn-outline-danger btn-sm m-0" type="button" th:onclick="cancel([[${comment.commentId}]])">취소</button>
                                         <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="완료">
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -92,11 +93,11 @@
                                         </div>
                                     </div>
                                     <div th:id="|modify2-${reply.commentId}|" class="d-none m-2 justify-content-between ">
-                                        <div class="d-flex input-group input-group-type-1">
-                                            <input type="text"  th:value="${reply.comment}" class="form-control" aria-describedby="basic-addon3">
+                                        <form method="post" th:action="@{/comment/modify/{id}/{commentId}(id=${id},commentId=${reply.commentId})}" class="d-flex input-group input-group-type-1">
+                                            <input type="text" name="content" th:value="${reply.comment}" class="form-control" aria-describedby="basic-addon3">
                                             <button class="btn btn-outline-danger btn-sm m-0" type="button" th:onclick="cancel2([[${reply.commentId}]])">취소</button>
                                             <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="완료">
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
