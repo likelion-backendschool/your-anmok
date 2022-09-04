@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +65,33 @@ public class CategoryServiceImpl implements CategoryService{
 
         return categories;
 
+    }
+
+    @Override
+    public List<CategorySortingDto> getRecommendCategories() {
+
+        List<Category> categories = categoryRepository.findAll().subList(0, 6);
+
+        List<CategorySortingDto> dtos = new ArrayList<>();
+
+        categories.stream().forEach(category -> {
+            CategorySortingDto dto = CategorySortingDto.builder()
+                    .id(category.getId())
+                    .tagName(category.getTagName()).build();
+
+            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
+
+            if (result.isPresent()) {
+                dto.setBookmark(true);
+            } else {
+                dto.setBookmark(false);
+            }
+
+            dtos.add(dto);
+
+        });
+
+        return dtos;
     }
 
     private Page<CategorySortingDto> getCategorySortingDtos(Pageable pageable, List<CategorySortingDto> categorySortingDtos) {

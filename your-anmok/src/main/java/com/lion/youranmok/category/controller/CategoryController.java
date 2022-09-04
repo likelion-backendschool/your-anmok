@@ -47,7 +47,9 @@ public class CategoryController {
             System.out.println("categories.getContent() = " + categories.getContent());
         }
 
+        List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories();
 
+        model.addAttribute("recommendCategories", recommendCategories);
         model.addAttribute("categories", categories);
         model.addAttribute("gatheringList", gatheringPreviewList);
 

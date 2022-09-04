@@ -15,6 +15,9 @@ public interface CategoryService {
 
     Page<CategorySortingDto> getListByPaging(int page);
 
+    List<CategorySortingDto> getRecommendCategories();
+
+
     default Category dtoToEntity(CategoryDto dto) {
 
         Category entity = Category.builder()
