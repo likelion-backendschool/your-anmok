@@ -55,10 +55,12 @@
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
       <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
-      <div class="tag_name" th:each="category : ${categories}">
+      <div class="relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${categories}">
         <a th:href="@{/map/category(id=${category.id})}">
-          <div class="h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center hover:bg-[#01c9c6]">
-            <div class="m-[10px]">[[${category.tagName}]]</div>
+          <img class="h-[200px] w-[250px] rounded-[15px] "
+               th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
+          <div class="absolute">
+            <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
 
             <input type="hidden" value="${category.id}" >
             <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
