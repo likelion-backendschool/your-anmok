@@ -15,11 +15,14 @@ public class CategorySortingDto {
     private String tagName;
 
     private boolean isBookmark;
+
     private Integer bookmarkCnt;
+
 
     public CategorySortingDto(Integer id, String tagName, long bookmarkCnt) {
         this.id = id;
         this.tagName = tagName;
         this.bookmarkCnt = (int) bookmarkCnt;
     }
+
 }

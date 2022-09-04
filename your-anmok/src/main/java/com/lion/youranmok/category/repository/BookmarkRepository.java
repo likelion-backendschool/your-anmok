@@ -14,7 +14,7 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Integer> {
 
     void deleteBookmarkByUserIdAndCategoryId(int userId, int categoryId);
 
-    @Query("select count(b) from Bookmark b where b.categoryId = :categoryId")
-    Integer getBookmarksCnt(int categoryId);
+/*    @Query("select count(b) from Bookmark b where b.categoryId = :categoryId")
+    Integer getBookmarksCnt(int categoryId);*/
 
 }

@@ -48,22 +48,7 @@ public class CategoryServiceImpl implements CategoryService{
 
         List<CategorySortingDto> categorySortingDtos = categoryRepository.getSortingCategoriesContainingKeyword(keyword);
 
-        categorySortingDtos.stream().forEach(dto -> {
-            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
-
-            if (result.isPresent()) {
-                dto.setBookmark(true);
-            } else {
-                dto.setBookmark(false);
-            }
-        });
-
-        categorySortingDtos = categorySortingDtos.stream().sorted(Comparator.comparing(CategorySortingDto::getBookmarkCnt).reversed()).collect(Collectors.toList());
-
-        int start= (int) pageable.getOffset();
-        int end = (start + pageable.getPageSize()) > categorySortingDtos.size() ? categorySortingDtos.size() : (start + pageable.getPageSize());
-
-        Page<CategorySortingDto> categories = new PageImpl<>(categorySortingDtos.subList(start, end), pageable, categorySortingDtos.size());
+        Page<CategorySortingDto> categories = getCategorySortingDtos(pageable, categorySortingDtos);
 
         return categories;
     }
@@ -75,6 +60,13 @@ public class CategoryServiceImpl implements CategoryService{
 
         List<CategorySortingDto> categorySortingDtos = categoryRepository.getSortingCategories();
 
+        Page<CategorySortingDto> categories = getCategorySortingDtos(pageable, categorySortingDtos);
+
+        return categories;
+
+    }
+
+    private Page<CategorySortingDto> getCategorySortingDtos(Pageable pageable, List<CategorySortingDto> categorySortingDtos) {
         categorySortingDtos.stream().forEach(dto -> {
             Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
 
@@ -91,8 +83,6 @@ public class CategoryServiceImpl implements CategoryService{
         int end = (start + pageable.getPageSize()) > categorySortingDtos.size() ? categorySortingDtos.size() : (start + pageable.getPageSize());
 
         Page<CategorySortingDto> categories = new PageImpl<>(categorySortingDtos.subList(start, end), pageable, categorySortingDtos.size());
-
         return categories;
-
     }
 }
