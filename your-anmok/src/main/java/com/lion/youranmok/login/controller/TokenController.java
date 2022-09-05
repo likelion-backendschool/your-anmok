@@ -3,11 +3,11 @@ package com.lion.youranmok.login.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lion.youranmok.login.entity.Kakao_User;
 import com.lion.youranmok.login.model.*;
 import com.lion.youranmok.login.repository.KakaoUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
+
 
 
 @Controller
@@ -80,7 +81,7 @@ public class TokenController {
                 kakaoProfileRequest2,
                 String.class
         );
-        System.out.println(response2.getBody());
+        //System.out.println(response2.getBody());
         ObjectMapper objectMapper2 = new ObjectMapper();
         KakaoProfile kakaoProfile = null;
         try{
@@ -92,15 +93,18 @@ public class TokenController {
         }
 
         //System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
-        System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
-        System.out.println("카카오 프로필:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
+        //System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
+        //System.out.println("카카오 프로필:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
 
+        //LocalDateTime created_at = LocalDateTime.of(2020,03,17,0,0,0);
 
-        return response2.getBody();
-    }
+        kakaoUserRepository.save(Kakao_User.builder()
+                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
+                .email(kakaoProfile.getKakao_account().getEmail())
+                .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
+                .build());
 
-    @RequestMapping("/UserData")
-    public Model toUserData(Model model){
-        return model;
+        //return response2.getBody();
+        return "로그인 성공";
     }
 }
