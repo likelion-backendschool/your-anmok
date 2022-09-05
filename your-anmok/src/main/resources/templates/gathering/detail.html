@@ -105,11 +105,11 @@
                         </div>
                         <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
                             <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
-                            <input type="hidden" id="mentionTo" name="mentionTo" value="" />
+                            <input type="hidden" th:id="|mentionTo${comment.commentId}|" name="mentionTo" value="" />
 
                             <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class="d-flex input-group input-group-type-1">
                                   <span class="input-group-text" th:if="${comment.commentId != null}">
-                                      <span name="mentionTo" th:id="|reply-nickname-${comment.commentId}|" value="" class="badge bg-primary rounded-pill">@ 다정</span>
+                                      <span th:id="|reply-nickname-${comment.commentId}|" value="" class="badge bg-primary rounded-pill">@ 다정</span>
                                   </span>
                                 <input type="text"  th:field="*{content}" class="form-control" aria-describedby="basic-addon3">
                                 <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="작성">
@@ -198,12 +198,13 @@
         const btn1 = document.getElementById(id);
         const replyInputForm = document.getElementById(replys);
         const replyNickname = document.getElementById("reply-nickname-"+id);
-        
+        const mentionId = document.getElementById("mentionTo"+id);
+
         if(btn1.style.display != 'none') {
             replyInputForm.style.display = 'block';
             // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
+            mentionId.value = nickname;
             replyNickname.innerHTML = "@ "+ nickname;
-            document.getElementById("mentionTo").value = nickname;
         } else {
             replyInputForm.style.display = 'block';
         }
