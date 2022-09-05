@@ -48,6 +48,8 @@ class GatheringTest {
     @Autowired
     private UserRepository userRepository;
 
+
+
     @Test
     @Order(1)
     public void insertCategoryTest() {
