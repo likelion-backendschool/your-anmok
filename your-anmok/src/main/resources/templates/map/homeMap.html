@@ -2,10 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>당신의 안목</title>
+    <title>당신의 안목 메인페이지</title>
     <style>
         /*.map_wrap {position:relative;width:100%;height:500px;}*/
         #my_location_button{position: absolute;bottom:0;right:0;z-index: 100}
+        #my_location_button1{position: absolute;bottom:0;right:0;z-index: 100}
+
         .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
         .map_wrap {position:relative;width:100%;height:500px;}
@@ -46,7 +48,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
+
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
+    <style>
+        #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
+        /*팝업 박스*/
+        #popup_box{border-radius:10px;position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
+        /*팝업 닫기 버튼*/
+        #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
+        .usr_img{width:280px;height:210px;background-color:#afafaf}
+        .next_btn_img, .prev_btn_img{position:absolute;vertical-align:middle;width:30px;height:30px;top:50%;left:50%;transform:translate(-50%, -50%);}
+        .inner_contents_box{width:445px;height:117px;background-color:#e8f8f5;}
+        #place_info{position:absolute;top:50%;transform:translate(0, -50%);margin-left: 56px;}
+    </style>
+
 </head>
 
 <body>
@@ -57,6 +72,8 @@
     <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
         마이로케이션버튼
     </button>
+    <br>
+    <button id="my_location_button1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="ajaxTest()">ajax 테스트</button>
     <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
         <div class="option">
             <div>
@@ -70,17 +87,43 @@
         <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
         <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
     </div>
+<!--    <div th:each="placeInfo, status: ${placeList}">-->
+<!--        <a style="color: #01C9C6" th:text="${placeInfo.name}" th:text="${placeInfo.address}" th:onload="displayDbMarker(${placeInfo.name}, ${placeInfo.address})" ></a>-->
+<!--    </div>-->
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script th:inline="javascript">
+    // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.
+
+    /*<![CDATA[*/
+
+    let myPlaceList = [[${myPlaceList}]];
+    console.log(myPlaceList);
+
+    for (let i=0;i<myPlaceList.length;i++){
+        console.log(myPlaceList[i].name);
+        console.log(myPlaceList[i].address);
+    }
+
+    let myPlaceInfo = [[${myPlaceList[1].name}]];
+    console.log(myPlaceInfo);
+
+    /*]]>*/
+
+</script>
 
 <script>
+    // th:inline 값이 그냥 javascript로 들어오는지 확인하기
+    // console.log("잘 넘어오는지확인해보기 : "+myPlaceList[1].name);
     let container = document.getElementById("map");
     let options = {
         // 일단 홍대를 중심으로 잡는 맵 생성
         center: new kakao.maps.LatLng(37.511133583298516, 126.97978788338133),
         // // 일단 적당한 지도의 높이 레벨 7 정도로 수정
-        level: 7,
+        level: 7
     };
 
     let map = new kakao.maps.Map(container, options);
@@ -98,12 +141,54 @@
     // starbucksHongdaeMarker를 지도 위에 표시 -> setMap
     starbucksHondaeMarker.setMap(map);
 
+
     // let marker = new kakao.maps.Marker({
     //     position: markerPosition,
     //     clickable:true
     //
     // });
 
+    // ㅇㅏ약스로 갑니다
+
+    // function ajaxTest() {
+    //     console.log("연결됩니다.1")
+    //     $.ajax({
+    //         url: "http://localhost:8080",
+    //         type: 'get',
+    //         dataType: 'json',
+    //         success: function(res) {
+    //             console.log("연결됩니다.2");
+    //
+    //             console.log("이름 :" + res);
+    //
+    //         }
+    //     })
+    // }
+
+    // 주소 - 좌표 변환 객체를 생성한다.
+    let geocoder = new kakao.maps.services.Geocoder();
+
+    // 주소로 좌표를 검색한다.
+    for (let i =0;i<myPlaceList.length;i++) {
+
+        geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
+            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시
+            let marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+            let infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">'+myPlaceList[i].name+'</div>'
+            });
+            infowindow.open(map, marker);
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
+
+        })
+    }
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
             pos.coords.latitude,
