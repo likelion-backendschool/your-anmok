@@ -6,6 +6,7 @@
 <html lang="ko">
 <head>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
 </head>
 <body>
@@ -54,7 +55,7 @@
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|"
                                              onclick="doModify(this.id)">수정</div>
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
-                                             onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:href="@{|/comment/delete/${comment.commentId}|}">삭제</div>
+                                             th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${comment.commentId}]])">삭제</div>
                                     </div>
                                 </div>
                                 <div th:id="|modify-${comment.commentId}|" class="d-none m-2 justify-content-between ">
@@ -89,7 +90,7 @@
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${reply.commentId}|"
                                                  onclick="doModify2(this.id)">수정</div>
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
-                                                 onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:href="@{|/comment/delete/${reply.commentId}|}">삭제</div>
+                                                 th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${reply.commentId}]])">삭제</div>
                                         </div>
                                     </div>
                                     <div th:id="|modify2-${reply.commentId}|" class="d-none m-2 justify-content-between ">
@@ -264,6 +265,22 @@
         modifyForm.classList.remove('d-block');
         modifyForm.classList.add('d-none');
 
+    }
+
+    const deleteById  = (id,commentId) => {
+        // console.log(commentId);
+        const reqUrl = "/comment/delete/"+id+"/"+commentId;
+        $.ajax({
+            type : 'get',
+            url : reqUrl,
+
+            success : function(){
+                alert('댓글이 삭제되었습니다.');
+                location.reload();
+            }, error(){
+                alert('ajax 실패')
+            }
+        })
     }
 </script>
 </body>
