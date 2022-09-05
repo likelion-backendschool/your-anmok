@@ -61,7 +61,7 @@
                     <p class="mb-2 w-max inline-block">GATHERING LIST📃</p>
                     <div class="inline-block">
                         <button class="btn btn-accent btn-xs">글쓰기</button>
-                        <button class="btn btn-accent btn-xs">전체 보기</button>
+                        <button class="btn btn-accent btn-xs" th:onclick="|location.href='@{|/gathering/list|}'|">전체 보기</button>
                     </div>
                 </div>
                 <tr th:each="gatheringList : ${gatheringList}" th:if="${gatheringList != null}" class="m-[3px]">
