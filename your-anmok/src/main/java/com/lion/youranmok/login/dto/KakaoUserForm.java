@@ -17,4 +17,17 @@ public class KakaoUserForm {
         this.profile_pictrue = profile_pictrue;
         this.created_at = created_at;
     }
+
+    @Override
+    public String toString() {
+        return "KakaoUserForm{" +
+                "nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", profile_pictrue='" + profile_pictrue + '\'' +
+                ", created_at='" + created_at + '\'' +
+                '}';
+    }
+    public Kakao_User toEntity(){
+        return new Kakao_User(null, nickname,email,profile_pictrue,created_at);
+    }
 }
