@@ -135,6 +135,7 @@
     };
 
     // 마커 클릭시 장소명 표출하는 인포윈도우
+
     let infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
     // 장소 검색 객체를 생성
@@ -220,7 +221,6 @@
         return el;
     }
 
-
     function addMarker(position, idx, title){
         var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
             imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
@@ -236,7 +236,6 @@
             });
         console.log(marker);
         console.log("가게이름은"+title);
-
         displayInfowindow(marker,title);
         // 지도 위에 마커 표출
         marker.setMap(map);
