@@ -20,7 +20,10 @@ public class BookmarkController {
     private final BookmarkService bookmarkService;
 
     @GetMapping("/register")
-    public String registerBookmark(@RequestParam("categoryId") int categoryId, int page, String keyword, RedirectAttributes redirectAttributes) {
+    public String registerBookmark(@RequestParam("categoryId") int categoryId,
+                                   @RequestParam(value = "page", required = false) int page,
+                                   @RequestParam(value = "keyword", required = false) String keyword,
+                                   RedirectAttributes redirectAttributes) {
 
         bookmarkService.register(0, categoryId);
 

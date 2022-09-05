@@ -141,12 +141,12 @@
               <input type="hidden" value="${category.id}" >
               <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
               <th:block th:if="${category.isBookmark() == false}">
-                <a th:href="@{/bookmark/register(categoryId=${category.id})}">
+                <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
                   <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
                 </a>
               </th:block>
               <th:block th:if="${category.isBookmark() == true}">
-                <a th:href="@{/bookmark/remove(categoryId=${category.id})}">
+                <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
                   <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
                 </a>
               </th:block>
