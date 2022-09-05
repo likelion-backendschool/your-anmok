@@ -197,12 +197,12 @@
     function doAction(id, replys, nickname) {
         const btn1 = document.getElementById(id);
         const replyInputForm = document.getElementById(replys);
-
-        // alert(replyNickname);
+        const replyNickname = document.getElementById("reply-nickname-"+id);
+        
         if(btn1.style.display != 'none') {
             replyInputForm.style.display = 'block';
             // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
-            // document.getElementById(replyNickname).text = "@";
+            replyNickname.innerHTML = "@ "+ nickname;
             document.getElementById("mentionTo").value = nickname;
         } else {
             replyInputForm.style.display = 'block';
