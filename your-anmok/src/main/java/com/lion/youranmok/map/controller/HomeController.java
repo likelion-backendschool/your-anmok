@@ -6,10 +6,8 @@ import com.lion.youranmok.map.service.MapService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +17,21 @@ import java.util.List;
 public class HomeController {
     private final MapService mapService;
 
-    @GetMapping("/")
-    public String home(){
+    @RequestMapping(value = "/", method = {RequestMethod.GET})
+    public String home(Model model){
+//        ModelAndView mv = new ModelAndView();
+
         List<MapDto> placeList = mapService.getAllPlaceList();
         for (MapDto mapDto : placeList){
             System.out.println(mapDto.getName());
         }
+        model.addAttribute("myPlaceList",placeList);
+//        mv.addObject("placeInfos","placeList");
+//        mv.setViewName("map/homeMap");
+
+        model.addAttribute("message", "정상적으로 처리되었습니다.");
+        model.addAttribute("searchUrl", "https://www.google.com");
+
         return "map/homeMap";
     }
 

@@ -1,6 +1,7 @@
 package com.lion.youranmok.category.controller;
 
 import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.gathering.service.GatheringService;
@@ -10,11 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,21 +29,27 @@ public class CategoryController {
      * url 접속시 초기 화면
      * 모든 카테고리 표시됨
      */
-    @GetMapping({"", "/home"})
-    public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, String keyword) {
+    @GetMapping({"/home"})
+    public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
+
+        System.out.println("CategoryController.home");
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
 
-        Page<CategoryDto>categories;
+        Page<CategorySortingDto> categories;
 
-        if (keyword == null) {
-            categories = categoryService.getListByPaging(page);
-        }
-        else {
+        if (keyword != null) {
             categories = categoryService.findByTagNameContaining(page, keyword);
             model.addAttribute("keyword", keyword);
         }
+        else {
+            categories = categoryService.getListByPaging(page);
+            System.out.println("categories.getContent() = " + categories.getContent());
+        }
 
+        List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories();
+
+        model.addAttribute("recommendCategories", recommendCategories);
         model.addAttribute("categories", categories);
         model.addAttribute("gatheringList", gatheringPreviewList);
 
