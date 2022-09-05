@@ -8,7 +8,7 @@
 </head>
 <body class="flex justify-center">
 
-<div id="container" class="w-[1050px] flex-col justify-center bg-[inherit] p-[20px]">
+<div id="container" class="w-[1100px] flex-col justify-center bg-[inherit] p-[20px]">
 
   <!-- header(로그인, 로그아웃 등의 버튼 표시) -->
   <div id="header" class="flex justify-end mr-[25px] mt-[25px]">
@@ -40,26 +40,42 @@
   </div>
 
   <!-- 카테고리 나열 부분 -->
-  <!-- TODO 페이징 처리 필요 -->
   <div id="category_container" class="flex items-center mt-[25px]">
 
     <!-- back 버튼 -->
     <div id="back" class="h-[70px] w-[70px] flex text-center relative">
       <th:block th:if="${categories.hasPrevious}">
-        <a th:href="@{|?page=${categories.number-1}&keyword=${keyword}|}">
+        <a th:href="@{/category/home(page=${categories.number-1},keyword=${keyword})}">
         <img src="/images/back.png" class="prev_btn_img">
         </a>
       </th:block>
     </div>
 
     <!-- 카테고리 -->
-    <!-- TODO 카테고리 한 장에 표시할 개수 정해야함 -->
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
       <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
-      <div class="tag_name" th:each="category : ${categories}">
+      <div class="relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${categories}">
         <a th:href="@{/map/category(id=${category.id})}">
-          <div class="h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center hover:bg-[#01c9c6]">[[${category.tagName}]]</div>
+          <img class="h-[200px] w-[250px] rounded-[15px] "
+               th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
+          <div class="absolute">
+            <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
+
+            <input type="hidden" value="${category.id}" >
+            <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
+            <th:block th:if="${category.isBookmark() == false}">
+              <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
+              </a>
+            </th:block>
+            <th:block th:if="${category.isBookmark() == true}">
+              <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
+              </a>
+            </th:block>
+
+          </div>
         </a>
       </div>
 
@@ -68,7 +84,7 @@
     <!-- next 버튼 -->
     <div id="next" class="h-[70px] w-[70px] flex text-center relative">
       <th:block th:if="${categories.hasNext}">
-        <a th:href="@{|?page=${categories.number+1}&keyword=${keyword}|}">
+        <a th:href="@{/category/home(page=${categories.number+1},keyword=${keyword})}">
           <img src="/images/next.png" class="next_btn_img">
         </a>
       </th:block>
@@ -79,28 +95,66 @@
   <div class="divider"></div>
 
   <!-- 번개 리스트 & 맞춤형 카테고리 부분 -->
-  <!-- TODO 번개 리스트 & 맞춤형 카테고리 부분 추가 필요 -->
+  <!-- TODO 맞춤형 카테고리 부분 추가 필요 -->
 
-  <div id="gathering-list" class="h-[150px] w-[400px]">
+  <div class="gathering-and-recommend flex">
 
-    <div class="flex justify-between">
-      <div class="text-2xl mx-[10px] ">⚡️같이 놀 사람</div>
-      <a href="/gathering/list"><button type="button" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
-        전체보기
-      </button></a>
+    <!-- 번개 리스트 나열 부분 -->
+    <div id="gathering-list" class="w-[400px]">
+
+      <div class="flex justify-between">
+        <div class="text-2xl mx-[10px] ">⚡️같이 놀 사람</div>
+        <a href="/gathering/list"><button type="button" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+          전체보기
+        </button></a>
+      </div>
+
+
+      <div class="tag_name"
+           th:each="gathering : ${gatheringList}">
+
+        <a th:href="@{/gathering/{id}(id=${gathering.boardId})}">
+          <div class="bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center hover:bg-[#01c9c6]">
+            <div th:text="${gathering.title}"></div>
+            <div th:text="${gathering.gatheringDate}"></div>
+            <div th:text="${gathering.commentCnt}"></div>
+          </div>
+        </a>
+
+      </div>
+
     </div>
 
+    <!-- 추천 카테고리 나열 부분 -->
+    <div id="recommend-category" class="w-[600px] ml-[50px]">
 
-    <div class="tag_name"
-         th:each="gathering : ${gatheringList}">
+      <div class="text-2xl m-[10px]">🤡 추천 카테고리</div>
 
-      <a th:href="@{/gathering/{id}(id=${gathering.boardId})}">
-        <div class="bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center hover:bg-[#01c9c6]">
-          <div th:text="${gathering.title}"></div>
-          <div th:text="${gathering.gatheringDate}"></div>
-          <div th:text="${gathering.commentCnt}"></div>
+      <div class="flex flex-row flex-wrap">
+        <div class="relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${recommendCategories}">
+          <a th:href="@{/map/category(id=${category.id})}">
+            <img class="h-[200px] w-[250px] rounded-[15px] "
+                 th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
+            <div class="absolute">
+              <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
+
+              <input type="hidden" value="${category.id}" >
+              <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
+              <th:block th:if="${category.isBookmark() == false}">
+                <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
+                </a>
+              </th:block>
+              <th:block th:if="${category.isBookmark() == true}">
+                <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
+                </a>
+              </th:block>
+
+            </div>
+          </a>
         </div>
-      </a>
+      </div>
 
     </div>
 

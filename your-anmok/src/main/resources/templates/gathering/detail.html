@@ -1,10 +1,13 @@
+<!--폰트어썸-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
+
+
 <!doctype html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <title>상세보기</title>
-    <link rel="stylesheet" type="text/css" href="/css/gathering/detail.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
 </head>
 <body>
 
@@ -13,48 +16,115 @@
         <section class="content w-75">
             <div class="content_wrap">
                 <div class="title">
-<!--                    <div class="h2" th:text="${detailList.getTitle()}"></div>-->
                     <h2 th:text="${detailList.getTitle()}"></h2>
                 </div>
                 <div class="name">
-<!--                    <p>신림동 노란바지</p>-->
-<!--                    <p>2022년 8월 2일 오후 4:40</p>-->
                     <p th:text="${detailList.getNickname()}"></p>
-                    <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy-MM-dd HH:mm')}"></p>
+                    <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy.MM.dd HH:mm:ss')}"></p>
                 </div>
 
                 <div class="text">
-<!--                    <p>카페에서 같이 네 시간 정도 모각코 하실 분 구해요!! <br>-->
-<!--                        모르는 부분 물어보면서 같이 코딩해요~~-->
-<!--                    </p>-->
                     <p th:text="${detailList.getText()}"></p>
                 </div>
 
                 <div class="comment">
-                    <p>댓글</p>
+                    <p>💬 댓글</p>
                     <p>&#40; <span th:text="${commentList.size()}"></span> &#41;</p>
                 </div>
 
-
                 <div class="card my-3" th:each="comment, index:${commentList}">
                     <div class="card-body">
+                        <a th:id="${comment.commentId}"></a>
                         <div class="d-flex flex-row">
                             <div class="box">
                                 <img th:src="${comment.img}" alt="프로필 사진">
-<!--                                <div th:text="${comment.nickname}"></div>-->
                             </div>
                             <div class="m-2 w-100">
                                 <div class="d-flex justify-content-between ">
                                     <div th:text="${comment.nickname}"></div>
                                     <div th:text="${comment.createdAt}"></div>
                                 </div>
+                                <div th:id="|origin-${comment.commentId}|" class="d-block d-flex m-2 justify-content-between ">
+                                    <div  th:text="${comment.comment}"></div>
 
-                                <div th:text="${comment.comment}"></div>
+                                    <div>
+                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|"
+                                             th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}"
+                                             onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ 답장</div>
+
+                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|"
+                                             onclick="doModify(this.id)">수정</div>
+                                        <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                             th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${comment.commentId}]])">삭제</div>
+                                    </div>
+                                </div>
+                                <div th:id="|modify-${comment.commentId}|" class="d-none m-2 justify-content-between ">
+<!--                                    @{/agreements/{id}(id=${agreementsEntity.id})}-->
+                                    <form method="post" th:action="@{/comment/modify/{id}/{commentId}(id=${id},commentId=${comment.commentId})}" class="d-flex input-group input-group-type-1">
+                                        <input type="text" name="content" th:value="${comment.comment}" class="form-control" aria-describedby="basic-addon3">
+                                        <button class="btn btn-outline-danger btn-sm m-0" type="button" th:onclick="cancel([[${comment.commentId}]])">취소</button>
+                                        <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="완료">
+                                    </form>
+                                </div>
                             </div>
                         </div>
-<!--                        </div>-->
+                        <div th:each="reply, index:${comment.replyList}">
+                            <div class="ms-5 d-flex flex-row" >
+                                <br>
+                                <div class="box">
+                                    <i class="fa-solid fa-arrow-turn-down-right"></i>
+                                    <img th:src="${reply.img}" alt="프로필 사진">
+                                </div>
+                                <div class="m-2 w-100">
+                                    <div class="d-flex justify-content-between ">
+                                        <div th:text="${reply.nickname}"></div>
+                                        <div th:text="${reply.createdAt}"></div>
+                                    </div>
+                                    <div th:id="|origin2-${reply.commentId}|" class="d-block d-flex m-2 justify-content-between ">
+                                        <div class="d-flex flex-row">
+                                            <div class="badge bg-primary rounded-pill m-0" name="mentionTo" th:text="|@ ${reply.tagTo}|" ></div>
+                                            <div th:text="${reply.comment}"></div>
+                                        </div>
+                                        <div>
+                                            <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'))">⤴️ 답장</div>
+                                            <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${reply.commentId}|"
+                                                 onclick="doModify2(this.id)">수정</div>
+                                            <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                                 th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${reply.commentId}]])">삭제</div>
+                                        </div>
+                                    </div>
+                                    <div th:id="|modify2-${reply.commentId}|" class="d-none m-2 justify-content-between ">
+                                        <form method="post" th:action="@{/comment/modify/{id}/{commentId}(id=${id},commentId=${reply.commentId})}" class="d-flex input-group input-group-type-1">
+                                            <input type="text" name="content" th:value="${reply.comment}" class="form-control" aria-describedby="basic-addon3">
+                                            <button class="btn btn-outline-danger btn-sm m-0" type="button" th:onclick="cancel2([[${reply.commentId}]])">취소</button>
+                                            <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="완료">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post">
+                            <input type="hidden" th:id="applyTo" name="applyTo" th:value="${comment.commentId}" />
+                            <input type="hidden" th:id="|mentionTo${comment.commentId}|" name="mentionTo" value="" />
+
+                            <div style="display:none !important" th:id="|reply-${comment.commentId}|" th:field="|reply-${comment.commentId}|"  class="d-flex input-group input-group-type-1">
+                                  <span class="input-group-text" th:if="${comment.commentId != null}">
+                                      <span th:id="|reply-nickname-${comment.commentId}|" value="" class="badge bg-primary rounded-pill">@ 다정</span>
+                                  </span>
+                                <input type="text"  th:field="*{content}" class="form-control" aria-describedby="basic-addon3">
+                                <input type="submit" class="btn btn-outline-dark btn-sm m-0" value="작성">
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <h5 class="border-bottom my-3 py-2">📝 댓글작성</h5>
+                <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post" class="my-3">
+                    <!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
+                    <textarea name="content" th:field="*{content}" rows="2" class="form-control"></textarea>
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" value="댓글달기" class="btn btn-outline-dark btn-sm m-2">
+                    </div>
+                </form>
             </div>
         </section>
 
@@ -121,7 +191,104 @@
 
     // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
     // marker.setMap(null);
+    // forms
+
+
+    function doAction(id, replys, nickname) {
+        const btn1 = document.getElementById(id);
+        const replyInputForm = document.getElementById(replys);
+        const replyNickname = document.getElementById("reply-nickname-"+id);
+        const mentionId = document.getElementById("mentionTo"+id);
+
+        if(btn1.style.display != 'none') {
+            replyInputForm.style.display = 'block';
+            // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
+            mentionId.value = nickname;
+            replyNickname.innerHTML = "@ "+ nickname;
+        } else {
+            replyInputForm.style.display = 'block';
+        }
+    }
+
+    function doModify(id) {
+        const originId = "origin-"+id;
+        const modifyId = "modify-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-block')
+        originForm.classList.add('d-none');
+
+        modifyForm.classList.remove('d-none');
+        modifyForm.classList.add('d-block');
+    }
+
+    function doModify2(id) {
+        const originId = "origin2-"+id;
+        const modifyId = "modify2-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-block')
+        originForm.classList.add('d-none');
+
+        modifyForm.classList.remove('d-none');
+        modifyForm.classList.add('d-block');
+    }
+
+    function cancel(id) {
+        const originId = "origin-"+id;
+        const modifyId = "modify-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-none');
+        originForm.classList.add('d-block')
+
+        modifyForm.classList.remove('d-block');
+        modifyForm.classList.add('d-none');
+
+    }
+
+    function cancel2(id) {
+        const originId = "origin2-"+id;
+        const modifyId = "modify2-"+id;
+
+        const originForm = document.getElementById(originId);
+        const modifyForm = document.getElementById(modifyId);
+
+        originForm.classList.remove('d-none');
+        originForm.classList.add('d-block')
+
+        modifyForm.classList.remove('d-block');
+        modifyForm.classList.add('d-none');
+
+    }
+
+    const deleteById  = (id,commentId) => {
+        // console.log(commentId);
+        const reqUrl = "/comment/delete/"+id+"/"+commentId;
+        $.ajax({
+            type : 'get',
+            url : reqUrl,
+
+            success : function(){
+                alert('댓글이 삭제되었습니다.');
+                location.reload();
+            }, error(){
+                alert('ajax 실패')
+            }
+        })
+    }
 </script>
 </body>
+<head>
+    <meta charset="utf-8">
+    <title>상세보기</title>
+    <link rel="stylesheet" type="text/css" href="/css/gathering/detail.css">
+</head>
 
 </html>
