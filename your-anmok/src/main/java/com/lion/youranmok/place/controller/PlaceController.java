@@ -1,5 +1,7 @@
 package com.lion.youranmok.place.controller;
 
+import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
+import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.service.PlaceService;
@@ -20,10 +22,14 @@ public class PlaceController {
     public String placeDetail(Model model, @PathVariable(value="id")Integer id){
         Place place = this.placeService.getPlace(id);
         List<PlaceTagDto> placeTagDtos = this.placeService.getTagName(id);
+        List<PlaceGatheringDto> placeGatheringDtos = placeService.getGatheringListByPlaceId(id);
+
         model.addAttribute("place", place);
         model.addAttribute("tagNameList", placeTagDtos);
         model.addAttribute("stars", place.getStar());
         model.addAttribute("emptystars", 5-place.getStar());
+        model.addAttribute("gatheringList", placeGatheringDtos);
+
         return "map/homeMap";
     }
 

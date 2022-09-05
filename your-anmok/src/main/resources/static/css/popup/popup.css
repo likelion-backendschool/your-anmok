@@ -1,0 +1,114 @@
+/*팝업 배경(회색)*/
+#popup_layer {
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display:none;
+}
+
+/*팝업 박스*/
+#popup_box{
+    border-radius: 10px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 1120px;
+    height:630px;
+    transform:translate(-50%, -50%);
+    z-index:1002;
+    box-sizing:border-box;
+    background:#fff;
+    box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);
+    -moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);
+}
+
+/*팝업 닫기 버튼*/
+#close{
+    width:20px;
+    height:20px;
+    position:absolute;
+    top:50%;
+    transform:translate(0, -50%);
+    right:35px;
+}
+
+/* 사진(개별)*/
+.usr_img{
+    width:280px;
+    height:210px;
+    background-color:#afafaf
+}
+
+/*사진 리스트 좌우 이동 버튼*/
+.next_btn_img, .prev_btn_img{
+    position:absolute;
+    vertical-align:middle;
+    width:30px;
+    height:30px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+}
+
+/*별점, 번개 박스*/
+.inner_contents_box{
+    width:445px;
+    height:117px;
+    background-color:#e8f8f5;
+    border-radius:10px;
+    padding:8px 12px;
+    overflow: auto;
+}
+
+/*장소명, 장소주소 묶음*/
+#place_info{
+    position:absolute;
+    top:50%;
+    transform:translate(0, -50%);
+    margin-left: 56px;
+}
+
+/*별점의 별 5개 묶음*/
+#star_box{
+    display:flex;
+    justify-content: center;
+}
+
+/*별(개별)*/
+.star {
+    width:40px;
+    height:40px;
+    margin:5px;
+}
+
+/*태그 박스*/
+#tag_box{
+    width:445px;
+    height:252px;
+    background-color:#e8f8f5;
+    margin-right:28px;
+    border-radius:10px;
+    padding:8px 12px;
+    overflow:auto; /*스크롤바 자동생성*/
+}
+
+/*스크롤바*/
+.scrollbar::-webkit-scrollbar{
+    width: 6px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #01C9C6; /* 스크롤바의 색상 */
+
+    border-radius: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #d0f5ee;  /*스크롤바 뒷 배경 색상*/
+}
