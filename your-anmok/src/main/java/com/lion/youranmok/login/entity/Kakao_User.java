@@ -1,12 +1,13 @@
 package com.lion.youranmok.login.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Data
+@Table
+@AllArgsConstructor
 @Getter
 @NoArgsConstructor
 @Entity
@@ -31,17 +32,6 @@ public class Kakao_User extends BaseTimeEntity {
         this.email=email;
         this.profile_picture=profile_picture;
         this.created_at = created_at;
-    }
-
-    @Override
-    public String toString() {
-        return "Kakao_User{" +
-                "created_at=" + created_at +
-                ", id=" + id +
-                ", nickname='" + nickname + '\'' +
-                ", email='" + email + '\'' +
-                ", profile_picture='" + profile_picture + '\'' +
-                '}';
     }
 }
 

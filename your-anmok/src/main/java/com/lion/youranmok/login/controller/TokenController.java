@@ -92,11 +92,6 @@ public class TokenController {
             e.printStackTrace();
         }
 
-        //System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
-        //System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
-        //System.out.println("카카오 프로필:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
-
-        //LocalDateTime created_at = LocalDateTime.of(2020,03,17,0,0,0);
 
         kakaoUserRepository.save(Kakao_User.builder()
                 .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
@@ -104,7 +99,6 @@ public class TokenController {
                 .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
                 .build());
 
-        //return response2.getBody();
         return "로그인 성공";
     }
 }
