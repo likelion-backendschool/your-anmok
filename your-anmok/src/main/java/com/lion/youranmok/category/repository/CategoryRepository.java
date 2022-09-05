@@ -1,6 +1,7 @@
 package com.lion.youranmok.category.repository;
 
 import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,8 +13,41 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
+
     Page<Category> findByTagNameContaining(Pageable pageable, String keyword);
 
     Page<Category> findAll(Pageable pageable);
+
+    @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
+            "c.id," +
+            "c.tagName," +
+            "(select count(b.id) from Bookmark b where b.categoryId = c.id))" +
+            "from Category c")
+    List<CategorySortingDto> getSortingCategories();
+
+    @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
+            "c.id," +
+            "c.tagName," +
+            "(select count(b.id) from Bookmark b where b.categoryId = c.id))" +
+            "from Category c where c.tagName like %:keyword%")
+    List<CategorySortingDto> getSortingCategoriesContainingKeyword(String keyword);
+
+
+    // TODO 로그인 연동 후 제대로 동작하는 지 확인 필요
+
+    @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
+            "c.id," +
+            "c.tagName," +
+            "(select count(b.id) from Bookmark b where b.categoryId = c.id and b.userId = :userId))" +
+            "from Category c")
+    List<CategorySortingDto> getCategoriesByUser(int userId);
+
+    @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
+            "c.id," +
+            "c.tagName," +
+            "(select count(b.id) from Bookmark b where b.categoryId = c.id and b.userId = :userId))" +
+            "from Category c where c.tagName like %:keyword%")
+    List<CategorySortingDto> getCategoriesByUserContainigKeyword(int userId, String keyword);
+
 
 }

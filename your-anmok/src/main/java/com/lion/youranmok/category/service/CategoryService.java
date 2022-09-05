@@ -1,6 +1,7 @@
 package com.lion.youranmok.category.service;
 
 import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,9 +11,12 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryDto> findAll();
-    Page<CategoryDto> findByTagNameContaining(int page, String keyword);
+    Page<CategorySortingDto> findByTagNameContaining(int page, String keyword);
 
-    Page<CategoryDto> getListByPaging(int page);
+    Page<CategorySortingDto> getListByPaging(int page);
+
+    List<CategorySortingDto> getRecommendCategories();
+
 
     default Category dtoToEntity(CategoryDto dto) {
 
