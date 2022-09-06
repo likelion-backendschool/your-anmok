@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<div th:each="category : ${categories}">
+    <div th:text="${category.tagName}"></div>
+    <button type="button" class="remove-btn">삭제</button>
+    <input type="hidden" th:value="${category.id}" id="category_id"/>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="/js/category/bookmark.js">
+</script>
+
+</body>
+</html>

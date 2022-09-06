@@ -17,6 +17,7 @@ public interface CategoryService {
 
     List<CategorySortingDto> getRecommendCategories();
 
+    List<CategoryDto> getBookmarkCategoriesByUser(int userId);
 
     default Category dtoToEntity(CategoryDto dto) {
 
