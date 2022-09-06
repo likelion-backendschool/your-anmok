@@ -6,7 +6,6 @@ import com.lion.youranmok.category.entity.Bookmark;
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.BookmarkRepository;
 import com.lion.youranmok.category.repository.CategoryRepository;
-import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -92,6 +90,27 @@ public class CategoryServiceImpl implements CategoryService{
         });
 
         return dtos;
+    }
+
+    @Override
+    public List<CategoryDto> getBookmarkCategoriesByUser(int userId) {
+
+        List<Bookmark> bookmarks = bookmarkRepository.findBookmarkByUserId(userId);
+        List<Category> categories = new ArrayList<>();
+
+        bookmarks.stream().forEach(bookmark -> {
+
+            Optional<Category> category = categoryRepository.findById(bookmark.getCategoryId());
+
+            if (category.isPresent()) {
+                categories.add(category.get());
+            }
+
+        });
+
+        List<CategoryDto> result = categories.stream().map(category -> entityToDto(category)).collect(Collectors.toList());
+
+        return result;
     }
 
     private Page<CategorySortingDto> getCategorySortingDtos(Pageable pageable, List<CategorySortingDto> categorySortingDtos) {
