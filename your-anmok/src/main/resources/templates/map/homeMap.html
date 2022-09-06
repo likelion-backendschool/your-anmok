@@ -126,12 +126,20 @@
     }
 
     kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function (){
-        document.getElementById("popup_layer").style.display='block'
+        document.getElementById("detail_popup_layer").style.display='block'
         console.log("스타벅스 클릭");
     });
 
-    function closePopup(){
-        document.getElementById("popup_layer").style.display="none"
+    function closeDetailPopup(){
+        document.getElementById("detail_popup_layer").style.display="none"
+    };
+
+    function openAddPlacePopup(){
+        document.getElementById("addPlace_popup_layer").style.display='block'
+    }
+
+    function closeAddPlacePopup(){
+        document.getElementById("addPlace_popup_layer").style.display="none"
     };
 
     // 마커 클릭시 장소명 표출하는 인포윈도우
@@ -211,7 +219,7 @@
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
         itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/"'+ encodeURI(places.place_name) +'"/"'+encodeURI(places.address_name)+'">장소 등록</a>'
         itemStr += '</div>'
-        itemStr += '<button class="btn btn-primary">장소 등록</button>'
+        itemStr += '<button class="btn btn-primary" onclick="openAddPlacePopup()" >장소 등록</button>'
 
 
         el.innerHTML = itemStr;
@@ -364,14 +372,28 @@
     }
 </script>
 
-<!--팝업창 레이아웃 html-->
-<div id="popup_layer">
-    <div id="popup_box">
+<!--장소 상세 팝업창 레이아웃 html-->
+<div id="detail_popup_layer">
+    <div id="popup_box1">
         <!--팝업 컨텐츠 영역-->
-        <div id="popup_contents ">
+        <div>
             <th:block th:replace="popup/popup :: contentsTop"></th:block>
             <th:block th:replace="popup/popup :: contentsMiddle"></th:block>
             <th:block th:replace="popup/popup :: contentsBottom"></th:block>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("place_name").value=places.place_name;
+</script>
+
+<!--장소 등록 팝업창 레이아웃 html-->
+<div id="addPlace_popup_layer">
+    <div id="popup_box2">
+        <!--팝업 컨텐츠 영역-->
+        <div>
+            <th:block th:replace="popup/addPlace"></th:block>
         </div>
     </div>
 </div>
