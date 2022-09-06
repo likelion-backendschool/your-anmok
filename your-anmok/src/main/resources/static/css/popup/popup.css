@@ -37,6 +37,15 @@
     right:35px;
 }
 
+#close2{
+    width:20px;
+    height:20px;
+    position:absolute;
+    right:35px;
+    margin-top:3px;
+    margin-bottom:3px;
+}
+
 /* 사진(개별)*/
 .usr_img{
     width:280px;

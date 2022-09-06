@@ -8,33 +8,30 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<!-- 타임리프 html 연결 코드 -->
-<th:block th:fragment="contentsTop">
-    <!-- 팝업 상단부 -->
-    <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
-        <!-- 장소명, 장소 주소 묶음 -->
-        <div id="place_info">
-
-        </div>
-        <div id="close" onclick="closeAddPlacePopup()"><img src="/images/cross.png"></div>
+<div id="close2" onclick="closeAddPlacePopup()"><img src="/images/cross.png"></div>
+<form action="@{/}" method="post">
+    <div class="m-3">
+        <label class="form-label">장소명</label>
+        <input type="text" class="form-control">
     </div>
-</th:block>
-
-<!--별점-->
-<div class="rating">
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-</div>
-<br>
-
-<!--파일업로드-->
-<div class="mb-3">
-    <label for="formFileMultiple" class="form-label">첨부파일</label>
-    <input class="form-control" type="file" id="formFileMultiple" multiple>
-</div>
-
-<button class="btn btn-primary" type="submit">작성</button>
+    <div class="m-3">
+        <label class="form-label">주소</label>
+        <input type="text" class="form-control">
+    </div>
+    <!--별점-->
+    <div class="rating m-3">
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
+    </div>
+    <!--파일업로드-->
+    <div class="m-3">
+        <label for="formFileMultiple" class="form-label">첨부파일</label>
+        <input class="form-control" type="file" id="formFileMultiple" multiple>
+    </div>
+    <button class="btn btn-primary m-3" type="submit">작성</button>
+</form>
 </body>
+</html>
