@@ -71,31 +71,20 @@
         $.ajax({
             url : "/gathering/create/search",
             type : "GET",
-            contentType : "application/json; charset=UTF-8",
+            contentType : "application/json",
             dataType : "json",
-            data : JSON.stringify({
-                searchKeyword : $('#searchKeyword').val(),
-            }),
+            data : {
+                searchKeyword: $("#searchKeyword").val()
+            },
             success : function(data){
-                //console.log(data.resultData);
-
-                // hidden용 form 생성
-                // var $form = $("#myForm");
-                // if($form.length < 1) {
-                //     $form = $("<form/>").attr({id:"myForm", method:'POST'});
-                //     $(document.body).append($form);
-                // }
-                // $form.empty();
+                // console.log("????");
+                // alert("아 제발");
 
                 $('#place').empty();
                 $('#place').append("<option value=''>선택</option>");
-                for(var count = 0; count < data.length; count++){
-                    //주차장 select box 생성
-                    var option = $("<option value='"+data[count].id+"'>"+data[count].name+"</option>");
+                for(var count = 0; count < data.dataList.length; count++){
+                    var option = $("<option value='"+data.dataList[count].id+"'>"+data.dataList[count].name+"</option>");
                     $('#place').append(option);
-                    //
-                    // //hidden으로 저장
-                    // $("<input></input>").attr({type:"hidden", id:"itemId_"+data[count].id, value:data[count].itemId}).appendTo($form);
                 }
 
             }

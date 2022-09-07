@@ -35,4 +35,9 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "from GatheringBoard as gb inner join Place as p on p.id = gb.placeId")
     List<GatheringPreviewDto> getPreview();
 
+    @Query("select new com.lion.youranmok.gathering.dto.CreateSearchDto (" +
+            "p.id," +
+            "p.name" +
+            ") from Place as p where p.address like %:keyword% or p.name like %:keyword%")
+    List<CreateSearchDto> findCreateSearchResultByKeyword(String keyword);
 }

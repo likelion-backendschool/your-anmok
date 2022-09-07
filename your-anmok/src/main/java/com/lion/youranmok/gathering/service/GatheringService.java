@@ -1,5 +1,6 @@
 package com.lion.youranmok.gathering.service;
 
+import com.lion.youranmok.gathering.dto.CreateSearchDto;
 import com.lion.youranmok.gathering.dto.GatheringDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
@@ -48,5 +49,9 @@ public class GatheringService {
 
     public GatheringBoard findById(int id) {
         return gatheringRepository.findById(id).orElse(null);
+    }
+
+    public List<CreateSearchDto> findCreateSearchResultByKeyword(String searchKeyword) {
+        return gatheringRepository.findCreateSearchResultByKeyword(searchKeyword);
     }
 }
