@@ -12,10 +12,8 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -66,6 +64,20 @@ public class GatheringListController {
     @GetMapping("/create")
     public String createBoard(Model model) {
         return "gathering/create";
+    }
+
+    @GetMapping("/create/search")
+    @ResponseBody
+    public ModelAndView searchPlace(@RequestParam String searchKeyword, ModelAndView mav) {
+        System.out.println("searchKeyword:"+searchKeyword);
+        List<CreateSearchDto> dataList =  gatheringService.findCreateSearchResultByKeyword(searchKeyword);
+
+        System.out.println(dataList.size());
+        mav.setViewName("jsonView");
+        mav.addObject("result", true);
+        mav.addObject("dataList", dataList);
+
+        return mav;
     }
 }
 
