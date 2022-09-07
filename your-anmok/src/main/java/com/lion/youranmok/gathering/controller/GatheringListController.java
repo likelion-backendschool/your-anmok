@@ -62,6 +62,11 @@ public class GatheringListController {
 
         return "gathering/detail";
     }
+
+    @GetMapping("/create")
+    public String createBoard(Model model) {
+        return "gathering/create";
+    }
 }
 
 

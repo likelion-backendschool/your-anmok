@@ -1,0 +1,106 @@
+<!--폰트어썸-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
+
+
+<!doctype html>
+<html lang="ko">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
+</head>
+<body>
+
+<div class="container my-3">
+    <!-- HTML5 Inputs -->
+    <div class="card mb-4">
+        <h5 class="card-header">번개모임 모집글</h5>
+        <div class="card-body">
+            <div class="mb-3 row">
+                <label for="html5-text-input" class="col-md-2 col-form-label">제목</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" placeholder="제목을 입력하세요." id="html5-text-input" />
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label class="col-md-2 col-form-label">현재인원 / 총인원</label>
+                <div class="col-md-2 d-flex flex-row">
+                    <input class="form-control" type="number" id="gather-cnt" />
+                    <div class = "m-3">/</div>
+                    <input class="form-control" type="number" id="total-cnt" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="html5-date-input" class="col-md-2 col-form-label">모임일자</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                </div>
+            </div>
+            <div>
+                <div class="col-sm-6">
+                    <div class="form-group d-flex flex-row">
+                        <label class="col-sm-4 control-label" for="searchKeyword">장소</label>
+                        <div class="col-sm-7"><input type="text" name="searchKeyword" id="searchKeyword" placeholder="장소명 또는 주소" class="form-control"></div>
+                        <div class="col-sm-1"><input type="button" id="searchBtn" value="검색" class="btn btn-sm btn-info"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="place"> </label>
+                        <div class="col-sm-11">
+                            <select class="select2_con form-control" name="placeId" id="place" tabindex="-1" aria-hidden="true">
+                                <option value="">선택</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">내용을 입력하세요.</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $(document).on("click","#searchBtn",function(){
+        $.ajax({
+            url : "/gathering/create/search",
+            type : "GET",
+            contentType : "application/json; charset=UTF-8",
+            dataType : "json",
+            data : JSON.stringify({
+                searchKeyword : $('#searchKeyword').val(),
+            }),
+            success : function(data){
+                //console.log(data.resultData);
+
+                // hidden용 form 생성
+                // var $form = $("#myForm");
+                // if($form.length < 1) {
+                //     $form = $("<form/>").attr({id:"myForm", method:'POST'});
+                //     $(document.body).append($form);
+                // }
+                // $form.empty();
+
+                $('#place').empty();
+                $('#place').append("<option value=''>선택</option>");
+                for(var count = 0; count < data.length; count++){
+                    //주차장 select box 생성
+                    var option = $("<option value='"+data[count].id+"'>"+data[count].name+"</option>");
+                    $('#place').append(option);
+                    //
+                    // //hidden으로 저장
+                    // $("<input></input>").attr({type:"hidden", id:"itemId_"+data[count].id, value:data[count].itemId}).appendTo($form);
+                }
+
+            }
+        });
+    });
+</script>
+</body>
+</html>
