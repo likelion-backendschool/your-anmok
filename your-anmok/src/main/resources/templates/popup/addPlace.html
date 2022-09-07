@@ -1,37 +1,39 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>게시글 작성</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
 </head>
+
+<th:block th:fragment="addPlace">
 <body>
-<div id="close2" onclick="closeAddPlacePopup()"><img src="/images/cross.png"></div>
-<form action="@{/}" method="post">
-    <div class="m-3">
-        <label class="form-label">장소명</label>
-        <input type="text" class="form-control">
-    </div>
-    <div class="m-3">
-        <label class="form-label">주소</label>
-        <input type="text" class="form-control">
-    </div>
-    <!--별점-->
-    <div class="rating m-3">
-        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" checked />
-        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-        <input type="radio" name="rating-2" class="mask mask-star-2 bg-orange-400" />
-    </div>
-    <!--파일업로드-->
-    <div class="m-3">
-        <label for="formFileMultiple" class="form-label">첨부파일</label>
-        <input class="form-control" type="file" id="formFileMultiple" multiple>
-    </div>
-    <button class="btn btn-primary m-3" type="submit">작성</button>
-</form>
+<div class="add_place_popup">
+    <form action="@{/addPlace}" th:action method="POST" enctype="multipart/form-data">
+        <div class="m-3">
+            <label for="place-name" class="col-form-label">장소명</label>
+            <input type="text" class="form-control" id="place-name">
+        </div>
+        <div class="m-3">
+            <label for="place-address" class="col-form-label">주소</label>
+            <input type="text" class="form-control" id="place-address">
+        </div>
+        <div class="rating rating-lg m-3">
+            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" checked />
+            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
+            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
+        </div>
+        <div class="m-3">
+            <label for="place-img" class="col-form-label">사진 첨부</label>
+            <input class="form-control" type="file" id="place-img" multiple>
+        </div>
+        <button type="button" class="btn btn-secondary m-3" data-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary m-3">등록</button>
+    </form>
+</div>
 </body>
-</html>
+</th:block>

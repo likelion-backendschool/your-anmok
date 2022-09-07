@@ -47,6 +47,9 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -219,7 +222,7 @@
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
         itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/"'+ encodeURI(places.place_name) +'"/"'+encodeURI(places.address_name)+'">장소 등록</a>'
         itemStr += '</div>'
-        itemStr += '<button class="btn btn-primary" onclick="openAddPlacePopup()" >장소 등록</button>'
+        itemStr += '<button type="button" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
 
 
         el.innerHTML = itemStr;
@@ -397,6 +400,7 @@
         </div>
     </div>
 </div>
+
 </body>
 <script>
 
