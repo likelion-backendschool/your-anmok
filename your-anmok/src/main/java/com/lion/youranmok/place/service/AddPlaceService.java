@@ -1,7 +1,7 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.place.entity.PlaceImage;
-import com.lion.youranmok.place.repository.PlaceImgUploadRepository;
+import com.lion.youranmok.place.repository.AddPlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,11 +13,11 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class PlaceImgUploadService {
+public class AddPlaceService {
     @Value("${custom.genFileDirPath}")
     private String genFileDirPath;
 
-    private final PlaceImgUploadRepository placeImgUploadRepository;
+    private final AddPlaceRepository addPlaceRepository;
 
     public PlaceImage upload(Integer placeId, MultipartFile placeImg) {
         String placeImgRelPath = "placeImg/" + UUID.randomUUID().toString() + ".png";
@@ -36,7 +36,7 @@ public class PlaceImgUploadService {
                 .placeImg(placeImgRelPath)
                 .build();
 
-        placeImgUploadRepository.save(placeImage);
+        addPlaceRepository.save(placeImage);
 
         return placeImage;
 
