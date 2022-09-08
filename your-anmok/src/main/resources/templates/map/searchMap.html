@@ -4,6 +4,53 @@
   <meta charset="utf-8">
   <title>키워드로 장소검색하고 목록으로 표출하기</title>
   <style>
+    .btn {
+      width : 50px;
+      height : 50px;
+      position : absolute;
+      left : 0px;
+      top : 0px;
+      z-index : 10;
+      background-image : url("https://s1.daumcdn.net/cfs.tistory/custom/blog/204/2048858/skin/images/menu.png");
+      background-size : 50%;
+      background-repeat : no-repeat;
+      background-position : center;
+      cursor : pointer;
+    }
+
+    .close {
+      width : 50px;
+      height : 50px;
+      position : absolute;
+      right : 0px;
+      top : 0px;
+      z-index : 10;
+      background-image : url("https://s1.daumcdn.net/cfs.tistory/custom/blog/204/2048858/skin/images/close.png");
+      background-size : 50%;
+      background-repeat : no-repeat;
+      background-position : center;
+      cursor : pointer;
+    }
+
+    #menu {
+      width : 150px;
+      height : 100%;
+      position : fixed;
+      top : 0px;
+      right : -152px;
+      z-index : 10;
+      border : 1px solid #c9c9c9;
+      background-color : white;
+      text-align : center;
+      transition: All 0.2s ease;
+      -webkit-transition: All 0.2s ease;
+      -moz-transition: All 0.2s ease;
+      -o-transition: All 0.2s ease;
+    }
+
+    #menu.open {
+      right : 0px;
+    }
     .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
     .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
     .map_wrap {position:relative;width:100%;height:500px;}
@@ -41,6 +88,9 @@
     #pagination a {display:inline-block;margin-right:10px;}
     #pagination .on {font-weight: bold; cursor: default;color:#777;}
   </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <div class="map_wrap">
@@ -58,8 +108,17 @@
     <hr>
     <ul id="placesList"></ul>
     <div id="pagination"></div>
+    <div id="menu">
+      <div class="close"></div>
+    </div>
+    <div class="btn">
+    </div>
   </div>
+
 </div>
+<a id="hamburger" class="menu-trigger" href="#">
+
+</a>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
 <script>
