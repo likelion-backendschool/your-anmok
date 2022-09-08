@@ -32,9 +32,4 @@ public class PlaceController {
 
         return "map/homeMap";
     }
-
-    @RequestMapping("/test/upload")
-    public String upload() {
-        return "popup/upload";
-    }
 }
