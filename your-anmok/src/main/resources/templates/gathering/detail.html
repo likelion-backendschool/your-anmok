@@ -15,9 +15,14 @@
     <div class="d-flex flex-row">
         <section class="content w-75">
             <div class="content_wrap">
-                <div class="title">
+
+                <div class="title flex justify-between">
                     <h2 th:text="${detailList.getTitle()}"></h2>
+                    <a th:href="@{|/gathering/modify/${id}|}" class="btn btn-sm btn-outline-secondary"
+                       th:text="수정"></a>
                 </div>
+
+<!--                </div>-->
                 <div class="name">
                     <p th:text="${detailList.getNickname()}"></p>
                     <p th:text="${#temporals.format(detailList.getCreatedAt(), 'yyyy.MM.dd HH:mm:ss')}"></p>
