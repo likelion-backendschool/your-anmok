@@ -5,6 +5,8 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Setter
 @Getter
@@ -12,10 +14,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-public class PlaceImage {
+public class PlaceImage{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+    private Integer placeId;
     private String placeImg;
-
 }

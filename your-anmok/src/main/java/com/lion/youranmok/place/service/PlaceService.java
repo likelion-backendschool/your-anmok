@@ -1,7 +1,6 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.DataNotFoundException;
-import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
@@ -9,6 +8,7 @@ import com.lion.youranmok.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +24,18 @@ public class PlaceService {
         }
         else{
             throw new DataNotFoundException("question not found");
+        }
+    }
+
+    public Place getPlaceIdByName(String placename, String address){
+        System.out.println(placename);
+        System.out.println(address);
+        Optional<Place> place = this.placeRepository.findPlaceByNameAndAddress(placename, address);
+        if(place.isPresent()){
+            return place.get();
+        }
+        else{
+            throw new DataNotFoundException("place not found");
         }
     }
 

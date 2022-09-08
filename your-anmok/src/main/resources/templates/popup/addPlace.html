@@ -8,32 +8,53 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
 </head>
 
+<script>
+    function AddPlaceForm__submit(form) {
+        form.placeName.value = form.placeName.value.trim();
+
+        if ( form.placeName.value.length == 0 ) {
+            alert("장소명를 입력해주세요.");
+            form.placeName.focus();
+            return;
+        }
+
+        form.address.value = form.address.value.trim();
+
+        if ( form.address.value.length == 0 ) {
+            alert("주소를 입력해주세요.");
+            form.address.focus();
+            return;
+        }
+
+        form.submit();
+    }
+
+</script>
+
+
 <th:block th:fragment="addPlace">
-<body>
 <div class="add_place_popup">
-    <form action="@{/addPlace}" th:action method="POST" enctype="multipart/form-data">
+    <form th:action method="POST" enctype="multipart/form-data" onsubmit="AddPlaceForm__submit(this); return false;">
         <div class="m-3">
             <label for="place-name" class="col-form-label">장소명</label>
-            <input type="text" class="form-control" id="place-name">
+            <input type="text" class="form-control" id="place-name" name="placeName">
         </div>
         <div class="m-3">
             <label for="place-address" class="col-form-label">주소</label>
-            <input type="text" class="form-control" id="place-address">
+            <input type="text" class="form-control" id="place-address" name="address">
         </div>
-        <div class="rating rating-lg m-3">
-            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" checked />
-            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
-            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" />
-        </div>
+<!--        <div class="rating rating-lg m-3">-->
+<!--            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" value="1" />-->
+<!--            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" value="2" checked />-->
+<!--            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" value="3" />-->
+<!--            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" value="4" />-->
+<!--            <input type="radio" name="rating-8" class="mask mask-star-2 bg-orange-400" value="5" />-->
+<!--        </div>-->
         <div class="m-3">
             <label for="place-img" class="col-form-label">사진 첨부</label>
-            <input class="form-control" type="file" id="place-img" multiple>
+            <input class="form-control" type="file" id="place-img" name="placeImg" multiple>
         </div>
-        <button type="button" class="btn btn-secondary m-3" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary m-3">등록</button>
+        <button type="submit" class="btn btn-primary m-3">등록</button>
     </form>
 </div>
-</body>
 </th:block>

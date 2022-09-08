@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Integer>  {
@@ -22,4 +23,6 @@ public interface PlaceRepository extends JpaRepository<Place, Integer>  {
     @Query("select new com.lion.youranmok.place.dto.PlaceGatheringDto (gb.id, p.id, gb.title)" +
             "from GatheringBoard as gb inner join Place p on p.id = gb.placeId order by gb.createdAt desc")
     List<PlaceGatheringDto> getGatheringListByPlaceId(Integer id);
+
+    Optional<Place> findPlaceByNameAndAddress(String placename, String address);
 }
