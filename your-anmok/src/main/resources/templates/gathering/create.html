@@ -12,29 +12,29 @@
 <body>
 
 <div class="container my-3">
-    <!-- HTML5 Inputs -->
+    <form method="post" th:action="@{/gathering/create}" id="f">
     <div class="card mb-4">
         <h5 class="card-header">번개모임 모집글</h5>
         <div class="card-body">
             <div class="mb-3 row">
-                <label for="html5-text-input" class="col-md-2 col-form-label">제목</label>
+                <label for="title" class="col-md-2 col-form-label">제목</label>
                 <div class="col-md-10">
-                    <input class="form-control" type="text" placeholder="제목을 입력하세요." id="html5-text-input" />
+                    <input class="form-control" type="text" placeholder="제목을 입력하세요." id="title" name="title" />
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label class="col-md-2 col-form-label">현재인원 / 총인원</label>
                 <div class="col-md-2 d-flex flex-row">
-                    <input class="form-control" type="number" id="gather-cnt" />
+                    <input class="form-control" type="number" id="gatherCnt" name="gatherCnt"/>
                     <div class = "m-3">/</div>
-                    <input class="form-control" type="number" id="total-cnt" />
+                    <input class="form-control" type="number" id="totalCnt" name="totalCnt"/>
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="html5-date-input" class="col-md-2 col-form-label">모임일자</label>
+                <label for="date" class="col-md-2 col-form-label">📆 날짜</label>
                 <div class="col-md-10">
-                    <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                    <input class="form-control" type="date" value="2021-06-18" id="date" name="date"/>
                 </div>
             </div>
             <div>
@@ -57,16 +57,20 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">내용을 입력하세요.</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+                <label for="content" class="form-label">내용을 입력하세요.</label>
+                <textarea class="form-control" id="content" name="content" rows="10"></textarea>
             </div>
 
         </div>
 
     </div>
+    <button type="submit" class="btn btn-primary">제출</button>
+    </form>
 
 </div>
 <script>
+    document.getElementById('date').valueAsDate = new Date();
+
     $(document).on("click","#searchBtn",function(){
         $.ajax({
             url : "/gathering/create/search",
@@ -77,16 +81,16 @@
                 searchKeyword: $("#searchKeyword").val()
             },
             success : function(data){
-                // console.log("????");
-                // alert("아 제발");
-
-                $('#place').empty();
-                $('#place').append("<option value=''>선택</option>");
-                for(var count = 0; count < data.dataList.length; count++){
-                    var option = $("<option value='"+data.dataList[count].id+"'>"+data.dataList[count].name+"</option>");
-                    $('#place').append(option);
+                if(data.dataList.length == 0) {
+                    alert("검색 결과가 없습니다.");
+                } else {
+                    $('#place').empty();
+                    $('#place').append("<option value=''>선택</option>");
+                    for (var count = 0; count < data.dataList.length; count++) {
+                        var option = $("<option value='" + data.dataList[count].id + "'>" + data.dataList[count].name + "</option>");
+                        $('#place').append(option);
+                    }
                 }
-
             }
         });
     });

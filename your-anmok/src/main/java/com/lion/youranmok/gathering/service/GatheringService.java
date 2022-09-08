@@ -1,17 +1,18 @@
 package com.lion.youranmok.gathering.service;
 
-import com.lion.youranmok.gathering.dto.CreateSearchDto;
-import com.lion.youranmok.gathering.dto.GatheringDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
+import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +20,27 @@ import java.util.stream.Collectors;
 public class GatheringService {
     private final GatheringRepository gatheringRepository;
     private final GatheringCommentRepository gatheringCommentRepository;
+
+    public GatheringBoard create(CreateForm createForm) {
+        GatheringBoard gatheringBoard = new GatheringBoard();
+
+        gatheringBoard.setTotalCnt(createForm.getTotalCnt());
+        gatheringBoard.setGatherCnt(createForm.getGatherCnt());
+        gatheringBoard.setText(createForm.getContent());
+        gatheringBoard.setTitle(createForm.getTitle());
+        gatheringBoard.setCreatedAt(LocalDateTime.now());
+        gatheringBoard.setPlaceId(createForm.getPlaceId());
+        gatheringBoard.setModifiedAt(LocalDateTime.now());
+        gatheringBoard.setIsExpired(false);
+        gatheringBoard.setDate( LocalDate.ofInstant(createForm.getDate().toInstant(), ZoneId.systemDefault()));
+
+        // TODO : 로그인 후 고유한 유저를 받아와서 저장해야함 지금은 랜덤유저임..
+        Random random = new Random(); //랜덤 객체 생성(디폴트 시드값 : 현재시간)
+        random.setSeed(System.currentTimeMillis()); //시드값 설정을 따로 할수도 있음
+        gatheringBoard.setUserId(random.nextInt(7)+1);
+
+        return gatheringRepository.save(gatheringBoard);
+    }
 
     public List<GatheringListDetailDto> listByCriteria() {
         return gatheringRepository.listByCriteria();

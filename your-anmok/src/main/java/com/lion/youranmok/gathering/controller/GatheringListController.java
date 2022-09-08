@@ -66,6 +66,13 @@ public class GatheringListController {
         return "gathering/create";
     }
 
+    @PostMapping("/create")
+    public String create(Model model, CreateForm createForm) {
+        System.out.println(createForm.toString());
+        GatheringBoard gatheringBoard = gatheringService.create(createForm);
+        return "redirect:/gathering/%d".formatted(gatheringBoard.getId());
+    }
+
     @GetMapping("/create/search")
     @ResponseBody
     public ModelAndView searchPlace(@RequestParam String searchKeyword, ModelAndView mav) {
