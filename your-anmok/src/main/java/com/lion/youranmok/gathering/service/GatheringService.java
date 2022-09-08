@@ -4,6 +4,8 @@ import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
+import com.lion.youranmok.place.entity.Place;
+import com.lion.youranmok.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,15 +24,18 @@ public class GatheringService {
     private final GatheringRepository gatheringRepository;
     private final GatheringCommentRepository gatheringCommentRepository;
 
+    private final PlaceRepository placeRepository;
+
     public GatheringBoard create(CreateForm createForm) {
         GatheringBoard gatheringBoard = new GatheringBoard();
+        Place place = placeRepository.findById(createForm.getPlaceId()).orElse(null);
 
         gatheringBoard.setTotalCnt(createForm.getTotalCnt());
         gatheringBoard.setGatherCnt(createForm.getGatherCnt());
         gatheringBoard.setText(createForm.getContent());
         gatheringBoard.setTitle(createForm.getTitle());
         gatheringBoard.setCreatedAt(LocalDateTime.now());
-        gatheringBoard.setPlaceId(createForm.getPlaceId());
+        gatheringBoard.setPlace(place);
         gatheringBoard.setModifiedAt(LocalDateTime.now());
         gatheringBoard.setIsExpired(false);
         gatheringBoard.setDate( LocalDate.ofInstant(createForm.getDate().toInstant(), ZoneId.systemDefault()));
@@ -45,16 +50,18 @@ public class GatheringService {
 
     public void modify(int id, CreateForm createForm) {
         GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
+        Place place = placeRepository.getReferenceById(createForm.getPlaceId());
 
         if(gatheringBoard == null) {
             throw new NoResultException();
         }
 
+
         gatheringBoard.setTotalCnt(createForm.getTotalCnt());
         gatheringBoard.setGatherCnt(createForm.getGatherCnt());
         gatheringBoard.setText(createForm.getContent());
         gatheringBoard.setTitle(createForm.getTitle());
-        gatheringBoard.setPlaceId(createForm.getPlaceId());
+        gatheringBoard.setPlace(place);
         gatheringBoard.setModifiedAt(LocalDateTime.now());
         gatheringBoard.setDate(LocalDate.ofInstant(createForm.getDate().toInstant(), ZoneId.systemDefault()));
 
@@ -95,5 +102,10 @@ public class GatheringService {
 
     public List<CreateSearchDto> findCreateSearchResultByKeyword(String searchKeyword) {
         return gatheringRepository.findCreateSearchResultByKeyword(searchKeyword);
+    }
+
+    public void delete(int id) {
+        GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
+        gatheringRepository.delete(gatheringBoard);
     }
 }

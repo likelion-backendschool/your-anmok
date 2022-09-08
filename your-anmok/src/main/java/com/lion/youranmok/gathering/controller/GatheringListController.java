@@ -120,6 +120,13 @@ public class GatheringListController {
 
         return "redirect:/gathering/%s".formatted(id);
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBoard(@PathVariable int id) {
+        gatheringService.delete(id);
+        
+        return "redirect:/gathering/list";
+    }
 }
 
 
