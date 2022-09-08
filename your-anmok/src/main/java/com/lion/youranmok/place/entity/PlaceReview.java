@@ -14,10 +14,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-public class PlaceImage{
+public class PlaceReview {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private Integer placeId;
+    private Integer star;
     private String placeImg;
 }

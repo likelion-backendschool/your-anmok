@@ -1,6 +1,6 @@
 package com.lion.youranmok.place.service;
 
-import com.lion.youranmok.place.entity.PlaceImage;
+import com.lion.youranmok.place.entity.PlaceReview;
 import com.lion.youranmok.place.repository.AddPlaceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ public class AddPlaceService {
 
     private final AddPlaceRepository addPlaceRepository;
 
-    public PlaceImage upload(Integer placeId, MultipartFile placeImg) {
+    public PlaceReview upload(Integer placeId, Integer star, MultipartFile placeImg) {
         String placeImgRelPath = "placeImg/" + UUID.randomUUID().toString() + ".png";
         File placeImgFile = new File(genFileDirPath + "/" + placeImgRelPath);
 
@@ -31,14 +31,15 @@ public class AddPlaceService {
             throw new RuntimeException(e);
         }
 
-        PlaceImage placeImage = PlaceImage.builder()
+        PlaceReview placeReview = PlaceReview.builder()
                 .placeId(placeId)
+                .star(star)
                 .placeImg(placeImgRelPath)
                 .build();
 
-        addPlaceRepository.save(placeImage);
+        addPlaceRepository.save(placeReview);
 
-        return placeImage;
+        return placeReview;
 
     }
 }

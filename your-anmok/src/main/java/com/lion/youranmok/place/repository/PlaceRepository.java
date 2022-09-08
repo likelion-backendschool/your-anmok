@@ -25,4 +25,5 @@ public interface PlaceRepository extends JpaRepository<Place, Integer>  {
     List<PlaceGatheringDto> getGatheringListByPlaceId(Integer id);
 
     Optional<Place> findPlaceByNameAndAddress(String placename, String address);
+
 }

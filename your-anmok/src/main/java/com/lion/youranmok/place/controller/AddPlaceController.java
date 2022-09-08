@@ -15,15 +15,17 @@ public class AddPlaceController {
     private final PlaceService placeService;
 
     @GetMapping("/addPlace")
-    public String addPlaceImg(){
+    public String addPlace(){
         return "popup/addPlace";
     }
 
     @PostMapping("/addPlace")
-    public String addPlaceImg(String placeName, String address, MultipartFile placeImg) {
-        Place place = placeService.getPlaceIdByName(placeName, address);
+    public String addPlace(String placeName, String address, Integer rating, MultipartFile placeImg) {
+        Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
-        addPlaceService.upload(place.getId(), placeImg);
+        Integer starAvg = placeService.getStarAvg(place.getId());
+        placeService.setStar(place, starAvg);
+        addPlaceService.upload(place.getId(), rating, placeImg);
 
         return "redirect:/";
     }

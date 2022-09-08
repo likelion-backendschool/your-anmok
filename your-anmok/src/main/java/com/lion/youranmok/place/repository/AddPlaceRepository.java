@@ -1,9 +1,14 @@
 package com.lion.youranmok.place.repository;
 
-import com.lion.youranmok.place.entity.PlaceImage;
+import com.lion.youranmok.place.entity.PlaceReview;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface AddPlaceRepository extends JpaRepository<PlaceImage, Long> {
+public interface AddPlaceRepository extends JpaRepository<PlaceReview, Long> {
+     List<PlaceReview> getAllByPlaceId(Integer id);
+
+
 }
