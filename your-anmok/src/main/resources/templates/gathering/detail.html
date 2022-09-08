@@ -20,6 +20,8 @@
                     <h2 th:text="${detailList.getTitle()}"></h2>
                     <a th:href="@{|/gathering/modify/${id}|}" class="btn btn-sm btn-outline-secondary"
                        th:text="수정"></a>
+                    <a th:href="@{|/gathering/delete/${id}|}" class="btn btn-sm btn-outline-secondary"
+                       onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:text="삭제"></a>
                 </div>
 
 <!--                </div>-->

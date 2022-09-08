@@ -1,6 +1,8 @@
 package com.lion.youranmok.gathering.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Table;
@@ -8,9 +10,9 @@ import org.springframework.data.relational.core.mapping.Table;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table
 @Entity
-@Data
+@Getter
+@Setter
 public class GatheringComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class GatheringComment {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private GatheringBoard board;
 

@@ -1,18 +1,23 @@
 package com.lion.youranmok.gathering.entity;
 
+import com.lion.youranmok.place.entity.Place;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
+import javax.xml.stream.events.Comment;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table
-@Data
+@Getter
+@Setter
 public class GatheringBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +29,8 @@ public class GatheringBoard {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    @Column
-    private Integer placeId;
+    @ManyToOne
+    private Place place;
 
     @Column
     private Integer userId;
@@ -47,5 +52,8 @@ public class GatheringBoard {
 
     @Column
     private Integer gatherCnt;
+
+    @OneToMany(mappedBy = "board", cascade = {CascadeType.ALL}, orphanRemoval=true)
+    private Set<GatheringComment> commentList;
 
 }
