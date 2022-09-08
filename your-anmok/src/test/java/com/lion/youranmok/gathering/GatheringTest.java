@@ -13,7 +13,10 @@ import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.repository.PlaceRepository;
 import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.user.repository.UserRepository;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.repository.CrudRepository;
@@ -25,6 +28,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class GatheringTest {
 
     @Autowired
@@ -45,54 +49,7 @@ class GatheringTest {
 
 
     @Test
-    public void insertGatheringBoardTest() {
-        //번개모임 정보 세팅
-        for(int i = 0; i < 50; i++) {
-            GatheringBoard gatheringBoard = new GatheringBoard();
-
-            gatheringBoard.setId(i+1);
-            gatheringBoard.setCreatedAt(LocalDateTime.now());
-            gatheringBoard.setModifiedAt(LocalDateTime.now());
-            gatheringBoard.setPlaceId(1);
-            gatheringBoard.setUserId(1);
-            gatheringBoard.setGatherCnt(5);
-            gatheringBoard.setTotalCnt(10);
-            gatheringBoard.setDate(LocalDate.now());
-            gatheringBoard.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
-            gatheringBoard.setText("글.. 작성중.. ");
-            gatheringBoard.setIsExpired(false);
-
-            gatheringRepository.save(gatheringBoard);
-        }
-    }
-
-
-
-    @Test
-    public void insertCategoryTest() {
-        //번개모임 정보 세팅 - 카테고리 버전
-        //카테고리 정보 세팅(test data)
-        List<String> nameList = Arrays.asList("#코딩하기 좋은 카페💻", "#혼자 맥주한잔 하고싶을때🍺", "#노을맛집🌅", "#보기만해도 마음이 편해지는 바다🌊",
-                "#담배피기 좋은 장소🚬", "#오늘은 차박🚘", "#소개팅으로 좋은 맛집🔥");
-
-        for(int i = 0; i < nameList.size(); i++) {
-            Category category = new Category();
-            category.setTagName(nameList.get(i));
-            category.setPlaceId(1);
-
-            categoryRepository.save(category);
-        }
-    }
-
-    @Test
-    public void GatheringRepositoryTest() {
-        List<GatheringListDetailDto> gatheringBoardList = gatheringRepository.listByCriteria();
-
-        System.out.println(gatheringBoardList.toString());
-    }
-
-
-    @Test
+    @Order(1)
     public void insertMapTest() {
         List<String> placeNameList = Arrays.asList("리멤버미 서울대입구역","컴즈커피","비하인드","빌리프커피로스터스","커피덕","플랫랜드","디벙크");
 
@@ -111,6 +68,50 @@ class GatheringTest {
     }
 
     @Test
+    @Order(2)
+    public void insertGatheringBoardTest() {
+        //번개모임 정보 세팅
+        for(int i = 0; i < 50; i++) {
+            GatheringBoard gatheringBoard = new GatheringBoard();
+            Place place = placeRepository.findById(1).orElse(null);
+
+            gatheringBoard.setId(i+1);
+            gatheringBoard.setCreatedAt(LocalDateTime.now());
+            gatheringBoard.setModifiedAt(LocalDateTime.now());
+            gatheringBoard.setPlace(place);
+            gatheringBoard.setUserId(1);
+            gatheringBoard.setGatherCnt(5);
+            gatheringBoard.setTotalCnt(10);
+            gatheringBoard.setDate(LocalDate.now());
+            gatheringBoard.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
+            gatheringBoard.setText("글.. 작성중.. ");
+            gatheringBoard.setIsExpired(false);
+
+            gatheringRepository.save(gatheringBoard);
+        }
+    }
+
+
+
+    @Test
+    @Order(3)
+    public void insertCategoryTest() {
+        //번개모임 정보 세팅 - 카테고리 버전
+        //카테고리 정보 세팅(test data)
+        List<String> nameList = Arrays.asList("#코딩하기 좋은 카페💻", "#혼자 맥주한잔 하고싶을때🍺", "#노을맛집🌅", "#보기만해도 마음이 편해지는 바다🌊",
+                "#담배피기 좋은 장소🚬", "#오늘은 차박🚘", "#소개팅으로 좋은 맛집🔥");
+
+        for(int i = 0; i < nameList.size(); i++) {
+            Category category = new Category();
+            category.setTagName(nameList.get(i));
+            category.setPlaceId(1);
+
+            categoryRepository.save(category);
+        }
+    }
+
+    @Test
+    @Order(4)
     public void insertUserTest() {
         List<String> userNameList = Arrays.asList("생갈치 1호의 행방불명", "오즈의 맙소사","반지하 제왕", "김대희","박다정", "순데렐라", "배숙희라빈스");
 
@@ -124,14 +125,5 @@ class GatheringTest {
         }
     }
 
-    @Test
-    public void gatheringDetailTest() {
-        GatheringDetailDto gatheringDetailDto = gatheringRepository.getDetailById(1);
-        List<CommentDto> commentList = gatheringCommentRepository.listByBoardId(1);
-
-        System.out.println(gatheringDetailDto.toString());
-        System.out.println(commentList.toString());
-
-    }
 
 }

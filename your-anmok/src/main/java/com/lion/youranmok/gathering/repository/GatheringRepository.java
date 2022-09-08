@@ -28,11 +28,11 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "p.star," +
             "p.lat," +
             "p.lon " +
-            ") from GatheringBoard as gb inner join Place as p on p.id = gb.placeId inner join User as u on u.id = gb.userId where gb.id = ?1")
+            ") from GatheringBoard as gb inner join Place as p on p.id = gb.place.id inner join User as u on u.id = gb.userId where gb.id = ?1")
     GatheringDetailDto getDetailById(int id);
 
     @Query("select new com.lion.youranmok.gathering.dto.GatheringPreviewDto (gb.id, gb.title, gb.date, p.name) " +
-            "from GatheringBoard as gb inner join Place as p on p.id = gb.placeId")
+            "from GatheringBoard as gb inner join Place as p on p.id = gb.place.id")
     List<GatheringPreviewDto> getPreview();
 
     @Query("select new com.lion.youranmok.gathering.dto.CreateSearchDto (" +
