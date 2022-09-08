@@ -7,6 +7,7 @@ import com.lion.youranmok.gathering.repository.GatheringRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -41,6 +42,25 @@ public class GatheringService {
 
         return gatheringRepository.save(gatheringBoard);
     }
+
+    public void modify(int id, CreateForm createForm) {
+        GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
+
+        if(gatheringBoard == null) {
+            throw new NoResultException();
+        }
+
+        gatheringBoard.setTotalCnt(createForm.getTotalCnt());
+        gatheringBoard.setGatherCnt(createForm.getGatherCnt());
+        gatheringBoard.setText(createForm.getContent());
+        gatheringBoard.setTitle(createForm.getTitle());
+        gatheringBoard.setPlaceId(createForm.getPlaceId());
+        gatheringBoard.setModifiedAt(LocalDateTime.now());
+        gatheringBoard.setDate(LocalDate.ofInstant(createForm.getDate().toInstant(), ZoneId.systemDefault()));
+
+        gatheringRepository.save(gatheringBoard);
+    }
+
 
     public List<GatheringListDetailDto> listByCriteria() {
         return gatheringRepository.listByCriteria();

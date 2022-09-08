@@ -17,5 +17,6 @@ public class CreateForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private Integer placeId;
+    private String placeName;
     private String content;
 }
