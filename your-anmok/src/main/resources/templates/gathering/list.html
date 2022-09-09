@@ -15,7 +15,7 @@
     <button class="write-gather"><a th:href="@{/gathering/create}">모집하기</a></button>
     <div class="gather-category">
         <div th:each="category,index:${categoryList}">
-            <button type="button" class="btn btn-outline-info" th:text="${category.tagName}"></button>
+            <button type="button" class="btn btn-outline-info" data-bs-toggle="button" autocomplete="off" aria-pressed="true" th:text="${category.tagName}" th:id="|category-${category.id}|" onclick="onClick(this.id)"></button>
         </div>
     </div>
     <div class="search">
@@ -44,5 +44,13 @@
         </div>
     </div>
 </section>
+<script>
+
+    function onClick(id) {
+        var button = document.getElementById(id);
+        button.classList.toggle('active');
+    }
+</script>
 </body>
+
 </html>
