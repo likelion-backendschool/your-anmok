@@ -208,6 +208,8 @@
     <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
         마이로케이션버튼
     </button>
+    <br>
+    <button id="my_location_button1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="ajaxTest()">ajax 테스트</button>
     <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
         <div class="option">
             <div>
@@ -221,7 +223,6 @@
         <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
         <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
     </div>
-
     <div id="menu">
         <div class="close"></div>
 
@@ -325,7 +326,6 @@
     //         }
     //     })
     // }
-
     $(function () {
         $(".left_sub_menu").hide();
         $("#hamburger_button").click(function () {
