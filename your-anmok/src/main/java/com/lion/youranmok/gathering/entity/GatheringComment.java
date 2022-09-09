@@ -24,7 +24,7 @@ public class GatheringComment {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private GatheringBoard board;
 
