@@ -8,7 +8,7 @@ let index = {
 
     remove: function () {
 
-        let categoryId = $("#category_id").val()
+        let categoryId = $(".category_id").val()
 
         $.ajax({
             url: "/bookmark/removeByMypage",

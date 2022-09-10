@@ -48,7 +48,7 @@ public class BookmarkController {
 
     @Transactional
     @PostMapping("/removeByMypage")
-    public ResponseEntity<Integer> removeByMypage(@RequestBody int categoryId) {
+    public String removeByMypage(@RequestParam int categoryId) {
 
         System.out.println("BookmarkController.removeByMypage");
 
@@ -58,7 +58,7 @@ public class BookmarkController {
 
 
 
-        return new ResponseEntity<>(200, HttpStatus.OK);
+        return "redirect:/mypage";
 
     }
 
