@@ -7,16 +7,18 @@
 </head>
 <body>
 
-<div th:each="category : ${categories}">
-    <div th:text="${category.tagName}"></div>
-    <button type="button" class="remove-btn">삭제</button>
-    <input type="hidden" th:value="${category.id}" id="category_id"/>
+<div th:each="category, i : ${categories}">
+    <form action="/bookmark/removeByMypage" method="post">
+        <div th:text="${category.tagName}"></div>
+        <button type="submit" class="remove-btn">삭제</button>
+        <input type="hidden" name="categoryId" th:value="${category.id}" th:classappend="category_id" />
+    </form>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script src="/js/category/bookmark.js">
-</script>
+<!--<script src="/js/category/bookmark.js">-->
+<!--</script>-->
 
 </body>
 </html>
