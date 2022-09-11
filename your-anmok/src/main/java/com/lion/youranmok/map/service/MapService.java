@@ -53,4 +53,13 @@ public class MapService {
         return mapDtoList;
     }
 
+    public List<MapDto> getCateogryPlaceList(int id) {
+        List<MapDto> mapDtoList = new ArrayList<>();
+
+        List<Map> mapList = mapRepository.findByCategoryId(id);
+        mapDtoList = mapList.stream().map(e->{MapDto mapDto = entityToDto(e); return mapDto;}).collect(Collectors.toList());
+
+        return mapDtoList;
+
+    }
 }
