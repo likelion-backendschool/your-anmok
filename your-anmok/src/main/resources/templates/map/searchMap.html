@@ -419,7 +419,15 @@
         //     // 잘 작동중
         // }
 
-        ps.keywordSearch( keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
+        let sw = new kakao.maps.LatLng(37.41847533960485,126.75578831035362);
+        let ne = new kakao.maps.LatLng(37.70625487247741,127.2251487382762);
+        let bounds = new kakao.maps.LatLngBounds(sw,ne);
+
+        ps.keywordSearch( keyword, placesSearchCB,{
+            size:15,
+            location: new kakao.maps.LatLng(37.550929, 126.990940),
+            bounds: bounds,
+        }); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
         console.log("ps.keywordSearch 작동중")
     }
 
