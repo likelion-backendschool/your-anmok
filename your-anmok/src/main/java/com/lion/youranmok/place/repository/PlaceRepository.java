@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Integer>  {
     @Query("select new com.lion.youranmok.place.dto.PlaceTagDto (p.id, c.tagName)" +
-            "from Category as c inner join Place p on p.id = c.placeId")
+            "from Category as c inner join PlaceCategoryMap p on p.categoryId = c.id where p.placeId = :id")
     List<PlaceTagDto> getTagNameById(int id);
 
     @Query("select new com.lion.youranmok.place.dto.PlaceGatheringDto (gb.id, p.id, gb.title)" +

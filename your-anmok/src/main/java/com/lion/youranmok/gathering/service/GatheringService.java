@@ -50,7 +50,7 @@ public class GatheringService {
 
     public void modify(int id, CreateForm createForm) {
         GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
-        Place place = placeRepository.getReferenceById(createForm.getPlaceId());
+        Place place = placeRepository.findById(createForm.getPlaceId()).orElse(null);
 
         if(gatheringBoard == null) {
             throw new NoResultException();
