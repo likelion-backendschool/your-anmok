@@ -54,7 +54,7 @@ h1{
     /*background: red;*/
 }
 
-.gather-category button {
+.gather-category input {
     color:#01C9C6;
     font-size: 14px;
     outline-color: #01C9C6;
@@ -74,7 +74,7 @@ h1{
 .search{
     margin: 25px 0 ;
 }
-form{
+.search-bar{
     display: flex;
 }
 .search select{

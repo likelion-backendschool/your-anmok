@@ -5,6 +5,7 @@ import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.entity.GatheringListCriteria;
 import com.lion.youranmok.gathering.service.GatheringCommentService;
 import com.lion.youranmok.gathering.service.GatheringService;
 import com.lion.youranmok.place.entity.Place;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,7 +42,10 @@ public class GatheringListController {
 
 
     @GetMapping("/list")
-    public String getList(Model model) {
+    public String getList(Model model, @ModelAttribute GatheringListCriteria criteria) {
+
+
+        System.out.println(criteria.toString());
         List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria();
         List<CategoryDto> categoryList = categoryService.findAll();
 
