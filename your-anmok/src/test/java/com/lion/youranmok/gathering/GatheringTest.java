@@ -11,6 +11,7 @@ import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceCategoryMap;
+import com.lion.youranmok.place.repository.PlaceCategoryMapRepository;
 import com.lion.youranmok.place.repository.PlaceRepository;
 import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.user.repository.UserRepository;
@@ -24,6 +25,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,6 +51,8 @@ class GatheringTest {
     private UserRepository userRepository;
 
 
+    @Autowired
+    private PlaceCategoryMapRepository placeCategoryMapRepository;
 
     @Test
     @Order(1)
@@ -88,46 +92,59 @@ class GatheringTest {
     @Test
     @Order(3)
     public void insertPlaceCategoryMapTest() {
+        List<PlaceCategoryMap> maps = new ArrayList<>();
+
         PlaceCategoryMap map1 = new PlaceCategoryMap();
         map1.setCategoryId(1);
         map1.setPlaceId(1);
+        maps.add(map1);
 
         PlaceCategoryMap map2 = new PlaceCategoryMap();
         map2.setCategoryId(1);
         map2.setPlaceId(2);
+        maps.add(map2);
 
         PlaceCategoryMap map3 = new PlaceCategoryMap();
         map3.setCategoryId(1);
         map3.setPlaceId(3);
+        maps.add(map3);
 
         PlaceCategoryMap map4 = new PlaceCategoryMap();
         map4.setCategoryId(1);
         map4.setPlaceId(4);
+        maps.add(map4);
 
         PlaceCategoryMap map5 = new PlaceCategoryMap();
         map5.setCategoryId(2);
         map5.setPlaceId(1);
+        maps.add(map5);
 
         PlaceCategoryMap map6 = new PlaceCategoryMap();
         map6.setCategoryId(3);
         map6.setPlaceId(1);
+        maps.add(map6);
 
         PlaceCategoryMap map7 = new PlaceCategoryMap();
         map7.setCategoryId(4);
         map7.setPlaceId(1);
+        maps.add(map7);
 
         PlaceCategoryMap map8 = new PlaceCategoryMap();
         map8.setCategoryId(2);
         map8.setPlaceId(2);
+        maps.add(map8);
 
         PlaceCategoryMap map9 = new PlaceCategoryMap();
         map9.setCategoryId(3);
         map9.setPlaceId(4);
+        maps.add(map9);
 
         PlaceCategoryMap map10 = new PlaceCategoryMap();
         map10.setCategoryId(2);
         map10.setPlaceId(3);
+        maps.add(map10);
 
+        placeCategoryMapRepository.saveAll(maps);
     }
 
     @Test
