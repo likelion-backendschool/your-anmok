@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -41,10 +42,10 @@ public class PlaceController {
     private final AddPlaceService addPlaceService;
 
     @PostMapping("/addPlace")
-    public String addPlace(String placeName, String address, Integer rating, MultipartFile placeImg) {
+    public String addPlace(String placeName, String address, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
-        addPlaceService.upload(place, rating, placeImg);
+        addPlaceService.upload(place, rating, placeImgs);
 
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
