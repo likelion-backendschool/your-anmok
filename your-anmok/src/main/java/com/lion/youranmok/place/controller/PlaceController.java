@@ -44,6 +44,10 @@ public class PlaceController {
     public String addPlace(String placeName, String address, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
+        if (place==null){
+            placeService.savePlace(placeName, address, rating, placeImgs);
+            return "map/homeMap";
+        }
         placeReviewService.upload(place, rating, placeImgs);
 
         Integer starAvg = placeService.getStarAvg(place.getId());

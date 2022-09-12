@@ -9,6 +9,7 @@ import com.lion.youranmok.place.repository.PlaceRepository;
 import com.lion.youranmok.place.repository.PlaceReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class PlaceService {
             return place.get();
         }
         else{
-            throw new DataNotFoundException("place not found");
+            return null;
         }
     }
 
@@ -67,6 +68,14 @@ public class PlaceService {
 
     public void setStar(Place place, Integer starAvg) {
         place.setStar(starAvg);
+        placeRepository.save(place);
+    }
+
+    public void savePlace(String placeName, String address, Integer rating, List<MultipartFile> placeImgs) {
+        Place place = new Place();
+        place.setName(placeName);
+        place.setAddress(address);
+        place.setStar(rating);
         placeRepository.save(place);
     }
 }

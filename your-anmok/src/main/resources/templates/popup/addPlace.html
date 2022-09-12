@@ -45,11 +45,11 @@
         <form th:action="@{/addPlace}" method="POST" enctype="multipart/form-data" onsubmit="AddPlaceForm__submit(this); return false;">
             <div class="m-3">
                 <label for="place-name" class="col-form-label">장소명</label>
-                <input type="text" class="form-control" id="place-name" name="placeName">
+                <input type="text" value="" class="form-control" id="place-name" name="placeName">
             </div>
             <div class="m-3">
                 <label for="place-address" class="col-form-label">주소</label>
-                <input type="text" class="form-control" id="place-address" name="address">
+                <input type="text" value="" class="form-control" id="place-address" name="address">
             </div>
             <div class="rating rating-lg m-3">
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1" />
