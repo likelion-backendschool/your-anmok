@@ -24,7 +24,7 @@ public class BookmarkController {
                                    @RequestParam(value = "keyword", required = false) String keyword,
                                    RedirectAttributes redirectAttributes) {
 
-        bookmarkService.register(0, categoryId);
+        bookmarkService.register(1, categoryId);
 
         redirectAttributes.addAttribute("keyword", keyword);
         redirectAttributes.addAttribute("page", page);
@@ -37,7 +37,7 @@ public class BookmarkController {
     @GetMapping("/remove")
     public String removeBookmark(@RequestParam("categoryId") int categoryId, int page, String keyword, RedirectAttributes redirectAttributes) {
 
-        bookmarkService.remove(0, categoryId);
+        bookmarkService.remove(1, categoryId);
 
         redirectAttributes.addAttribute("keyword", keyword);
         redirectAttributes.addAttribute("page", page);
@@ -54,7 +54,7 @@ public class BookmarkController {
 
         System.out.println("categoryId = " + categoryId);
 
-        bookmarkService.remove(0, categoryId);
+        bookmarkService.remove(1, categoryId);
 
 
 

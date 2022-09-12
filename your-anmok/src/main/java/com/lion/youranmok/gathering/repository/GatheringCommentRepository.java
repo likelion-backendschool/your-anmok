@@ -1,6 +1,7 @@
 package com.lion.youranmok.gathering.repository;
 
 import com.lion.youranmok.gathering.dto.CommentDto;
+import com.lion.youranmok.gathering.dto.CommentMyPageDto;
 import com.lion.youranmok.gathering.dto.GatheringDetailDto;
 import com.lion.youranmok.gathering.entity.GatheringComment;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,4 +35,11 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "ur.nickname" +
             ") from GatheringComment as gc inner join User as u on u.id = gc.userId left join User as ur on gc.mentionId = ur.id where gc.replyTo = ?1")
     List<CommentDto> replyListByCommentId(int commentId);
+
+    @Query("select new com.lion.youranmok.gathering.dto.CommentMyPageDto (" +
+            "gc.commentText," +
+            "gc.createdAt," +
+            "gc.board.id" +
+            ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.userId = :userId order by gc.createdAt desc")
+    List<CommentMyPageDto> listByUserId(int userId);
 }
