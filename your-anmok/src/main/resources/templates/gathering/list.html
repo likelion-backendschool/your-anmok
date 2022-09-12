@@ -25,7 +25,7 @@
                 <select id="classification" name="classification" tabindex="-1" aria-hidden="true">
                     <option value="">분류</option>
                     <!-- 카테고리/주소/이름 -->
-                    <option value="category">카테고리</option>
+<!--                    <option value="category">카테고리</option>-->
                     <option value="address">주소</option>
                     <option value="name">이름</option>
                 </select>
@@ -48,11 +48,16 @@
 </section>
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    const arr=[];
+    let arr=[];
     function onClick(id) {
         var button = document.getElementById(id);
         button.classList.toggle('active');
-        arr.push(id);
+        var idx = arr.indexOf(id);
+        if(idx > -1) {
+            arr.splice(idx, 1);
+        } else {
+            arr.push(id);
+        }
     }
 
 
@@ -69,9 +74,11 @@
             },
             success: function (data) {
                 //console.log(data.resultData);
+                arr  = [];
                 if (data.result == true) {
 
                     alert("성공");
+
                 }
             }
         });

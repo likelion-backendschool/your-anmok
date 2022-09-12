@@ -2,6 +2,7 @@ package com.lion.youranmok.gathering.repository;
 
 import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.entity.GatheringListCriteria;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ import java.util.List;
 public interface GatheringRepository extends JpaRepository<GatheringBoard, Integer>, GatheringRepositoryCustom {
 
 
-    List<GatheringListDetailDto> listByCriteria();
+    List<GatheringListDetailDto> listByCriteria(GatheringListCriteria criteria);
 
     @Query("select new com.lion.youranmok.gathering.dto.GatheringDetailDto (" +
             "gb.title," +

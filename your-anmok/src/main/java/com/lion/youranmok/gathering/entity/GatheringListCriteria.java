@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class GatheringListCriteria {
-    private List<String> category;
+    private List<Integer> category;
     private String classification;
     private String searchKeyword;
 }
