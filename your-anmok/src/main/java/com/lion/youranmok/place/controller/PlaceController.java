@@ -1,11 +1,10 @@
 package com.lion.youranmok.place.controller;
 
 
-import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
-import com.lion.youranmok.place.service.AddPlaceService;
+import com.lion.youranmok.place.service.PlaceReviewService;
 import com.lion.youranmok.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -39,13 +38,13 @@ public class PlaceController {
         return "map/homeMap";
     }
 
-    private final AddPlaceService addPlaceService;
+    private final PlaceReviewService placeReviewService;
 
     @PostMapping("/addPlace")
     public String addPlace(String placeName, String address, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
-        addPlaceService.upload(place, rating, placeImgs);
+        placeReviewService.upload(place, rating, placeImgs);
 
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);

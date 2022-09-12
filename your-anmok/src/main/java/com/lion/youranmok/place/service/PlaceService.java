@@ -5,8 +5,8 @@ import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceReview;
-import com.lion.youranmok.place.repository.AddPlaceRepository;
 import com.lion.youranmok.place.repository.PlaceRepository;
+import com.lion.youranmok.place.repository.PlaceReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PlaceService {
     private final PlaceRepository placeRepository;
-    private final AddPlaceRepository addPlaceRepository;
+    private final PlaceReviewRepository placeReviewRepository;
 
     public Place getPlace(Integer id){
         Optional<Place> place = this.placeRepository.findById(id);
@@ -50,7 +50,7 @@ public class PlaceService {
     }
 
     public Integer getStarAvg(Integer id) {
-        List<PlaceReview> placeReviews = addPlaceRepository.getAllByPlaceId(id);
+        List<PlaceReview> placeReviews = placeReviewRepository.getAllByPlaceId(id);
         int starSum = 0;
         int reviewCnt = placeReviews.size();
 

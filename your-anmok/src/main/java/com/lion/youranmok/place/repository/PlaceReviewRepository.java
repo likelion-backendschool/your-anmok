@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AddPlaceRepository extends JpaRepository<PlaceReview, Long> {
+public interface PlaceReviewRepository extends JpaRepository<PlaceReview, Long> {
     List<PlaceReview> getAllByPlaceId(Integer id);
 
 

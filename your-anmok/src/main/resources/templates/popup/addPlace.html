@@ -26,6 +26,14 @@
             return;
         }
 
+        form.placeImg.value = form.placeImg.value.trim();
+
+        if ( form.placeImg.value.length == 0 ) {
+            alert("사진을 첨부해주세요.");
+            form.placeImg.focus();
+            return;
+        }
+
         form.submit();
     }
 
