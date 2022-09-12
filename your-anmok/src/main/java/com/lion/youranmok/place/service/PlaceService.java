@@ -53,12 +53,16 @@ public class PlaceService {
         List<PlaceReview> placeReviews = addPlaceRepository.getAllByPlaceId(id);
         int starSum = 0;
         int reviewCnt = placeReviews.size();
-        for(int i=0;i<reviewCnt;i++){
-            PlaceReview placeReview = placeReviews.get(i);
-            starSum += placeReview.getStar();
-        }
 
-        return Math.round(starSum/reviewCnt);
+        if (reviewCnt == 0) {
+            return 0;
+        } else {
+            for (int i = 0; i < reviewCnt; i++) {
+                PlaceReview placeReview = placeReviews.get(i);
+                starSum += placeReview.getStar();
+            }
+        }
+        return Math.round(starSum / reviewCnt);
     }
 
     public void setStar(Place place, Integer starAvg) {

@@ -57,7 +57,7 @@ class GatheringTest {
             Place place = new Place();
             place.setAddress("서울 관악구 관악로14길 70 효림빌딩 4층 %d".formatted(i));
             place.setName(placeNameList.get(i));
-            place.setRateCnt(30);
+            //place.setRateCnt(30);
             place.setStar(70);
             place.setLat(33.450701);
             place.setLon(126.570667);

@@ -44,9 +44,10 @@ public class PlaceController {
     public String addPlace(String placeName, String address, Integer rating, MultipartFile placeImg) {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
+        addPlaceService.upload(place, rating, placeImg);
+
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
-        addPlaceService.upload(place.getId(), rating, placeImg);
 
         return "redirect:/";
     }
