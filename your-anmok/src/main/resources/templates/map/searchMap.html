@@ -472,7 +472,8 @@
 
         // 아이템 내 button 추가
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
-        itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
+        //itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
+        itemStr += '<button type="button" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
         itemStr += '</div>'
 
         el.innerHTML = itemStr;
@@ -634,6 +635,17 @@
         </div>
     </div>
 </div>
+
+<!--장소 등록 팝업창 레이아웃 html-->
+<div id="addPlace_popup_layer">
+    <div id="popup_box2">
+        <!--팝업 컨텐츠 영역-->
+        <div>
+            <th:block th:replace="popup/addPlace"></th:block>
+        </div>
+    </div>
+</div>
+
 </body>
 <script>
 
