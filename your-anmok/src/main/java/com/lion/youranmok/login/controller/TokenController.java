@@ -7,6 +7,7 @@ import com.lion.youranmok.login.entity.Kakao_User;
 import com.lion.youranmok.login.model.*;
 import com.lion.youranmok.login.repository.KakaoUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -24,12 +27,18 @@ public class TokenController {
     @Autowired
     private KakaoUserRepository kakaoUserRepository;
 
+    @Value("${Kakao_Client}")
+    private String Kakao_Client;
+    @Value("${Kakao_Callback}")
+    private String Kakao_Callback;
 
     @GetMapping("/login")
     public String getList() {
+        Map<String, String> kakao_key = new HashMap<String,String>();
+        kakao_key.put("key1",Kakao_Client);
+        kakao_key.put("key2",Kakao_Callback);
         return "LoginForm";
         }
-
 
     @GetMapping("/auth/kakao/callback")
     public @ResponseBody String kakaoCallback(String code) throws JsonProcessingException {
@@ -42,8 +51,8 @@ public class TokenController {
         //httpBody 오브젝트 생성
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         params.add("grant_type","authorization_code");
-        params.add("client_id","84bb53ddc4e742b0c6aa6c06a6372dbc");
-        params.add("redirect_uri","http://localhost:8080/auth/kakao/callback");
+        params.add("client_id",Kakao_Client);
+        params.add("redirect_uri",Kakao_Callback);
         params.add("code",code);
 
         //httpHeader와 HttpBody를 하나의 오브젝트에 담기
@@ -109,6 +118,5 @@ public class TokenController {
 
         return "데이터 베이스 저장 성공";
         //return response2.getBody();
-
     }
 }
