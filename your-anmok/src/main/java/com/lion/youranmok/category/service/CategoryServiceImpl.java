@@ -113,6 +113,18 @@ public class CategoryServiceImpl implements CategoryService{
         return result;
     }
 
+    @Override
+    public Page<CategorySortingDto> getCategories(int page, String keyword) {
+
+        if (keyword != null) {
+            return findByTagNameContaining(page, keyword);
+        }
+        else {
+            return getListByPaging(page);
+        }
+
+    }
+
     private Page<CategorySortingDto> getCategorySortingDtos(Pageable pageable, List<CategorySortingDto> categorySortingDtos) {
         categorySortingDtos.stream().forEach(dto -> {
             Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
