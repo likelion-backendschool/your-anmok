@@ -1,6 +1,5 @@
 package com.lion.youranmok.category.controller;
 
-import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
@@ -36,19 +35,11 @@ public class CategoryController {
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
 
-        Page<CategorySortingDto> categories;
-
-        if (keyword != null) {
-            categories = categoryService.findByTagNameContaining(page, keyword);
-            model.addAttribute("keyword", keyword);
-        }
-        else {
-            categories = categoryService.getListByPaging(page);
-            System.out.println("categories.getContent() = " + categories.getContent());
-        }
+        Page<CategorySortingDto> categories = categoryService.getCategories(page, keyword);
 
         List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories();
 
+        model.addAttribute("keyword", keyword);
         model.addAttribute("recommendCategories", recommendCategories);
         model.addAttribute("categories", categories);
         model.addAttribute("gatheringList", gatheringPreviewList);
