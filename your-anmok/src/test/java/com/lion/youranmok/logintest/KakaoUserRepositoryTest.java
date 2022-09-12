@@ -10,16 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class KakaoUserRepositoryTest {
     @Autowired
     KakaoUserRepository kakaoUserRepository;
-
-    @BeforeEach
-    public void cleanup() {
-        kakaoUserRepository.deleteAll();
-    }
 
     @Test
     public void Datetime_Test() {
@@ -43,4 +39,11 @@ public class KakaoUserRepositoryTest {
         assertThat(kakaoUser.getCreated_at()).isAfter(created_at);
 
     }
+    /*
+    @Test
+    void testJpa(){
+        Kakao_User q = this.kakaoUserRepository.findByEmail("psh4619@naver.com");
+        assertEquals(2, q.getId());
+    }*/
+
 }

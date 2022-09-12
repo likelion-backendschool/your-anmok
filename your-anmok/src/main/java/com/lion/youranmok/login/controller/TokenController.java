@@ -24,6 +24,7 @@ public class TokenController {
     @Autowired
     private KakaoUserRepository kakaoUserRepository;
 
+
     @GetMapping("/login")
     public String getList() {
         return "LoginForm";
@@ -61,7 +62,7 @@ public class TokenController {
         OauthToken oauthToken = null;
         oauthToken = objectMapper.readValue(response.getBody(),OauthToken.class);
 
-        System.out.println("Kakao Access Token :" + oauthToken.getAccess_token());
+        //System.out.println("Kakao Access Token :" + oauthToken.getAccess_token());
         //Post 방식으로 key=value 데이터를 요청(카카오쪽으로)
         RestTemplate rt2 = new RestTemplate();
 
@@ -81,7 +82,7 @@ public class TokenController {
                 kakaoProfileRequest2,
                 String.class
         );
-        //System.out.println(response2.getBody());
+        
         ObjectMapper objectMapper2 = new ObjectMapper();
         KakaoProfile kakaoProfile = null;
         try{
@@ -91,20 +92,23 @@ public class TokenController {
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
+        String data = kakaoProfile.getKakao_account().getEmail();
 
-        //System.out.println("카카오 아이디(번호):"+kakaoProfile.getId());
-        //System.out.println("카카오 이메일:"+kakaoProfile.getKakao_account().getEmail());
-        //System.out.println("카카오 프로필:"+kakaoProfile.getKakao_account().getProfile().getProfile_image_url());
+        Kakao_User kakao_user = kakaoUserRepository.findByEmail(data);
 
-        //LocalDateTime created_at = LocalDateTime.of(2020,03,17,0,0,0);
+        if(kakao_user != null){
+            return "ExistEmail";
+        }
+        else{
+            kakaoUserRepository.save(Kakao_User.builder()
+                    .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
+                    .email(kakaoProfile.getKakao_account().getEmail())
+                    .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
+                    .build());
+        }
 
-        kakaoUserRepository.save(Kakao_User.builder()
-                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
-                .email(kakaoProfile.getKakao_account().getEmail())
-                .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
-                .build());
-
+        return "데이터 베이스 저장 성공";
         //return response2.getBody();
-        return "로그인 성공";
+
     }
 }

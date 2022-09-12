@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface KakaoUserRepository extends JpaRepository<Kakao_User, Integer> {
+    Kakao_User findByEmail(String email);
 
 }
