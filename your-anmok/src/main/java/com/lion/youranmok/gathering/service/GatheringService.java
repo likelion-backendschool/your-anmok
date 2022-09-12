@@ -49,4 +49,8 @@ public class GatheringService {
     public GatheringBoard findById(int id) {
         return gatheringRepository.findById(id).orElse(null);
     }
+
+    public List<GatheringListDetailDto> getDetailByUserId(int userId) {
+        return gatheringRepository.getDetailByUserId(userId);
+    }
 }

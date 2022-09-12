@@ -2,6 +2,7 @@ package com.lion.youranmok.gathering.service;
 
 import com.lion.youranmok.gathering.dto.CommentDto;
 import com.lion.youranmok.gathering.dto.CommentForm;
+import com.lion.youranmok.gathering.dto.CommentMyPageDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.entity.GatheringComment;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
@@ -66,4 +67,9 @@ public class GatheringCommentService {
     public void save(GatheringComment gatheringComment) {
         gatheringCommentRepository.save(gatheringComment);
     }
+
+    public List<CommentMyPageDto> listByUserId(int userId) {
+        return gatheringCommentRepository.listByUserId(userId);
+    }
+
 }
