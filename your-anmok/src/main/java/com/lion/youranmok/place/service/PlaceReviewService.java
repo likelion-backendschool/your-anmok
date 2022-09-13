@@ -28,7 +28,7 @@ public class PlaceReviewService {
                 place
         );
 
-        List<PlaceImage> placeImageList = fileHandler.parseFileInfo(files);
+        List<PlaceImage> placeImageList = fileHandler.parseFileInfo(placeReview, files);
 
         // 파일이 존재할 때에만 처리
         if(!placeImageList.isEmpty()) {

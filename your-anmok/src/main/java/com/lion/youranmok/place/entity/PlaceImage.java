@@ -17,6 +17,8 @@ public class PlaceImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private Integer placeId;
+
     @ManyToOne(
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
     )
@@ -30,7 +32,8 @@ public class PlaceImage {
 
     private Long fileSize;
 
-    public PlaceImage(String origFileName, String filePath, Long fileSize){
+    public PlaceImage(Integer placeId, String origFileName, String filePath, Long fileSize){
+        this.placeId = placeId;
         this.origFileName = origFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;

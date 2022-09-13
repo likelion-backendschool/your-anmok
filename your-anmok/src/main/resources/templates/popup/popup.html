@@ -24,9 +24,10 @@
         <div class="h-[210px] w-[70px] text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
         <!-- 사진 리스트 -->
         <div class="flex w-[896px] justify-between">
-            <div class="usr_img"></div>
-            <div class="usr_img"></div>
-            <div class="usr_img"></div>
+            <tr th:each="imageList : ${placeImageList}" th:if="${placeImageList != null}">
+                <div class="usr_img" th:src="${imageList.filePath}"></div>
+                <div class="usr_img" th:src="images/"></div>
+            </tr>
         </div>
         <!-- 우 버튼 -->
         <div class="h-[210px] w-[70px] text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
