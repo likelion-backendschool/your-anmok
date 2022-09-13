@@ -170,7 +170,7 @@
         마이로케이션버튼
     </button>
     <br>
-    <button id="my_location_button1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="ajaxTest()">ajax 테스트</button>
+<!--    <button id="my_location_button1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="ajaxTest()">ajax 테스트</button>-->
     <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
         <div class="option">
             <div>
@@ -222,25 +222,24 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-<!--<script th:inline="javascript">-->
-<!--    // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.-->
+<script th:inline="javascript">
+    // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.
 
-<!--    /*<![CDATA[*/-->
+    /*<![CDATA[*/
 
-<!--    let myPlaceList = [[${myPlaceList}]];-->
-<!--    console.log(myPlaceList);-->
+    let myPlaceList = [[${myPlaceList}]];
+    console.log(myPlaceList);
 
-<!--    for (let i=0;i<myPlaceList.length;i++){-->
-<!--        console.log(myPlaceList[i].name);-->
-<!--        console.log(myPlaceList[i].address);-->
-<!--    }-->
+    for (let i=0;i<myPlaceList.length;i++){
+        console.log(myPlaceList[i].name);
+        console.log(myPlaceList[i].address);
+    }
 
-<!--    /*]]>*/-->
+    /*]]>*/
 
-<!--</script>-->
+</script>
 
 <script>
-    // th:inline 값이 그냥 javascript로 들어오는지 확인하기
     // console.log("잘 넘어오는지확인해보기 : "+myPlaceList[1].name);
     let container = document.getElementById("map");
     let options = {
@@ -285,39 +284,40 @@
     // 주소 - 좌표 변환 객체를 생성한다.
     let geocoder = new kakao.maps.services.Geocoder();
 
-    // // 주소로 좌표를 검색한다.
-    // for (let i =0;i<myPlaceList.length;i++) {
-    //
-    //     geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
-    //         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-    //
-    //         // 결과값으로 받은 위치를 마커로 표시
-    //         let marker = new kakao.maps.Marker({
-    //             map: map,
-    //             position: coords
-    //         });
-    //
-    //
-    //
-    //
-    //         let infowindow = new kakao.maps.InfoWindow({
-    //             content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
-    //         });
-    //
-    //
-    //
-    //         infowindow.open(map, marker);
-    //
-    //         kakao.maps.event.addEventListener(marker, 'mouseout', function () {
-    //             // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
-    //             infowindow.close();
-    //
-    //         });
-    //
-    //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
-    //
-    //     })
-    // }
+    // 주소로 좌표를 검색한다.
+    for (let i =0;i<myPlaceList.length;i++) {
+
+        geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
+            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시
+            let marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+
+
+
+            let infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
+            });
+
+
+
+            infowindow.open(map, marker);
+
+            kakao.maps.event.addEventListener(marker, 'mouseout', function () {
+                // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
+                infowindow.close();
+
+            });
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
+
+        })
+    }
+
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
             pos.coords.latitude,
