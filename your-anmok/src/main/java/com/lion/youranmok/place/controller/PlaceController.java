@@ -1,16 +1,19 @@
 package com.lion.youranmok.place.controller;
 
 
-import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
+import com.lion.youranmok.place.service.PlaceReviewService;
 import com.lion.youranmok.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.List;
@@ -33,6 +36,24 @@ public class PlaceController {
         model.addAttribute("gatheringList", placeGatheringDtos);
 
         return "map/homeMap";
+    }
+
+    private final PlaceReviewService placeReviewService;
+
+    @PostMapping("/addPlace")
+    public String addPlace(String placeName, String address, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
+        Place place = placeService.getPlaceByNameAndAddress(placeName, address);
+
+        if (place==null){
+            placeService.savePlace(placeName, address, rating, placeImgs);
+            return "map/homeMap";
+        }
+        placeReviewService.upload(place, rating, placeImgs);
+
+        Integer starAvg = placeService.getStarAvg(place.getId());
+        placeService.setStar(place, starAvg);
+
+        return "redirect:/";
     }
 
 }
