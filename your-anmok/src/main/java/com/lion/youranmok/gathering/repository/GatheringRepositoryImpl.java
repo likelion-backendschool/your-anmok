@@ -24,7 +24,7 @@ public class GatheringRepositoryImpl implements GatheringRepositoryCustom {
                 "gb.date, " +
                 "gb.totalCnt, " +
                 "gb.gatherCnt"+
-                ") from GatheringBoard gb inner join Place as p on gb.placeId = p.id";
+                ") from GatheringBoard gb inner join Place as p on gb.place.id = p.id";
 
         StringBuilder countBuilderWhere = new StringBuilder();
         StringBuilder objectBuilderWhere = new StringBuilder();

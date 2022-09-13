@@ -21,4 +21,7 @@ public class Map {
     @Column
     private String address;
 
+    @Column
+    private int categoryId;
+
 }

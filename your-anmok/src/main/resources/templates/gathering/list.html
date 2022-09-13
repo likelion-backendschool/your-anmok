@@ -12,7 +12,7 @@
     <div class="gathering-title">
         <h1>같이 갈사람🤚🏻</h1>
     </div>
-    <button class="write-gather"><a href="#">모집하기</a></button>
+    <button class="write-gather"><a th:href="@{/gathering/create}">모집하기</a></button>
     <div class="gather-category">
         <div th:each="category,index:${categoryList}">
             <button type="button" class="btn btn-outline-info" th:text="${category.tagName}"></button>

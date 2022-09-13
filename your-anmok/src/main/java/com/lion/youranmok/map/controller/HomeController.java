@@ -35,8 +35,8 @@ public class HomeController {
         return "map/homeMap";
     }
 
-    @GetMapping("/searchMap")
-    public String searchMap(){
-        return "map/searchMap";
-    }
+//    @GetMapping("/searchMap")
+//    public String searchMap(){
+//        return "map/searchMap";
+//    }
 }

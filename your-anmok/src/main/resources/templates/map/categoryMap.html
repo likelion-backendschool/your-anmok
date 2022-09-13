@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>당신의 안목 검색페이지</title>
+    <title>당신의 안목 메인페이지</title>
 
     <style>
         /*.map_wrap {position:relative;width:100%;height:500px;}*/
@@ -148,33 +148,6 @@
         #search_wrap .option{text-align: center;}
         #search_wrap .option p {margin:10px 0;}
         #search_wrap .option button {margin-left:5px;}
-        #placesList li {list-style: none;}
-        #placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-        #placesList .item span {display: block;margin-top:4px;}
-        #placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-        #placesList .item .info{padding:10px 0 10px 55px;}
-        #placesList .info .gray {color:#8a8a8a;}
-        #placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-        #placesList .info .tel {color:#009900;}
-        #placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-        #placesList .item .marker_1 {background-position: 0 -10px;}
-        #placesList .item .marker_2 {background-position: 0 -56px;}
-        #placesList .item .marker_3 {background-position: 0 -102px}
-        #placesList .item .marker_4 {background-position: 0 -148px;}
-        #placesList .item .marker_5 {background-position: 0 -194px;}
-        #placesList .item .marker_6 {background-position: 0 -240px;}
-        #placesList .item .marker_7 {background-position: 0 -286px;}
-        #placesList .item .marker_8 {background-position: 0 -332px;}
-        #placesList .item .marker_9 {background-position: 0 -378px;}
-        #placesList .item .marker_10 {background-position: 0 -423px;}
-        #placesList .item .marker_11 {background-position: 0 -470px;}
-        #placesList .item .marker_12 {background-position: 0 -516px;}
-        #placesList .item .marker_13 {background-position: 0 -562px;}
-        #placesList .item .marker_14 {background-position: 0 -608px;}
-        #placesList .item .marker_15 {background-position: 0 -654px;}
-        #pagination {margin:10px auto;text-align: center;}
-        #pagination a {display:inline-block;margin-right:10px;}
-        #pagination .on {font-weight: bold; cursor: default;color:#777;}
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
@@ -204,11 +177,15 @@
 
     </div>
 
+
+    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
+        마이로케이션버튼
+    </button>
     <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" th:text="${placeKeyword}" th:value="${placeKeyword}" id="keyword" size="15" />
+                    키워드 : <input type="text" value="" id="keyword" size="15" />
                     <button type="submit">검색하기</button>
                 </form>
             </div>
@@ -255,6 +232,23 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script th:inline="javascript">
+    // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.
+
+    /*<![CDATA[*/
+
+    let categoryPlaceList = [[${categoryPlaceList}]];
+    console.log(categoryPlaceList);
+
+    for (let i=0;i<categoryPlaceList.length;i++){
+        console.log(categoryPlaceList[i].name);
+        console.log(categoryPlaceList[i].address);
+    }
+
+    /*]]>*/
+
+</script>
 
 <script>
     // th:inline 값이 그냥 javascript로 들어오는지 확인하기
@@ -322,42 +316,42 @@
         });
     });
 
-    // // 주소 - 좌표 변환 객체를 생성한다.
-    // let geocoder = new kakao.maps.services.Geocoder();
-    //
-    // // 주소로 좌표를 검색한다.
-    // for (let i =0;i<myPlaceList.length;i++) {
-    //
-    //     geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
-    //         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-    //
-    //         // 결과값으로 받은 위치를 마커로 표시
-    //         let marker = new kakao.maps.Marker({
-    //             map: map,
-    //             position: coords
-    //         });
-    //
-    //
-    //
-    //
-    //         let infowindow = new kakao.maps.InfoWindow({
-    //             content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
-    //         });
-    //
-    //
-    //
-    //         infowindow.open(map, marker);
-    //
-    //         kakao.maps.event.addEventListener(marker, 'mouseout', function () {
-    //             // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
-    //             infowindow.close();
-    //
-    //         });
-    //
-    //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
-    //
-    //     })
-    // }
+    // 주소 - 좌표 변환 객체를 생성한다.
+    let geocoder = new kakao.maps.services.Geocoder();
+
+    // 주소로 좌표를 검색한다.
+    for (let i =0;i<categoryPlaceList.length;i++) {
+
+        geocoder.addressSearch(categoryPlaceList[i].address, function (result, status) {
+            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+            // 결과값으로 받은 위치를 마커로 표시
+            let marker = new kakao.maps.Marker({
+                map: map,
+                position: coords
+            });
+
+
+
+
+            let infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + categoryPlaceList[i].name + '</div>'
+            });
+
+
+
+            infowindow.open(map, marker);
+
+            kakao.maps.event.addEventListener(marker, 'mouseout', function () {
+                // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
+                infowindow.close();
+
+            });
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
+
+        })
+    }
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
             pos.coords.latitude,
@@ -419,15 +413,7 @@
         //     // 잘 작동중
         // }
 
-        let sw = new kakao.maps.LatLng(37.41847533960485,126.75578831035362);
-        let ne = new kakao.maps.LatLng(37.70625487247741,127.2251487382762);
-        let bounds = new kakao.maps.LatLngBounds(sw,ne);
-
-        ps.keywordSearch( keyword, placesSearchCB,{
-            size:15,
-            location: new kakao.maps.LatLng(37.550929, 126.990940),
-            bounds: bounds,
-        }); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
+        ps.keywordSearch( keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
         console.log("ps.keywordSearch 작동중")
     }
 
@@ -472,7 +458,7 @@
 
         // 아이템 내 button 추가
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
-        itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
+        itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/"'+ encodeURI(places.place_name) +'"/"'+encodeURI(places.address_name)+'">장소 등록</a>'
         itemStr += '</div>'
 
         el.innerHTML = itemStr;
