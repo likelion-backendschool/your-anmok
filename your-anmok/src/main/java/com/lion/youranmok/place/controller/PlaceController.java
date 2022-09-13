@@ -41,11 +41,11 @@ public class PlaceController {
     private final PlaceReviewService placeReviewService;
 
     @PostMapping("/addPlace")
-    public String addPlace(String placeName, String address, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
+    public String addPlace(String placeName, String address, Double lat, Double lon, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
         if (place==null){
-            placeService.savePlace(placeName, address, rating, placeImgs);
+            placeService.savePlace(placeName, address, lat, lon, rating, placeImgs);
             return "map/homeMap";
         }
         placeReviewService.upload(place, rating, placeImgs);
@@ -53,7 +53,7 @@ public class PlaceController {
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
 
-        return "redirect:/";
+        return "map/homeMap";
     }
 
 }

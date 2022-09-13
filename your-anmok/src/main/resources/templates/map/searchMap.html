@@ -399,18 +399,39 @@
 
     let markers = [];
 
-    function selectPopUpPlace(name,address){
+    function selectPopUpPlace(places,name,address){
         // $("#addPlace_popup_layer #place-name").text(name);
         // $("#addPlace_popup_layer #place-address").text(address);
+        console.log("id값은"+$(places).data('id'));
+        console.log("lat값은 : "+$(places).data('lat'));
+        console.log("lon값은 : "+$(places).data('lon'));
 
 
         $('input[id=place-name]').attr('value',name);
         $('input[id=place-address]').attr('value',address);
+        $('input[id=place-lat]').attr('value',$(places).data('lat'));
+        $('input[id=place-lon]').attr('value',$(places).data('lon'));
+
 
         // $('#popup_box2').modal('show');
         console.log("팝업 버튼 클릭!" + name + address);
     }
 
+    // function selectPopUpPlace1(places,){
+    //     // $("#addPlace_popup_layer #place-name").text(name);
+    //     // $("#addPlace_popup_layer #place-address").text(address);
+    //
+    //     console.log(places.place_name);
+    //     console.log(places.address_name);
+    //
+    //     $('input[id=place-name]').attr('value',places.place_name);
+    //     $('input[id=place-address]').attr('value',places.address_name);
+    //     $('input[id=place-lat]').attr('value',places.y);
+    //     $('input[id=place-lon]').attr('value',places.x);
+    //
+    //     // $('#popup_box2').modal('show');
+    //     console.log("팝업 버튼 클릭!" + name + address);
+    // }
     // 키워드로 장소를 검색
     searchPlaces();
 
@@ -485,7 +506,8 @@
         // 아이템 내 button 추가
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
         //itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
-        itemStr += '    <button onclick="selectPopUpPlace(\''+ places.place_name + '\',\'' + places.address_name + '\');" id="placeAddButton" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
+        itemStr += '    <button onclick="selectPopUpPlace(this,\''+ places.place_name + '\',\'' + places.address_name + '\');" data-id="'+ places.id +'" data-lat="'+places.y+'" data-lon="'+places.x+'" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
+        // itemStr += '    <button onclick="selectPopUpPlace1(this);" id="placeAddButton1" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업1</button>'
         itemStr += '</div>'
 
         el.innerHTML = itemStr;

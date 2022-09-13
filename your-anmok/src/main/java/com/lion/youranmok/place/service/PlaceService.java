@@ -71,10 +71,12 @@ public class PlaceService {
         placeRepository.save(place);
     }
 
-    public void savePlace(String placeName, String address, Integer rating, List<MultipartFile> placeImgs) {
+    public void savePlace(String placeName, String address,Double lat, Double lon, Integer rating, List<MultipartFile> placeImgs) {
         Place place = new Place();
         place.setName(placeName);
         place.setAddress(address);
+        place.setLat(lat);
+        place.setLon(lon);
         place.setStar(rating);
         placeRepository.save(place);
     }
