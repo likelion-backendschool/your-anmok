@@ -32,6 +32,7 @@ public class Kakao_User extends BaseTimeEntity {
         this.profile_picture=profile_picture;
         this.created_at = created_at;
     }
+
     @Override
     public String toString() {
         return "Kakao_User{" +

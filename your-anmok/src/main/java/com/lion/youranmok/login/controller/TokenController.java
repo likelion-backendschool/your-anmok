@@ -3,6 +3,7 @@ package com.lion.youranmok.login.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lion.youranmok.login.entity.BaseTimeEntity;
 import com.lion.youranmok.login.entity.Kakao_User;
 import com.lion.youranmok.login.model.*;
 import com.lion.youranmok.login.repository.KakaoUserRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,7 @@ public class TokenController {
 
     @GetMapping("/auth/kakao/callback")
     public String kakaoCallback(String code) throws JsonProcessingException {
+        BaseTimeEntity baseTimeEntity = new BaseTimeEntity();
         //Post 방식으로 key=value 데이터를 요청(카카오쪽으로)
         RestTemplate rt = new RestTemplate();
         //httpHeaders 오브젝트 생성
@@ -112,9 +115,9 @@ public class TokenController {
                     .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
                     .email(kakaoProfile.getKakao_account().getEmail())
                     .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
+                    .created_at(LocalDateTime.now())
                     .build());
             return "map/homeMap";
         }
-
     }
 }
