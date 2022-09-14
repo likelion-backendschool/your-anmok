@@ -125,11 +125,19 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void addCategory(CategoryDto categoryDto) {
+    public int addCategory(CategoryDto categoryDto) {
 
         categoryDto.setTagName("#" + categoryDto.getTagName());
 
-        categoryRepository.save(dtoToEntity(categoryDto));
+        Optional<Category> result = categoryRepository.findByTagName(categoryDto.getTagName());
+
+        if (result.isPresent()) {
+            return 0;
+        }
+
+        Category category = categoryRepository.save(dtoToEntity(categoryDto));
+
+        return category.getId();
 
     }
 
