@@ -15,8 +15,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PlaceReviewService {
-    @Value("${custom.genFileDirPath}")
-    private String genFileDirPath;
 
     private final FileHandler fileHandler;
     private final PlaceImageRepository placeImageRepository;
