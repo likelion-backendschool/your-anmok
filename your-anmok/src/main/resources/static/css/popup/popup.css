@@ -52,6 +52,12 @@
     height:210px;
 }
 
+.slidecontainer{
+    width:895px;
+    height:210px;
+    position: relative;
+}
+
 /*사진 리스트 좌우 이동 버튼*/
 .next_btn_img, .prev_btn_img{
     position:absolute;

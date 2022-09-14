@@ -26,6 +26,7 @@ import java.util.List;
 public class PlaceController {
     private final PlaceService placeService;
     private final PlaceImageService placeImageService;
+    private final PlaceReviewService placeReviewService;
 
     @RequestMapping("/place/{id}")
     public String placeDetail(Model model, @PathVariable(value="id")Integer id){
@@ -45,8 +46,6 @@ public class PlaceController {
 
         return "map/homeMap";
     }
-
-    private final PlaceReviewService placeReviewService;
 
     @PostMapping("/addPlace")
     public String addPlace(String placeName, String address, Double lat, Double lon, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {

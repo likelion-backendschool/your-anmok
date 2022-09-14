@@ -149,6 +149,9 @@
         #search_wrap .option p {margin:10px 0;}
         #search_wrap .option button {margin-left:5px;}
     </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -157,6 +160,7 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
+
 </head>
 
 <body>
@@ -220,7 +224,7 @@
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 
 <script th:inline="javascript">
     // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.
@@ -334,10 +338,32 @@
         console.log("현재위치 버튼 클릭됨");
     }
 
+    function slider(){
+        $('.bxslider').bxSlider({
+            mode:"horizontal",    // 가로 수평으로 슬라이드된다.
+            speed:500,        // 이동 속도를 설정한다.
+            pager:false,    // 현재 위치 페이지 표시 여부를 설정한다.
+            moveSlides:1,    // 슬라이드 이동 시 개수를 설정한다.
+            slideWidth:280,    // 슬라이드 너비를 설정한다.
+            minSlides:4,    // 최소 노출 개수를 설정한다.
+            maxSlides:4,    // 최대 노출 개수를 설정한다.
+            slideMargin:28, // 슬라이드 간의 간격을 설정한다.
+            auto:true,         // 자동으로 흐를지 여부를 설정한다.
+            autoHover:true, // 마우스오버 시 정지할지를 설정한다.
+            controls:true    // 이전 버튼, 다음 버튼 노출 여부를 설정한다.
+        });
+    };
+
     kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function (){
         document.getElementById("detail_popup_layer").style.display='block'
+        slider();
         console.log("스타벅스 클릭");
     });
+
+    kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function (){
+
+    });
+
 
     function closePopup(){
         document.getElementById("detail_popup_layer").style.display="none"
