@@ -279,39 +279,39 @@
     // 주소 - 좌표 변환 객체를 생성한다.
     let geocoder = new kakao.maps.services.Geocoder();
 
-    // 주소로 좌표를 검색한다.
-    for (let i =0;i<myPlaceList.length;i++) {
-
-        geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
-            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시
-            let marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-
-
-
-            let infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
-            });
-
-
-
-            infowindow.open(map, marker);
-
-            kakao.maps.event.addEventListener(marker, 'mouseout', function () {
-                // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
-                infowindow.close();
-
-            });
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
-
-        })
-    }
+    // // 주소로 좌표를 검색한다.
+    // for (let i =0;i<myPlaceList.length;i++) {
+    //
+    //     geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
+    //         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    //
+    //         // 결과값으로 받은 위치를 마커로 표시
+    //         let marker = new kakao.maps.Marker({
+    //             map: map,
+    //             position: coords
+    //         });
+    //
+    //
+    //
+    //
+    //         let infowindow = new kakao.maps.InfoWindow({
+    //             content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
+    //         });
+    //
+    //
+    //
+    //         infowindow.open(map, marker);
+    //
+    //         kakao.maps.event.addEventListener(marker, 'mouseout', function () {
+    //             // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
+    //             infowindow.close();
+    //
+    //         });
+    //
+    //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
+    //
+    //     })
+    // }
 
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
