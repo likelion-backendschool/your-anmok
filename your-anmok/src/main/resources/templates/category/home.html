@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <head>
@@ -15,10 +16,16 @@
     <div id="header-button" class="flex justify-end mr-[25px] mt-[25px]">
       <!--TODO 로그인되어 있을 때 아닐 때 수정 필요 -->
       <!--TODO 헤더로 따로 분리 필요 -->
-      <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/#">로그인</a></div>
-      <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/#">회원가입</a></div>
-      <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a th:href="@{/mypage}">마이페이지</a></div>
-      <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/logout">로그아웃</a></div>
+      <div sec:authorize="!isAuthenticated()">
+        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/login">로그인</a></div>
+        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/#">회원가입</a></div>
+      </div>
+
+      <div sec:authorize="isAuthenticated()">
+        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a th:href="@{/mypage}">마이페이지</a></div>
+        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/logout">로그아웃</a></div>
+      </div>
+
     </div>
 
     <!-- 웹 페이지 이름 -->

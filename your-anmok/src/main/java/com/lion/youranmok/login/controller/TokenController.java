@@ -3,12 +3,20 @@ package com.lion.youranmok.login.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lion.youranmok.login.dto.KakaoUserDto;
 import com.lion.youranmok.login.entity.BaseTimeEntity;
 import com.lion.youranmok.login.entity.Kakao_User;
 import com.lion.youranmok.login.model.*;
 import com.lion.youranmok.login.repository.KakaoUserRepository;
+import com.lion.youranmok.login.service.KakaoSerivce;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,20 +29,27 @@ import org.springframework.http.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class TokenController {
-    @Autowired
-    private KakaoUserRepository kakaoUserRepository;
+
+    private final KakaoSerivce kakaoSerivce;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final AuthenticationManager authenticationManager;
+
 
     @Value("${Kakao_Client}")
     private String Kakao_Client;
     @Value("${Kakao_Callback}")
     private String Kakao_Callback;
 
-    @GetMapping("/login")
+    @GetMapping("/auth/login")
     public String getList() {
         Map<String, String> kakao_key = new HashMap<String,String>();
         kakao_key.put("key1",Kakao_Client);
@@ -104,10 +119,33 @@ public class TokenController {
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
-        String data = kakaoProfile.getKakao_account().getEmail();
-        Kakao_User kakao_user = kakaoUserRepository.findByEmail(data);
 
-        if(kakao_user != null){
+        String data = kakaoProfile.getKakao_account().getEmail();
+        Kakao_User kakao_user = kakaoSerivce.findByEmail(data);
+
+        String rawPassword = bCryptPasswordEncoder.encode(kakaoProfile.getId() + "");
+
+        UUID uuid = UUID.randomUUID();
+
+        KakaoUserDto kakaoUserDto = KakaoUserDto.builder()
+                .username(kakaoProfile.getKakao_account().getEmail())
+                .password(rawPassword)
+                .email(kakaoProfile.getKakao_account().getEmail())
+                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname() + uuid)
+                .profilePicture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
+                .build();
+
+
+
+        if (kakao_user == null) {
+            kakaoSerivce.save(kakaoUserDto);
+        }
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUserDto.getUsername(), kakaoProfile.getId() + ""));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/";
+        /*if(kakao_user != null){
             return "map/homeMap";
         }
         else{
@@ -118,6 +156,6 @@ public class TokenController {
                     .created_at(LocalDateTime.now())
                     .build());
             return "map/homeMap";
-        }
+        }*/
     }
 }

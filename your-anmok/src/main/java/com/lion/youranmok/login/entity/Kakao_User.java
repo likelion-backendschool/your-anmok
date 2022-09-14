@@ -19,10 +19,27 @@ public class Kakao_User extends BaseTimeEntity {
     private String nickname;
 
     @Column(length = 200, nullable = false)
+
+    private String username;
+
+    @Column(length = 200, nullable = false)
+    private String password;
+
+    @Column(length = 200, nullable = false)
     private String email;
 
     @Column(length = 500, nullable = false)
     private String profile_picture;
+
+    @Builder
+    public Kakao_User(Integer id, String nickname, String username, String password, String email, String profile_picture) {
+        this.id = id;
+        this.nickname = nickname;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.profile_picture = profile_picture;
+    }
 
     @Builder
     public Kakao_User(Integer id, String nickname, String email, String profile_picture, LocalDateTime created_at){
