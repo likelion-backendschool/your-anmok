@@ -20,6 +20,7 @@ public interface CategoryService {
 
     Page<CategorySortingDto> getCategories(int page, String keyword);
 
+    void addCategory(CategoryDto categoryDto);
 
     default Category dtoToEntity(CategoryDto dto) {
 

@@ -1,29 +1,32 @@
 
 let index = {
     init: function () {
-        $(".remove-btn").on("click", () => {
-            this.remove();
+        $(".add-category-btn").on("click", () => {
+            this.add();
         });
     },
 
-    remove: function () {
+    add: function () {
 
-        let categoryId = $(".category_id").val()
+        var data = {
+            tagName: $(".tag-name").val()
+        };
 
         $.ajax({
-            url: "/bookmark/removeByMypage",
+            url: "/category/add",
             type: "POST",
-            data: categoryId,
+            data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
             success: function (result) {
-                alert("해당 카테고리가 즐겨찾기 해제되었습니다.");
+                alert("\" " + data.tagName + " \" 카테고리가 추가되었습니다.");
 
-                location.href = "/mypage";
+                location.href = "/category/home";
             },
-            error: function (error) {
-                console.log(error);
-                alert("해당 요청이 바르게 수행되지 않았습니다.");
+            error : function (error) {
+
+                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
+                alert("카테고리가 정상적으로 추가되지 않았습니다. 다시 시도해주세요.");
             }
         })
 

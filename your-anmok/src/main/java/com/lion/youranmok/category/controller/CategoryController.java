@@ -1,17 +1,19 @@
 package com.lion.youranmok.category.controller;
 
+import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.dto.CategorySortingDto;
+import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.gathering.service.GatheringService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -48,4 +50,13 @@ public class CategoryController {
 
     }
 
+    // TODO category 등록 후 맨 마지막 페이지로 이동
+    @PostMapping("/add")
+    public ResponseEntity addCategory(@RequestBody CategoryDto categoryDto) {
+
+        categoryService.addCategory(categoryDto);
+
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
 }

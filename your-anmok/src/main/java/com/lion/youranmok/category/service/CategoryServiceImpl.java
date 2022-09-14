@@ -27,13 +27,12 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<CategoryDto> findAll() {
 
-        List<CategoryDto> categories = new ArrayList<>();
+        List<CategoryDto> categories;
 
         categories = categoryRepository.findAll().stream().map(i -> {
             CategoryDto dto = entityToDto(i);
             return dto;
         }).collect(Collectors.toList());
-
 
         return categories;
     }
@@ -77,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService{
                     .id(category.getId())
                     .tagName(category.getTagName()).build();
 
-            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
+            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(1, dto.getId());
 
             if (result.isPresent()) {
                 dto.setBookmark(true);
@@ -122,6 +121,15 @@ public class CategoryServiceImpl implements CategoryService{
         else {
             return getListByPaging(page);
         }
+
+    }
+
+    @Override
+    public void addCategory(CategoryDto categoryDto) {
+
+        categoryDto.setTagName("#" + categoryDto.getTagName());
+
+        categoryRepository.save(dtoToEntity(categoryDto));
 
     }
 
