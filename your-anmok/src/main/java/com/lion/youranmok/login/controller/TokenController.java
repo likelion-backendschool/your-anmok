@@ -49,7 +49,7 @@ public class TokenController {
     @Value("${Kakao_Callback}")
     private String Kakao_Callback;
 
-    @GetMapping("/login")
+    @GetMapping("/auth/login")
     public String getList() {
         Map<String, String> kakao_key = new HashMap<String,String>();
         kakao_key.put("key1",Kakao_Client);

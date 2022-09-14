@@ -31,10 +31,13 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**")
+                .antMatchers("/", "/auth/**", "/css/**", "/js/**", "/image/**", "/images/**")
                 .permitAll()
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/auth/login");
 
         return http.build();
 
