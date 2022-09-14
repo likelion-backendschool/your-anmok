@@ -12,6 +12,19 @@ let index = {
             tagName: $(".tag-name").val()
         };
 
+        let numberOfElements = $(".number-of-elements").val() % 9;
+        let lastPage;
+
+        if (numberOfElements == 0) {
+            lastPage = $(".last-page").val();
+            alert("1");
+        } else {
+            lastPage = $(".last-page").val() - 1;
+            alert("2");
+        }
+
+        alert(lastPage);
+
         $.ajax({
             url: "/category/add",
             type: "POST",
@@ -21,7 +34,7 @@ let index = {
 
                 alert("\" " + data.tagName + " \" 카테고리가 추가되었습니다.");
 
-                location.href = "/category/home";
+                location.href = "/category/home?page=" + lastPage + "&keyword=";
             },
             error : function (error) {
 

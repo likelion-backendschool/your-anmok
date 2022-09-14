@@ -44,6 +44,8 @@
 
     <form>
       <input type="text" placeholder="카테고리명을 입력하세요" name="tagName" class="tag-name input input-bordered bg-[#e8f8f5] border-[#e8f8f5] w-[200px] h-[50px] rounded-[15px]"/>
+      <input type="hidden" class="last-page" th:value="${categories.totalPages}">
+      <input type="hidden" class="number-of-elements" th:value="${categories.totalElements}">
       <button type="button" class="add-category-btn btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
         등록
       </button>
