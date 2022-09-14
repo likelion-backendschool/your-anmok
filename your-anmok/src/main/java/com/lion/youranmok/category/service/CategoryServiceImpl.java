@@ -37,8 +37,6 @@ public class CategoryServiceImpl implements CategoryService{
         return categories;
     }
 
-    // TODO 북마크 체크하는 함수 추출 리팩토링 필요
-
     @Override
     public Page<CategorySortingDto> findByTagNameContaining(int page, String keyword) {
 
