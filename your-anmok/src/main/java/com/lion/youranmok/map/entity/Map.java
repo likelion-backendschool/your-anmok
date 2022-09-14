@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Map {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column
     private String name;
@@ -22,6 +22,7 @@ public class Map {
     private String address;
 
     @Column
-    private int categoryId;
+    private Integer categoryId;
+
 
 }

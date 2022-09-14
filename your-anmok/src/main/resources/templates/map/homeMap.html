@@ -157,18 +157,6 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
-    <style>
-        #popup_layer {position:fixed;top:0;left:0;z-index: 10000; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.4);display:none;}
-        /*팝업 박스*/
-        #popup_box{border-radius:10px;position: relative;top:50%;left:50%; width:1120px;height:630px;transform:translate(-50%, -50%);z-index:1002;box-sizing:border-box;background:#fff;box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);-moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);}
-        /*팝업 닫기 버튼*/
-        #close{width:20px;height:20px;position:absolute;top:50%;transform:translate(0, -50%);right:35px;}
-        .usr_img{width:280px;height:210px;background-color:#afafaf}
-        .next_btn_img, .prev_btn_img{position:absolute;vertical-align:middle;width:30px;height:30px;top:50%;left:50%;transform:translate(-50%, -50%);}
-        .inner_contents_box{width:445px;height:117px;background-color:#e8f8f5;}
-        #place_info{position:absolute;top:50%;transform:translate(0, -50%);margin-left: 56px;}
-    </style>
-
 </head>
 
 <body>
@@ -203,7 +191,12 @@
 
         <div class="left_sub_menu">
             <div class="sub_menu">
-                <h2>메뉴</h2>
+                <h2>메뉴 <div style="float:right;">
+                    <form action="/auth/loginProc" method="post">
+                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
+                </form>
+                </div></h2>
+
                 <ul class="big_menu">
                     <li><a href="/category/home">카테고리</a></li>
 <!--                    <ul class="small_menu">-->
@@ -234,22 +227,22 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-<script th:inline="javascript">
-    // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.
+<!--<script th:inline="javascript">-->
+<!--    // 컨트롤러에 있는 값을 th:inline="javascript"를 통해 자바스크립트로 가져오기 밑에 있는 주석은 꼭 달아줘야 한다.-->
 
-    /*<![CDATA[*/
+<!--    /*<![CDATA[*/-->
 
-    let myPlaceList = [[${myPlaceList}]];
-    console.log(myPlaceList);
+<!--    let myPlaceList = [[${myPlaceList}]];-->
+<!--    console.log(myPlaceList);-->
 
-    for (let i=0;i<myPlaceList.length;i++){
-        console.log(myPlaceList[i].name);
-        console.log(myPlaceList[i].address);
-    }
+<!--    for (let i=0;i<myPlaceList.length;i++){-->
+<!--        console.log(myPlaceList[i].name);-->
+<!--        console.log(myPlaceList[i].address);-->
+<!--    }-->
 
-    /*]]>*/
+<!--    /*]]>*/-->
 
-</script>
+<!--</script>-->
 
 <script>
     // th:inline 값이 그냥 javascript로 들어오는지 확인하기
@@ -297,39 +290,40 @@
     // 주소 - 좌표 변환 객체를 생성한다.
     let geocoder = new kakao.maps.services.Geocoder();
 
-    // 주소로 좌표를 검색한다.
-    for (let i =0;i<myPlaceList.length;i++) {
+    // // 주소로 좌표를 검색한다.
+    // for (let i =0;i<myPlaceList.length;i++) {
+    //
+    //     geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
+    //         let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    //
+    //         // 결과값으로 받은 위치를 마커로 표시
+    //         let marker = new kakao.maps.Marker({
+    //             map: map,
+    //             position: coords
+    //         });
+    //
+    //
+    //
+    //
+    //         let infowindow = new kakao.maps.InfoWindow({
+    //             content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
+    //         });
+    //
+    //
+    //
+    //         infowindow.open(map, marker);
+    //
+    //         kakao.maps.event.addEventListener(marker, 'mouseout', function () {
+    //             // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
+    //             infowindow.close();
+    //
+    //         });
+    //
+    //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
+    //
+    //     })
+    // }
 
-        geocoder.addressSearch(myPlaceList[i].address, function (result, status) {
-            let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-            // 결과값으로 받은 위치를 마커로 표시
-            let marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
-            });
-
-
-
-
-            let infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + myPlaceList[i].name + '</div>'
-            });
-
-
-
-            infowindow.open(map, marker);
-
-            kakao.maps.event.addEventListener(marker, 'mouseout', function () {
-                // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
-                infowindow.close();
-
-            });
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
-
-        })
-    }
     function locationLoadSuccess(pos) {
         let currentPos = new kakao.maps.LatLng(
             pos.coords.latitude,
@@ -352,12 +346,12 @@
     }
 
     kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function (){
-        document.getElementById("popup_layer").style.display='block'
+        document.getElementById("detail_popup_layer").style.display='block'
         console.log("스타벅스 클릭");
     });
 
     function closePopup(){
-        document.getElementById("popup_layer").style.display="none"
+        document.getElementById("detail_popup_layer").style.display="none"
     };
 
     // 마커 클릭시 장소명 표출하는 인포윈도우
@@ -586,9 +580,9 @@
 
 </script>
 
-<!--팝업창 레이아웃 html-->
-<div id="popup_layer">
-    <div id="popup_box">
+<!--장소 상세 팝업창 레이아웃 html-->
+<div id="detail_popup_layer">
+    <div id="popup_box1">
         <!--팝업 컨텐츠 영역-->
         <div id="popup_contents ">
             <th:block th:replace="popup/popup :: contentsTop"></th:block>
