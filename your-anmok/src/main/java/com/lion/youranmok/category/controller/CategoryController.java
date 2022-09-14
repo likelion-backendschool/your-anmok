@@ -2,7 +2,6 @@ package com.lion.youranmok.category.controller;
 
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.dto.CategorySortingDto;
-import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.gathering.service.GatheringService;
@@ -28,7 +27,6 @@ public class CategoryController {
 
     /**
      * url 접속시 초기 화면
-     * 모든 카테고리 표시됨
      */
     @GetMapping({"/home"})
     public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
@@ -50,7 +48,10 @@ public class CategoryController {
 
     }
 
-    // TODO category 등록 후 맨 마지막 페이지로 이동
+
+    /**
+     * 카테고리 추가하는 메서드
+     */
     @PostMapping("/add")
     public ResponseEntity addCategory(@RequestBody CategoryDto categoryDto) {
 
