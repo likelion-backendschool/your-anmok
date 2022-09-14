@@ -19,7 +19,6 @@ public class Kakao_User extends BaseTimeEntity {
     private String nickname;
 
     @Column(length = 200, nullable = false)
-
     private String username;
 
     @Column(length = 200, nullable = false)

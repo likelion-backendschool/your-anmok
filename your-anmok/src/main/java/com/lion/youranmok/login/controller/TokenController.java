@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lion.youranmok.login.dto.KakaoUserDto;
+
 import com.lion.youranmok.login.entity.BaseTimeEntity;
 import com.lion.youranmok.login.entity.Kakao_User;
 import com.lion.youranmok.login.model.*;
@@ -17,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -31,7 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -42,7 +43,6 @@ public class TokenController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final AuthenticationManager authenticationManager;
-
 
     @Value("${Kakao_Client}")
     private String Kakao_Client;
