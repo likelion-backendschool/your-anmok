@@ -39,7 +39,7 @@ public class TokenController {
         Map<String, String> kakao_key = new HashMap<String,String>();
         kakao_key.put("key1",Kakao_Client);
         kakao_key.put("key2",Kakao_Callback);
-        return "LoginForm";
+        return "login/LoginForm";
         }
 
     @GetMapping("/auth/kakao/callback")
