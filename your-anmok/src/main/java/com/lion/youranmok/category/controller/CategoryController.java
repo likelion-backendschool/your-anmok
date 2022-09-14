@@ -8,11 +8,11 @@ import com.lion.youranmok.gathering.service.GatheringService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +27,6 @@ public class CategoryController {
 
     /**
      * url 접속시 초기 화면
-     * 모든 카테고리 표시됨
      */
     @GetMapping({"/home"})
     public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
@@ -36,19 +35,11 @@ public class CategoryController {
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
 
-        Page<CategorySortingDto> categories;
-
-        if (keyword != null) {
-            categories = categoryService.findByTagNameContaining(page, keyword);
-            model.addAttribute("keyword", keyword);
-        }
-        else {
-            categories = categoryService.getListByPaging(page);
-            System.out.println("categories.getContent() = " + categories.getContent());
-        }
+        Page<CategorySortingDto> categories = categoryService.getCategories(page, keyword);
 
         List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories();
 
+        model.addAttribute("keyword", keyword);
         model.addAttribute("recommendCategories", recommendCategories);
         model.addAttribute("categories", categories);
         model.addAttribute("gatheringList", gatheringPreviewList);
@@ -57,4 +48,20 @@ public class CategoryController {
 
     }
 
+
+    /**
+     * 카테고리 추가하는 메서드
+     */
+    @PostMapping("/add")
+    public ResponseEntity addCategory(@RequestBody CategoryDto categoryDto) {
+
+        int id = categoryService.addCategory(categoryDto);
+
+        if (id == 0) {
+            return new ResponseEntity(HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
 }

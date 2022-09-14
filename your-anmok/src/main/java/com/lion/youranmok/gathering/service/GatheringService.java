@@ -108,4 +108,8 @@ public class GatheringService {
         GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
         gatheringRepository.delete(gatheringBoard);
     }
+
+    public List<GatheringListDetailDto> getDetailByUserId(int userId) {
+        return gatheringRepository.getDetailByUserId(userId);
+    }
 }

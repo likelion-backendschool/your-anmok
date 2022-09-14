@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+<!-- TODO 로그인 완성 후 구현 -->
+<form action="">
+    <img src="/images/profile/1.jpeg" class="w-[100px] h-[100px]">
+    <input type="text" th:value="${member.nickname}" name="nickname">
+    <button type="submit">변경</button>
+</form>
+
+<br>
+<br>
+<br>
+
+<div class="bookmark-container">
+
+    <h2> 📚My Bookmark </h2>
+
+    <div th:each="category, i : ${categories}">
+        <form action="/bookmark/removeByMypage" method="post">
+            <div th:text="${category.tagName}"></div>
+            <button type="submit" class="remove-btn">삭제</button>
+            <input type="hidden" name="categoryId" th:value="${category.id}" th:classappend="category_id" />
+        </form>
+    </div>
+
+</div>
+
+
+<br>
+<br>
+<br>
+
+
+<div class="gathering-container">
+
+    <h2> ⌨️ My Gathering </h2>
+
+    <div class="places">
+        <div th:each="gathering,index:${gatheringList}">
+            <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
+            <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
+            <br>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="comment-container">
+
+    <h2> ⌨️ My Comment </h2>
+
+    <div class="places">
+        <div th:each="comment : ${commentList}">
+            <a th:href="@{/gathering/{id}(id=${comment.boardId})}"><div th:text="${comment.comment}"></div></a>
+            <br>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!--<script src="/js/category/bookmark.js">-->
+<!--</script>-->
+
+</body>
+</html>
