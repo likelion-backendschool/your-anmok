@@ -1,30 +1,26 @@
-package com.lion.youranmok.user.entity;
+package com.lion.youranmok.user.dto;
 
-import com.lion.youranmok.login.entity.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Data
-@Table
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseTimeEntity {
-    @Id
+public class UserDto {
+
     private int id;
 
-    @Column(length = 30)
+    private LocalDateTime createdAt;
+
     private String nickname;
 
-    @Column(length = 200)
     private String profilePicture;
 
 }
