@@ -339,7 +339,7 @@
     }
 
     function slider(){
-        $('.bxslider').bxSlider({
+        var slide = $('.bxslider').bxSlider({
             mode:"horizontal",    // 가로 수평으로 슬라이드된다.
             speed:200,        // 이동 속도를 설정한다.
             pager:false,    // 현재 위치 페이지 표시 여부를 설정한다.
@@ -352,6 +352,8 @@
             autoHover:true, // 마우스오버 시 정지할지를 설정한다.
             controls:true    // 이전 버튼, 다음 버튼 노출 여부를 설정한다.
         });
+
+        slide.reloadSlider();
     };
 
     kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function (){
