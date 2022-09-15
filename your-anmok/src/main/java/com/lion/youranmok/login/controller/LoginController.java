@@ -1,4 +1,4 @@
-package com.lion.youranmok.gathering.controller;
+package com.lion.youranmok.login.controller;
 
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
@@ -34,6 +34,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
+<<<<<<< HEAD:your-anmok/src/main/java/com/lion/youranmok/gathering/controller/GatheringListController.java
 @RequestMapping("/gathering")
 public class GatheringListController {
     private final GatheringService gatheringService;
@@ -51,8 +52,15 @@ public class GatheringListController {
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("gatheringList", gatheringBoardList);
+=======
+@RequestMapping("/login")
+public class LoginController {
 
-        return "gathering/list";
+    @GetMapping("/hi")
+    public String getList() {
+>>>>>>> 9410d61 (feature: take settings):your-anmok/src/main/java/com/lion/youranmok/login/controller/LoginController.java
+
+        return "login/hi";
     }
 
     @GetMapping("/{id}")
