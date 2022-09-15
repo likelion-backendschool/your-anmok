@@ -406,7 +406,6 @@
         console.log("lat값은 : "+$(places).data('lat'));
         console.log("lon값은 : "+$(places).data('lon'));
 
-
         $('input[id=place-name]').attr('value',name);
         $('input[id=place-address]').attr('value',address);
         $('input[id=place-lat]').attr('value',$(places).data('lat'));
@@ -416,22 +415,6 @@
         // $('#popup_box2').modal('show');
         console.log("팝업 버튼 클릭!" + name + address);
     }
-
-    // function selectPopUpPlace1(places,){
-    //     // $("#addPlace_popup_layer #place-name").text(name);
-    //     // $("#addPlace_popup_layer #place-address").text(address);
-    //
-    //     console.log(places.place_name);
-    //     console.log(places.address_name);
-    //
-    //     $('input[id=place-name]').attr('value',places.place_name);
-    //     $('input[id=place-address]').attr('value',places.address_name);
-    //     $('input[id=place-lat]').attr('value',places.y);
-    //     $('input[id=place-lon]').attr('value',places.x);
-    //
-    //     // $('#popup_box2').modal('show');
-    //     console.log("팝업 버튼 클릭!" + name + address);
-    // }
 
     // 키워드로 장소를 검색
     searchPlaces();
