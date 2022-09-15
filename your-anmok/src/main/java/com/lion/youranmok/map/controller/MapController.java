@@ -2,10 +2,14 @@ package com.lion.youranmok.map.controller;
 
 import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.map.service.MapService;
+import com.lion.youranmok.place.entity.Place;
+import com.lion.youranmok.place.service.AddPlaceService;
+import com.lion.youranmok.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
