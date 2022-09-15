@@ -1,8 +1,7 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.DataNotFoundException;
-import com.lion.youranmok.place.dto.PlaceGatheringDto;
-import com.lion.youranmok.place.dto.PlaceTagDto;
+import com.lion.youranmok.category.repository.CategoryRepository;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceReview;
 import com.lion.youranmok.place.repository.PlaceRepository;
@@ -19,6 +18,7 @@ import java.util.Optional;
 public class PlaceService {
     private final PlaceRepository placeRepository;
     private final PlaceReviewRepository placeReviewRepository;
+    private final CategoryRepository categoryRepository;
 
     public Place getPlace(Integer id){
         Optional<Place> place = this.placeRepository.findById(id);
@@ -42,12 +42,35 @@ public class PlaceService {
         }
     }
 
-    public List<PlaceTagDto> getTagName(Integer id){
-        return placeRepository.getTagNameById(id);
+    public Integer getStarAvg(Integer id) {
+        List<PlaceReview> placeReviews = placeReviewRepository.getAllByPlaceId(id);
+        int starSum = 0;
+        int reviewCnt = placeReviews.size();
+
+        if (reviewCnt == 0) {
+            return 0;
+        } else {
+            for (int i = 0; i < reviewCnt; i++) {
+                PlaceReview placeReview = placeReviews.get(i);
+                starSum += placeReview.getStar();
+            }
+        }
+        return Math.round(starSum / reviewCnt);
     }
 
-    public List<PlaceGatheringDto> getGatheringListByPlaceId(Integer id) {
-        return placeRepository.getGatheringListByPlaceId(id);
+    public void setStar(Place place, Integer starAvg) {
+        place.setStar(starAvg);
+        placeRepository.save(place);
+    }
+
+    public void savePlace(String placeName, String address,Double lat, Double lon, Integer rating, List<MultipartFile> placeImgs) {
+        Place place = new Place();
+        place.setName(placeName);
+        place.setAddress(address);
+        place.setLat(lat);
+        place.setLon(lon);
+        place.setStar(rating);
+        placeRepository.save(place);
     }
 
     public Integer getStarAvg(Integer id) {

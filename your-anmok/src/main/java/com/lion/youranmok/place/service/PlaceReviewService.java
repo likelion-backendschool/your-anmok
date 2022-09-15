@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PlaceReviewService {
-
     private final FileHandler fileHandler;
     private final PlaceImageRepository placeImageRepository;
 
@@ -26,7 +25,7 @@ public class PlaceReviewService {
                 place
         );
 
-        List<PlaceImage> placeImageList = fileHandler.parseFileInfo(files);
+        List<PlaceImage> placeImageList = fileHandler.parseFileInfo(placeReview, files);
 
         // 파일이 존재할 때에만 처리
         if(!placeImageList.isEmpty()) {

@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.20.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
 </head>
+
 <!-- 타임리프 html 연결 코드 -->
 <th:block th:fragment="contentsTop">
     <!-- 팝업 상단부 -->
@@ -20,18 +24,16 @@
 <th:block th:fragment="contentsMiddle">
     <!-- 팝업 중간부(사진 영역) -->
     <div id="popup_bottom_01" class="flex justify-center mt-[25px]">
-        <!-- 좌 버튼 -->
-        <div class="h-[210px] w-[70px] text-center relative"><img src="/images/back.png" class="prev_btn_img"></div>
-        <!-- 사진 리스트 -->
-        <div class="flex w-[896px] justify-between">
-            <div class="usr_img"></div>
-            <div class="usr_img"></div>
-            <div class="usr_img"></div>
+        <div class="slidecontainer">
+            <ul class="bxslider">
+                <tr th:each="imageList : ${placeImageList}" th:if="${placeImageList != null}">
+                    <li><img class="usr_img" th:src="@{|/placeimg/${imageList.filePath}|}"></li>
+                </tr>
+            </ul>
         </div>
-        <!-- 우 버튼 -->
-        <div class="h-[210px] w-[70px] text-center relative"><img src="/images/next.png" class="next_btn_img"></div>
     </div>
 </th:block>
+
 <!-- 타임리프 html 연결 코드 -->
 <th:block th:fragment="contentsBottom">
     <!-- 팝업 태그, 별점, 번개 묶음 -->
@@ -63,7 +65,7 @@
                 <div class="flex justify-between">
                     <p class="mb-2 w-max inline-block">GATHERING LIST📃</p>
                     <div class="inline-block">
-                        <button class="btn btn-accent btn-xs">글쓰기</button>
+                        <button class="btn btn-accent btn-xs" th:onclick="|location.href='@{|/gathering/create|}'|">글쓰기</button>
                         <button class="btn btn-accent btn-xs" th:onclick="|location.href='@{|/gathering/list|}'|">전체 보기</button>
                     </div>
                 </div>
