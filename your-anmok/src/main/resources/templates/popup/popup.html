@@ -69,7 +69,7 @@
                 <div class="flex justify-between">
                     <p class="mb-2 w-max inline-block">GATHERING LIST📃</p>
                     <div class="inline-block">
-                        <button class="btn btn-accent btn-xs">글쓰기</button>
+                        <button class="btn btn-accent btn-xs" th:onclick="|location.href='@{|/gathering/create|}'|">글쓰기</button>
                         <button class="btn btn-accent btn-xs" th:onclick="|location.href='@{|/gathering/list|}'|">전체 보기</button>
                     </div>
                 </div>
