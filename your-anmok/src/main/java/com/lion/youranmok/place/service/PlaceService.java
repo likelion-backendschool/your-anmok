@@ -1,6 +1,8 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.DataNotFoundException;
+import com.lion.youranmok.category.entity.Category;
+import com.lion.youranmok.category.repository.CategoryRepository;
 import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
@@ -19,6 +21,7 @@ import java.util.Optional;
 public class PlaceService {
     private final PlaceRepository placeRepository;
     private final PlaceReviewRepository placeReviewRepository;
+    private final CategoryRepository categoryRepository;
 
     public Place getPlace(Integer id){
         Optional<Place> place = this.placeRepository.findById(id);
@@ -40,14 +43,6 @@ public class PlaceService {
         else{
             return null;
         }
-    }
-
-    public List<PlaceTagDto> getTagName(Integer id){
-        return placeRepository.getTagNameById(id);
-    }
-
-    public List<PlaceGatheringDto> getGatheringListByPlaceId(Integer id) {
-        return placeRepository.getGatheringListByPlaceId(id);
     }
 
     public Integer getStarAvg(Integer id) {

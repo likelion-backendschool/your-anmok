@@ -1,6 +1,10 @@
 package com.lion.youranmok.place.controller;
 
 
+import com.lion.youranmok.category.entity.Category;
+import com.lion.youranmok.category.service.CategoryService;
+import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.service.GatheringService;
 import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
@@ -28,17 +32,20 @@ public class PlaceController {
     private final PlaceImageService placeImageService;
     private final PlaceReviewService placeReviewService;
 
+    private final CategoryService categoryService;
+    private final GatheringService gatheringService;
+
     @RequestMapping("/place/{id}")
     public String placeDetail(Model model, @PathVariable(value="id")Integer id){
         Place place = this.placeService.getPlace(id);
-        List<PlaceTagDto> placeTagDtos = this.placeService.getTagName(id);
-        List<PlaceGatheringDto> placeGatheringDtos = placeService.getGatheringListByPlaceId(id);
+        List<Category> placeTagList = categoryService.getTagName(id);
+        List<GatheringBoard> placeGatheringDtos = gatheringService.getGatheringListByPlaceId(id);
         List<PlaceImage> placeImages = placeImageService.getPlaceImagesByPlaceId(id);
 
         System.out.println(placeImages.size());
 
         model.addAttribute("place", place);
-        model.addAttribute("tagNameList", placeTagDtos);
+        model.addAttribute("tagNameList", placeTagList);
         model.addAttribute("stars", place.getStar());
         model.addAttribute("emptystars", 5-place.getStar());
         model.addAttribute("gatheringList", placeGatheringDtos);

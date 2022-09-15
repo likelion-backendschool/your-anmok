@@ -113,4 +113,8 @@ public class CategoryServiceImpl implements CategoryService{
         Page<CategorySortingDto> categories = new PageImpl<>(categorySortingDtos.subList(start, end), pageable, categorySortingDtos.size());
         return categories;
     }
+
+    public List<Category> getTagName(Integer id){
+        return categoryRepository.getAllByPlaceId(id);
+    }
 }

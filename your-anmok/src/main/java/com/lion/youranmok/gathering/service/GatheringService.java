@@ -4,6 +4,7 @@ import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
+import com.lion.youranmok.place.dto.PlaceGatheringDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.repository.PlaceRepository;
 import lombok.RequiredArgsConstructor;
@@ -107,5 +108,10 @@ public class GatheringService {
     public void delete(int id) {
         GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
         gatheringRepository.delete(gatheringBoard);
+    }
+
+
+    public List<GatheringBoard> getGatheringListByPlaceId(Integer id) {
+        return gatheringRepository.getAllByPlaceId(id);
     }
 }

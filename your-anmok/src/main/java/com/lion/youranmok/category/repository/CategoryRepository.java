@@ -32,6 +32,8 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "from Category c where c.tagName like %:keyword%")
     List<CategorySortingDto> getSortingCategoriesContainingKeyword(String keyword);
 
+    List<Category> getAllByPlaceId(Integer id);
+
 
     // TODO 로그인 연동 후 제대로 동작하는 지 확인 필요
 
