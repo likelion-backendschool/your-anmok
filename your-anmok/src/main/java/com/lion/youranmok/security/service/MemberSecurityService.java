@@ -1,8 +1,8 @@
 package com.lion.youranmok.security.service;
 
-import com.lion.youranmok.login.entity.Kakao_User;
-import com.lion.youranmok.login.repository.KakaoUserRepository;
+import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.security.dto.MemberContext;
+import com.lion.youranmok.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,12 +17,12 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MemberSecurityService implements UserDetailsService {
-    private final KakaoUserRepository kakaoUserRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Kakao_User member = kakaoUserRepository.findByUsername(username).get();
+        User member = userRepository.findByUsername(username).get();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("member"));

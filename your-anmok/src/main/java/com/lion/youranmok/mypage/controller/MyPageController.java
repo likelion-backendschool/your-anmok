@@ -1,10 +1,7 @@
 package com.lion.youranmok.mypage.controller;
 
 import com.lion.youranmok.category.dto.CategoryDto;
-import com.lion.youranmok.category.dto.CategorySortingDto;
-import com.lion.youranmok.category.service.BookmarkService;
 import com.lion.youranmok.category.service.CategoryService;
-import com.lion.youranmok.gathering.dto.CommentDto;
 import com.lion.youranmok.gathering.dto.CommentMyPageDto;
 import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.service.GatheringCommentService;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Controller

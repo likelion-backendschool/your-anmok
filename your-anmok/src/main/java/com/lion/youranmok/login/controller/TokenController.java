@@ -5,13 +5,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lion.youranmok.login.dto.KakaoUserDto;
 import com.lion.youranmok.login.entity.BaseTimeEntity;
-import com.lion.youranmok.login.entity.Kakao_User;
+import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.login.model.*;
-import com.lion.youranmok.login.repository.KakaoUserRepository;
-import com.lion.youranmok.login.service.KakaoSerivce;
 import com.lion.youranmok.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,11 +20,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -37,8 +32,6 @@ import java.util.UUID;
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class TokenController {
-
-    private final KakaoSerivce kakaoSerivce;
 
     private final UserService userService;
 
@@ -124,7 +117,7 @@ public class TokenController {
         }
 
         String data = kakaoProfile.getKakao_account().getEmail();
-        Kakao_User kakao_user = kakaoSerivce.findByEmail(data);
+        User kakao_user = userService.findByUsername(data);
 
         String rawPassword = bCryptPasswordEncoder.encode(kakaoProfile.getId() + "");
 
@@ -140,7 +133,6 @@ public class TokenController {
 
 
         if (kakao_user == null) {
-            kakaoSerivce.save(kakaoUserDto);
             userService.saveKakaoUser(kakaoUserDto);
         }
 

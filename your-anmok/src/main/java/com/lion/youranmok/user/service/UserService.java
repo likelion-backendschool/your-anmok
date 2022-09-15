@@ -1,9 +1,6 @@
 package com.lion.youranmok.user.service;
 
 import com.lion.youranmok.login.dto.KakaoUserDto;
-import com.lion.youranmok.login.entity.Kakao_User;
-import com.lion.youranmok.login.repository.KakaoUserRepository;
-import com.lion.youranmok.user.dto.UserDto;
 import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,33 +13,33 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final KakaoUserRepository kakaoUserRepository;
 
     public void saveKakaoUser(KakaoUserDto dto) {
 
-        int kakaoUserId = kakaoUserRepository.findByUsername(dto.getUsername()).get().getId();
-
-        UserDto userDto = UserDto.builder()
-                .id(kakaoUserId)
-                .nickname(dto.getNickname())
-                .profilePicture(dto.getProfilePicture())
-                .build();
-
-        User user = dtoToEntity(userDto);
+        User user = kakaoUserDtoToEntity(dto);
         userRepository.save(user);
 
     }
 
-    private User dtoToEntity(UserDto userDto) {
+    public User findByUsername(String username) {
+
+        return userRepository.findByUsername(username).orElse(null);
+
+    }
+
+    private User kakaoUserDtoToEntity(KakaoUserDto dto) {
 
         User user = User.builder()
-                .id(userDto.getId())
-                .nickname(userDto.getNickname())
-                .profilePicture(userDto.getProfilePicture())
+                .id(dto.getId())
+                .nickname(dto.getNickname())
+                .username(dto.getUsername())
+                .password(dto.getPassword())
+                .profilePicture(dto.getProfilePicture())
                 .build();
 
         return user;
 
     }
+
 
 }

@@ -6,7 +6,6 @@ import com.lion.youranmok.gathering.dto.CommentMyPageDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.entity.GatheringComment;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
-import com.lion.youranmok.gathering.repository.GatheringRepository;
 import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,22 +1,21 @@
 package com.lion.youranmok.security.dto;
 
-import com.lion.youranmok.login.entity.Kakao_User;
+import com.lion.youranmok.user.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
 @Getter
-public class MemberContext extends User {
+public class MemberContext extends org.springframework.security.core.userdetails.User {
 
     private final int id;
     private final String profilePicture;
 
-    public MemberContext(Kakao_User user, List<GrantedAuthority> authorities) {
+    public MemberContext(User user, List<GrantedAuthority> authorities) {
         super(user.getUsername(), user.getPassword(), authorities);
         this.id = user.getId();
-        this.profilePicture = user.getProfile_picture();
+        this.profilePicture = user.getProfilePicture();
     }
 
 }
