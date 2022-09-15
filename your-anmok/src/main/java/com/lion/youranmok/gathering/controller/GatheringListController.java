@@ -61,17 +61,18 @@ public class GatheringListController {
         return "gathering/list";
     }
 
-    @PostMapping("/search")
-    public String searchBoard(Model model, @ModelAttribute GatheringListCriteria criteria){
-//        mav.setViewName("jsonView");
+    @GetMapping("/search")
+    public ModelAndView searchBoard(ModelAndView mav, @ModelAttribute GatheringListCriteria criteria){
+        mav.setViewName("jsonView");
 
+        System.out.println(criteria.toString());
         List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria(criteria);
         for(GatheringListDetailDto dto : gatheringBoardList) {
             System.out.println(dto.toString());
         }
-        model.addAttribute("gatheringList", gatheringBoardList);
+        mav.addObject("gatheringList", gatheringBoardList);
 
-        return "gathering/list";
+        return mav;
     }
 
     @GetMapping("/{id}")

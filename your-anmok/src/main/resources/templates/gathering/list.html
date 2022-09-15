@@ -64,7 +64,7 @@
     $(document).on("click", "#searchBtn", function () {
         $.ajax({
             url: "/gathering/search",
-            type: "POST",
+            type: "GET",
             contentType: "application/json; charset=UTF-8",
             dataType: "json",
             data: {
