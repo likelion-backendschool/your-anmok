@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,12 +22,11 @@ public class Place {
     @Column(length = 200)
     private String name;
 
+    private Integer rateCnt;
+
     private Integer star;
 
     private Double lat;
 
     private Double lon;
-
-    @OneToMany
-    List<PlaceReview> placeReviewList = new ArrayList<>();
 }
