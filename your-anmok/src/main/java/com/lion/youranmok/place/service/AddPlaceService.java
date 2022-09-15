@@ -1,5 +1,6 @@
 package com.lion.youranmok.place.service;
 
+import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceReview;
 import com.lion.youranmok.place.repository.AddPlaceRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class AddPlaceService {
 
     private final AddPlaceRepository addPlaceRepository;
 
-    public PlaceReview upload(Integer placeId, Integer star, MultipartFile placeImg) {
+    public PlaceReview upload(Place place, Integer star, MultipartFile placeImg) {
         String placeImgRelPath = "placeImg/" + UUID.randomUUID().toString() + ".png";
         File placeImgFile = new File(genFileDirPath + "/" + placeImgRelPath);
 
@@ -32,9 +33,9 @@ public class AddPlaceService {
         }
 
         PlaceReview placeReview = PlaceReview.builder()
-                .placeId(placeId)
                 .star(star)
                 .placeImg(placeImgRelPath)
+                .place(place)
                 .build();
 
         addPlaceRepository.save(placeReview);
