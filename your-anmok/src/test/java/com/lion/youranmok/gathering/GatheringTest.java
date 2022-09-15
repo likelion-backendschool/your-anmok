@@ -151,24 +151,121 @@ class GatheringTest {
     @Order(4)
     public void insertGatheringBoardTest() {
         //번개모임 정보 세팅
-        for(int i = 0; i < 50; i++) {
-            GatheringBoard gatheringBoard = new GatheringBoard();
-            Place place = placeRepository.findById(1).orElse(null);
+        List<GatheringBoard> boardList = new ArrayList<>();
 
-            gatheringBoard.setId(i+1);
-            gatheringBoard.setCreatedAt(LocalDateTime.now());
-            gatheringBoard.setModifiedAt(LocalDateTime.now());
-            gatheringBoard.setPlace(place);
-            gatheringBoard.setUserId(1);
-            gatheringBoard.setGatherCnt(5);
-            gatheringBoard.setTotalCnt(10);
-            gatheringBoard.setDate(LocalDate.now());
-            gatheringBoard.setTitle("빵이 맛있는 집 "+(i+1)+"호에서 만나요🥨");
-            gatheringBoard.setText("글.. 작성중.. ");
-            gatheringBoard.setIsExpired(false);
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(2)
+                .totalCnt(5)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(1).orElse(null))
+                .title("설입에서 같이 빵먹으면서 대화하실 분!!")
+                .text("안녕하세용 설입 리멤버미에서 같이 만나서 놀사람 구해요!!\n 이상한 사람은 아닙니다.")
+                .userId(1)
+                .build());
 
-            gatheringRepository.save(gatheringBoard);
-        }
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(3)
+                .totalCnt(6)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(1).orElse(null))
+                .title("설입 리멤버미에서 같이 놀 사람 구해요")
+                .text("여기 테라스 예쁘더라구용")
+                .userId(2)
+                .build());
+
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(1)
+                .totalCnt(5)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(2).orElse(null))
+                .title("컴즈커피 같이 갈사람구해요!")
+                .text("컴즈커피라고 아시나요?")
+                .userId(3)
+                .build());
+
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(1)
+                .totalCnt(3)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(4).orElse(null))
+                .title("지금 홍대이신 분 계신가요?")
+                .text("지금 홍대이신분중에서 같이 코딩할 사람 있나요?")
+                .userId(1)
+                .build());
+
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(2)
+                .totalCnt(3)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(5).orElse(null))
+                .title("홍대 모각코하실분!")
+                .text("기왕이면 백엔드개발자분이었으면 좋겠어요! 같이 고민하면서 맛있는거 먹어요 ㅎㅎ 사드릴게요")
+                .userId(3)
+                .build());
+
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(2)
+                .totalCnt(5)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(3).orElse(null))
+                .title("커피덕 🐤")
+                .text("내일 커피덕에서 같이 공부할 분 구해요 ! ")
+                .userId(2)
+                .build());
+
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(2)
+                .totalCnt(5)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(1).orElse(null))
+                .title("설입에서 같이 빵먹으면서 대화하실 분!!")
+                .text("안녕하세용 설입 리멤버미에서 같이 만나서 놀사람 구해요!!\n 이상한 사람은 아닙니다.")
+                .userId(1)
+                .build());
+
+        boardList.add(new GatheringBoard()
+                .builder()
+                .createdAt(LocalDateTime.now())
+                .modifiedAt(LocalDateTime.now())
+                .gatherCnt(2)
+                .totalCnt(5)
+                .isExpired(false)
+                .date(LocalDate.now())
+                .place(placeRepository.findById(1).orElse(null))
+                .title("홍대 코딩하실분!")
+                .text("코테준비하시는 분 계신가요? 같이 공부해요!")
+                .userId(6)
+                .build());
+
+        gatheringRepository.saveAll(boardList);
     }
 
 
