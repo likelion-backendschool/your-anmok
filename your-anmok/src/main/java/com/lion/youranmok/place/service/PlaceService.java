@@ -1,10 +1,7 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.DataNotFoundException;
-import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.CategoryRepository;
-import com.lion.youranmok.place.dto.PlaceGatheringDto;
-import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceReview;
 import com.lion.youranmok.place.repository.PlaceRepository;

@@ -5,8 +5,6 @@ import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
-import com.lion.youranmok.place.dto.PlaceGatheringDto;
-import com.lion.youranmok.place.dto.PlaceTagDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceImage;
 import com.lion.youranmok.place.service.PlaceImageService;
@@ -21,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
-import java.io.File;
 import java.util.List;
 
 @Controller
