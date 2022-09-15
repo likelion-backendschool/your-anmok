@@ -1,6 +1,5 @@
 package com.lion.youranmok.place.controller;
 
-
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
@@ -63,6 +62,7 @@ public class PlaceController {
 
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
+
 
         return "redirect:" + request.getHeader("Referer");
     }

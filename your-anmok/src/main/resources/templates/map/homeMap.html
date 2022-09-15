@@ -160,7 +160,6 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
-
 </head>
 
 <body>
@@ -195,7 +194,12 @@
 
         <div class="left_sub_menu">
             <div class="sub_menu">
-                <h2>메뉴</h2>
+                <h2>메뉴 <div style="float:right;">
+                    <form action="/auth/loginProc" method="post">
+                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
+                </form>
+                </div></h2>
+
                 <ul class="big_menu">
                     <li><a href="/category/home">카테고리</a></li>
 <!--                    <ul class="small_menu">-->

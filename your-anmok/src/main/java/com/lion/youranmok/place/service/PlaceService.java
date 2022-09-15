@@ -72,4 +72,33 @@ public class PlaceService {
         place.setStar(rating);
         placeRepository.save(place);
     }
+
+    public Integer getStarAvg(Integer id) {
+        List<PlaceReview> placeReviews = placeReviewRepository.getAllByPlaceId(id);
+        int starSum = 0;
+        int reviewCnt = placeReviews.size();
+
+        if (reviewCnt == 0) {
+            return 0;
+        } else {
+            for (int i = 0; i < reviewCnt; i++) {
+                PlaceReview placeReview = placeReviews.get(i);
+                starSum += placeReview.getStar();
+            }
+        }
+        return Math.round(starSum / reviewCnt);
+    }
+
+    public void setStar(Place place, Integer starAvg) {
+        place.setStar(starAvg);
+        placeRepository.save(place);
+    }
+
+    public void savePlace(String placeName, String address, Integer rating, List<MultipartFile> placeImgs) {
+        Place place = new Place();
+        place.setName(placeName);
+        place.setAddress(address);
+        place.setStar(rating);
+        placeRepository.save(place);
+    }
 }
