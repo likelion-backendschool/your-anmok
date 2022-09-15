@@ -16,7 +16,9 @@
     <form method="get" th:action="|@{/gathering/list}|" th:object="${criteria}">
         <div class="gather-category">
             <div th:each="category,index:${categoryList}">
-                <label><input type="button" name="category" class="btn btn-outline-info" th:value="${category.tagName}" th:id="${category.id}" onclick="onClick(this.id)"></label>
+                <input type="checkbox" name="category" th:value="${category.id}">
+                <div th:text="${category.tagName}" type="button" class="btn btn-outline-info"></div>
+<!--                <label><input type="button" name="category" class="btn btn-outline-info" th:value="${category.tagName}" th:id="${category.id}" onclick="onClick(this.id)"></label>-->
             </div>
         </div>
         <div class="search">
@@ -32,14 +34,14 @@
 
                 <div class="bar">
                     <input type="text" name="searchKeyword" id="searchKeyword" placeholder="검색어를 입력하세요">
-                    <input type="button" id="searchBtn" value="검색">
+                    <input type="submit" value="검색">
                 </div>
             </form>
         </div>
     </form>
 
     <div class="places">
-        <div th:each="gathering,index:${gatheringList}">
+        <div th:each="gathering,index:${gatheringList}" id="gatheringList">
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><img src="/images/gathering-image-test.png" alt="이미지"/></a>
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
             <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
@@ -59,30 +61,6 @@
             arr.push(id);
         }
     }
-
-
-    $(document).on("click", "#searchBtn", function () {
-        $.ajax({
-            url: "/gathering/search",
-            type: "GET",
-            contentType: "application/json; charset=UTF-8",
-            dataType: "json",
-            data: {
-                "category": arr,
-                "classification": $("#classification option:selected").val(),
-                "searchKeyword" :  $("#searchKeyword").val(),
-            },
-            success: function (data) {
-                //console.log(data.resultData);
-                arr  = [];
-                if (data.result == true) {
-
-                    alert("성공");
-
-                }
-            }
-        });
-    });
 </script>
 </body>
 
