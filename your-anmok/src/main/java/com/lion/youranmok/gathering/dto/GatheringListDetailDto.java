@@ -20,13 +20,16 @@ public class GatheringListDetailDto {
     private Integer totalCnt;
     private Integer gatherCnt;
 
-    public GatheringListDetailDto(Integer boardId, String store, String title, LocalDate meetAt, Integer totalCnt, Integer gatherCnt) {
+    private LocalDateTime createdAt;
+
+    public GatheringListDetailDto(Integer boardId, String store, String title, LocalDate meetAt, Integer totalCnt, Integer gatherCnt, LocalDateTime createdAt) {
         this.boardId = boardId;
         this.store = store;
         this.title = title;
         this.meetAt = meetAt.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일"));
         this.totalCnt = totalCnt;
         this.gatherCnt = gatherCnt;
+        this.createdAt = createdAt;
     }
 
     public void setMeetAt(LocalDate meetAt) {

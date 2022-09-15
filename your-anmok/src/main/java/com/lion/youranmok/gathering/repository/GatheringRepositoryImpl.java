@@ -20,6 +20,7 @@ import static com.lion.youranmok.category.entity.QCategory.category;
 import static com.lion.youranmok.gathering.entity.QGatheringBoard.gatheringBoard;
 import static com.lion.youranmok.place.entity.QPlace.place;
 import static com.lion.youranmok.place.entity.QPlaceCategoryMap.placeCategoryMap;
+import static com.lion.youranmok.user.entity.QUser.user;
 
 @RequiredArgsConstructor
 public class GatheringRepositoryImpl implements GatheringRepositoryCustom {
@@ -31,28 +32,17 @@ public class GatheringRepositoryImpl implements GatheringRepositoryCustom {
 
     @Override
     public List<GatheringListDetailDto> listByCriteria(GatheringListCriteria criteria) {
-
-
-//        String baseQuery = "select new com.lion.youranmok.gathering.dto.GatheringListDetailDto(" +
-//                "gb.id, " +
-//                "p.name, " +
-//                "gb.title, " +
-//                "gb.date, " +
-//                "gb.totalCnt, " +
-//                "gb.gatherCnt"+
-//                ") from GatheringBoard gb inner join Place as p on gb.place.id = p.id inner join PlaceCategoryMap as pcm on pcm.placeId = p.id";
-
         return queryFactory
-                .select(Projections.constructor(GatheringListDetailDto.class, gatheringBoard.id, place.name, gatheringBoard.title, gatheringBoard.date, gatheringBoard.totalCnt, gatheringBoard.gatherCnt))
+                .select(Projections.constructor(GatheringListDetailDto.class, gatheringBoard.id, place.name, gatheringBoard.title, gatheringBoard.date, gatheringBoard.totalCnt, gatheringBoard.gatherCnt, gatheringBoard.createdAt))
                 .distinct()
                 .from(gatheringBoard)
                 .innerJoin(placeCategoryMap).on(placeCategoryMap.placeId.eq(gatheringBoard.place.id))
                 .innerJoin(place).on(place.id.eq(placeCategoryMap.placeId))
+                .innerJoin(user).on(user.id.eq(gatheringBoard.userId))
                 .where(inCategories(criteria.getCategory()),
                         keywordLike(criteria.getClassification(), criteria.getSearchKeyword()))
+                .orderBy(gatheringBoard.createdAt.desc())
                 .fetch();
-
-
     }
 
     private BooleanExpression inCategories(List<Integer> categories) {
@@ -68,11 +58,15 @@ public class GatheringRepositoryImpl implements GatheringRepositoryCustom {
         }
 
         if(classification.equals("address")) {
-            System.out.println("Address");
+//            System.out.println("Address");
             return place.address.contains(keyword);
         } else if(classification.equals("name")) {
-            System.out.println("name");
+//            System.out.println("name");
             return place.name.contains(keyword);
+        } else if(classification.equals("title")) {
+            return gatheringBoard.title.contains(keyword).or(gatheringBoard.text.contains(keyword));
+        } else if(classification.equals("author")) {
+            return user.nickname.contains(keyword);
         } else {
             return null;
         }
