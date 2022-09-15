@@ -63,7 +63,7 @@ public class PlaceController {
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
 
-
+        
         return "redirect:" + request.getHeader("Referer");
     }
 
