@@ -1,7 +1,6 @@
 package com.lion.youranmok.place.service;
 
 import com.lion.youranmok.place.entity.PlaceImage;
-
 import com.lion.youranmok.place.entity.PlaceReview;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -21,7 +20,7 @@ public class FileHandler {
     private final PlaceImageService placeImageService;
 
     public List<PlaceImage> parseFileInfo(PlaceReview placeReview, List<MultipartFile> multipartFiles) throws Exception {
-        List<PlaceImage> fileList = new ArrayList<>();
+       List<PlaceImage> fileList = new ArrayList<>();
 
         // 전달되어 온 파일이 존재할 경우
         if (!CollectionUtils.isEmpty(multipartFiles)) {
@@ -37,6 +36,7 @@ public class FileHandler {
 
             // 파일을 저장할 세부 경로 지정
             String path = "placeimages" + File.separator + current_date;
+
             File file = new File(path);
 
             // 디렉터리가 존재하지 않을 경우
@@ -70,7 +70,7 @@ public class FileHandler {
                 String new_file_name = System.nanoTime() + originalFileExtension;
 
                 PlaceImage placeImageDto = PlaceImage.builder()
-                        .placeId(placeReview.getPlace().getId())
+                       .placeId(placeReview.getPlace().getId())
                         .origFileName(multipartFile.getOriginalFilename())
                         .filePath(path + File.separator + new_file_name)
                         .fileSize(multipartFile.getSize())
