@@ -1,5 +1,5 @@
 /*팝업 배경(회색)*/
-#detail_popup_layer, #addPlace_popup_layer {
+#popup_layer {
     position:fixed;
     top: 0;
     left: 0;
@@ -11,7 +11,7 @@
 }
 
 /*팝업 박스*/
-#popup_box1, #popup_box2{
+#popup_box{
     border-radius: 10px;
     position: relative;
     top: 50%;
@@ -35,15 +35,6 @@
     top:50%;
     transform:translate(0, -50%);
     right:35px;
-}
-
-#close2{
-    width:20px;
-    height:20px;
-    position:absolute;
-    right:35px;
-    margin-top:3px;
-    margin-bottom:3px;
 }
 
 /* 사진(개별)*/

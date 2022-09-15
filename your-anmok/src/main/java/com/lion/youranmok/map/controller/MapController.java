@@ -48,16 +48,5 @@ public class MapController {
         return "map/categoryMap";
     }
 
-    @GetMapping("/category")
-    public String categoryDisplay(@RequestParam("id") int id, Model model){
-
-        List<MapDto> categoryPlaceList = mapService.getCateogryPlaceList(id);
-        for (MapDto mapDto : categoryPlaceList){
-            System.out.println(mapDto.getName());
-        }
-        model.addAttribute("categoryPlaceList",categoryPlaceList);
-
-        return "map/categoryMap";
-    }
 
 }
