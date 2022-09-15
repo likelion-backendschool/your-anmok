@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -51,19 +52,19 @@ public class PlaceController {
     }
 
     @PostMapping("/addPlace")
-    public String addPlace(String placeName, String address, Double lat, Double lon, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
+    public String addPlace(HttpServletRequest request, String placeName, String address, Double lat, Double lon, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
 
         if (place==null){
             placeService.savePlace(placeName, address, lat, lon, rating, placeImgs);
-            return "map/homeMap";
+            place = placeService.getPlaceByNameAndAddress(placeName, address);
         }
         placeReviewService.upload(place, rating, placeImgs);
 
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
 
-        return "map/homeMap";
+        return "redirect:" + request.getHeader("Referer");
     }
 
 }
