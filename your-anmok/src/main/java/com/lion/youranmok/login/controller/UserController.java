@@ -11,7 +11,10 @@ import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.service.PlaceService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,34 +35,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
-@Controller
-<<<<<<< HEAD:your-anmok/src/main/java/com/lion/youranmok/gathering/controller/GatheringListController.java
-@RequestMapping("/gathering")
-public class GatheringListController {
-    private final GatheringService gatheringService;
-    private final CategoryService categoryService;
-    private final GatheringCommentService gatheringCommentService;
-
-    private final PlaceService placeService;
-
-
-    @GetMapping("/list")
-    public String getList(Model model) {
-        List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria();
-        List<CategoryDto> categoryList = categoryService.findAll();
-
-
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("gatheringList", gatheringBoardList);
-=======
 @RequestMapping("/login")
-public class LoginController {
+public class UserController {
 
     @GetMapping("/hi")
     public String getList() {
->>>>>>> 9410d61 (feature: take settings):your-anmok/src/main/java/com/lion/youranmok/login/controller/LoginController.java
-
         return "login/hi";
     }
 
@@ -141,5 +121,3 @@ public class LoginController {
     }
 
 }
-
-
