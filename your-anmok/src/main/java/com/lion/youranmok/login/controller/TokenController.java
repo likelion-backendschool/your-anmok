@@ -9,6 +9,7 @@ import com.lion.youranmok.login.entity.Kakao_User;
 import com.lion.youranmok.login.model.*;
 import com.lion.youranmok.login.repository.KakaoUserRepository;
 import com.lion.youranmok.login.service.KakaoSerivce;
+import com.lion.youranmok.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,6 +39,8 @@ import java.util.UUID;
 public class TokenController {
 
     private final KakaoSerivce kakaoSerivce;
+
+    private final UserService userService;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -131,31 +134,20 @@ public class TokenController {
                 .username(kakaoProfile.getKakao_account().getEmail())
                 .password(rawPassword)
                 .email(kakaoProfile.getKakao_account().getEmail())
-                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname() + uuid)
+                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
                 .profilePicture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
                 .build();
 
 
-
         if (kakao_user == null) {
             kakaoSerivce.save(kakaoUserDto);
+            userService.saveKakaoUser(kakaoUserDto);
         }
 
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUserDto.getUsername(), kakaoProfile.getId() + ""));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/";
-        /*if(kakao_user != null){
-            return "map/homeMap";
-        }
-        else{
-            kakaoUserRepository.save(Kakao_User.builder()
-                    .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
-                    .email(kakaoProfile.getKakao_account().getEmail())
-                    .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
-                    .created_at(LocalDateTime.now())
-                    .build());
-            return "map/homeMap";
-        }*/
+
     }
 }

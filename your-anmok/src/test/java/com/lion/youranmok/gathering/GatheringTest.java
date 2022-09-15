@@ -57,8 +57,6 @@ class GatheringTest {
             Place place = new Place();
             place.setAddress("서울 관악구 관악로14길 70 효림빌딩 4층 %d".formatted(i));
             place.setName(placeNameList.get(i));
-            place.setRateCnt(30);
-
             place.setStar(70);
             place.setLat(33.450701);
             place.setLon(126.570667);
@@ -118,9 +116,9 @@ class GatheringTest {
 
         for(int i = 0; i < userNameList.size(); i++) {
             User user = new User();
+            user.setId(i + 1); // user 추가하실 때 kakao 정보 값이 들어간 데이터의 id와 겹치지 않게 설정해주세요
             user.setNickname(userNameList.get(i));
             user.setProfilePicture("/images/profile/%d.jpeg".formatted(i+1));
-            user.setToken("tmp%d".formatted(i));
 
             userRepository.save(user);
         }
