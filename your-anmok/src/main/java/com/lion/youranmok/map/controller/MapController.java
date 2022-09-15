@@ -52,18 +52,4 @@ public class MapController {
         return "map/categoryMap";
     }
 
-    private final AddPlaceService addPlaceService;
-    private final PlaceService placeService;
-
-    @PostMapping("/addPlace")
-    public String addPlace(String placeName, String address, Integer rating, MultipartFile placeImg) {
-        Place place = placeService.getPlaceByNameAndAddress(placeName, address);
-
-        Integer starAvg = placeService.getStarAvg(place.getId());
-        placeService.setStar(place, starAvg);
-        addPlaceService.upload(place.getId(), rating, placeImg);
-
-        return "redirect:/";
-    }
-
 }
