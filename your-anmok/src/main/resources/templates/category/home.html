@@ -14,7 +14,6 @@
   <div id="header">
     <!-- header button(로그인, 로그아웃, 회원가입, 마이페이지 버튼 표시) -->
     <div id="header-button" class="flex justify-end mr-[25px] mt-[25px]">
-      <!--TODO 로그인되어 있을 때 아닐 때 수정 필요 -->
       <!--TODO 헤더로 따로 분리 필요 -->
       <div sec:authorize="!isAuthenticated()">
         <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/auth/login">로그인</a></div>
@@ -91,16 +90,21 @@
 
             <input type="hidden" value="${category.id}" >
             <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
-            <th:block th:if="${category.isBookmark() == false}">
-              <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
-              </a>
-            </th:block>
-            <th:block th:if="${category.isBookmark() == true}">
-              <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
-              </a>
-            </th:block>
+            <div sec:authorize="isAuthenticated()">
+
+              <th:block th:if="${category.isBookmark() == false}">
+                <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
+                </a>
+              </th:block>
+              <th:block th:if="${category.isBookmark() == true}">
+                <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
+                </a>
+              </th:block>
+
+            </div>
+
 
           </div>
         </a>
@@ -166,16 +170,19 @@
 
               <input type="hidden" value="${category.id}" >
               <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
-              <th:block th:if="${category.isBookmark() == false}">
-                <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
-                </a>
-              </th:block>
-              <th:block th:if="${category.isBookmark() == true}">
-                <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
-                </a>
-              </th:block>
+              <div sec:authorize="isAuthenticated()">
+
+                <th:block th:if="${category.isBookmark() == false}">
+                  <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                    <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
+                  </a>
+                </th:block>
+                <th:block th:if="${category.isBookmark() == true}">
+                  <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                    <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
+                  </a>
+                </th:block>
+              </div>
 
             </div>
           </a>

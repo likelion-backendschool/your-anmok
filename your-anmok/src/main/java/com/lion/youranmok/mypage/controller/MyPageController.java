@@ -30,11 +30,9 @@ public class MyPageController {
 
     private final GatheringCommentService gatheringCommentService;
 
-    // TODO 로그인 정보 추가 필요
     @GetMapping()
     public String myPage(Model model, @AuthenticationPrincipal MemberContext member) {
 
-        // TODO userId로 변경 필요
         User user = userRepository.findByUsername(member.getUsername()).orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없습니다."));
         List<CategoryDto> categories = categoryService.getBookmarkCategoriesByUser(user.getId());
         List<GatheringListDetailDto> myGatheringList = gatheringService.getDetailByUserId(user.getId());
