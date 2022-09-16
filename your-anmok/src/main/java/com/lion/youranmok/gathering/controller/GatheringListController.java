@@ -1,4 +1,4 @@
-package com.lion.youranmok.login.controller;
+package com.lion.youranmok.gathering.controller;
 
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
@@ -11,10 +11,7 @@ import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.service.PlaceService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,12 +32,27 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestMapping("/login")
-public class UserController {
+@RequiredArgsConstructor
+@Controller
+@RequestMapping("/gathering")
+public class GatheringListController {
+    private final GatheringService gatheringService;
+    private final CategoryService categoryService;
+    private final GatheringCommentService gatheringCommentService;
 
-    @GetMapping("/hi")
-    public String getList() {
-        return "login/hi";
+    private final PlaceService placeService;
+
+
+    @GetMapping("/list")
+    public String getList(Model model) {
+        List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria();
+        List<CategoryDto> categoryList = categoryService.findAll();
+
+
+        model.addAttribute("categoryList", categoryList);
+        model.addAttribute("gatheringList", gatheringBoardList);
+
+        return "gathering/list";
     }
 
     @GetMapping("/{id}")
@@ -121,3 +133,5 @@ public class UserController {
     }
 
 }
+
+

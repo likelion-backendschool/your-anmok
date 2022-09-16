@@ -53,7 +53,7 @@ public class PlaceController {
     @PostMapping("/addPlace")
     public String addPlace(HttpServletRequest request, String placeName, String address, Double lat, Double lon, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
-        
+
         if (place==null){
             placeService.savePlace(placeName, address, lat, lon, rating, placeImgs);
             place = placeService.getPlaceByNameAndAddress(placeName, address);
@@ -62,6 +62,7 @@ public class PlaceController {
 
         Integer starAvg = placeService.getStarAvg(place.getId());
         placeService.setStar(place, starAvg);
+
 
         return "redirect:" + request.getHeader("Referer");
     }
