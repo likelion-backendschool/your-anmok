@@ -110,7 +110,9 @@ public class GatheringService {
     }
 
 
+
     public List<GatheringBoard> getGatheringListByPlaceId(Integer id) {
         return gatheringRepository.getAllByPlaceId(id);
     }
+
 }

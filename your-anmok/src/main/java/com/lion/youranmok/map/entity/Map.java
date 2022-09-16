@@ -24,4 +24,5 @@ public class Map {
     @Column
     private Integer categoryId;
 
+
 }
