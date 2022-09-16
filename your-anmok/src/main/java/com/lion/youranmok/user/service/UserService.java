@@ -27,6 +27,18 @@ public class UserService {
 
     }
 
+    public void changeNickname(KakaoUserDto dto) {
+
+        Optional<User> result = userRepository.findById(dto.getId());
+
+        if (result.isPresent()) {
+            User user = result.get();
+            user.setNickname(dto.getNickname());
+            userRepository.save(user);
+        }
+
+    }
+
     private User kakaoUserDtoToEntity(KakaoUserDto dto) {
 
         User user = User.builder()
@@ -40,6 +52,7 @@ public class UserService {
         return user;
 
     }
+
 
 
 }

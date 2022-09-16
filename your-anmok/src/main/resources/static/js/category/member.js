@@ -21,7 +21,7 @@ let index = {
 
         $.ajax({
             url: "/user/modify",
-            type: "POST",
+            type: "PUT",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             success: function (result) {
