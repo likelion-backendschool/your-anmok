@@ -2,24 +2,20 @@ package com.lion.youranmok.gathering;
 
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.CategoryRepository;
-import com.lion.youranmok.gathering.dto.CommentDto;
-import com.lion.youranmok.gathering.dto.GatheringDetailDto;
-import com.lion.youranmok.gathering.dto.GatheringListDetailDto;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
-import com.lion.youranmok.gathering.entity.GatheringComment;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
+import com.lion.youranmok.login.dto.KakaoUserDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.repository.PlaceRepository;
-import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.user.repository.UserRepository;
+import com.lion.youranmok.user.service.UserService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,6 +42,9 @@ class GatheringTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
 
     @Test
@@ -117,12 +116,13 @@ class GatheringTest {
         List<String> userNameList = Arrays.asList("생갈치 1호의 행방불명", "오즈의 맙소사","반지하 제왕", "김대희","박다정", "순데렐라", "배숙희라빈스");
 
         for(int i = 0; i < userNameList.size(); i++) {
-            User user = new User();
+            KakaoUserDto user = new KakaoUserDto();
+            user.setUsername("test" + i);
+            user.setPassword("1234");
             user.setNickname(userNameList.get(i));
             user.setProfilePicture("/images/profile/%d.jpeg".formatted(i+1));
-            user.setToken("tmp%d".formatted(i));
 
-            userRepository.save(user);
+            userService.saveKakaoUser(user);
         }
     }
 
