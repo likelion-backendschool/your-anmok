@@ -29,11 +29,13 @@ public class MapController {
 //
 //    }
 
+
     @GetMapping("/searchMap")
     public String searchPlace(@RequestParam("placeKeyword") String placeKeyword, Model model){
 
         model.addAttribute("placeKeyword",placeKeyword);
         return "map/searchMap";
+
     }
 
     @GetMapping("/category")
@@ -47,6 +49,5 @@ public class MapController {
 
         return "map/categoryMap";
     }
-
 
 }

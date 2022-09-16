@@ -40,4 +40,8 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "p.name" +
             ") from Place as p where p.address like %:keyword% or p.name like %:keyword%")
     List<CreateSearchDto> findCreateSearchResultByKeyword(String keyword);
+
+
+    List<GatheringBoard> getAllByPlaceId(Integer id);
+
 }

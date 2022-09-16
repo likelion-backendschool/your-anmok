@@ -17,6 +17,8 @@ public interface CategoryService {
 
     List<CategorySortingDto> getRecommendCategories();
 
+    List<Category> getTagName(Integer id);
+
 
     default Category dtoToEntity(CategoryDto dto) {
 

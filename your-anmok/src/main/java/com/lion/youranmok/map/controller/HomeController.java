@@ -3,6 +3,7 @@ package com.lion.youranmok.map.controller;
 import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.map.entity.Map;
 import com.lion.youranmok.map.service.MapService;
+import com.lion.youranmok.place.entity.Place;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +22,16 @@ public class HomeController {
     public String home(Model model){
 //        ModelAndView mv = new ModelAndView();
 
-        List<MapDto> placeList = mapService.getAllPlaceList();
-        for (MapDto mapDto : placeList){
-            System.out.println(mapDto.getName());
-        }
+        List<Place> placeList = mapService.getAllPlaceList();
+//        for (MapDto mapDto : placeList){
+//            System.out.println(mapDto.getName());
+//        }
         model.addAttribute("myPlaceList",placeList);
 //        mv.addObject("placeInfos","placeList");
 //        mv.setViewName("map/homeMap");
 
-        model.addAttribute("message", "정상적으로 처리되었습니다.");
-        model.addAttribute("searchUrl", "https://www.google.com");
+//        model.addAttribute("message", "정상적으로 처리되었습니다.");
+//        model.addAttribute("searchUrl", "https://www.google.com");
 
         return "map/homeMap";
     }
