@@ -38,32 +38,46 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Page<CategorySortingDto> findByTagNameContaining(int page, String keyword) {
+    public Page<CategorySortingDto> findByTagNameContaining(int page, String keyword, int userId) {
 
         Pageable pageable = PageRequest.of(page, 9);
 
-        List<CategorySortingDto> categorySortingDtos = categoryRepository.getSortingCategoriesContainingKeyword(keyword);
+        List<CategorySortingDto> categorySortingDtos;
 
-        Page<CategorySortingDto> categories = getCategorySortingDtos(pageable, categorySortingDtos);
+        if (userId > 0) {
+            categorySortingDtos = categoryRepository.getCategoriesByUserContainigKeyword(userId, keyword);
+
+        } else {
+            categorySortingDtos = categoryRepository.getSortingCategoriesContainingKeyword(keyword);
+        }
+
+        Page<CategorySortingDto> categories = getCategorySortingDtos(pageable, categorySortingDtos, userId);
 
         return categories;
     }
 
     @Override
-    public Page<CategorySortingDto> getListByPaging(int page) {
+    public Page<CategorySortingDto> getListByPaging(int page, int userId) {
 
         Pageable pageable = PageRequest.of(page, 9);
 
-        List<CategorySortingDto> categorySortingDtos = categoryRepository.getSortingCategories();
+        List<CategorySortingDto> categorySortingDtos;
 
-        Page<CategorySortingDto> categories = getCategorySortingDtos(pageable, categorySortingDtos);
+        if (userId > 0) {
+            categorySortingDtos = categoryRepository.getCategoriesByUser(userId);
+        }
+        else {
+            categorySortingDtos = categoryRepository.getSortingCategories();
+        }
+
+        Page<CategorySortingDto> categories = getCategorySortingDtos(pageable, categorySortingDtos, userId);
 
         return categories;
 
     }
 
     @Override
-    public List<CategorySortingDto> getRecommendCategories() {
+    public List<CategorySortingDto> getRecommendCategories(int userId) {
 
         List<Category> categories = categoryRepository.findAll().subList(0, 6);
 
@@ -74,12 +88,14 @@ public class CategoryServiceImpl implements CategoryService{
                     .id(category.getId())
                     .tagName(category.getTagName()).build();
 
-            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(1, dto.getId());
+            if (userId > 0) {
+                Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(userId, dto.getId());
 
-            if (result.isPresent()) {
-                dto.setBookmark(true);
-            } else {
-                dto.setBookmark(false);
+                if (result.isPresent()) {
+                    dto.setBookmark(true);
+                } else {
+                    dto.setBookmark(false);
+                }
             }
 
             dtos.add(dto);
@@ -111,13 +127,13 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Page<CategorySortingDto> getCategories(int page, String keyword) {
+    public Page<CategorySortingDto> getCategories(int page, String keyword, int userId) {
 
         if (keyword != null) {
-            return findByTagNameContaining(page, keyword);
+            return findByTagNameContaining(page, keyword, userId);
         }
         else {
-            return getListByPaging(page);
+            return getListByPaging(page, userId);
         }
 
     }
@@ -139,16 +155,20 @@ public class CategoryServiceImpl implements CategoryService{
 
     }
 
-    private Page<CategorySortingDto> getCategorySortingDtos(Pageable pageable, List<CategorySortingDto> categorySortingDtos) {
-        categorySortingDtos.stream().forEach(dto -> {
-            Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(0, dto.getId());
+    private Page<CategorySortingDto> getCategorySortingDtos(Pageable pageable, List<CategorySortingDto> categorySortingDtos, int userId) {
 
-            if (result.isPresent()) {
-                dto.setBookmark(true);
-            } else {
-                dto.setBookmark(false);
-            }
-        });
+        if (userId > 0) {
+            categorySortingDtos.stream().forEach(dto -> {
+
+                Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(userId, dto.getId());
+
+                if (result.isPresent()) {
+                    dto.setBookmark(true);
+                } else {
+                    dto.setBookmark(false);
+                }
+            });
+        }
 
         categorySortingDtos = categorySortingDtos.stream().sorted(Comparator.comparing(CategorySortingDto::getBookmarkCnt).reversed()).collect(Collectors.toList());
 

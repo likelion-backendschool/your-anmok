@@ -5,11 +5,15 @@ import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.gathering.service.GatheringService;
+import com.lion.youranmok.security.dto.MemberContext;
+import com.lion.youranmok.user.entity.User;
+import com.lion.youranmok.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,19 +29,31 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final GatheringService gatheringService;
 
+    private final UserService userService;
+
     /**
      * url 접속시 초기 화면
      */
     @GetMapping({"/home"})
-    public String home(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(required = false) String keyword) {
+    public String home(Model model,
+                       @RequestParam(value = "page", defaultValue = "0") int page,
+                       @RequestParam(required = false) String keyword,
+                       @AuthenticationPrincipal MemberContext member) {
 
-        System.out.println("CategoryController.home");
+        int userId = -1;
+
+        if (member != null) {
+            userId = userService.findByUsername(member.getUsername()).getId();
+        }
 
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
+        Page<CategorySortingDto> categories = categoryService.getCategories(page, keyword, userId);
 
-        Page<CategorySortingDto> categories = categoryService.getCategories(page, keyword);
+        System.out.println("categories = " + categories.toList());
 
-        List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories();
+        List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories(userId);
+
+        System.out.println("recommendCategories = " + recommendCategories);
 
         model.addAttribute("keyword", keyword);
         model.addAttribute("recommendCategories", recommendCategories);

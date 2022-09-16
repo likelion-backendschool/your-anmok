@@ -10,15 +10,15 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryDto> findAll();
-    Page<CategorySortingDto> findByTagNameContaining(int page, String keyword);
+    Page<CategorySortingDto> findByTagNameContaining(int page, String keyword, int userId);
 
-    Page<CategorySortingDto> getListByPaging(int page);
+    Page<CategorySortingDto> getListByPaging(int page, int userId);
 
-    List<CategorySortingDto> getRecommendCategories();
+    List<CategorySortingDto> getRecommendCategories(int userId);
 
     List<CategoryDto> getBookmarkCategoriesByUser(int userId);
 
-    Page<CategorySortingDto> getCategories(int page, String keyword);
+    Page<CategorySortingDto> getCategories(int page, String keyword, int userId);
 
     int addCategory(CategoryDto categoryDto);
 

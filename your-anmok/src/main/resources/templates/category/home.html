@@ -89,7 +89,6 @@
             <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
 
             <input type="hidden" value="${category.id}" >
-            <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
             <div sec:authorize="isAuthenticated()">
 
               <th:block th:if="${category.isBookmark() == false}">
@@ -169,7 +168,6 @@
               <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
 
               <input type="hidden" value="${category.id}" >
-              <!-- TODO user id에 따른 카테고리 추가 기능 구현 필요 -->
               <div sec:authorize="isAuthenticated()">
 
                 <th:block th:if="${category.isBookmark() == false}">
