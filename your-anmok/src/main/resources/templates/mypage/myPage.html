@@ -11,7 +11,7 @@
 
 <!-- TODO 로그인 완성 후 구현 -->
 <form action="">
-    <img src="/images/profile/1.jpeg" class="w-[100px] h-[100px]">
+    <img th:src="${member.profilePicture}" class="w-[100px] h-[100px]">
     <input type="text" th:value="${member.nickname}" name="nickname">
     <button type="submit">변경</button>
 </form>
