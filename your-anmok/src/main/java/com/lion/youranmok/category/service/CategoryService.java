@@ -4,21 +4,25 @@ import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.entity.Category;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CategoryService {
 
     List<CategoryDto> findAll();
-    Page<CategorySortingDto> findByTagNameContaining(int page, String keyword);
+    Page<CategorySortingDto> findByTagNameContaining(int page, String keyword, int userId);
 
-    Page<CategorySortingDto> getListByPaging(int page);
+    Page<CategorySortingDto> getListByPaging(int page, int userId);
 
-    List<CategorySortingDto> getRecommendCategories();
+    List<CategorySortingDto> getRecommendCategories(int userId);
+
+    List<CategoryDto> getBookmarkCategoriesByUser(int userId);
 
     List<Category> getTagName(Integer id);
 
+    Page<CategorySortingDto> getCategories(int page, String keyword, int userId);
+
+    int addCategory(CategoryDto categoryDto);
 
     default Category dtoToEntity(CategoryDto dto) {
 

@@ -1,30 +1,51 @@
 package com.lion.youranmok.user.entity;
 
-import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.relational.core.mapping.Table;
+import com.lion.youranmok.login.entity.BaseTimeEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@Table
+@NoArgsConstructor
 @Entity
-public class User {
+@Builder
+@AllArgsConstructor
+public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @Column(length = 30)
+    // 사용하는 닉네임, 초기값 -> 카카오톡 닉네임
+    @Column(length = 200, nullable = false)
     private String nickname;
 
-    @Column(length = 50)
+    // 로그인 시 필요한 값, 고유성 O, 노출 X
+    @Column(length = 200, nullable = false)
+    private String username;
+
+    @Column(length = 200, nullable = false)
+    private String password;
+
+    @Column(length = 500, nullable = false)
     private String profilePicture;
 
-    @Column(length = 100)
-    private String token;
+    @Builder
+    public User(Integer id, String nickname, String profilePicture, LocalDateTime created_at){
+        this.id=id;
+        this.nickname=nickname;
+        this.profilePicture = profilePicture;
+        this.created_at = created_at;
+    }
 
+    @Override
+    public String toString() {
+        return "Kakao_User{" +
+                "created_at=" + created_at +
+                ", id=" + id +
+                ", nickname='" + nickname + '\'' +
+                ", profile_picture='" + profilePicture + '\'' +
+                '}';
+    }
 }
+

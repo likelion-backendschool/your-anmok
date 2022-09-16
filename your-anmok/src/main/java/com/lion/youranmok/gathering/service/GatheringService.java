@@ -109,10 +109,12 @@ public class GatheringService {
         gatheringRepository.delete(gatheringBoard);
     }
 
-
-
     public List<GatheringBoard> getGatheringListByPlaceId(Integer id) {
         return gatheringRepository.getAllByPlaceId(id);
     }
 
+
+    public List<GatheringListDetailDto> getDetailByUserId(int userId) {
+        return gatheringRepository.getDetailByUserId(userId);
+    }
 }

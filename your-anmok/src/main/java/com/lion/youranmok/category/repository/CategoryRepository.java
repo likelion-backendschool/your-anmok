@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
@@ -34,9 +35,6 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     List<Category> getAllByPlaceId(Integer id);
 
-
-    // TODO 로그인 연동 후 제대로 동작하는 지 확인 필요
-
     @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
             "c.id," +
             "c.tagName," +
@@ -52,4 +50,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     List<CategorySortingDto> getCategoriesByUserContainigKeyword(int userId, String keyword);
 
 
+    Optional<Category> findByTagName(String tagName);
 }

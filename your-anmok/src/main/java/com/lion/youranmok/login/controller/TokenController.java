@@ -3,38 +3,49 @@ package com.lion.youranmok.login.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lion.youranmok.login.dto.KakaoUserDto;
 import com.lion.youranmok.login.entity.BaseTimeEntity;
-import com.lion.youranmok.login.entity.Kakao_User;
+import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.login.model.*;
-import com.lion.youranmok.login.repository.KakaoUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.lion.youranmok.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class TokenController {
-    @Autowired
-    private KakaoUserRepository kakaoUserRepository;
+
+    private final UserService userService;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final AuthenticationManager authenticationManager;
+
 
     @Value("${Kakao_Client}")
     private String Kakao_Client;
     @Value("${Kakao_Callback}")
     private String Kakao_Callback;
 
-    @GetMapping("/login")
+    @GetMapping("/auth/login")
     public String getList() {
         Map<String, String> kakao_key = new HashMap<String,String>();
         kakao_key.put("key1",Kakao_Client);
@@ -104,20 +115,28 @@ public class TokenController {
         }catch (JsonProcessingException e){
             e.printStackTrace();
         }
-        String data = kakaoProfile.getKakao_account().getEmail();
-        Kakao_User kakao_user = kakaoUserRepository.findByEmail(data);
 
-        if(kakao_user != null){
-            return "map/homeMap";
+        String data = kakaoProfile.getKakao_account().getEmail();
+        User kakao_user = userService.findByUsername(data);
+
+        String rawPassword = bCryptPasswordEncoder.encode(kakaoProfile.getId() + "");
+
+        KakaoUserDto kakaoUserDto = KakaoUserDto.builder()
+                .username("kakao_" + kakaoProfile.getId())
+                .password(rawPassword)
+                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
+                .profilePicture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
+                .build();
+
+
+        if (kakao_user == null) {
+            userService.saveKakaoUser(kakaoUserDto);
         }
-        else{
-            kakaoUserRepository.save(Kakao_User.builder()
-                    .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
-                    .email(kakaoProfile.getKakao_account().getEmail())
-                    .profile_picture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
-                    .created_at(LocalDateTime.now())
-                    .build());
-            return "map/homeMap";
-        }
+
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUserDto.getUsername(), kakaoProfile.getId() + ""));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return "redirect:/";
+
     }
 }

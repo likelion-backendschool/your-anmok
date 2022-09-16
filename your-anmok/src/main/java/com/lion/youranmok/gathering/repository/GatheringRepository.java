@@ -35,6 +35,16 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "from GatheringBoard as gb inner join Place as p on p.id = gb.place.id")
     List<GatheringPreviewDto> getPreview();
 
+    @Query("select new com.lion.youranmok.gathering.dto.GatheringListDetailDto(" +
+            "gb.id, " +
+            "p.name, " +
+            "gb.title, " +
+            "gb.date, " +
+            "gb.totalCnt, " +
+            "gb.gatherCnt"+
+            ") from GatheringBoard gb inner join Place as p on gb.place.id = p.id where gb.userId = :userId")
+    List<GatheringListDetailDto> getDetailByUserId(int userId);
+
     @Query("select new com.lion.youranmok.gathering.dto.CreateSearchDto (" +
             "p.id," +
             "p.name" +
