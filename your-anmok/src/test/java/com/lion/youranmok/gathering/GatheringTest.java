@@ -49,9 +49,9 @@ class GatheringTest {
     @Autowired
     private UserService userService;
 
-
     @Autowired
     private PlaceCategoryMapRepository placeCategoryMapRepository;
+
 
     @Test
     @Order(1)
