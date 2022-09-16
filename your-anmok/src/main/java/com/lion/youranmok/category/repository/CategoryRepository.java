@@ -33,6 +33,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "from Category c where c.tagName like %:keyword%")
     List<CategorySortingDto> getSortingCategoriesContainingKeyword(String keyword);
 
+    @Query("select c from Category c inner join PlaceCategoryMap pcm on pcm.categoryId = c.id where pcm.placeId = :id")
     List<Category> getAllByPlaceId(Integer id);
 
     @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +

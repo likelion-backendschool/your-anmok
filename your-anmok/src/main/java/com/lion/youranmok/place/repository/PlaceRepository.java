@@ -13,3 +13,4 @@ import java.util.Optional;
 public interface PlaceRepository extends JpaRepository<Place, Integer>  {
     Optional<Place> findPlaceByNameAndAddress(String placename, String address);
 }
+

@@ -1,8 +1,6 @@
 package com.lion.youranmok.place.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +10,10 @@ import java.util.List;
 @Getter
 @Setter
 @Table
-@Data
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

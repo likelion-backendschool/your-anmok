@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="/css/gathering/list.css" rel="stylesheet">
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link th:href="@{/css/gathering/list.css}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
@@ -13,36 +13,57 @@
         <h1>같이 갈사람🤚🏻</h1>
     </div>
     <button class="write-gather"><a th:href="@{/gathering/create}">모집하기</a></button>
-    <div class="gather-category">
-        <div th:each="category,index:${categoryList}">
-            <button type="button" class="btn btn-outline-info" th:text="${category.tagName}"></button>
-        </div>
-    </div>
-    <div class="search">
-
-        <form>
-            <select id="status" name="status" tabindex="-1" aria-hidden="true">
-                <option value="">분류</option>
-                <!-- 카테고리/주소/이름 -->
-                <option value="category">카테고리</option>
-                <option value="address">주소</option>
-                <option value="name">이름</option>
-            </select>
-
-            <div class="bar">
-                <input type="text" placeholder="검색어를 입력하세요">
-                <input type="button" value="검색">
+    <form method="get" th:action="|@{/gathering/list}|" th:object="${criteria}">
+        <div class="gather-category">
+            <div th:each="category,index:${categoryList}">
+                <input type="checkbox" name="category" th:value="${category.id}">
+                <div th:text="${category.tagName}" type="button" class="btn btn-outline-info"></div>
+<!--                <label><input type="button" name="category" class="btn btn-outline-info" th:value="${category.tagName}" th:id="${category.id}" onclick="onClick(this.id)"></label>-->
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="search">
+
+            <form class="search-bar">
+                <select id="classification" name="classification" tabindex="-1" aria-hidden="true">
+                    <option value="">분류</option>
+                    <!-- 카테고리/주소/이름 -->
+<!--                    <option value="category">카테고리</option>-->
+                    <option value="address">주소</option>
+                    <option value="name">장소명</option>
+                    <option value="title">제목 + 내용</option>
+                    <option value="author">작성자</option>
+                </select>
+
+                <div class="bar">
+                    <input type="text" name="searchKeyword" id="searchKeyword" placeholder="검색어를 입력하세요">
+                    <input type="submit" value="검색">
+                </div>
+            </form>
+        </div>
+    </form>
 
     <div class="places">
-        <div th:each="gathering,index:${gatheringList}">
+        <div th:each="gathering,index:${gatheringList}" id="gatheringList">
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><img src="/images/gathering-image-test.png" alt="이미지"/></a>
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
             <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
         </div>
     </div>
 </section>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    let arr=[];
+    function onClick(id) {
+        var button = document.getElementById(id);
+        button.classList.toggle('active');
+        var idx = arr.indexOf(id);
+        if(idx > -1) {
+            arr.splice(idx, 1);
+        } else {
+            arr.push(id);
+        }
+    }
+</script>
 </body>
+
 </html>
