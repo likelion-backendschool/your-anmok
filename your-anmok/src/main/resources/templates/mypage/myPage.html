@@ -9,11 +9,11 @@
 </head>
 <body>
 
-<!-- TODO 로그인 완성 후 구현 -->
-<form action="">
+<form>
     <img th:src="${member.profilePicture}" class="w-[100px] h-[100px]">
-    <input type="text" th:value="${member.nickname}" name="nickname">
-    <button type="submit">변경</button>
+    <input type="text" th:value="${member.nickname}" id="nickname">
+    <input type="hidden" th:value="${member.id}" id="member-id">
+    <button type="button" id="nickname-btn">변경</button>
 </form>
 
 <br>
@@ -73,8 +73,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!--<script src="/js/category/bookmark.js">-->
-<!--</script>-->
+<script src="/js/category/member.js">
+</script>
 
 </body>
 </html>
