@@ -16,9 +16,11 @@ public class User extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    // 사용하는 닉네임, 초기값 -> 카카오톡 닉네임
     @Column(length = 200, nullable = false)
     private String nickname;
 
+    // 로그인 시 필요한 값, 고유성 O, 노출 X
     @Column(length = 200, nullable = false)
     private String username;
 

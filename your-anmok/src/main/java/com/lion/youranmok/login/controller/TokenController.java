@@ -121,12 +121,9 @@ public class TokenController {
 
         String rawPassword = bCryptPasswordEncoder.encode(kakaoProfile.getId() + "");
 
-        UUID uuid = UUID.randomUUID();
-
         KakaoUserDto kakaoUserDto = KakaoUserDto.builder()
-                .username(kakaoProfile.getKakao_account().getEmail())
+                .username("kakao_" + kakaoProfile.getId())
                 .password(rawPassword)
-                .email(kakaoProfile.getKakao_account().getEmail())
                 .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
                 .profilePicture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
                 .build();

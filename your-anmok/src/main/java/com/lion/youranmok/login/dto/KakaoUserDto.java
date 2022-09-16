@@ -17,7 +17,6 @@ public class KakaoUserDto {
     private String nickname;
     private String username;
     private String password;
-    private String email;
     private String profilePicture;
     private LocalDateTime created_at;
 
