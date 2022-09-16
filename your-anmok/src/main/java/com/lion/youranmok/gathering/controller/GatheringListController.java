@@ -5,6 +5,7 @@ import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.*;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
+import com.lion.youranmok.gathering.entity.GatheringListCriteria;
 import com.lion.youranmok.gathering.service.GatheringCommentService;
 import com.lion.youranmok.gathering.service.GatheringService;
 import com.lion.youranmok.place.entity.Place;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,16 +46,18 @@ public class GatheringListController {
 
 
     @GetMapping("/list")
-    public String getList(Model model) {
-        List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria();
-        List<CategoryDto> categoryList = categoryService.findAll();
+    public String getList(Model model, @ModelAttribute GatheringListCriteria criteria) {
+//        System.out.println(criteria.toString());
 
+        List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria(criteria);
+        List<CategoryDto> categoryList = categoryService.findAll();
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("gatheringList", gatheringBoardList);
 
         return "gathering/list";
     }
+
 
     @GetMapping("/{id}")
     public String getBoardDetail(@PathVariable int id, Model model, CommentForm commentForm) {
@@ -128,7 +132,7 @@ public class GatheringListController {
     @GetMapping("/delete/{id}")
     public String deleteBoard(@PathVariable int id) {
         gatheringService.delete(id);
-        
+
         return "redirect:/gathering/list";
     }
 

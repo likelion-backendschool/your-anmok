@@ -1,6 +1,7 @@
 package com.lion.youranmok.gathering.service;
 
 import com.lion.youranmok.gathering.dto.*;
+import com.lion.youranmok.gathering.entity.GatheringListCriteria;
 import com.lion.youranmok.gathering.repository.GatheringCommentRepository;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
@@ -50,7 +51,7 @@ public class GatheringService {
 
     public void modify(int id, CreateForm createForm) {
         GatheringBoard gatheringBoard = gatheringRepository.findById(id).orElse(null);
-        Place place = placeRepository.getReferenceById(createForm.getPlaceId());
+        Place place = placeRepository.findById(createForm.getPlaceId()).orElse(null);
 
         if(gatheringBoard == null) {
             throw new NoResultException();
@@ -69,8 +70,8 @@ public class GatheringService {
     }
 
 
-    public List<GatheringListDetailDto> listByCriteria() {
-        return gatheringRepository.listByCriteria();
+    public List<GatheringListDetailDto> listByCriteria(GatheringListCriteria criteria) {
+        return gatheringRepository.listByCriteria(criteria);
     }
 
     public GatheringDetailDto getDetailById(int id) {

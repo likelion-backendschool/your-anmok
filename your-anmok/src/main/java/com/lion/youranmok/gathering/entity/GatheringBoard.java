@@ -1,9 +1,7 @@
 package com.lion.youranmok.gathering.entity;
 
 import com.lion.youranmok.place.entity.Place;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Table;
@@ -18,6 +16,9 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class GatheringBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
