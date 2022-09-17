@@ -139,7 +139,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public int addCategory(CategoryDto categoryDto) {
+    public Integer addCategory(CategoryDto categoryDto) {
 
         String tagName = (categoryDto.getTagName()).replaceAll("#", "");
 
@@ -183,5 +183,14 @@ public class CategoryServiceImpl implements CategoryService{
 
     public List<Category> getTagName(Integer id){
         return categoryRepository.getAllByPlaceId(id);
+    }
+
+    public Optional<Category> findByTagName(String tagName){
+        return categoryRepository.findByTagName(tagName);
+    }
+
+    @Override
+    public Category getCategoryByTagName(String tagName) {
+        return categoryRepository.getCategoryByTagName(tagName);
     }
 }

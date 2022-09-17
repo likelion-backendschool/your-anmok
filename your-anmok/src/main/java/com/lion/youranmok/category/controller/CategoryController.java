@@ -71,7 +71,7 @@ public class CategoryController {
     @PostMapping("/add")
     public ResponseEntity addCategory(@RequestBody CategoryDto categoryDto) {
 
-        int id = categoryService.addCategory(categoryDto);
+        Integer id = categoryService.addCategory(categoryDto);
 
         if (id == 0) {
             return new ResponseEntity(HttpStatus.CONFLICT);

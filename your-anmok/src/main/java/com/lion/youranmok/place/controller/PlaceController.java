@@ -7,6 +7,7 @@ import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceImage;
+import com.lion.youranmok.place.service.PlaceCategoryMapService;
 import com.lion.youranmok.place.service.PlaceImageService;
 import com.lion.youranmok.place.service.PlaceReviewService;
 import com.lion.youranmok.place.service.PlaceService;
@@ -29,9 +30,9 @@ public class PlaceController {
     private final PlaceService placeService;
     private final PlaceImageService placeImageService;
     private final PlaceReviewService placeReviewService;
-
     private final CategoryService categoryService;
     private final GatheringService gatheringService;
+    private final PlaceCategoryMapService placeCategoryMapService;
 
     @RequestMapping("/place/{id}")
     public String placeDetail(Model model, @PathVariable(value="id")Integer id){
@@ -60,12 +61,19 @@ public class PlaceController {
                 .tagName(categorySelect)
                 .build();
 
-        categoryService.addCategory(categoryService.entityToDto(category));
+        //카테고리 등록
+        Integer categoryid = categoryService.addCategory(categoryService.entityToDto(category));
+        //이미 등록된 카테고리의 id 가져오기
+        if(categoryid==0){
+            categoryid = categoryService.getCategoryByTagName(categorySelect).getId();
+        }
 
         if (place==null){
             placeService.savePlace(placeName, address, lat, lon, rating, placeImgs);
             place = placeService.getPlaceByNameAndAddress(placeName, address);
         }
+
+        placeCategoryMapService.save(place.getId(), categoryid);
         placeReviewService.upload(place, rating, placeImgs);
 
         Integer starAvg = placeService.getStarAvg(place.getId());
