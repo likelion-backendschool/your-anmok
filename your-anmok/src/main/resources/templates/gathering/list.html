@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,7 +12,11 @@
     <div class="gathering-title">
         <h1>같이 갈사람🤚🏻</h1>
     </div>
-    <button class="write-gather"><a th:href="@{/gathering/create}">모집하기</a></button>
+    <div class="flex justify-end mr-[25px] mt-[25px]">
+        <button sec:authorize="isAnonymous()" class="write-gather"><a th:href="@{/auth/login}">로그인</a></button>
+        <button sec:authorize="isAuthenticated()" class="write-gather"><a href="/logout">로그아웃</a></button>
+        <button sec:authorize="isAuthenticated()" class="write-gather"><a th:href="@{/gathering/create}">모집하기</a></button>
+    </div>
     <form method="get" th:action="|@{/gathering/list}|" th:object="${criteria}">
         <div class="gather-category">
             <div th:each="category,index:${categoryList}">
