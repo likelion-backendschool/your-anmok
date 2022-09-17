@@ -19,13 +19,13 @@ public interface CategoryService {
 
     List<CategoryDto> getBookmarkCategoriesByUser(int userId);
 
-    List<Category> getTagName(Integer id);
-
     Page<CategorySortingDto> getCategories(int page, String keyword, int userId);
 
     Integer addCategory(CategoryDto categoryDto);
 
     Optional<Category> findByTagName(String tagName);
+
+    Category getCategoryById(Integer id);
 
     default Category dtoToEntity(CategoryDto dto) {
 

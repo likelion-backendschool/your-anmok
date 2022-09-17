@@ -181,16 +181,20 @@ public class CategoryServiceImpl implements CategoryService{
         return categories;
     }
 
-    public List<Category> getTagName(Integer id){
-        return categoryRepository.getAllByPlaceId(id);
-    }
-
+    @Override
     public Optional<Category> findByTagName(String tagName){
         return categoryRepository.findByTagName(tagName);
+    }
+
+    @Override
+    public Category getCategoryById(Integer id) {
+        return categoryRepository.getCategoryById(id);
     }
 
     @Override
     public Category getCategoryByTagName(String tagName) {
         return categoryRepository.getCategoryByTagName(tagName);
     }
+
+
 }

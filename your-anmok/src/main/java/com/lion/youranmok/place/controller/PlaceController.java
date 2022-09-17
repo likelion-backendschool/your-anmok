@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,15 +42,17 @@ public class PlaceController {
         List<GatheringBoard> placeGatheringDtos = gatheringService.getGatheringListByPlaceId(id);
         List<PlaceImage> placeImages = placeImageService.getPlaceImagesByPlaceId(id);
         List<Integer> categoryIdList = placeCategoryMapService.getDistinctCategoryIdByPlaceId(id);
+        List<Category> categoryList = new ArrayList<>();
 
-        System.out.println(categoryIdList);
-
-        System.out.println(placeImages.size());
+        for(int i=0;i<categoryIdList.size();i++){
+            categoryList.add(categoryService.getCategoryById(categoryIdList.get(i)));
+        }
 
         model.addAttribute("place", place);
         model.addAttribute("stars", place.getStar());
         model.addAttribute("emptystars", 5-place.getStar());
         model.addAttribute("gatheringList", placeGatheringDtos);
+        model.addAttribute("categoryList", categoryList);
         model.addAttribute("placeImageList", placeImages);
 
         return "map/homeMap";
