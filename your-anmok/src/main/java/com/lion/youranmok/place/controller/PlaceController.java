@@ -1,5 +1,6 @@
 package com.lion.youranmok.place.controller;
 
+import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,8 +53,14 @@ public class PlaceController {
     }
 
     @PostMapping("/addPlace")
-    public String addPlace(HttpServletRequest request, String placeName, String address, Double lat, Double lon, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
+    public String addPlace(HttpServletRequest request, String placeName, String address, Double lat, Double lon, String categorySelect, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
         Place place = placeService.getPlaceByNameAndAddress(placeName, address);
+
+        Category category = Category.builder()
+                .tagName(categorySelect)
+                .build();
+
+        categoryService.addCategory(categoryService.entityToDto(category));
 
         if (place==null){
             placeService.savePlace(placeName, address, lat, lon, rating, placeImgs);

@@ -141,7 +141,9 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public int addCategory(CategoryDto categoryDto) {
 
-        categoryDto.setTagName("#" + categoryDto.getTagName());
+        String tagName = (categoryDto.getTagName()).replaceAll("#", "");
+
+        categoryDto.setTagName("#" + tagName);
 
         Optional<Category> result = categoryRepository.findByTagName(categoryDto.getTagName());
 
