@@ -6,6 +6,7 @@ import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
 import com.lion.youranmok.place.entity.Place;
+import com.lion.youranmok.place.entity.PlaceCategoryMap;
 import com.lion.youranmok.place.entity.PlaceImage;
 import com.lion.youranmok.place.service.PlaceCategoryMapService;
 import com.lion.youranmok.place.service.PlaceImageService;
@@ -39,6 +40,9 @@ public class PlaceController {
         Place place = this.placeService.getPlace(id);
         List<GatheringBoard> placeGatheringDtos = gatheringService.getGatheringListByPlaceId(id);
         List<PlaceImage> placeImages = placeImageService.getPlaceImagesByPlaceId(id);
+        List<Integer> categoryIdList = placeCategoryMapService.getDistinctCategoryIdByPlaceId(id);
+
+        System.out.println(categoryIdList);
 
         System.out.println(placeImages.size());
 

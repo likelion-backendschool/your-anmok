@@ -5,6 +5,8 @@ import com.lion.youranmok.place.repository.PlaceCategoryMapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class PlaceCategoryMapService {
@@ -15,5 +17,9 @@ public class PlaceCategoryMapService {
         placeCategoryMap.setPlaceId(placeId);
         placeCategoryMap.setCategoryId(categoryId);
         placeCategoryMapRepository.save(placeCategoryMap);
+    }
+
+    public List<Integer> getDistinctCategoryIdByPlaceId(Integer id) {
+        return placeCategoryMapRepository.getDistinctCategoryIdByPlaceId(id);
     }
 }
