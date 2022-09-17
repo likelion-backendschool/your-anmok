@@ -54,8 +54,8 @@
                                     <div  th:text="${comment.comment}"></div>
                                     <div>
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|"
-                                             th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}"
-                                             onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'))">⤴️ 답장</div>
+                                             th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}" th:userId="${comment.userId}"
+                                             onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'), this.getAttribute('userId'))">⤴️ 답장</div>
 
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|"
                                              onclick="doModify(this.id)">수정</div>
@@ -91,7 +91,9 @@
                                             <div th:text="${reply.comment}"></div>
                                         </div>
                                         <div>
-                                            <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill" onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'))">⤴️ 답장</div>
+                                            <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:userId="${comment.userId}"
+                                                 th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                                 onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'), this.getAttribute('userId'))">⤴️ 답장</div>
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${reply.commentId}|"
                                                  onclick="doModify2(this.id)">수정</div>
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
@@ -199,7 +201,7 @@
     // forms
 
 
-    function doAction(id, replys, nickname) {
+    function doAction(id, replys, nickname, userId) {
         const btn1 = document.getElementById(id);
         const replyInputForm = document.getElementById(replys);
         const replyNickname = document.getElementById("reply-nickname-"+id);
@@ -208,7 +210,7 @@
         if(btn1.style.display != 'none') {
             replyInputForm.style.display = 'block';
             // document.getElementById(replyNickname).innerHTML = nickname + "님에게 답글 남기는 중...";
-            mentionId.value = nickname;
+            mentionId.value = userId;
             replyNickname.innerHTML = "@ "+ nickname;
         } else {
             replyInputForm.style.display = 'block';

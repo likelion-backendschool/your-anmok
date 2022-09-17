@@ -38,11 +38,14 @@ public class GatheringCommentService {
         gatheringComment.setCommentText(commentForm.getContent());
         gatheringComment.setBoard(board);
 
-        User commentUser = userRepository.findByNickname(commentForm.getMentionTo());
-        if(commentForm.getMentionTo() != null && commentUser != null) {
+        if(commentForm.getMentionTo() != null) {
+            User commentUser = userRepository.findById(commentForm.getMentionTo()).orElse(null);
+            if (commentForm.getMentionTo() != null && commentUser != null) {
 
-            gatheringComment.setMentionId(commentUser.getId());
+                gatheringComment.setMentionId(commentUser.getId());
+            }
         }
+
         if(commentForm.getApplyTo() != null) {
             gatheringComment.setReplyTo(commentForm.getApplyTo());
         }
