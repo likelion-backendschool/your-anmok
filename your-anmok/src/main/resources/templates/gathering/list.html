@@ -62,7 +62,7 @@
         <div id="menu">
             <div class="close"></div>
 
-            <a id="hamburger_button" class="fas fa-bars fa-3x">왜 안보이냐?</a>
+            <a id="hamburger_button" class="fas fa-bars fa-3x"></a>
 
             <div class="left_sub_menu">
                 <div class="sub_menu">
@@ -106,22 +106,22 @@
         }
     }
 
-    // $(function () {
-    //     $(".left_sub_menu").hide();
-    //     $("#hamburger_button").click(function () {
-    //         $(".left_sub_menu").fadeToggle(300);
-    //     });
-    //     // // 왼쪽메뉴 드롭다운
-    //     // $(".sub_menu ul.small_menu").hide();
-    //     // $(".sub_menu ul.big_menu").click(function () {
-    //     //     $("ul", this).slideToggle(300);
-    //     // });
-    //     // 외부 클릭 시 좌측 사이드 메뉴 숨기기
-    //     $('#map').on('click', function () {
-    //         $('.left_sub_menu').fadeOut();
-    //         $('.hide_sidemenu').fadeIn();
-    //     });
-    // });
+    $(function () {
+        $(".left_sub_menu").hide();
+        $("#hamburger_button").click(function () {
+            $(".left_sub_menu").fadeToggle(300);
+        });
+        // // 왼쪽메뉴 드롭다운
+        // $(".sub_menu ul.small_menu").hide();
+        // $(".sub_menu ul.big_menu").click(function () {
+        //     $("ul", this).slideToggle(300);
+        // });
+        // 외부 클릭 시 좌측 사이드 메뉴 숨기기
+        $('#map').on('click', function () {
+            $('.left_sub_menu').fadeOut();
+            $('.hide_sidemenu').fadeIn();
+        });
+    });
 </script>
 </body>
 

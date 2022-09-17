@@ -158,11 +158,9 @@ h1{
 /* (158~) 사이드바 관련 css */
 
 #hamburger_button {
-    cursor:pointer;
-    position:absolute;
-    top:0px;
-    left:0px;
-    z-index: 200;
+    position: fixed;
+    top: 20px;
+    left: 20px;
 }
 
 /* 추가된 부분 */
@@ -180,8 +178,8 @@ h1{
 
 .left_sub_menu {
     position: fixed;
-    top: 50px;
-    width: 200px;
+    top: 70px;
+    width: 250px;
     z-index: 10;
     left: 0px;
     background: white;
@@ -282,6 +280,7 @@ ul {
 .hide_sidemenu {
     display: none;
 }
+
 
 /* */
 
