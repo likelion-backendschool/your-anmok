@@ -15,14 +15,14 @@ import java.util.List;
 public class MapController {
     private final MapService mapService;
 
-    @GetMapping("/addPlace/{place_name}/{address_name}")
-    public String addPlace(@PathVariable String place_name, @PathVariable String address_name){
-
-        mapService.add(place_name,address_name);
-
-        return "redirect:/";
-
-    }
+//    @GetMapping("/addPlace/{place_name}/{address_name}")
+//    public String addPlace(@PathVariable String place_name, @PathVariable String address_name){
+//
+//        mapService.add(place_name,address_name);
+//
+//        return "redirect:/";
+//
+//    }
 
 //    @GetMapping("/mapSearch")
 //    public String searchMap(){
