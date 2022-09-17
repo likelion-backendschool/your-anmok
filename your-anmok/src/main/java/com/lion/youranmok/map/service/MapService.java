@@ -40,14 +40,14 @@ public class MapService {
 //        return mapDto;
 //    }
 
-    public void add(String name, String address){
-        Map map = new Map();
-
-        map.setName(name);
-        map.setAddress(address);
-
-        mapRepository.save(map);
-    }
+//    public void add(String name, String address){
+//        Map map = new Map();
+//
+//        map.setName(name);
+//        map.setAddress(address);
+//
+//        mapRepository.save(map);
+//    }
 
     public List<Place> getAllPlaceList() {
         List<MapDto> mapDtoList = new ArrayList<>();

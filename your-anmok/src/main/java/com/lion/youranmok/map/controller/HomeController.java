@@ -26,7 +26,7 @@ public class HomeController {
 //        for (MapDto mapDto : placeList){
 //            System.out.println(mapDto.getName());
 //        }
-        model.addAttribute("myPlaceList",placeList);
+        model.addAttribute("allPlaceList",placeList);
 //        mv.addObject("placeInfos","placeList");
 //        mv.setViewName("map/homeMap");
 
