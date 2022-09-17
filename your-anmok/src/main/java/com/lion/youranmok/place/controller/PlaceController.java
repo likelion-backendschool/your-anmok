@@ -37,14 +37,12 @@ public class PlaceController {
     @RequestMapping("/place/{id}")
     public String placeDetail(Model model, @PathVariable(value="id")Integer id){
         Place place = this.placeService.getPlace(id);
-        List<Category> placeTagList = categoryService.getTagName(id);
         List<GatheringBoard> placeGatheringDtos = gatheringService.getGatheringListByPlaceId(id);
         List<PlaceImage> placeImages = placeImageService.getPlaceImagesByPlaceId(id);
 
         System.out.println(placeImages.size());
 
         model.addAttribute("place", place);
-        model.addAttribute("tagNameList", placeTagList);
         model.addAttribute("stars", place.getStar());
         model.addAttribute("emptystars", 5-place.getStar());
         model.addAttribute("gatheringList", placeGatheringDtos);
