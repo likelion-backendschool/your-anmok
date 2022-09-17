@@ -51,7 +51,7 @@ public class CommentController {
         if(gatheringComment.getUserId() != member.getId()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "본인이 달지 않은 댓글은 삭제할 수 없습니다.");
         }
-        if(gatheringComment.getReplyTo() == null) {
+        if(gatheringComment.getReplyTo() == null && commentService.existsByReplyTo(commentId)) {
             gatheringComment.setCommentText("삭제된 댓글입니다.");
             commentService.save(gatheringComment);
         } else {

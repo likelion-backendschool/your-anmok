@@ -44,4 +44,6 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "gc.board.id" +
             ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.userId = :userId order by gc.createdAt desc")
     List<CommentMyPageDto> listByUserId(int userId);
+
+    boolean existsByReplyTo(int commentId);
 }

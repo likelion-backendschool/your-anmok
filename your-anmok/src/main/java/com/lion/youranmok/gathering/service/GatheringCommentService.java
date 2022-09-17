@@ -70,4 +70,8 @@ public class GatheringCommentService {
         return gatheringCommentRepository.listByUserId(userId);
     }
 
+    public boolean existsByReplyTo(int commentId) {
+        return gatheringCommentRepository.existsByReplyTo(commentId);
+    }
+
 }
