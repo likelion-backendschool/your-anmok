@@ -1,5 +1,6 @@
 <!--폰트어썸-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 
 <!doctype html>
@@ -18,9 +19,11 @@
                 <div class="title flex justify-between">
                     <h2 th:text="${detailList.getTitle()}"></h2>
                     <a th:href="@{|/gathering/modify/${id}|}" class="btn btn-sm btn-outline-secondary"
+                       sec:authorize="isAuthenticated()"
                        th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
                        th:text="수정"></a>
                     <a th:href="@{|/gathering/delete/${id}|}" class="btn btn-sm btn-outline-secondary"
+                       sec:authorize="isAuthenticated()"
                        th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
                        onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:text="삭제"></a>
                 </div>
@@ -60,9 +63,11 @@
                                              onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'), this.getAttribute('userId'))">⤴️ 답장</div>
 
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|"
+                                             sec:authorize="isAuthenticated()"
                                              th:if="${#authentication.getPrincipal().getId() == comment.userId}"
                                              onclick="doModify(this.id)">수정</div>
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                             sec:authorize="isAuthenticated()"
                                              th:if="${#authentication.getPrincipal().getId() == comment.userId}"
                                              th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${comment.commentId}]])">삭제</div>
                                     </div>
@@ -99,9 +104,11 @@
                                                  th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill"
                                                  onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'), this.getAttribute('userId'))">⤴️ 답장</div>
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${reply.commentId}|"
+                                                 sec:authorize="isAuthenticated()"
                                                  th:if="${#authentication.getPrincipal().getId() == reply.userId}"
                                                  onclick="doModify2(this.id)">수정</div>
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                                 sec:authorize="isAuthenticated()"
                                                  th:if="${#authentication.getPrincipal().getId() == reply.userId}"
                                                  th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${reply.commentId}]])">삭제</div>
                                         </div>

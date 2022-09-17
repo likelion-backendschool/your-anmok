@@ -53,7 +53,7 @@ public class GatheringListController {
 
 
     @GetMapping("/list")
-    public String getList(Model model, @ModelAttribute GatheringListCriteria criteria) {
+    public String getList(@AuthenticationPrincipal MemberContext member, Model model, @ModelAttribute GatheringListCriteria criteria) {
 //        System.out.println(criteria.toString());
 
         List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria(criteria);
@@ -67,7 +67,7 @@ public class GatheringListController {
 
 
     @GetMapping("/{id}")
-    public String getBoardDetail(@PathVariable int id, Model model, CommentForm commentForm) {
+    public String getBoardDetail(@AuthenticationPrincipal MemberContext member, @PathVariable int id, Model model, CommentForm commentForm) {
         GatheringDetailDto gatheringDetailDto = gatheringService.getDetailById(id);
         List<CommentDto> commentList = gatheringCommentService.listByBoardId(id);
         for(CommentDto comment : commentList) {
