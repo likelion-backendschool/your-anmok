@@ -6,6 +6,7 @@ import com.lion.youranmok.category.entity.Category;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryService {
 
@@ -18,11 +19,13 @@ public interface CategoryService {
 
     List<CategoryDto> getBookmarkCategoriesByUser(int userId);
 
-    List<Category> getTagName(Integer id);
-
     Page<CategorySortingDto> getCategories(int page, String keyword, int userId);
 
-    int addCategory(CategoryDto categoryDto);
+    Integer addCategory(CategoryDto categoryDto);
+
+    Optional<Category> findByTagName(String tagName);
+
+    Category getCategoryById(Integer id);
 
     default Category dtoToEntity(CategoryDto dto) {
 
@@ -46,4 +49,5 @@ public interface CategoryService {
 
     }
 
+    Category getCategoryByTagName(String tagName);
 }
