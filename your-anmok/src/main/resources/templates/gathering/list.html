@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link href="/css/gathering/list.css" rel="stylesheet">
     <link th:href="@{/css/gathering/list.css}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<!--    <script src="https://cdn.tailwindcss.com"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
 <section id="container">
@@ -53,6 +56,41 @@
             <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
         </div>
     </div>
+
+<!--  사이드바 관련 화면  -->
+    <div class="map_wrap" style="position: relative;">
+        <div id="menu">
+            <div class="close"></div>
+
+            <a id="hamburger_button" class="fas fa-bars fa-3x">왜 안보이냐?</a>
+
+            <div class="left_sub_menu">
+                <div class="sub_menu">
+                    <h2>메뉴</h2>
+                    <ul class="big_menu">
+                    <li><a href="/">지도보기</a></li>
+                    <!--                    <ul class="small_menu">-->
+                    <!--                        <li><a href="#">소메뉴2-1</a></li>-->
+                    <!--                        <li><a href="#"></a>소메뉴2-2</a></li>-->
+                    <!--                    </ul>-->
+                    </ul>
+                    <ul class="big_menu">
+                        <li><a href="/category/home">카테고리</a></li>
+                        <!--                    <ul class="small_menu">-->
+                        <!--                        <li><a href="#">소메뉴1-1</a></li>-->
+                        <!--                        <li><a href="#">소메뉴1-2</a></li>-->
+                        <!--                        <li><a href="">소메뉴1-3</a></li>-->
+                        <!--                        <li><a href="#">소메뉴1-4</a></li>-->
+                        <!--                    </ul>-->
+                    </ul>
+                    <ul class="big_menu">
+                        <li><a href="/mypage">마이페이지</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
@@ -67,6 +105,23 @@
             arr.push(id);
         }
     }
+
+    // $(function () {
+    //     $(".left_sub_menu").hide();
+    //     $("#hamburger_button").click(function () {
+    //         $(".left_sub_menu").fadeToggle(300);
+    //     });
+    //     // // 왼쪽메뉴 드롭다운
+    //     // $(".sub_menu ul.small_menu").hide();
+    //     // $(".sub_menu ul.big_menu").click(function () {
+    //     //     $("ul", this).slideToggle(300);
+    //     // });
+    //     // 외부 클릭 시 좌측 사이드 메뉴 숨기기
+    //     $('#map').on('click', function () {
+    //         $('.left_sub_menu').fadeOut();
+    //         $('.hide_sidemenu').fadeIn();
+    //     });
+    // });
 </script>
 </body>
 
