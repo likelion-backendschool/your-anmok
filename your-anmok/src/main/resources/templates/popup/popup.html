@@ -41,8 +41,8 @@
         <!-- 팝업 - 태그 영역 -->
         <div id="tag_box" class="scrollbar">
             <p class="mb-2">TAG LIST🔖</p>
-            <tr th:each="tagList : ${tagNameList}" th:if="${tagNameList != null}">
-                <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${tagList.tagName}"></button>
+            <tr th:each="categoryList : ${categoryList}" th:if="${categoryList != null}">
+                <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${categoryList.tagName}"></button>
             </tr>
         </div>
         <!-- 팝업 - 별점, 번개모임 묶음 -->

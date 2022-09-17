@@ -1,5 +1,7 @@
 package com.lion.youranmok.map.controller;
 
+import com.lion.youranmok.category.dto.CategoryDto;
+import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.map.service.MapService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MapController {
     private final MapService mapService;
+    private final CategoryService categoryService;
 
 //    @GetMapping("/addPlace/{place_name}/{address_name}")
 //    public String addPlace(@PathVariable String place_name, @PathVariable String address_name){
@@ -29,13 +32,12 @@ public class MapController {
 //
 //    }
 
-
     @GetMapping("/searchMap")
     public String searchPlace(@RequestParam("placeKeyword") String placeKeyword, Model model){
-
+        List<CategoryDto> categoryList = categoryService.findAll();
         model.addAttribute("placeKeyword",placeKeyword);
+        model.addAttribute("categoryList",categoryList);
         return "map/searchMap";
-
     }
 
     @GetMapping("/category")
