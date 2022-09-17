@@ -140,8 +140,9 @@
                 <h5 class="border-bottom my-3 py-2">📝 댓글작성</h5>
                 <form th:action="@{|/comment/create/${id}|}" th:object="${commentForm}" method="post" class="my-3">
                     <!--                    <div th:replace="form_errors :: formErrorsFragment"></div>-->
-                    <textarea name="content" th:field="*{content}" rows="2" class="form-control"></textarea>
-                    <div class="d-flex justify-content-end">
+                    <textarea sec:authorize="isAuthenticated()" name="content" th:field="*{content}" rows="2" class="form-control"></textarea>
+                    <textarea sec:authorize="isAnonymous()" class="form-control" type="text" rows="2" placeholder="댓글을 달려면 로그인해주세요." disabled></textarea>
+                    <div class="d-flex justify-content-end" sec:authorize="isAuthenticated()">
                         <input type="submit" value="댓글달기" class="btn btn-outline-dark btn-sm m-2">
                     </div>
                 </form>
@@ -171,12 +172,12 @@
 
                 </div>
 
-                <div>
-                    <p>상세 정보</p>
-                    <p>
-                        위치도 좋아 카공하기 좋은 카페로 추천합니다.
-                    </p>
-                </div>
+<!--                <div>-->
+<!--                    <p>상세 정보</p>-->
+<!--                    <p>-->
+<!--                        위치도 좋아 카공하기 좋은 카페로 추천합니다.-->
+<!--                    </p>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
