@@ -33,8 +33,9 @@ public class PlaceController {
     private final GatheringService gatheringService;
     private final PlaceCategoryMapService placeCategoryMapService;
 
-    @RequestMapping("/place/{id}")
-    public String placeDetail(Model model, @PathVariable(value="id")Integer id){
+    @ResponseBody
+    @GetMapping("/place/{id}")
+    public Place placeDetail(Model model, @PathVariable(value="id")Integer id){
         Place place = this.placeService.getPlace(id);
         List<GatheringBoard> placeGatheringDtos = gatheringService.getGatheringListByPlaceId(id);
         List<PlaceImage> placeImages = placeImageService.getPlaceImagesByPlaceId(id);
@@ -45,14 +46,14 @@ public class PlaceController {
             categoryList.add(categoryService.getCategoryById(categoryIdList.get(i)));
         }
 
-        model.addAttribute("place", place);
-        model.addAttribute("stars", place.getStar());
-        model.addAttribute("emptystars", 5-place.getStar());
-        model.addAttribute("gatheringList", placeGatheringDtos);
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("placeImageList", placeImages);
+//        model.addAttribute("place", place);
+//        model.addAttribute("stars", place.getStar());
+//        model.addAttribute("emptystars", 5-place.getStar());
+//        model.addAttribute("gatheringList", placeGatheringDtos);
+//        model.addAttribute("categoryList", categoryList);
+//        model.addAttribute("placeImageList", placeImages);
 
-        return "map/homeMap";
+        return place;
     }
 
     @PostMapping("/addPlace")
