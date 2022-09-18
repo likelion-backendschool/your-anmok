@@ -318,6 +318,72 @@
                         $('p[id=place_info_placeAddress]').text(data.place.address);
 
 
+                        let categorySize = data.categoryList.length;
+                        let gatheringSize = data.placeGatheringDtos.length;
+                        let imageSize = data.placeImages.length;
+                        let starSize = data.place.star;
+                        let emptyStarSize = 5-data.place.star;
+
+                        console.log("카테고리 사이즈는"+categorySize);
+                        console.log("카테고리 이름:"+data.categoryList[0].tagName);
+                        function categoryDOM(categoryList){
+                            let tr = '';
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<categorySize;i++) {
+                                tr += `    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1">${categoryList[i].tagName}</button>`
+                            }
+
+                            tr+=`</tr>`;
+                            console.log(tr);
+                            document.getElementById("place_info_categoryList").innerHTML=tr;
+                        }
+
+                        function gatheringDOM(gatheringList){
+                            let tr = '';
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<gatheringSize;i++){
+                                tr +=`    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" onclick="location.href='/gathering/${gatheringList[i].id}'">${gatheringList[i].title}</button>`
+                            }
+                            tr+=`</tr>`;
+                            console.log(tr);
+                            document.getElementById("place_info_gatheringList").innerHTML=tr;
+                        }
+
+                        function starDOM(star){
+                            let tr = '';
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<starSize;i++){
+                                tr +=`    <img src="/images/star.png" class="star">`
+                            }
+                            tr+=`</tr>`;
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<emptyStarSize;i++){
+                                tr +=`    <img src="/images/empty_star.png" class="star">`
+                            }
+                            tr+=`</tr>`;
+                            console.log(tr);
+                            document.getElementById("star_box").innerHTML=tr;
+                        }
+
+                        function imageDOM(placeImages){
+                            let tr='';
+                            tr+=`<tr>`;
+                            for (let i=0;i<imageSize;i++){
+                                tr+=`   <li><img className="usr_img" src="/placeimg/${placeImages[i].filePath}"></li>`
+                            }
+                            tr+=`</tr>`;
+                            document.getElementById("place_info_imageList").innerHTML=tr;
+                        }
+
+                        categoryDOM(data.categoryList);
+                        gatheringDOM(data.placeGatheringDtos);
+                        imageDOM(data.placeImages);
+                        starDOM(data.place.star);
+
                         document.getElementById("detail_popup_layer").style.display='block'
                         slider();
                     }
