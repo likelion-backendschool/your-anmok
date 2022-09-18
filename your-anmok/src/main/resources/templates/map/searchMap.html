@@ -203,6 +203,9 @@
     <div id="map" class="w-screen h-screen" >
 
     </div>
+    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fas fa-crosshairs" onclick="getCurrentPosBtn()">
+    </button>
+    <br>
 
     <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
         <div class="option">
@@ -225,7 +228,12 @@
 
         <div class="left_sub_menu">
             <div class="sub_menu">
-                <h2>메뉴</h2>
+                <h2>메뉴 <div style="float:right;">
+                        <form action="/auth/loginProc" method="post">
+                            <a href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
+                        </form>
+                    </div>
+                </h2>
                 <ul class="big_menu">
                     <li><a href="/category/home">카테고리</a></li>
                     <!--                    <ul class="small_menu">-->
@@ -365,13 +373,7 @@
         );
 
         map.panTo(currentPos);
-
-        let marker = new kakao.maps.Marker({
-            position: currentPos,
-        });
-
-        marker.setMap(null);
-        marker.setMap(map);
+        map.setLevel(4);
     }
 
     function getCurrentPosBtn() {

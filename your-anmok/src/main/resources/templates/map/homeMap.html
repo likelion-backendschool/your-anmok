@@ -172,8 +172,7 @@
     </div>
 
 
-    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="getCurrentPosBtn()">
-        마이로케이션버튼
+    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fas fa-crosshairs" onclick="getCurrentPosBtn()">
     </button>
     <br>
 <!--    <button id="my_location_button1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="ajaxTest()">ajax 테스트</button>-->
@@ -418,14 +417,8 @@
         );
 
         map.panTo(currentPos);
+        map.setLevel(4);
 
-        let marker = new kakao.maps.Marker({
-            position: currentPos,
-        });
-
-        marker.setMap(null);
-        marker.setMap(map);
-    }
 
     function getCurrentPosBtn() {
         navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
