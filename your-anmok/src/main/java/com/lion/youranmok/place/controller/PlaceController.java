@@ -62,8 +62,7 @@ public class PlaceController {
 //        model.addAttribute("placeImageList", placeImages);
 
         return placeDetailInfo;
-
-    }
+   }
 
     @PostMapping("/addPlace")
     public String addPlace(HttpServletRequest request, String placeName, String address, Double lat, Double lon, String categorySelect, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
