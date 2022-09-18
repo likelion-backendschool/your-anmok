@@ -1,6 +1,13 @@
 @font-face {
-    font-family: 'GangwonEduPowerExtraBoldA';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -51,8 +58,7 @@
 }
 
 #addPlace_popup_title{
-    font-family: 'GangwonEduPowerExtraBoldA';
-    font-weight: 600;
+    font-family: 'Cafe24Ssurround';
     padding-top: 20px;
     text-align: center;
     font-size: 24px;
@@ -150,10 +156,43 @@
 .scrollbar::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
     background: #01C9C6; /* 스크롤바의 색상 */
-
     border-radius: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
     background: #d0f5ee;  /*스크롤바 뒷 배경 색상*/
+}
+
+#addPlaceSubmitBtn{
+    width: 250px;
+    height: 40px;
+    font-size: 15px;
+    text-align: center;
+    outline: 0;
+    background-color: #7FD1AE;
+    border-radius: 10px;
+    font-family: 'Cafe24SsurroundAir';
+    font-weight: 200;
+    color: white;
+    margin : auto;
+    display: block;
+    line-height: 40px;
+    margin-top: 23px;
+}
+
+#addPlaceSubmitBtn:hover{
+    width: 250px;
+    height: 40px;
+    font-size: 16px;
+    text-align: center;
+    outline: 0;
+    background-color: #00C385;
+    border-radius: 10px;
+    font-family: 'Cafe24SsurroundAir';
+    font-weight: 200;
+    color: white;
+    margin : auto;
+    display: block;
+    line-height: 40px;
+    margin-top: 23px;
 }
