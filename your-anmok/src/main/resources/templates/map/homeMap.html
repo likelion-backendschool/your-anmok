@@ -312,7 +312,12 @@
                     type : "GET",
                     async: false,
                     success : function(data){
-                        console.log(data.name);
+                        console.log(data);
+                        console.log(data.place.name);
+                        $('p[id=place_info_placeName]').text(data.place.name);
+                        $('p[id=place_info_placeAddress]').text(data.place.address);
+
+
                         document.getElementById("detail_popup_layer").style.display='block'
                         slider();
                     }
