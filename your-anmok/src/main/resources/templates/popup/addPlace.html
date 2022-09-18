@@ -42,14 +42,15 @@
 
 <th:block th:fragment="addPlace">
     <div class="add_place_popup">
+        <p class="justify-center">📌 장소 등록하기</p>
         <form th:action="@{/addPlace}" method="POST" enctype="multipart/form-data" onsubmit="AddPlaceForm__submit(this); return false;">
             <div class="m-3">
                 <label for="place-name" class="col-form-label">장소명</label>
-                <input type="text" value="" class="form-control" id="place-name" name="placeName">
+                <input type="text" value="" class="form-control" id="place-name" name="placeName" readonly>
             </div>
             <div class="m-3">
                 <label for="place-address" class="col-form-label">주소</label>
-                <input type="text" value="" class="form-control" id="place-address" name="address">
+                <input type="text" value="" class="form-control" id="place-address" name="address" readonly>
             </div>
             <div class="m-3" style="display: none">
                 <input type="text" value="" class="form-control" id="place-lat" name="lat">
