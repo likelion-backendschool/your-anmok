@@ -23,6 +23,7 @@
         <button sec:authorize="isAnonymous()" class="write-gather"><a class="text-white text-decoration-none" th:href="@{/auth/login}">로그인</a></button>
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></button>
     </div>
+
     <form method="get" th:action="|@{/gathering/list}|" th:object="${criteria}">
         <div class="gather-category">
             <div th:each="category,index:${categoryList}">

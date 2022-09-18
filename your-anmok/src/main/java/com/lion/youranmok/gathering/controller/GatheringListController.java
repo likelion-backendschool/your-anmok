@@ -54,6 +54,7 @@ public class GatheringListController {
 
     @GetMapping("/list")
     public String getList(@AuthenticationPrincipal MemberContext member, Model model, @ModelAttribute GatheringListCriteria criteria) {
+
 //        System.out.println(criteria.toString());
 
         List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria(criteria);

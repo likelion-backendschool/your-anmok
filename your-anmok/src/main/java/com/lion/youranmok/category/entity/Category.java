@@ -18,6 +18,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(name = "tag_name", nullable = false)
     private String tagName;
 

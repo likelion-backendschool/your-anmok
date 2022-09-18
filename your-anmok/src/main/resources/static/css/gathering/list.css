@@ -321,3 +321,22 @@ ul {
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
+
+.gather-category input[type="checkbox"]:checked + div {
+    color:white;
+    background-color: #01C9C6;
+}
+
+.gather-category > div {
+    display: inline-block;
+    position: relative;
+}
+
+.gather-category > div > input[type="checkbox"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
