@@ -18,23 +18,23 @@ import java.util.List;
 public class HomeController {
     private final MapService mapService;
 
-    @RequestMapping(value = "/", method = {RequestMethod.GET})
-    public String home(Model model){
-//        ModelAndView mv = new ModelAndView();
-
-        List<Place> placeList = mapService.getAllPlaceList();
-//        for (MapDto mapDto : placeList){
-//            System.out.println(mapDto.getName());
-//        }
-        model.addAttribute("allPlaceList",placeList);
-//        mv.addObject("placeInfos","placeList");
-//        mv.setViewName("map/homeMap");
-
-//        model.addAttribute("message", "정상적으로 처리되었습니다.");
-//        model.addAttribute("searchUrl", "https://www.google.com");
-
-        return "map/homeMap";
-    }
+//    @RequestMapping(value = "/", method = {RequestMethod.GET})
+//    public String home(Model model){
+////        ModelAndView mv = new ModelAndView();
+//
+//        List<Place> placeList = mapService.getAllPlaceList();
+////        for (MapDto mapDto : placeList){
+////            System.out.println(mapDto.getName());
+////        }
+//        model.addAttribute("allPlaceList",placeList);
+////        mv.addObject("placeInfos","placeList");
+////        mv.setViewName("map/homeMap");
+//
+////        model.addAttribute("message", "정상적으로 처리되었습니다.");
+////        model.addAttribute("searchUrl", "https://www.google.com");
+//
+//        return "map/homeMap";
+//    }
 
 //    @GetMapping("/searchMap")
 //    public String searchMap(){

@@ -22,4 +22,8 @@ public class PlaceCategoryMapService {
     public List<Integer> getDistinctCategoryIdByPlaceId(Integer id) {
         return placeCategoryMapRepository.getDistinctCategoryIdByPlaceId(id);
     }
+
+    public List<Integer> getPlaceIdByCategoryId(Integer id){
+        return placeCategoryMapRepository.getPlaceByCategoryId(id);
+    }
 }

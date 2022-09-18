@@ -40,16 +40,16 @@ public class MapController {
         return "map/searchMap";
     }
 
-    @GetMapping("/category")
-    public String categoryDisplay(@RequestParam("id") int id, Model model){
-
-        List<MapDto> categoryPlaceList = mapService.getCateogryPlaceList(id);
-        for (MapDto mapDto : categoryPlaceList){
-            System.out.println(mapDto.getName());
-        }
-        model.addAttribute("categoryPlaceList",categoryPlaceList);
-
-        return "map/categoryMap";
-    }
+//    @GetMapping("/category")
+//    public String categoryDisplay(@RequestParam("id") int id, Model model){
+//
+//        List<MapDto> categoryPlaceList = mapService.getCateogryPlaceList(id);
+//        for (MapDto mapDto : categoryPlaceList){
+//            System.out.println(mapDto.getName());
+//        }
+//        model.addAttribute("categoryPlaceList",categoryPlaceList);
+//
+//        return "map/categoryMap";
+//    }
     // localhost:8080/category?id=14
 }
