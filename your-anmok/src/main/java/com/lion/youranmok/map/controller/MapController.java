@@ -51,5 +51,5 @@ public class MapController {
 
         return "map/categoryMap";
     }
-
+    // localhost:8080/category?id=14
 }

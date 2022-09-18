@@ -12,4 +12,5 @@ import java.util.List;
 public interface PlaceCategoryMapRepository extends JpaRepository<PlaceCategoryMap, Integer> {
     @Query("select distinct pcm.categoryId from PlaceCategoryMap pcm where pcm.placeId = :id")
     List<Integer> getDistinctCategoryIdByPlaceId(Integer id);
+
 }

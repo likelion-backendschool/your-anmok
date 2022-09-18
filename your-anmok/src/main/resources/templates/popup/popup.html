@@ -13,8 +13,8 @@
     <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
         <!-- 장소명, 장소 주소 묶음 -->
         <div id="place_info">
-            <p class="placeName" th:text="${place?.name}"></p>
-            <p class="placeAddress" th:text="${place?.address}"></p>
+            <p class="placeName" id="place_info_placeName"></p>
+            <p class="placeAddress" id="place_info_placeAddress"></p>
         </div>
         <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
     </div>
@@ -26,9 +26,12 @@
     <div id="popup_bottom_01" class="flex justify-center mt-[25px]">
         <div class="slidecontainer">
             <ul class="bxslider">
-                <tr th:each="imageList : ${placeImageList}" th:if="${placeImageList != null}">
-                    <li><img class="usr_img" th:src="@{|/placeimg/${imageList.filePath}|}"></li>
-                </tr>
+                <div id="place_info_imageList">
+
+                </div>
+<!--                <tr th:each="imageList : ${placeImageList}" th:if="${placeImageList != null}">-->
+<!--                    <li><img class="usr_img" th:src="@{|/placeimg/${imageList.filePath}|}"></li>-->
+<!--                </tr>-->
             </ul>
         </div>
     </div>
@@ -41,23 +44,26 @@
         <!-- 팝업 - 태그 영역 -->
         <div id="tag_box" class="scrollbar">
             <p class="mb-2">TAG LIST🔖</p>
-            <tr th:each="categoryList : ${categoryList}" th:if="${categoryList != null}">
-                <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:text="${categoryList.tagName}"></button>
-            </tr>
+            <div id="place_info_categoryList">
+
+            </div>
         </div>
         <!-- 팝업 - 별점, 번개모임 묶음 -->
         <div>
             <!-- 팝업 - 별점 영역 -->
             <div class="inner_contents_box">
                 <p class="mb-2">별점⭐</p>
-                <div id="star_box" th:if="${stars != null} or ${emptystars != null}">
-                    <tr th:each="star : ${#numbers.sequence(1, stars, 1)}">
-                        <img src="/images/star.png" class="star">
-                    </tr>
-                    <tr th:each="star : ${#numbers.sequence(emptystars, 1, -1)}">
-                        <img src="/images/empty_star.png" class="star">
-                    </tr>
+                <div id="star_box">
+
                 </div>
+<!--                <div id="star_box" th:if="${stars != null} or ${emptystars != null}">-->
+<!--                    <tr th:each="star : ${#numbers.sequence(1, stars, 1)}">-->
+<!--                        <img src="/images/star.png" class="star">-->
+<!--                    </tr>-->
+<!--                    <tr th:each="star : ${#numbers.sequence(emptystars, 1, -1)}">-->
+<!--                        <img src="/images/empty_star.png" class="star">-->
+<!--                    </tr>-->
+<!--                </div>-->
             </div>
 
             <!-- 팝업 - 번개모임 리스트 영역 -->
@@ -69,9 +75,9 @@
                         <button class="btn btn-accent btn-xs" th:onclick="|location.href='@{|/gathering/list|}'|">전체 보기</button>
                     </div>
                 </div>
-                <tr th:each="gatheringList : ${gatheringList}" th:if="${gatheringList != null}" class="m-[3px]">
-                    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" th:onclick="|location.href='@{|/gathering/${gatheringList.id}|}'|" th:text="${gatheringList.title}"></button>
-                </tr>
+                <div id="place_info_gatheringList">
+
+                </div>
             </div>
         </div>
     </div>

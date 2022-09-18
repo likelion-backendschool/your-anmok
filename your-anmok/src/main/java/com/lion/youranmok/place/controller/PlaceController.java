@@ -12,7 +12,10 @@ import com.lion.youranmok.place.service.PlaceCategoryMapService;
 import com.lion.youranmok.place.service.PlaceImageService;
 import com.lion.youranmok.place.service.PlaceReviewService;
 import com.lion.youranmok.place.service.PlaceService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +36,9 @@ public class PlaceController {
     private final GatheringService gatheringService;
     private final PlaceCategoryMapService placeCategoryMapService;
 
-    @RequestMapping("/place/{id}")
-    public String placeDetail(Model model, @PathVariable(value="id")Integer id){
+    @ResponseBody
+    @GetMapping("/place/{id}")
+    public PlaceDetailInfo placeDetail(@PathVariable(value="id")Integer id){
         Place place = this.placeService.getPlace(id);
         List<GatheringBoard> placeGatheringDtos = gatheringService.getGatheringListByPlaceId(id);
         List<PlaceImage> placeImages = placeImageService.getPlaceImagesByPlaceId(id);
@@ -45,14 +49,19 @@ public class PlaceController {
             categoryList.add(categoryService.getCategoryById(categoryIdList.get(i)));
         }
 
-        model.addAttribute("place", place);
-        model.addAttribute("stars", place.getStar());
-        model.addAttribute("emptystars", 5-place.getStar());
-        model.addAttribute("gatheringList", placeGatheringDtos);
-        model.addAttribute("categoryList", categoryList);
-        model.addAttribute("placeImageList", placeImages);
+        PlaceDetailInfo placeDetailInfo = new PlaceDetailInfo();
+        placeDetailInfo.setPlace(place);
+        placeDetailInfo.setPlaceImages(placeImages);
+        placeDetailInfo.setPlaceGatheringDtos(placeGatheringDtos);
+        placeDetailInfo.setCategoryList(categoryList);
+//        model.addAttribute("place", place);
+//        model.addAttribute("stars", place.getStar());
+//        model.addAttribute("emptystars", 5-place.getStar());
+//        model.addAttribute("gatheringList", placeGatheringDtos);
+//        model.addAttribute("categoryList", categoryList);
+//        model.addAttribute("placeImageList", placeImages);
 
-        return "map/homeMap";
+        return placeDetailInfo;
     }
 
     @PostMapping("/addPlace")
@@ -84,5 +93,25 @@ public class PlaceController {
 
         return "redirect:" + request.getHeader("Referer");
     }
+
+}
+
+@Getter
+@Setter
+@NoArgsConstructor
+class PlaceDetailInfo{
+    Place place;
+    List<GatheringBoard> placeGatheringDtos;
+    List<PlaceImage> placeImages;
+    List<Category> categoryList;
+
+//    public PlaceDetailInfo(Place place, List<GatheringBoard> placeGatheringDtos, List<PlaceImage> placeImages, List<Category> categoryList){
+//        this.place=place;
+//        this.placeGatheringDtos=placeGatheringDtos;
+//        this.placeImages=placeImages;
+//        this.categoryList=categoryList;
+//    }
+
+
 
 }

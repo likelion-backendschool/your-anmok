@@ -160,6 +160,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
 </head>
@@ -304,7 +305,89 @@
 
 
             kakao.maps.event.addListener(marker, 'click', function (){
-               location.href="/place/"+allPlaceList[i].id+"#load";
+               // location.href="/place/"+allPlaceList[i].id+"#load";
+
+                $.ajax({
+                    url : "/place/"+allPlaceList[i].id,
+                    type : "GET",
+                    async: false,
+                    success : function(data){
+                        console.log(data);
+                        console.log(data.place.name);
+                        $('p[id=place_info_placeName]').text(data.place.name);
+                        $('p[id=place_info_placeAddress]').text(data.place.address);
+
+
+                        let categorySize = data.categoryList.length;
+                        let gatheringSize = data.placeGatheringDtos.length;
+                        let imageSize = data.placeImages.length;
+                        let starSize = data.place.star;
+                        let emptyStarSize = 5-data.place.star;
+
+                        console.log("카테고리 사이즈는"+categorySize);
+                        console.log("카테고리 이름:"+data.categoryList[0].tagName);
+                        function categoryDOM(categoryList){
+                            let tr = '';
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<categorySize;i++) {
+                                tr += `    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1">${categoryList[i].tagName}</button>`
+                            }
+
+                            tr+=`</tr>`;
+                            console.log(tr);
+                            document.getElementById("place_info_categoryList").innerHTML=tr;
+                        }
+
+                        function gatheringDOM(gatheringList){
+                            let tr = '';
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<gatheringSize;i++){
+                                tr +=`    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" onclick="location.href='/gathering/${gatheringList[i].id}'">${gatheringList[i].title}</button>`
+                            }
+                            tr+=`</tr>`;
+                            console.log(tr);
+                            document.getElementById("place_info_gatheringList").innerHTML=tr;
+                        }
+
+                        function starDOM(star){
+                            let tr = '';
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<starSize;i++){
+                                tr +=`    <img src="/images/star.png" class="star">`
+                            }
+                            tr+=`</tr>`;
+
+                            tr+=`<tr>`;
+                            for (let i=0;i<emptyStarSize;i++){
+                                tr +=`    <img src="/images/empty_star.png" class="star">`
+                            }
+                            tr+=`</tr>`;
+                            console.log(tr);
+                            document.getElementById("star_box").innerHTML=tr;
+                        }
+
+                        function imageDOM(placeImages){
+                            let tr='';
+                            tr+=`<tr>`;
+                            for (let i=0;i<imageSize;i++){
+                                tr+=`   <li><img className="usr_img" src="/placeimg/${placeImages[i].filePath}"></li>`
+                            }
+                            tr+=`</tr>`;
+                            document.getElementById("place_info_imageList").innerHTML=tr;
+                        }
+
+                        categoryDOM(data.categoryList);
+                        gatheringDOM(data.placeGatheringDtos);
+                        imageDOM(data.placeImages);
+                        starDOM(data.place.star);
+
+                        document.getElementById("detail_popup_layer").style.display='block'
+                        slider();
+                    }
+                });
 
             });
 
