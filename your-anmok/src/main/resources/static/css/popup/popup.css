@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'GangwonEduPowerExtraBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduPowerExtraBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*팝업 배경(회색)*/
 #detail_popup_layer, #addPlace_popup_layer {
     position:fixed;
@@ -41,6 +48,14 @@
     box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);
     -webkit-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);
     -moz-box-shadow: 2px 5px 10px 0px rgba(0,0,0,0.35);
+}
+
+#addPlace_popup_title{
+    font-family: 'GangwonEduPowerExtraBoldA';
+    font-weight: 600;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 24px;
 }
 
 /*팝업 닫기 버튼*/

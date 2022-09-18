@@ -50,7 +50,7 @@
 
 <th:block th:fragment="addPlace">
     <div class="add_place_popup">
-        <p align="center">📌 장소 등록하기</p>
+        <p id="addPlace_popup_title">📌 장소 등록하기</p>
         <form th:action="@{/addPlace}" method="POST" enctype="multipart/form-data" onsubmit="AddPlaceForm__submit(this); return false;">
             <div class="m-3">
                 <label for="place-name" class="col-form-label">장소명</label>
