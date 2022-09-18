@@ -4,7 +4,9 @@ import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.map.entity.Map;
 import com.lion.youranmok.map.service.MapService;
 import com.lion.youranmok.place.entity.Place;
+import com.lion.youranmok.security.dto.MemberContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ public class HomeController {
     private final MapService mapService;
 
     @RequestMapping(value = "/", method = {RequestMethod.GET})
-    public String home(Model model){
+    public String home(@AuthenticationPrincipal MemberContext member, Model model){
 //        ModelAndView mv = new ModelAndView();
 
         List<Place> placeList = mapService.getAllPlaceList();

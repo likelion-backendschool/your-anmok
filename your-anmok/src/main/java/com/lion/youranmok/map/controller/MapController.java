@@ -4,7 +4,9 @@ import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.map.service.MapService;
+import com.lion.youranmok.security.dto.MemberContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +35,7 @@ public class MapController {
 //    }
 
     @GetMapping("/searchMap")
-    public String searchPlace(@RequestParam("placeKeyword") String placeKeyword, Model model){
+    public String searchPlace(@AuthenticationPrincipal MemberContext member, @RequestParam("placeKeyword") String placeKeyword, Model model){
         List<CategoryDto> categoryList = categoryService.findAll();
         model.addAttribute("placeKeyword",placeKeyword);
         model.addAttribute("categoryList",categoryList);

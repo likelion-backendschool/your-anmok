@@ -35,7 +35,7 @@
         .left_sub_menu {
             position: fixed;
             top: 50px;
-            width: 200px;
+            width: 300px;
             z-index: 10;
             left: 0px;
             background: white;
@@ -66,7 +66,7 @@
             border-bottom: 1px solid #e1e1e1;
         }
 
-        .sub_menu>h2 {
+        .sub_menu>div {
             padding-bottom: 4px;
             border-bottom: 3px solid #797979;
             margin-top: 30px;
@@ -196,11 +196,15 @@
 
         <div class="left_sub_menu">
             <div class="sub_menu">
-                <h2>메뉴 <div style="float:right;">
-                    <form action="/auth/loginProc" method="post">
-                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
-                </form>
-                </div></h2>
+                <div class="d-flex flex-row justify-between">
+                    <a class="h3" href="/">당신의 안목 👀</a>
+<!--                    <div>-->
+                        <form action="/auth/loginProc" method="post">
+                            <a sec:authorize="isAnonymous()" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
+                            <div class="btn btn-warning" sec:authorize="isAuthenticated()"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></div>
+                        </form>
+<!--                    </div>-->
+                </div>
 
                 <ul class="big_menu">
                     <li><a href="/category/home">카테고리</a></li>
@@ -219,7 +223,7 @@
 <!--                    </ul>-->
                 </ul>
                 <ul class="big_menu">
-                    <li><a href="/mapSearch">MYPAGE</a></li>
+                    <li><a href="/mypage">마이페이지</a></li>
                 </ul>
             </div>
         </div>
@@ -317,11 +321,11 @@
 
             infowindow.open(map, marker);
 
-            kakao.maps.event.addEventListener(marker, 'mouseout', function () {
-                // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
-                infowindow.close();
-
-            });
+            // kakao.maps.event.addEventListener(marker, 'mouseout', function () {
+            //     // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
+            //     infowindow.close();
+            //
+            // });
 
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
 
