@@ -1,6 +1,7 @@
 package com.lion.youranmok.place.repository;
 
 import com.lion.youranmok.category.entity.Category;
+import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceCategoryMap;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,5 +13,8 @@ import java.util.List;
 public interface PlaceCategoryMapRepository extends JpaRepository<PlaceCategoryMap, Integer> {
     @Query("select distinct pcm.categoryId from PlaceCategoryMap pcm where pcm.placeId = :id")
     List<Integer> getDistinctCategoryIdByPlaceId(Integer id);
+
+    @Query("select pcm.placeId from PlaceCategoryMap pcm where pcm.categoryId= :id")
+    List<Integer> getPlaceByCategoryId(Integer id);
 
 }

@@ -5,6 +5,7 @@ import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
+import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceCategoryMap;
 import com.lion.youranmok.place.entity.PlaceImage;
@@ -16,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,23 @@ public class PlaceController {
     private final CategoryService categoryService;
     private final GatheringService gatheringService;
     private final PlaceCategoryMapService placeCategoryMapService;
+
+    @GetMapping("/")
+    public String home(Model model){
+        List<Integer> placeIdList= placeCategoryMapService.getPlaceIdByCategoryId(1);
+
+        List<Place> categoryPlaceList = new ArrayList<>();
+
+        for(int i=0;i<placeIdList.size();i++){
+            categoryPlaceList.add(placeService.getPlace(placeIdList.get(i)));
+            System.out.println(placeService.getPlace(placeIdList.get(i)));
+        }
+
+        model.addAttribute("allPlaceList",categoryPlaceList);
+
+        return "map/homeMap";
+
+    }
 
     @ResponseBody
     @GetMapping("/place/{id}")
@@ -62,7 +81,7 @@ public class PlaceController {
 //        model.addAttribute("placeImageList", placeImages);
 
         return placeDetailInfo;
-    }
+   }
 
     @PostMapping("/addPlace")
     public String addPlace(HttpServletRequest request, String placeName, String address, Double lat, Double lon, String categorySelect, Integer rating, @RequestParam(value = "placeImg") List<MultipartFile> placeImgs) throws Exception {
@@ -92,6 +111,24 @@ public class PlaceController {
 
 
         return "redirect:" + request.getHeader("Referer");
+    }
+
+    @GetMapping("/category")
+    public String getPlaceByCategoryId(@RequestParam("id") Integer id, Model model){
+        List<Integer> placeIdList = placeCategoryMapService.getPlaceIdByCategoryId(id);
+
+        List<Place> categoryPlaceList = new ArrayList<>();
+
+
+        for(int i=0;i<placeIdList.size();i++){
+            categoryPlaceList.add(placeService.getPlace(placeIdList.get(i)));
+            System.out.println(placeService.getPlace(placeIdList.get(i)));
+        }
+
+        model.addAttribute("allPlaceList",categoryPlaceList);
+
+        return "map/homeMap";
+
     }
 
 }
