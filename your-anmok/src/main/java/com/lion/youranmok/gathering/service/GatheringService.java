@@ -7,6 +7,7 @@ import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.repository.GatheringRepository;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.repository.PlaceRepository;
+import com.lion.youranmok.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class GatheringService {
 
     private final PlaceRepository placeRepository;
 
-    public GatheringBoard create(CreateForm createForm) {
+    public GatheringBoard create(User user, CreateForm createForm) {
         GatheringBoard gatheringBoard = new GatheringBoard();
         Place place = placeRepository.findById(createForm.getPlaceId()).orElse(null);
 
@@ -40,11 +41,7 @@ public class GatheringService {
         gatheringBoard.setModifiedAt(LocalDateTime.now());
         gatheringBoard.setIsExpired(false);
         gatheringBoard.setDate( LocalDate.ofInstant(createForm.getDate().toInstant(), ZoneId.systemDefault()));
-
-        // TODO : 로그인 후 고유한 유저를 받아와서 저장해야함 지금은 랜덤유저임..
-        Random random = new Random(); //랜덤 객체 생성(디폴트 시드값 : 현재시간)
-        random.setSeed(System.currentTimeMillis()); //시드값 설정을 따로 할수도 있음
-        gatheringBoard.setUserId(random.nextInt(7)+1);
+        gatheringBoard.setUserId(user.getId());
 
         return gatheringRepository.save(gatheringBoard);
     }

@@ -105,7 +105,7 @@ public class TokenController {
                 kakaoProfileRequest2,
                 String.class
         );
-        
+
         ObjectMapper objectMapper2 = new ObjectMapper();
         KakaoProfile kakaoProfile = null;
         try{
@@ -116,24 +116,25 @@ public class TokenController {
             e.printStackTrace();
         }
 
-        String data = kakaoProfile.getKakao_account().getEmail();
-        User kakao_user = userService.findByUsername(data);
+        String username = "kakao_"+kakaoProfile.getId();
+        User kakao_user = userService.findByUsername(username);
 
         String rawPassword = bCryptPasswordEncoder.encode(kakaoProfile.getId() + "");
 
-        KakaoUserDto kakaoUserDto = KakaoUserDto.builder()
-                .username("kakao_" + kakaoProfile.getId())
-                .password(rawPassword)
-                .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
-                .profilePicture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
-                .build();
-
-
         if (kakao_user == null) {
+            KakaoUserDto kakaoUserDto = KakaoUserDto.builder()
+                    .username("kakao_" + kakaoProfile.getId())
+                    .password(rawPassword)
+                    .nickname(kakaoProfile.getKakao_account().getProfile().getNickname())
+                    .profilePicture(kakaoProfile.getKakao_account().getProfile().getProfile_image_url())
+                    .build();
+
+
+
             userService.saveKakaoUser(kakaoUserDto);
         }
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUserDto.getUsername(), kakaoProfile.getId() + ""));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, kakaoProfile.getId() + ""));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/";
