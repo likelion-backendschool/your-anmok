@@ -62,6 +62,7 @@ public class PlaceController {
 //        model.addAttribute("placeImageList", placeImages);
 
         return placeDetailInfo;
+
     }
 
     @PostMapping("/addPlace")
