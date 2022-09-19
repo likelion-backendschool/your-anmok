@@ -293,6 +293,10 @@
     // 주소 - 좌표 변환 객체를 생성한다.
     let geocoder = new kakao.maps.services.Geocoder();
 
+    function closePopup() {
+        document.getElementById("detail_popup_layer").style.display = "none"
+    };
+
     // 주소로 좌표를 검색한다. 테이블 주소 -> 좌표 -> 지도에 마커로 표시
     for (let i =0;i<allPlaceList.length;i++) {
 
@@ -456,11 +460,6 @@
         kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function () {
 
         });
-
-
-        function closePopup() {
-            document.getElementById("detail_popup_layer").style.display = "none"
-        };
 
         // 마커 클릭시 장소명 표출하는 인포윈도우
 
