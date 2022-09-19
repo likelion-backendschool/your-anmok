@@ -7,10 +7,14 @@ let index = {
 
             if ($.trim($("#nickname").val()) == '') {
                 alert("닉네임을 입력해주세요");
+                location.href = "/mypage";
+
             } else {
                 if(confirm("닉네임을 " + newNickname + "(으)로 변경하시겠습니까?") == true) {
                     this.changeNickname();
                 }
+                location.href = "/mypage";
+
             }
 
         });
