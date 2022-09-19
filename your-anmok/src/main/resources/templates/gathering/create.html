@@ -71,7 +71,20 @@
 <script>
     document.getElementById('date').valueAsDate = new Date();
 
+    $(function(){
+        $('#searchKeyword').keypress(function(e){
+            if(e.keyCode == 13){
+                event.preventDefault();
+                doSearch();
+            }
+        });
+    });
+
     $(document).on("click","#searchBtn",function(){
+        doSearch();
+    });
+
+    function doSearch() {
         $.ajax({
             url : "/gathering/create/search",
             type : "GET",
@@ -93,7 +106,9 @@
                 }
             }
         });
-    });
+    }
+
+
 </script>
 </body>
 </html>

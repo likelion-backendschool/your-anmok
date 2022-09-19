@@ -15,6 +15,7 @@ import java.util.List;
 @ToString
 public class GatheringDetailDto {
 
+    private Integer userId;
     private String title;
     private String nickname;
     private LocalDateTime createdAt;

@@ -1,5 +1,6 @@
 package com.lion.youranmok.place.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ public class Place {
 
     private Double lon;
 
+    @JsonIgnore
     @OneToMany
     List<PlaceReview> placeReviewList = new ArrayList<>();
 }

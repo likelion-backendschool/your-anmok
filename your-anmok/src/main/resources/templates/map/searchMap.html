@@ -35,7 +35,7 @@
         .left_sub_menu {
             position: fixed;
             top: 50px;
-            width: 200px;
+            width: 300px;
             z-index: 10;
             left: 0px;
             background: white;
@@ -66,7 +66,7 @@
             border-bottom: 1px solid #e1e1e1;
         }
 
-        .sub_menu>h2 {
+        .sub_menu>div {
             padding-bottom: 4px;
             border-bottom: 3px solid #797979;
             margin-top: 30px;
@@ -203,6 +203,9 @@
     <div id="map" class="w-screen h-screen" >
 
     </div>
+    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fas fa-crosshairs" onclick="getCurrentPosBtn()">
+    </button>
+    <br>
 
     <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
         <div class="option">
@@ -222,10 +225,19 @@
         <div class="close"></div>
 
         <a id="hamburger_button" class="fas fa-bars fa-3x"></a>
+        <input type="hidden" id="isAuthorized" th:value="${#authentication.getPrincipal() != 'anonymousUser'}?'Y':'N'"/>
 
         <div class="left_sub_menu">
             <div class="sub_menu">
-                <h2>메뉴</h2>
+                <div class="d-flex flex-row justify-between">
+                    <a class="h3" href="/">당신의 안목 👀</a>
+                    <!--                    <div>-->
+                    <form action="/auth/loginProc" method="post">
+                        <a sec:authorize="isAnonymous()" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
+                        <div class="btn btn-warning" sec:authorize="isAuthenticated()"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></div>
+                    </form>
+                    <!--                    </div>-->
+                </div>
                 <ul class="big_menu">
                     <li><a href="/category/home">카테고리</a></li>
                     <!--                    <ul class="small_menu">-->
@@ -243,7 +255,7 @@
                     <!--                    </ul>-->
                 </ul>
                 <ul class="big_menu">
-                    <li><a href="/mapSearch">MYPAGE</a></li>
+                    <li><a href="/mypage">마이페이지</a></li>
                 </ul>
             </div>
         </div>
@@ -365,13 +377,7 @@
         );
 
         map.panTo(currentPos);
-
-        let marker = new kakao.maps.Marker({
-            position: currentPos,
-        });
-
-        marker.setMap(null);
-        marker.setMap(map);
+        map.setLevel(4);
     }
 
     function getCurrentPosBtn() {
@@ -493,6 +499,10 @@
     }
 
     function getListItem(index, places){
+        var hasAuth = document.getElementById("isAuthorized").value;
+
+        console.log("질문");
+        console.log("hasAuth:" +hasAuth);
         let el = document.createElement('li'),
 
             itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
@@ -507,7 +517,11 @@
         // 아이템 내 button 추가
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
         //itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
-        itemStr += '    <button onclick="selectPopUpPlace(this,\''+ places.place_name + '\',\'' + places.address_name + '\');" data-id="'+ places.id +'" data-lat="'+places.y+'" data-lon="'+places.x+'" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
+        if(hasAuth === 'Y') {
+            itemStr += '    <button onclick="selectPopUpPlace(this,\''+ places.place_name + '\',\'' + places.address_name + '\');" data-id="'+ places.id +'" data-lat="'+places.y+'" data-lon="'+places.x+'" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
+        } else {
+            itemStr += '    <button class="btn btn-primary disabled" >로그인 후 등록가능</button>'
+        }
         // itemStr += '    <button onclick="selectPopUpPlace1(this);" id="placeAddButton1" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업1</button>'
         itemStr += '</div>'
 

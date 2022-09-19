@@ -16,6 +16,7 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
     List<GatheringListDetailDto> listByCriteria(GatheringListCriteria criteria);
 
     @Query("select new com.lion.youranmok.gathering.dto.GatheringDetailDto (" +
+            "u.id," +
             "gb.title," +
             "u.nickname, " +
             "gb.createdAt," +

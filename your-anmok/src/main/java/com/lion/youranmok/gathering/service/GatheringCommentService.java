@@ -30,7 +30,7 @@ public class GatheringCommentService {
         return gatheringCommentRepository.replyListByCommentId(commentId);
     }
 
-    public void create(GatheringBoard board, CommentForm commentForm) {
+    public void create(User user, GatheringBoard board, CommentForm commentForm) {
         GatheringComment gatheringComment = new GatheringComment();
 
         gatheringComment.setCreatedAt(LocalDateTime.now());
@@ -38,19 +38,18 @@ public class GatheringCommentService {
         gatheringComment.setCommentText(commentForm.getContent());
         gatheringComment.setBoard(board);
 
-        User user = userRepository.findByNickname(commentForm.getMentionTo());
-        if(commentForm.getMentionTo() != null && user != null) {
+        if(commentForm.getMentionTo() != null) {
+            User commentUser = userRepository.findById(commentForm.getMentionTo()).orElse(null);
+            if (commentForm.getMentionTo() != null && commentUser != null) {
 
-            gatheringComment.setMentionId(user.getId());
+                gatheringComment.setMentionId(commentUser.getId());
+            }
         }
+
         if(commentForm.getApplyTo() != null) {
             gatheringComment.setReplyTo(commentForm.getApplyTo());
         }
-
-        // TODO : 로그인 후 고유한 유저를 받아와서 저장해야함 지금은 랜덤유저임..
-        Random random = new Random(); //랜덤 객체 생성(디폴트 시드값 : 현재시간)
-        random.setSeed(System.currentTimeMillis()); //시드값 설정을 따로 할수도 있음
-        gatheringComment.setUserId(random.nextInt(7)+1);
+        gatheringComment.setUserId(user.getId());
 
         gatheringCommentRepository.save(gatheringComment);
     }
@@ -69,6 +68,10 @@ public class GatheringCommentService {
 
     public List<CommentMyPageDto> listByUserId(int userId) {
         return gatheringCommentRepository.listByUserId(userId);
+    }
+
+    public boolean existsByReplyTo(int commentId) {
+        return gatheringCommentRepository.existsByReplyTo(commentId);
     }
 
 }

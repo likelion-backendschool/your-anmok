@@ -19,7 +19,8 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "gc.commentText," +
             "u.profilePicture," +
             "gc.createdAt," +
-            "u.nickname" +
+            "u.nickname," +
+            "gc.userId" +
             ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.board.id = ?1 and gc.replyTo is null")
     List<CommentDto> listByBoardId(int id);
 
@@ -32,7 +33,8 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "gc.commentText," +
             "u.profilePicture," +
             "gc.createdAt," +
-            "ur.nickname" +
+            "ur.nickname," +
+            "gc.userId" +
             ") from GatheringComment as gc inner join User as u on u.id = gc.userId left join User as ur on gc.mentionId = ur.id where gc.replyTo = ?1")
     List<CommentDto> replyListByCommentId(int commentId);
 
@@ -42,4 +44,6 @@ public interface GatheringCommentRepository extends JpaRepository<GatheringComme
             "gc.board.id" +
             ") from GatheringComment as gc inner join User as u on u.id = gc.userId where gc.userId = :userId order by gc.createdAt desc")
     List<CommentMyPageDto> listByUserId(int userId);
+
+    boolean existsByReplyTo(int commentId);
 }

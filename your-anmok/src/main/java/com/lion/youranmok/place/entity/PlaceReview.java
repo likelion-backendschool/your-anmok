@@ -1,5 +1,6 @@
 package com.lion.youranmok.place.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -24,8 +25,12 @@ public class PlaceReview {
     //private Integer placeId;
     private Integer star;
     //private String placeImg;
+
+    @JsonIgnore
     @ManyToOne
     private Place place;
+
+    @JsonIgnore
     @OneToMany(
             mappedBy = "placeReview",
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},

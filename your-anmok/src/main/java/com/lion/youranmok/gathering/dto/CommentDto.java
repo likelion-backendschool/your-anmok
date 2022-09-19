@@ -23,14 +23,17 @@ public class CommentDto {
 
     private List<CommentDto> replyList;
 
+    private Integer userId;
 
-    public CommentDto(Integer commentId, String nickname, String comment, String img, LocalDateTime createdAt, String tagTo) {
+
+    public CommentDto(Integer commentId, String nickname, String comment, String img, LocalDateTime createdAt, String tagTo, Integer userId) {
         this.commentId = commentId;
         this.nickname = nickname;
         this.comment = comment;
         this.img = img;
         this.createdAt = createdAt.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
         this.tagTo = tagTo;
+        this.userId = userId;
     }
 
 }
