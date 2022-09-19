@@ -4,6 +4,7 @@ import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceImage;
 import com.lion.youranmok.place.entity.PlaceReview;
 import com.lion.youranmok.place.repository.PlaceImageRepository;
+import com.lion.youranmok.place.repository.PlaceReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,10 @@ import java.util.List;
 public class PlaceReviewService {
     private final FileHandler fileHandler;
     private final PlaceImageRepository placeImageRepository;
+    private final PlaceReviewRepository placeReviewRepository;
 
     @Transactional
-    public PlaceReview upload(Place place, Integer star, List<MultipartFile> files) throws Exception {
+    public void upload(Place place, Integer star, List<MultipartFile> files) throws Exception {
         PlaceReview placeReview = new PlaceReview(
                 star,
                 place
@@ -34,7 +36,17 @@ public class PlaceReviewService {
                 placeReview.addPhoto(placeImageRepository.save(placeImage));
             }
         }
-
-        return placeReview;
+        else{
+            saveReview(place, star);
+        }
     }
+
+    public void saveReview(Place place, Integer star){
+        PlaceReview placeReview = new PlaceReview();
+        placeReview.setPlace(place);
+        placeReview.setStar(star);
+
+        placeReviewRepository.save(placeReview);
+    }
+
 }
