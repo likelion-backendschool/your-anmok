@@ -3,9 +3,46 @@
 
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    #pop {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      background: black;
+
+      display: none;
+    }
+
+    #pop > article {
+      width: 700px;
+      height: 400px;
+      position: relative;
+      z-index: 2;
+      background-color: white;
+      box-shadow: 3px 3px 5px black;
+      margin: auto;
+      cursor: pointer;
+      text-align: center;
+    }
+
+  </style>
+
+  <script>
+    $(document).ready(function () {
+      $(".add-category").click(function () {
+        $("#pop").fadeIn();
+      });
+      $("#pop>article").click(function () {
+        $(this).parent().fadeOut();
+      });
+
+    })
+  </script>
 </head>
 <body class="flex justify-center">
 
@@ -61,6 +98,10 @@
         등록
       </button>
     </form>
+
+    <button type="button" class="add-category btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+      +
+    </button>
 
   </div>
 
@@ -191,10 +232,16 @@
 
   </div>
 
+  <div id="pop">
+    <article>
+      <h1>popup</h1>
+    </article>
+  </div>
+
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 <script src="/js/category/bookmark.js">

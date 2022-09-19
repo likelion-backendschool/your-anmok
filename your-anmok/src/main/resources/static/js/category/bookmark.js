@@ -43,7 +43,7 @@ let index = {
 
                 console.log(JSON.stringify(error));
 
-                if(error.status == 500) {
+                if(error.status == 409) {
                     alert("동일한 이름의 카테고리명이 존재합니다.");
                 } else {
                     alert("카테고리가 정상적으로 추가되지 않았습니다. 다시 시도해주세요.");
