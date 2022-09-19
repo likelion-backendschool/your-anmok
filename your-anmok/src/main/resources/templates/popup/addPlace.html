@@ -26,6 +26,14 @@
             return;
         }
 
+        form.categorySelect.value = form.categorySelect.value.trim();
+
+        if ( form.categorySelect.value.length == 0 ) {
+            alert("카테고리를 선택해주세요.");
+            form.categorySelect.focus();
+            return;
+        }
+
         form.placeImg.value = form.placeImg.value.trim();
 
         if ( form.placeImg.value.length == 0 ) {
@@ -42,39 +50,42 @@
 
 <th:block th:fragment="addPlace">
     <div class="add_place_popup">
+        <p id="addPlace_popup_title">📌 장소 등록하기</p>
         <form th:action="@{/addPlace}" method="POST" enctype="multipart/form-data" onsubmit="AddPlaceForm__submit(this); return false;">
             <div class="m-3">
                 <label for="place-name" class="col-form-label">장소명</label>
-                <input type="text" value="" class="form-control" id="place-name" name="placeName">
+                <input type="text" value="" class="form-control" id="place-name" name="placeName" readonly>
             </div>
             <div class="m-3">
                 <label for="place-address" class="col-form-label">주소</label>
-                <input type="text" value="" class="form-control" id="place-address" name="address">
+                <input type="text" value="" class="form-control" id="place-address" name="address" readonly>
             </div>
             <div class="m-3" style="display: none">
                 <input type="text" value="" class="form-control" id="place-lat" name="lat">
                 <input type="text" value="" class="form-control" id="place-lon" name="lon">
             </div>
             <div class="m-3">
-                <input type="text" list="category_options" name="categorySelect" autocomplete='off'>
+                <label for="place-category" class="col-form-label">카테고리</label>
+                <input id = "place-category" type="text" class="form-control" list="category_options" name="categorySelect" autocomplete='off'>
                 <datalist id="category_options">
                     <tr th:each="categoryList : ${categoryList}" th:if="${categoryList != null}">
                         <option th:value="${categoryList.tagName}"></option>
                     </tr>
                 </datalist>
             </div>
-            <div class="rating rating-lg m-3">
+            <p class="mx-[10px] font-bold">별점</p>
+            <div class="rating rating-lg mx-3 mb-3">
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1" />
-                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="2" checked />
-                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="3" />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="2" />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="3" checked/>
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="4" />
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="5" />
             </div>
-            <div class="m-3">
+            <div class="mx-3 mb-3">
                 <label for="place-img" class="col-form-label">사진 첨부</label>
                 <input class="form-control" type="file" id="place-img" name="placeImg" multiple>
             </div>
-            <button type="submit" class="btn btn-primary m-3">등록</button>
+            <button id="addPlaceSubmitBtn" type="submit">장소 등록하기</button>
         </form>
     </div>
 </th:block>
