@@ -169,7 +169,7 @@
     font-size: 15px;
     text-align: center;
     outline: 0;
-    background-color: #7FD1AE;
+    background-color: #E8F8F5;
     border-radius: 10px;
     font-family: 'Cafe24SsurroundAir';
     font-weight: 200;
@@ -186,11 +186,11 @@
     font-size: 16px;
     text-align: center;
     outline: 0;
-    background-color: #00C385;
+    background-color: #7FD1AE;
     border-radius: 10px;
     font-family: 'Cafe24SsurroundAir';
     font-weight: 200;
-    color: white;
+    color: black;
     margin : auto;
     display: block;
     line-height: 40px;
