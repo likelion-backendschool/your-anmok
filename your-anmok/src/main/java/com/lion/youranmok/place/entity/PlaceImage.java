@@ -30,13 +30,17 @@ public class PlaceImage {
     private String origFileName;  // 파일 원본명
 
     @Column(nullable = false)
+    private String newFileName;  // 파일 원본명
+
+    @Column(nullable = false)
     private String filePath;  // 파일 저장 경로
 
     private Long fileSize;
 
-    public PlaceImage(Integer placeId, String origFileName, String filePath, Long fileSize){
+    public PlaceImage(Integer placeId, String origFileName, String newFileName, String filePath, Long fileSize){
         this.placeId = placeId;
         this.origFileName = origFileName;
+        this.newFileName = newFileName;
         this.filePath = filePath;
         this.fileSize = fileSize;
     }

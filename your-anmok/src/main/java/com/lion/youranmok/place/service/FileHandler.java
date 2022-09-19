@@ -72,6 +72,7 @@ public class FileHandler {
                 PlaceImage placeImageDto = PlaceImage.builder()
                         .placeId(placeReview.getPlace().getId())
                         .origFileName(multipartFile.getOriginalFilename())
+                        .newFileName(new_file_name)
                         .filePath(path + File.separator + new_file_name)
                         .fileSize(multipartFile.getSize())
                         .build();
@@ -79,6 +80,7 @@ public class FileHandler {
                 PlaceImage placeImage = new PlaceImage(
                         placeImageDto.getPlaceId(),
                         placeImageDto.getOrigFileName(),
+                        placeImageDto.getNewFileName(),
                         placeImageDto.getFilePath(),
                         placeImageDto.getFileSize()
                 );
