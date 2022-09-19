@@ -2,7 +2,14 @@
 let index = {
     init: function () {
         $(".add-category-btn").on("click", () => {
-            this.add();
+
+            if ($.trim($(".tag-name").val()) == '') {
+                alert("카테고리 명을 입력해주세요");
+            } else {
+                if (confirm("\"" + $(".tag-name").val() + "\"를 추가하시겠습니까?")) {
+                    this.add();
+                }
+            }
         });
     },
 
@@ -17,13 +24,9 @@ let index = {
 
         if (numberOfElements == 0) {
             lastPage = $(".last-page").val();
-            alert("1");
         } else {
             lastPage = $(".last-page").val() - 1;
-            alert("2");
         }
-
-        alert(lastPage);
 
         $.ajax({
             url: "/category/add",
