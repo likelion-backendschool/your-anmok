@@ -43,6 +43,7 @@ public class PlaceController {
     public String home(Model model){
         Integer mostPopularCategoryId = 1;
         List<Integer> placeIdList= placeCategoryMapService.getPlaceIdByCategoryId(mostPopularCategoryId);
+        Category category = categoryService.getCategoryById(1);
 
         List<Place> categoryPlaceList = new ArrayList<>();
 
@@ -53,6 +54,7 @@ public class PlaceController {
 
         model.addAttribute("allPlaceList",categoryPlaceList);
         model.addAttribute("categoryId",mostPopularCategoryId);
+        model.addAttribute("categoryName", category.getTagName());
 
         return "map/categoryMap";
 
@@ -119,6 +121,7 @@ public class PlaceController {
     @GetMapping("/category")
     public String getPlaceByCategoryId(@RequestParam("id") Integer id, Model model){
         List<Integer> placeIdList = placeCategoryMapService.getPlaceIdByCategoryId(id);
+        Category category = categoryService.getCategoryById(id);
 
         List<Place> categoryPlaceList = new ArrayList<>();
 
@@ -130,6 +133,7 @@ public class PlaceController {
 
         model.addAttribute("allPlaceList",categoryPlaceList);
         model.addAttribute("categoryId",id);
+        model.addAttribute("categoryName", category.getTagName());
 
         return "map/categoryMap";
 
@@ -139,6 +143,8 @@ public class PlaceController {
     public String searchPlace(@AuthenticationPrincipal MemberContext member,@RequestParam("categoryId") Integer categoryId, Model model){
         List<CategoryDto> categoryList = categoryService.findAll();
         Category category = categoryService.getCategoryById(categoryId);
+
+        model.addAttribute("categoryName", category.getTagName());
 
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("categoryObject",category);

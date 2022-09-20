@@ -1,5 +1,19 @@
 @charset "utf-8";
 
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dt,li,dt,table,tr,td,th,input,select,option,textarea {
     margin: 0;
@@ -9,6 +23,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,dl,dt,li,dt,table,tr,td,th,input,select,option,te
 
 a {
     text-decoration: none;
+    font-family : Cafe24SsurroundAir;
 }
 
 li{
@@ -35,6 +50,12 @@ h1{
     /*background-color: blue;*/
     padding: 50px 0;
 }
+
+.gathering-title > a {
+    font-size: 40px;
+    font-family: Cafe24Ssurround;
+}
+
 .write-gather{
     float: right;
     /*margin: 30px 0;*/
@@ -42,8 +63,12 @@ h1{
     font-size: 16px;
     margin-right: 15px;
     margin-bottom: 20px;
-    background: #01C9C6;
+    background: #00C385;
     border-radius: 25px;
+}
+
+form {
+    font-family: Cafe24SsurroundAir;
 }
 
 .gather-category {
@@ -52,13 +77,14 @@ h1{
     clear: both;
     display: flex;
     flex-flow : row wrap;
+    font-family: Cafe24SsurroundAir;
     /*background: red;*/
 }
 
 .gather-category > div > div {
-    color:#01C9C6;
+    color:#00C385;
     font-size: 14px;
-    outline-color: #01C9C6;
+    outline-color: #00C385;
     margin-right: 15px;
     margin-bottom: 10px;
     padding: 10px 20px;
@@ -98,7 +124,7 @@ h1{
     height: 50px;
     border: 0;
     border-radius: 15px;
-    background: #01C9C6;
+    background: #00C385;
     margin-left: 15px;
     font-size: 16px;
 }
@@ -111,8 +137,11 @@ h1{
     margin-bottom: 20px;
 }
 
+.places {
+    font-family: Cafe24SsurroundAir;
+}
 .places>div:hover{
-    background: #01C9C6;
+    background: #7FD1AE;
 }
 
 .places >div img{
@@ -138,7 +167,7 @@ h1{
 
 .gather-category input[type="checkbox"]:checked + div {
     color:white;
-    background-color: #01C9C6;
+    background-color: #00C385;
 }
 
 .gather-category > div {
@@ -156,13 +185,31 @@ h1{
 }
 
 
-/* (158~) 사이드바 관련 css */
+/* 사이드바 관련 css */
+#my_location_button{position: absolute;bottom:-150px;right:0;z-index: 100;}
 
-#hamburger_button {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+html > body .categoryBtn {
+    /*all: unset;*/
+
+    background: #7FD1AE;
+    border-color: #7FD1AE;
+    border-right-color: white;
+    font-size:20px;
+    font-family: 'Cafe24SsurroundAir';
 }
+
+#categoryCard {
+    all: unset;
+    cursor:pointer;
+    display: flex;
+    flex-direction: row;
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    /*width: 300px;*/
+    z-index: 200;
+}
+
 
 /* 추가된 부분 */
 .hamburger_line {
@@ -179,9 +226,9 @@ h1{
 
 .left_sub_menu {
     position: fixed;
-    top: 70px;
-    width: 250px;
-    z-index: 10;
+    top: 0px;
+    width: 300px;
+    z-index: 210;
     left: 0px;
     background: white;
     border-right: 1px solid rgba(0, 0, 0, 0.07);
@@ -208,19 +255,20 @@ h1{
     font-size: 17px;
     font-weight: 600;
     padding: 20px 0px 8px 14px;
-    border-bottom: 1px solid #e1e1e1;
+    /*border-bottom: 1px solid #e1e1e1;*/
 }
 
-.sub_menu>h2 {
+.sub_menu>div {
     padding-bottom: 4px;
     border-bottom: 3px solid #797979;
-    margin-top: 30px;
-    font-size: 21px;
+    margin-top: 100px;
     font-weight: 600;
     color: #333;
     margin-left: 10px;
     margin-right: 10px;
-    font-family: 'NotoKrB';
+
+    font-size:20px;
+    font-family: 'Cafe24SsurroundAir';
     line-height: 35px;
 }
 
@@ -232,13 +280,26 @@ h1{
     margin-right: 20px;
 }
 
-.sub_menu>.big_menu>.small_menu li {
+.sub_menu>.big_menu a {
     color: #333;
-    font-size: 14px;
+    /*font-size: 14px;*/
     font-weight: 600;
-    border-bottom: 0px solid #e1e1e1;
+    /*border-bottom: 0px solid #e1e1e1;*/
     margin-left: 14px;
     padding-top: 8px;
+    font-size: 17px;
+    font-family: 'Cafe24SsurroundAir';
+}
+
+
+html > body .categoryBtn:hover {
+    /*all: unset;*/
+
+    background: #00C385;
+    border-color: #00C385;
+    border-right-color: white;
+    font-size:20px;
+    font-family: 'Cafe24SsurroundAir';
 }
 
 .big_menu {
@@ -249,13 +310,13 @@ ul {
     padding-inline-start: 0px;
 }
 
-/*a {*/
-/*    color: #797979;*/
-/*    text-decoration: none;*/
-/*    background-color: transparent;*/
-/*    display: block;*/
-/*    cursor: pointer;*/
-/*}*/
+a {
+    color: #797979;
+    text-decoration: none;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+}
 
 ul {
     list-style: none;
@@ -282,8 +343,9 @@ ul {
     display: none;
 }
 
-
 /* */
+#my_location_button{position: absolute;bottom:0;right:0;z-index: 100}
+#my_location_button1{position: absolute;bottom:0;right:0;z-index: 100}
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -294,37 +356,10 @@ ul {
 #search_wrap .option{text-align: center;}
 #search_wrap .option p {margin:10px 0;}
 #search_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
 
 .gather-category input[type="checkbox"]:checked + div {
     color:white;
-    background-color: #01C9C6;
+    background-color: #00C385;
 }
 
 .gather-category > div {

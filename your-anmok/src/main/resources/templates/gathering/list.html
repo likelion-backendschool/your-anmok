@@ -16,7 +16,7 @@
 <body>
 <section id="container">
     <div class="gathering-title">
-        <a class="h1 m-2 text-decoration-none text-dark" href="/gathering/list">같이 갈사람🤚🏻</a>
+        <a class="m-2 text-decoration-none text-dark" href="/gathering/list">같이 갈사람🤚🏻</a>
     </div>
     <div class="flex justify-end mr-[25px] mt-[25px]">
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" th:href="@{/gathering/create}">모집하기⚡️</a></button>
@@ -24,7 +24,7 @@
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></button>
     </div>
 
-    <form method="get" th:action="|@{/gathering/list}|" th:object="${criteria}">
+    <form id="gathering-main" method="get" th:action="|@{/gathering/list}|" th:object="${criteria}">
         <div class="gather-category">
             <div th:each="category,index:${categoryList}">
                 <input type="checkbox" name="category" th:value="${category.id}">
@@ -32,21 +32,6 @@
 <!--                <label><input type="button" name="category" class="btn btn-outline-info" th:value="${category.tagName}" th:id="${category.id}" onclick="onClick(this.id)"></label>-->
             </div>
         </div>
-
-<!--        <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>-->
-<!--                <div class="dropdown-menu">-->
-<!--                    <a class="dropdown-item" href="#">Action</a>-->
-<!--                    <a class="dropdown-item" href="#">Another action</a>-->
-<!--                    <a class="dropdown-item" href="#">Something else here</a>-->
-<!--                    <div role="s parator" class="dropdown-divider"></div>-->
-<!--                    <a class="dropdown-item" href="#">Separated link</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <input type="text" class="form-control" aria-label="Text input with dropdown button">-->
-<!--        </div>-->
-
         <div class="input-group my-5">
 
             <form class="input-group-prepend">
@@ -81,20 +66,30 @@
         <div id="menu">
             <div class="close"></div>
 
-            <a id="hamburger_button" class="fas fa-bars fa-3x"></a>
+            <div id="categoryCard" class="d-flex flex-row btn-group my-3 " role="group">
+                <button id="hamburger_button" type="button" class="categoryBtn btn btn-secondary text-nowrap center-block">
+                    <!--                <div class="fas fa-bars fa-2x"></div>-->
+                    <i class="fas fa-bars fa-2x"></i>
+                </button>
+<!--                <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>-->
+            </div>
+
 
             <div class="left_sub_menu">
                 <div class="sub_menu">
-                    <h2>메뉴</h2>
+                    <div class="d-flex flex-row justify-between">
+                        <a class="h3" href="/">당신의 안목 👀</a>
+                    </div>
                     <ul class="big_menu">
-                    <li><a href="/">지도보기</a></li>
+                    <li><a href="/">🗺 지도보기</a></li>
                     <!--                    <ul class="small_menu">-->
                     <!--                        <li><a href="#">소메뉴2-1</a></li>-->
                     <!--                        <li><a href="#"></a>소메뉴2-2</a></li>-->
                     <!--                    </ul>-->
                     </ul>
                     <ul class="big_menu">
-                        <li><a href="/category/home">카테고리</a></li>
+                        <li><a href="/category/home">🏞 카테고리</a></li>
+
                         <!--                    <ul class="small_menu">-->
                         <!--                        <li><a href="#">소메뉴1-1</a></li>-->
                         <!--                        <li><a href="#">소메뉴1-2</a></li>-->
@@ -103,7 +98,7 @@
                         <!--                    </ul>-->
                     </ul>
                     <ul class="big_menu">
-                        <li><a href="/mypage">마이페이지</a></li>
+                        <li><a sec:authorize="isAuthenticated()" href="/mypage">🛍 마이페이지</a></li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +131,7 @@
         //     $("ul", this).slideToggle(300);
         // });
         // 외부 클릭 시 좌측 사이드 메뉴 숨기기
-        $('#map').on('click', function () {
+        $('#gathering-main').on('click', function () {
             $('.left_sub_menu').fadeOut();
             $('.hide_sidemenu').fadeIn();
         });

@@ -20,16 +20,6 @@
         }
 
         #my_location_button{position: absolute;bottom:-150px;right:0;z-index: 100;}
-        #searchMapFormByCategoryId{position: absolute;bottom:-100px;right:0;z-index: 100;}
-        #makeMyCategory{position: absolute;bottom:-200px;right:0;z-index: 100;}
-        /*슬라이드 버튼 관련 CSS*/
-        /*#hamburger_button {*/
-        /*    cursor:pointer;*/
-        /*    position:absolute;*/
-        /*    top:0px;*/
-        /*    left:0px;*/
-        /*    z-index: 200;*/
-        /*}*/
 
         html > body .categoryBtn {
             /*all: unset;*/
@@ -43,6 +33,7 @@
 
         #categoryCard {
             all: unset;
+
             cursor:pointer;
             display: flex;
             flex-direction: row;
@@ -54,6 +45,18 @@
         }
 
 
+        /* 추가된 부분 */
+        .hamburger_line {
+            display: inline-block;
+            background:black;
+            margin: 2px !important;
+            width:56px;
+            height:7px;
+            border-radius:2px;
+            box-shadow:0 1px 3px rgba(0,0,0,.5);
+            position:relative;
+            z-index: 200;
+        }
 
         .left_sub_menu {
             position: fixed;
@@ -97,6 +100,7 @@
             color: #333;
             margin-left: 10px;
             margin-right: 10px;
+
             font-size:20px;
             font-family: 'Cafe24SsurroundAir';
             line-height: 35px;
@@ -112,12 +116,15 @@
 
         .sub_menu>.big_menu a {
             color: #333;
+            /*font-size: 14px;*/
             font-weight: 600;
+            /*border-bottom: 0px solid #e1e1e1;*/
             margin-left: 14px;
             padding-top: 8px;
             font-size: 17px;
             font-family: 'Cafe24SsurroundAir';
         }
+
 
         html > body .categoryBtn:hover {
             /*all: unset;*/
@@ -216,32 +223,42 @@
 
     <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fas fa-crosshairs" onclick="getCurrentPosBtn()">
     </button>
-    <form th:action="@{/searchMap}" id="searchMapFormByCategoryId">
-        <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
-        <button class="btn btn-primary btn-lg" type="submit">검색하기</button>
-    </form>
-    <button id="makeMyCategory" class="btn btn-primary btn-lg" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
-
+    <br>
+<!--    <button id="my_location_button1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="ajaxTest()">ajax 테스트</button>-->
+    <div id="search_wrap" class="bg_white" style="position: absolute; top:0; right: 0; z-index: 90;">
+        <div class="option">
+            <div>
+                <form th:action="@{/map/searchMap}" >
+                    키워드 : <input type="text" name="placeKeyword" value="" id="keyword" size="15" />
+                    <button type="submit">검색하기</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
+        <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
+    </div>
     <div id="menu">
         <div class="close"></div>
 
         <div id="categoryCard" class="d-flex flex-row btn-group my-3 " role="group">
             <button id="hamburger_button" type="button" class="categoryBtn btn btn-secondary text-nowrap center-block">
-                <!--                <div class="fas fa-bars fa-2x"></div>-->
+<!--                <div class="fas fa-bars fa-2x"></div>-->
                 <i class="fas fa-bars fa-2x"></i>
             </button>
             <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>
         </div>
 
-
         <div class="left_sub_menu">
             <div class="sub_menu">
                 <div class="d-flex flex-row justify-between">
                     <a class="h3" href="/">당신의 안목 👀</a>
+<!--                    <div>-->
                         <form action="/auth/loginProc" method="post">
                             <a sec:authorize="isAnonymous()" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
                             <div class="btn btn-warning" sec:authorize="isAuthenticated()"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></div>
                         </form>
+<!--                    </div>-->
                 </div>
 
                 <ul class="big_menu">
@@ -251,11 +268,15 @@
                     <li><a href="/gathering/list">⚡️ 번개모임</a></li>
                 </ul>
                 <ul class="big_menu">
+<!--                    onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;"-->
                     <li><a sec:authorize="isAuthenticated()" href="/mypage">🛍 마이페이지</a></li>
                 </ul>
             </div>
         </div>
     </div>
+<!--    <div th:each="placeInfo, status: ${placeList}">-->
+<!--        <a style="color: #01C9C6" th:text="${placeInfo.name}" th:text="${placeInfo.address}" th:onload="displayDbMarker(${placeInfo.name}, ${placeInfo.address})" ></a>-->
+<!--    </div>-->
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
@@ -274,6 +295,7 @@
 </script>
 
 <script>
+    // console.log("잘 넘어오는지확인해보기 : "+allPlaceList[1].name);
     let container = document.getElementById("map");
     let options = {
         // 일단 홍대를 중심으로 잡는 맵 생성
@@ -283,6 +305,19 @@
     };
 
     let map = new kakao.maps.Map(container, options);
+
+    // markerPosition(포지션)을 Latlng로 포지션화(좌표화) -> 스타벅스 홍대점 좌표 구해서 넣었습니다.
+    let starbucksHondaeMarkerPosition = new kakao.maps.LatLng(37.55751541928109, 126.92520449490704);
+
+    // starbucksHondaeMarker 생성자
+    let starbucksHondaeMarker = new kakao.maps.Marker({
+        position: starbucksHondaeMarkerPosition,
+        clickable: true
+    })
+    // displayInfowindow(starbucksHondaeMarker, "스타벅스닷");
+
+    // starbucksHongdaeMarker를 지도 위에 표시 -> setMap
+    starbucksHondaeMarker.setMap(map);
 
     $(function () {
         $(".left_sub_menu").hide();
@@ -367,7 +402,7 @@
 
                             tr+=`<tr>`;
                             for (let i=0;i<categorySize;i++) {
-                                tr += `    <button class="categoryNameBtn" onclick="location.href='/?categoryId=${categoryList[i].id}'">${categoryList[i].tagName}</button>`
+                                tr += `    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" onclick="location.href='/category?id=${categoryList[i].id}'">${categoryList[i].tagName}</button>`
                             }
 
                             tr+=`</tr>`;
@@ -380,7 +415,7 @@
 
                             tr+=`<tr>`;
                             for (let i=0;i<gatheringSize;i++){
-                                tr +=`    <button class="gathingTitleBtn" onclick="location.href='/gathering/${gatheringList[i].id}'">${gatheringList[i].title}</button>`
+                                tr +=`    <button class="btn btn-accent rounded-[50px] btn-sm btn-outline mb-1" onclick="location.href='/gathering/${gatheringList[i].id}'">${gatheringList[i].title}</button>`
                             }
                             tr+=`</tr>`;
                             console.log(tr);
@@ -444,6 +479,8 @@
             //
             // });
 
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
+
         })
     }
 
@@ -461,6 +498,16 @@
             navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
             console.log("현재위치 버튼 클릭됨");
         }
+
+        kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function () {
+            document.getElementById("detail_popup_layer").style.display = 'block'
+            slider();
+            console.log("스타벅스 클릭");
+        });
+
+        kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function () {
+
+        });
 
         // 마커 클릭시 장소명 표출하는 인포윈도우
 
@@ -494,6 +541,56 @@
             ps.keywordSearch(keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
             console.log("ps.keywordSearch 작동중")
         }
+
+        // 키워드로 검색 완료시 호출되는 콜백함수
+        // function placesSearchCB(data, status, pagination){
+        //     console.log("placeSearhCB들어옴")
+        //     if(status === kakao.maps.services.Status.OK){
+        //         console.log("placeSearchCB status 일치");
+        //         // 검색된 장소 위치를 기준으로 지도 범위 재설정하기 위해
+        //         // LatLngBounds 객체에 좌표를 추가한다.
+        //
+        //         displayPlaces(data);
+        //
+        //         displayPagination(pagination);
+        //
+        //         console.log("displayplaces 통과");
+        //         // boundss와 data 개수에 따라 마커 표시하고 bound에 추가하는 코드는
+        //         // SearchListPlaces 함수로 넣어서 관리
+        //         // let bounds = new kakao.maps.LatLngBounds();
+        //
+        //         // for(let i=0; i<data.length;i++){
+        //         //     displayMarker(data[i]);
+        //         //     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        //         // }
+        //
+        //         //  검색된 장소 위치를 기준으로 지도 범위를 재설정 -> setBounds
+        //         // map.setBounds(bounds);
+        //     }
+        // }
+
+        // function getListItem(index, places){
+        //     let el = document.createElement('li'),
+        //
+        //         itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+        //             '<div class="info">' +
+        //             '   <h5>' + places.place_name + '</h5>';
+        //
+        //     if(places.address_name){
+        //         itemStr += '    <span class="jibun gray">'+places.address_name+'</span>';
+        //         console.log("주소는 : "+places.address_name);
+        //     }
+        //
+        //     // 아이템 내 button 추가
+        //     // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
+        //     itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
+        //     itemStr += '</div>'
+        //
+        //     el.innerHTML = itemStr;
+        //     el.className = 'item';
+        //
+        //     return el;
+        // }
 
         function addMarker(position, idx, title) {
             var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -653,3 +750,5 @@
 
 </script>
 </html>
+<!--git remote update  -> git checkout 해당 브랜치 -> git merge  -->
+<!-- -->

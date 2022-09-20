@@ -5,22 +5,74 @@
     <title>당신의 안목 검색페이지</title>
 
     <style>
+        /*.map_wrap {position:relative;width:100%;height:500px;}*/
+        @font-face {
+            font-family: 'Cafe24SsurroundAir';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Cafe24Ssurround';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+
         #my_location_button{position: absolute;bottom:-150px;right:0;z-index: 100;}
 
         /*슬라이드 버튼 관련 CSS*/
-        #hamburger_button {
+        /*#hamburger_button {*/
+        /*    cursor:pointer;*/
+        /*    position:absolute;*/
+        /*    top:0px;*/
+        /*    left:0px;*/
+        /*    z-index: 200;*/
+        /*}*/
+
+        html > body .categoryBtn {
+            /*all: unset;*/
+
+            background: #7FD1AE;
+            border-color: #7FD1AE;
+            border-right-color: white;
+            font-size:20px;
+            font-family: 'Cafe24SsurroundAir';
+        }
+
+        #categoryCard {
+            all: unset;
             cursor:pointer;
-            position:absolute;
-            top:0px;
-            left:0px;
+            display: flex;
+            flex-direction: row;
+            position:fixed;
+            top: 0px;
+            left: 0px;
+            width: 300px;
+            z-index: 200;
+        }
+
+
+        /* 추가된 부분 */
+        .hamburger_line {
+            display: inline-block;
+            background:black;
+            margin: 2px !important;
+            width:56px;
+            height:7px;
+            border-radius:2px;
+            box-shadow:0 1px 3px rgba(0,0,0,.5);
+            position:relative;
             z-index: 200;
         }
 
         .left_sub_menu {
             position: fixed;
-            top: 50px;
+            top: 0px;
             width: 300px;
-            z-index: 10;
+            z-index: 210;
             left: 0px;
             background: white;
             border-right: 1px solid rgba(0, 0, 0, 0.07);
@@ -47,19 +99,19 @@
             font-size: 17px;
             font-weight: 600;
             padding: 20px 0px 8px 14px;
-            border-bottom: 1px solid #e1e1e1;
+            /*border-bottom: 1px solid #e1e1e1;*/
         }
 
         .sub_menu>div {
             padding-bottom: 4px;
             border-bottom: 3px solid #797979;
-            margin-top: 30px;
-            font-size: 21px;
+            margin-top: 100px;
             font-weight: 600;
             color: #333;
             margin-left: 10px;
             margin-right: 10px;
-            font-family: 'NotoKrB';
+            font-size:20px;
+            font-family: 'Cafe24SsurroundAir';
             line-height: 35px;
         }
 
@@ -71,14 +123,28 @@
             margin-right: 20px;
         }
 
-        .sub_menu>.big_menu>.small_menu li {
+        .sub_menu>.big_menu a {
             color: #333;
-            font-size: 14px;
             font-weight: 600;
-            border-bottom: 0px solid #e1e1e1;
+            /*border-bottom: 0px solid #e1e1e1;*/
             margin-left: 14px;
             padding-top: 8px;
+            font-size: 17px;
+            font-family: 'Cafe24SsurroundAir';
+
         }
+
+
+        html > body .categoryBtn:hover {
+            /*all: unset;*/
+
+            background: #00C385;
+            border-color: #00C385;
+            border-right-color: white;
+            font-size:20px;
+            font-family: 'Cafe24SsurroundAir';
+        }
+
 
         .big_menu {
             cursor: pointer;
@@ -209,7 +275,14 @@
     <div id="menu">
         <div class="close"></div>
 
-        <a id="hamburger_button" class="fas fa-bars fa-3x"></a>
+        <div id="categoryCard" class="d-flex flex-row btn-group my-3 " role="group">
+            <button id="hamburger_button" type="button" class="categoryBtn btn btn-secondary text-nowrap center-block">
+                <!--                <div class="fas fa-bars fa-2x"></div>-->
+                <i class="fas fa-bars fa-2x"></i>
+            </button>
+            <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>
+        </div>
+
         <input type="hidden" id="isAuthorized" th:value="${#authentication.getPrincipal() != 'anonymousUser'}?'Y':'N'"/>
 
         <div class="left_sub_menu">
@@ -224,7 +297,8 @@
                     <!--                    </div>-->
                 </div>
                 <ul class="big_menu">
-                    <li><a href="/category/home">카테고리</a></li>
+                    <li><a href="/category/home">🏞 카테고리</a></li>
+
                     <!--                    <ul class="small_menu">-->
                     <!--                        <li><a href="#">소메뉴1-1</a></li>-->
                     <!--                        <li><a href="#">소메뉴1-2</a></li>-->
@@ -233,14 +307,16 @@
                     <!--                    </ul>-->
                 </ul>
                 <ul class="big_menu">
-                    <li><a href="/gathering/list">번개모임</a></li>
+                    <li><a href="/gathering/list">⚡️ 번개모임</a></li>
+
                     <!--                    <ul class="small_menu">-->
                     <!--                        <li><a href="#">소메뉴2-1</a></li>-->
                     <!--                        <li><a href="#"></a>소메뉴2-2</a></li>-->
                     <!--                    </ul>-->
                 </ul>
                 <ul class="big_menu">
-                    <li><a href="/mypage">마이페이지</a></li>
+                    <li><a sec:authorize="isAuthenticated()" href="/mypage">🛍 마이페이지</a></li>
+
                 </ul>
             </div>
         </div>
