@@ -66,7 +66,10 @@ public class CategoryController {
     }
 
     @GetMapping("/add")
-    public String showAddCategory(){
+    public String showAddCategory(Model model){
+        List<CategoryDto> categoryList = categoryService.findAll();
+        model.addAttribute("categoryList",categoryList);
+
         return "/category/addCategory";
     }
 
