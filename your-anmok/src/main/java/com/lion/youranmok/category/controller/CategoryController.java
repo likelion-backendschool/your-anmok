@@ -96,6 +96,6 @@ public class CategoryController {
 //        }
 //
 //        return new ResponseEntity(HttpStatus.OK);
-        return "redirect:/category/?id="+categoryid;
+        return "redirect:/searchMap?categoryId="+categoryid;
     }
 }
