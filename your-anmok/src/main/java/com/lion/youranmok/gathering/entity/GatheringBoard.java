@@ -31,6 +31,7 @@ public class GatheringBoard {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
+    @JsonIgnore
     @ManyToOne
     private Place place;
 
