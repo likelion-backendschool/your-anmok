@@ -26,7 +26,7 @@
 
     <div th:each="category, i : ${categories}">
         <form action="/bookmark/removeByMypage" method="post">
-            <div th:text="${category.tagName}"></div>
+            <a th:href="@{/category(id=${category.id})}"><div th:text="${category.tagName}"></div></a>
             <button type="submit" class="remove-btn">삭제</button>
             <input type="hidden" name="categoryId" th:value="${category.id}" th:classappend="category_id" />
         </form>
