@@ -193,6 +193,9 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public Category getCategoryByTagName(String tagName) {
+        String newtagName = tagName.replaceAll("#", "");
+        tagName = "#"+newtagName;
+        System.out.println(tagName);
         return categoryRepository.getCategoryByTagName(tagName);
     }
 

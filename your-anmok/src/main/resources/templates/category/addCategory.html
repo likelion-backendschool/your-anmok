@@ -20,11 +20,12 @@
 
 </script>
 
-<form th:action="@{/addCategory}" method="POST" onsubmit="AddCategoryForm__submit(this); return false;">
+<form th:action="@{/category/add}" method="POST" onsubmit="AddCategoryForm__submit(this); return false;">
     <div>
         <p>카테고리 만들기</p>
         <input type="text" class="form-control" name="categoryName">
     </div>
+
     <button id="addCategorySubmitBtn" type="submit">만들기</button>
 </form>
 

@@ -2,6 +2,7 @@ package com.lion.youranmok.category.controller;
 
 import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.dto.CategorySortingDto;
+import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.dto.GatheringPreviewDto;
 import com.lion.youranmok.gathering.service.GatheringService;
@@ -74,15 +75,27 @@ public class CategoryController {
      * 카테고리 추가하는 메서드
      */
     @PostMapping("/add")
-    public ResponseEntity addCategory(@RequestBody CategoryDto categoryDto) {
+    public String addCategory(String categoryName) {
 
-        Integer id = categoryService.addCategory(categoryDto);
+        Category category = Category.builder()
+                .tagName(categoryName)
+                .build();
 
-        if (id == 0) {
-            return new ResponseEntity(HttpStatus.CONFLICT);
+        //카테고리 등록
+        Integer categoryid = categoryService.addCategory(categoryService.entityToDto(category));
+        //이미 등록된 카테고리의 id 가져오기
+        if(categoryid==0){
+            System.out.println(categoryName);
+            categoryid = categoryService.getCategoryByTagName(categoryName).getId();
         }
 
-        return new ResponseEntity(HttpStatus.OK);
-
+//        Integer id = categoryService.addCategory(categoryDto);
+//
+//        if (id == 0) {
+//            return new ResponseEntity(HttpStatus.CONFLICT);
+//        }
+//
+//        return new ResponseEntity(HttpStatus.OK);
+        return "redirect:/category/?id="+categoryid;
     }
 }
