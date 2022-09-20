@@ -10,6 +10,7 @@
         #my_location_button{position: absolute;bottom:-150px;right:0;z-index: 100;}
         #my_location_button1{position: absolute;bottom:0;right:0;z-index: 100;}
         #searchMapFormByCategoryId{position: absolute;bottom:-100px;right:0;z-index: 100;}
+        #makeMyCategory{position: absolute;bottom:-200px;right:0;z-index: 100;}
         /*슬라이드 버튼 관련 CSS*/
         #hamburger_button {
             cursor:pointer;
@@ -187,6 +188,8 @@
         <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
         <button class="btn btn-primary btn-lg" type="submit">검색하기</button>
     </form>
+    <button id="makeMyCategory" class="btn btn-primary btn-lg" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
+
     <div id="menu">
         <div class="close"></div>
 
@@ -354,7 +357,7 @@
 
                             tr+=`<tr>`;
                             for (let i=0;i<categorySize;i++) {
-                                tr += `    <button class="categoryNameBtn" onclick="location.href='/searchMap?categoryId=${categoryList[i].id}'">${categoryList[i].tagName}</button>`
+                                tr += `    <button class="categoryNameBtn" onclick="location.href='/?categoryId=${categoryList[i].id}'">${categoryList[i].tagName}</button>`
                             }
 
                             tr+=`</tr>`;
