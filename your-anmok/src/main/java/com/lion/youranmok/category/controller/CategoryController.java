@@ -64,6 +64,11 @@ public class CategoryController {
 
     }
 
+    @GetMapping("/add")
+    public String showAddCategory(){
+        return "/category/addCategory";
+    }
+
 
     /**
      * 카테고리 추가하는 메서드
