@@ -8,41 +8,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <style>
-    #pop {
-      position: absolute;
-      z-index: 1;
-      top: 0;
-      background: black;
-
-      display: none;
-    }
-
-    #pop > article {
-      width: 700px;
-      height: 400px;
-      position: relative;
-      z-index: 2;
-      background-color: white;
-      box-shadow: 3px 3px 5px black;
-      margin: auto;
-      cursor: pointer;
-      text-align: center;
-    }
-
-  </style>
-
-  <script>
-    $(document).ready(function () {
-      $(".add-category").click(function () {
-        $("#pop").fadeIn();
-      });
-      $("#pop>article").click(function () {
-        $(this).parent().fadeOut();
-      });
-
-    })
-  </script>
 </head>
 <body class="flex justify-center">
 
@@ -99,10 +64,6 @@
       </button>
     </form>
 
-    <button type="button" class="add-category btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
-      +
-    </button>
-
   </div>
 
   <!-- 카테고리 나열 부분 -->
@@ -122,7 +83,7 @@
 
       <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
       <div class="relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${categories}">
-        <a th:href="@{/map/category(id=${category.id})}">
+        <a th:href="@{/category(id=${category.id})}">
           <!-- TODO image 부분 일부 키워드에 따라 사진 표시되게 구현 -->
           <img class="h-[200px] w-[250px] rounded-[15px] "
                th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
