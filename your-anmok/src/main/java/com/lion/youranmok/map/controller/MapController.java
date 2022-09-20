@@ -34,13 +34,13 @@ public class MapController {
 //
 //    }
 
-    @GetMapping("/searchMap")
-    public String searchPlace(@AuthenticationPrincipal MemberContext member, @RequestParam("placeKeyword") String placeKeyword, Model model){
-        List<CategoryDto> categoryList = categoryService.findAll();
-        model.addAttribute("placeKeyword",placeKeyword);
-        model.addAttribute("categoryList",categoryList);
-        return "map/searchMap";
-    }
+//    @GetMapping("/searchMap")
+//    public String searchPlace(@AuthenticationPrincipal MemberContext member, @RequestParam("placeKeyword") String placeKeyword, Model model){
+//        List<CategoryDto> categoryList = categoryService.findAll();
+//        model.addAttribute("placeKeyword",placeKeyword);
+//        model.addAttribute("categoryList",categoryList);
+//        return "map/searchMap";
+//    }
 
 //    @GetMapping("/category")
 //    public String categoryDisplay(@RequestParam("id") int id, Model model){
