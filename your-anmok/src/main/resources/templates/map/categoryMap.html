@@ -53,7 +53,18 @@
             z-index: 200;
         }
 
-
+        /* 추가된 부분 */
+        .hamburger_line {
+            display: inline-block;
+            background:black;
+            margin: 2px !important;
+            width:56px;
+            height:7px;
+            border-radius:2px;
+            box-shadow:0 1px 3px rgba(0,0,0,.5);
+            position:relative;
+            z-index: 200;
+        }
 
         .left_sub_menu {
             position: fixed;
@@ -232,7 +243,6 @@
             </button>
             <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>
         </div>
-
 
         <div class="left_sub_menu">
             <div class="sub_menu">
