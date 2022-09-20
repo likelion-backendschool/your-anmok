@@ -5,10 +5,7 @@
     <title>당신의 안목 메인페이지</title>
 
     <style>
-        /*.map_wrap {position:relative;width:100%;height:500px;}*/
-
         #my_location_button{position: absolute;bottom:-150px;right:0;z-index: 100;}
-        #my_location_button1{position: absolute;bottom:0;right:0;z-index: 100;}
         #searchMapFormByCategoryId{position: absolute;bottom:-100px;right:0;z-index: 100;}
         #makeMyCategory{position: absolute;bottom:-200px;right:0;z-index: 100;}
         /*슬라이드 버튼 관련 CSS*/
@@ -17,19 +14,6 @@
             position:absolute;
             top:0px;
             left:0px;
-            z-index: 200;
-        }
-
-        /* 추가된 부분 */
-        .hamburger_line {
-            display: inline-block;
-            background:black;
-            margin: 2px !important;
-            width:56px;
-            height:7px;
-            border-radius:2px;
-            box-shadow:0 1px 3px rgba(0,0,0,.5);
-            position:relative;
             z-index: 200;
         }
 
@@ -229,9 +213,6 @@
             </div>
         </div>
     </div>
-<!--    <div th:each="placeInfo, status: ${placeList}">-->
-<!--        <a style="color: #01C9C6" th:text="${placeInfo.name}" th:text="${placeInfo.address}" th:onload="displayDbMarker(${placeInfo.name}, ${placeInfo.address})" ></a>-->
-<!--    </div>-->
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services&autoload=false"></script>
@@ -250,7 +231,6 @@
 </script>
 
 <script>
-    // console.log("잘 넘어오는지확인해보기 : "+allPlaceList[1].name);
     let container = document.getElementById("map");
     let options = {
         // 일단 홍대를 중심으로 잡는 맵 생성
@@ -260,19 +240,6 @@
     };
 
     let map = new kakao.maps.Map(container, options);
-
-    // markerPosition(포지션)을 Latlng로 포지션화(좌표화) -> 스타벅스 홍대점 좌표 구해서 넣었습니다.
-    let starbucksHondaeMarkerPosition = new kakao.maps.LatLng(37.55751541928109, 126.92520449490704);
-
-    // starbucksHondaeMarker 생성자
-    let starbucksHondaeMarker = new kakao.maps.Marker({
-        position: starbucksHondaeMarkerPosition,
-        clickable: true
-    })
-    // displayInfowindow(starbucksHondaeMarker, "스타벅스닷");
-
-    // starbucksHongdaeMarker를 지도 위에 표시 -> setMap
-    starbucksHondaeMarker.setMap(map);
 
     $(function () {
         $(".left_sub_menu").hide();
@@ -434,8 +401,6 @@
             //
             // });
 
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다.
-
         })
     }
 
@@ -453,16 +418,6 @@
             navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
             console.log("현재위치 버튼 클릭됨");
         }
-
-        kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function () {
-            document.getElementById("detail_popup_layer").style.display = 'block'
-            slider();
-            console.log("스타벅스 클릭");
-        });
-
-        kakao.maps.event.addListener(starbucksHondaeMarker, 'click', function () {
-
-        });
 
         // 마커 클릭시 장소명 표출하는 인포윈도우
 
@@ -496,56 +451,6 @@
             ps.keywordSearch(keyword, placesSearchCB); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
             console.log("ps.keywordSearch 작동중")
         }
-
-        // 키워드로 검색 완료시 호출되는 콜백함수
-        // function placesSearchCB(data, status, pagination){
-        //     console.log("placeSearhCB들어옴")
-        //     if(status === kakao.maps.services.Status.OK){
-        //         console.log("placeSearchCB status 일치");
-        //         // 검색된 장소 위치를 기준으로 지도 범위 재설정하기 위해
-        //         // LatLngBounds 객체에 좌표를 추가한다.
-        //
-        //         displayPlaces(data);
-        //
-        //         displayPagination(pagination);
-        //
-        //         console.log("displayplaces 통과");
-        //         // boundss와 data 개수에 따라 마커 표시하고 bound에 추가하는 코드는
-        //         // SearchListPlaces 함수로 넣어서 관리
-        //         // let bounds = new kakao.maps.LatLngBounds();
-        //
-        //         // for(let i=0; i<data.length;i++){
-        //         //     displayMarker(data[i]);
-        //         //     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        //         // }
-        //
-        //         //  검색된 장소 위치를 기준으로 지도 범위를 재설정 -> setBounds
-        //         // map.setBounds(bounds);
-        //     }
-        // }
-
-        // function getListItem(index, places){
-        //     let el = document.createElement('li'),
-        //
-        //         itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-        //             '<div class="info">' +
-        //             '   <h5>' + places.place_name + '</h5>';
-        //
-        //     if(places.address_name){
-        //         itemStr += '    <span class="jibun gray">'+places.address_name+'</span>';
-        //         console.log("주소는 : "+places.address_name);
-        //     }
-        //
-        //     // 아이템 내 button 추가
-        //     // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
-        //     itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
-        //     itemStr += '</div>'
-        //
-        //     el.innerHTML = itemStr;
-        //     el.className = 'item';
-        //
-        //     return el;
-        // }
 
         function addMarker(position, idx, title) {
             var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
@@ -705,5 +610,3 @@
 
 </script>
 </html>
-<!--git remote update  -> git checkout 해당 브랜치 -> git merge  -->
-<!-- -->

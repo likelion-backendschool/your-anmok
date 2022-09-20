@@ -5,7 +5,6 @@ import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
-import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceCategoryMap;
 import com.lion.youranmok.place.entity.PlaceImage;
@@ -55,7 +54,7 @@ public class PlaceController {
         model.addAttribute("allPlaceList",categoryPlaceList);
         model.addAttribute("categoryId",mostPopularCategoryId);
 
-        return "map/homeMap";
+        return "map/categoryMap";
 
     }
 
@@ -132,7 +131,7 @@ public class PlaceController {
         model.addAttribute("allPlaceList",categoryPlaceList);
         model.addAttribute("categoryId",id);
 
-        return "map/homeMap";
+        return "map/categoryMap";
 
     }
 
