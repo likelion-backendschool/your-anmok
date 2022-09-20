@@ -145,7 +145,6 @@ public class PlaceController {
         Category category = categoryService.getCategoryById(categoryId);
 
         model.addAttribute("categoryName", category.getTagName());
-
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("categoryObject",category);
 
