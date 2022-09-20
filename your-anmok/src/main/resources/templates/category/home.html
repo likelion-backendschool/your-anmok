@@ -8,8 +8,33 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+
+  <style>
+    @font-face {
+      font-family: 'Cafe24SsurroundAir';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Cafe24Ssurround';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    html > body {
+      font-family: "Cafe24SsurroundAir";
+    }
+
+    #web_name {
+      font-family: "Cafe24Ssurround";
+    }
+
+  </style>
 </head>
-<body class="flex justify-center">
+<body class="flex justify-center bg-[white] text-[black]">
 
 <div id="container" class="w-[1100px] flex-col justify-center bg-[inherit] p-[20px]">
 
@@ -29,7 +54,7 @@
     </div>
 
     <!-- 웹 페이지 이름 -->
-    <div id="web_name" class="text-3xl flex justify-center">
+    <div id="web_name" class="text-4xl flex justify-start">
       <a th:href="@{/category/home}"> 당신의 안목 👀</a>
     </div>
 
