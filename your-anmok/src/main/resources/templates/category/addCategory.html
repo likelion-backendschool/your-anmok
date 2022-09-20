@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>카테고리 만들기</title>
+</head>
+<body>
+<script>
+    function AddCategoryForm__submit(form) {
+        form.categoryName.value = form.categoryName.value.trim();
+
+        if ( form.categoryName.value.length == 0 ) {
+            alert("카테고리를 입력해주세요.");
+            form.categoryName.focus();
+            return;
+        }
+
+        form.submit();
+    }
+
+</script>
+
+<form th:action="@{/addCategory}" method="POST" onsubmit="AddCategoryForm__submit(this); return false;">
+    <div>
+        <p>카테고리 만들기</p>
+        <input type="text" class="form-control" name="categoryName">
+    </div>
+    <button id="addCategorySubmitBtn" type="submit">만들기</button>
+</form>
+
+</body>
+</html>
