@@ -92,7 +92,7 @@
   </div>
 
   <!-- 카테고리 나열 부분 -->
-  <div id="category_container" class="flex items-center mt-[25px]">
+  <div id="category_container" class="flex items-center mt-[25px] font-bold">
 
     <!-- back 버튼 -->
     <div id="back" class="h-[70px] w-[70px] flex text-center relative">
@@ -107,32 +107,33 @@
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
       <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
-      <div class="relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${categories}">
+      <div class="relative h-[200px] w-[250px] mx-[15px] my-[15px] rounded-[15px] tag_name" th:each="category : ${categories}">
         <a th:href="@{/category(id=${category.id})}">
           <!-- TODO image 부분 일부 키워드에 따라 사진 표시되게 구현 -->
-          <img class="h-[200px] w-[250px] rounded-[15px] "
+          <img class="h-[100%] w-[100%] rounded-[15px] opacity-75 align-middle"
                th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
-          <div class="absolute">
+          <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
             <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
 
             <input type="hidden" value="${category.id}" >
-            <div sec:authorize="isAuthenticated()">
-
-              <th:block th:if="${category.isBookmark() == false}">
-                <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
-                </a>
-              </th:block>
-              <th:block th:if="${category.isBookmark() == true}">
-                <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                  <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
-                </a>
-              </th:block>
-
-            </div>
-
 
           </div>
+
+          <div sec:authorize="isAuthenticated()" class="justify-center absolute top-[-10%] right-[-10%] px-4 py-2 text-2xl undefined">
+
+            <th:block th:if="${category.isBookmark() == false}">
+              <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                <span class="bookmark-btn">♡</span>
+              </a>
+            </th:block>
+            <th:block th:if="${category.isBookmark() == true}">
+              <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
+                <span class="bookmark-btn">♥</span>
+              </a>
+            </th:block>
+
+          </div>
+
         </a>
       </div>
 
