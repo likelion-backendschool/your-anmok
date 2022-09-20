@@ -1,5 +1,6 @@
 package com.lion.youranmok.gathering.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lion.youranmok.place.entity.Place;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -54,6 +55,7 @@ public class GatheringBoard {
     @Column
     private Integer gatherCnt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "board", cascade = {CascadeType.ALL}, orphanRemoval=true)
     private Set<GatheringComment> commentList;
 

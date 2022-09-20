@@ -1,5 +1,6 @@
 package com.lion.youranmok.gathering.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class GatheringComment {
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private GatheringBoard board;
