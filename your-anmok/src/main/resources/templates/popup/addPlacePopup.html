@@ -56,12 +56,7 @@
             </div>
             <div class="m-[10px]">
                 <label for="place-category" class="col-form-label">카테고리</label>
-                <input id = "place-category" type="text" class="form-control" list="category_options" name="categorySelect" autocomplete='off'>
-                <datalist id="category_options">
-                    <tr th:each="categoryList : ${categoryList}" th:if="${categoryList != null}">
-                        <option th:value="${categoryList.tagName}"></option>
-                    </tr>
-                </datalist>
+                <input id="place-category" type="text" th:value="${categoryObject.tagName}" class="form-control" name="categorySelect" readonly>
             </div>
             <p class="mx-[10px]">별점</p>
             <div class="rating rating-lg mx-[10px] mb-[10px]">

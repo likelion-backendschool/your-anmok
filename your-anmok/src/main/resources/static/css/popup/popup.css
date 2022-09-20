@@ -12,6 +12,10 @@
     font-style: normal;
 }
 
+body{
+    font-family: 'Cafe24SsurroundAir';
+}
+
 /*팝업 배경(회색)*/
 #detail_popup_layer, #addPlace_popup_layer {
     position:fixed;
@@ -84,6 +88,11 @@
     margin-bottom:3px;
 }
 
+.placeName{
+    font-family: 'Cafe24Ssurround';
+    font-size: 20px;
+}
+
 /* 사진(개별)*/
 .usr_img{
     width:280px;
@@ -111,7 +120,6 @@
 .inner_contents_box{
     width:445px;
     height:117px;
-    background-color:#e8f8f5;
     border-radius:10px;
     padding:8px 12px;
     overflow: auto;
@@ -142,7 +150,6 @@
 #tag_box{
     width:445px;
     height:252px;
-    background-color:#e8f8f5;
     margin-right:28px;
     border-radius:10px;
     padding:8px 12px;
@@ -156,12 +163,12 @@
 
 .scrollbar::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
-    background: #01C9C6; /* 스크롤바의 색상 */
+    background: #7FD1AE; /* 스크롤바의 색상 */
     border-radius: 10px;
 }
 
 .scrollbar::-webkit-scrollbar-track {
-    background: #d0f5ee;  /*스크롤바 뒷 배경 색상*/
+    background: #E8F8F5;  /*스크롤바 뒷 배경 색상*/
 }
 
 #addPlaceSubmitBtn{
@@ -196,4 +203,75 @@
     display: block;
     line-height: 40px;
     margin-top: 23px;
+}
+
+#tag_box, .inner_contents_box{
+    outline-color: #7FD1AE;
+    outline-style: solid;
+    outline-width: 2px;
+    background-color: white;
+}
+
+.btn{
+    font-family: 'Cafe24SsurroundAir';
+}
+
+.gathringListBtn, .gatheringWriteBtn{
+    border-radius: 10px;
+    background-color: #E8F8F5;
+    border:0;
+    padding: 3px;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.gathringListBtn:hover, .gatheringWriteBtn:hover{
+    border-radius: 10px;
+    background-color: #7FD1AE;
+    border:0;
+    text-align: center;
+    padding-right: 6px;
+    padding-left: 6px;
+}
+
+#popup_top{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.gathingTitleBtn, .categoryNameBtn{
+    border-radius: 50px;
+    outline-style: solid;
+    outline-width: 0.8px;
+    outline-color: #7FD1AE;
+    color: #7FD1AE;
+    text-align: center;
+    padding: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 14px;
+    margin-bottom: 7px;
+    font-weight: 800;
+}
+
+.gathingTitleBtn:hover, .categoryNameBtn:hover{
+    border-radius: 50px;
+    outline-style: solid;
+    outline-width: 0.8px;
+    outline-color: #7FD1AE;
+    background-color: #7FD1AE;
+    color: black;
+    text-align: center;
+    padding: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 14px;
+    margin-bottom: 7px;
+    font-weight: 800;
+}
+
+.gathingTitleBtn, .gathingTitleBtn:hover{
+    display: block;
 }

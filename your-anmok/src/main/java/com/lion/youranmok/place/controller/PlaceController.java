@@ -5,7 +5,6 @@ import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.service.CategoryService;
 import com.lion.youranmok.gathering.entity.GatheringBoard;
 import com.lion.youranmok.gathering.service.GatheringService;
-import com.lion.youranmok.map.dto.MapDto;
 import com.lion.youranmok.place.entity.Place;
 import com.lion.youranmok.place.entity.PlaceCategoryMap;
 import com.lion.youranmok.place.entity.PlaceImage;
@@ -13,11 +12,13 @@ import com.lion.youranmok.place.service.PlaceCategoryMapService;
 import com.lion.youranmok.place.service.PlaceImageService;
 import com.lion.youranmok.place.service.PlaceReviewService;
 import com.lion.youranmok.place.service.PlaceService;
+import com.lion.youranmok.security.dto.MemberContext;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,8 @@ public class PlaceController {
 
     @GetMapping("/")
     public String home(Model model){
-        List<Integer> placeIdList= placeCategoryMapService.getPlaceIdByCategoryId(1);
+        Integer mostPopularCategoryId = 1;
+        List<Integer> placeIdList= placeCategoryMapService.getPlaceIdByCategoryId(mostPopularCategoryId);
 
         List<Place> categoryPlaceList = new ArrayList<>();
 
@@ -50,8 +52,9 @@ public class PlaceController {
         }
 
         model.addAttribute("allPlaceList",categoryPlaceList);
+        model.addAttribute("categoryId",mostPopularCategoryId);
 
-        return "map/homeMap";
+        return "map/categoryMap";
 
     }
 
@@ -126,9 +129,21 @@ public class PlaceController {
         }
 
         model.addAttribute("allPlaceList",categoryPlaceList);
+        model.addAttribute("categoryId",id);
 
-        return "map/homeMap";
+        return "map/categoryMap";
 
+    }
+
+    @GetMapping("/searchMap")
+    public String searchPlace(@AuthenticationPrincipal MemberContext member,@RequestParam("categoryId") Integer categoryId, Model model){
+        List<CategoryDto> categoryList = categoryService.findAll();
+        Category category = categoryService.getCategoryById(categoryId);
+
+        model.addAttribute("categoryList",categoryList);
+        model.addAttribute("categoryObject",category);
+
+        return "map/searchMap";
     }
 
 }
