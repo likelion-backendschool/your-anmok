@@ -221,18 +221,57 @@ body{
     background-color: #E8F8F5;
     border:0;
     padding: 3px;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 6px;
+    padding-left: 6px;
     font-size: 14px;
+    text-align: center;
 }
 
 .gathringListBtn:hover, .gatheringWriteBtn:hover{
     border-radius: 10px;
     background-color: #7FD1AE;
     border:0;
+    text-align: center;
+    padding-right: 6px;
+    padding-left: 6px;
 }
 
 #popup_top{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.gathingTitleBtn, .categoryNameBtn{
+    border-radius: 50px;
+    outline-style: solid;
+    outline-width: 0.8px;
+    outline-color: #7FD1AE;
+    color: #7FD1AE;
+    text-align: center;
+    padding: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 14px;
+    margin-bottom: 7px;
+    font-weight: 800;
+}
+
+.gathingTitleBtn:hover, .categoryNameBtn:hover{
+    border-radius: 50px;
+    outline-style: solid;
+    outline-width: 0.8px;
+    outline-color: #7FD1AE;
+    background-color: #7FD1AE;
+    color: black;
+    text-align: center;
+    padding: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    font-size: 14px;
+    margin-bottom: 7px;
+    font-weight: 800;
+}
+
+.gathingTitleBtn, .gathingTitleBtn:hover{
+    display: block;
 }
