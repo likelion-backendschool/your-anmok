@@ -300,6 +300,8 @@
             kakao.maps.event.addListener(marker, 'click', function (){
                // location.href="/place/"+allPlaceList[i].id+"#load";
 
+                $("#detail_popup_layer").modal('show');
+
                 $.ajax({
                     url : "/place/"+allPlaceList[i].id,
                     type : "GET",
@@ -379,7 +381,6 @@
                         imageDOM(data.placeImages);
                         starDOM(data.place.star);
 
-                        document.getElementById("detail_popup_layer").style.display='block'
                         slider();
                     }
                 });
