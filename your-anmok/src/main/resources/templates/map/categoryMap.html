@@ -616,14 +616,12 @@
     }
 </script>
 
-<!--팝업창 레이아웃 html-->
-<div id="popup_layer">
-    <div id="popup_box">
+<!--장소 상세 팝업창 레이아웃 html-->
+<div id="detail_popup_layer">
+    <div id="popup_box1">
         <!--팝업 컨텐츠 영역-->
         <div id="popup_contents ">
-            <th:block th:replace="popup/popup :: contentsTop"></th:block>
-            <th:block th:replace="popup/popup :: contentsMiddle"></th:block>
-            <th:block th:replace="popup/popup :: contentsBottom"></th:block>
+            <th:block th:replace="popup/detailPopup"></th:block>
         </div>
     </div>
 </div>

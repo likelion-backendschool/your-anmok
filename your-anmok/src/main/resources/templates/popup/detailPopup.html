@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head>
-    <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bxslider/4.2.15/jquery.bxslider.min.css" rel="stylesheet" />
-</head>
 
 <!-- 타임리프 html 연결 코드 -->
-<th:block th:fragment="contentsTop">
+<th:block th:fragment="detailPopup">
     <!-- 팝업 상단부 -->
     <div id="popup_top" class="w-[1120px] h-[100px] bg-[#e8f8f5] rounded-[10px] relative">
         <!-- 장소명, 장소 주소 묶음 -->
@@ -18,10 +12,7 @@
         </div>
         <div id="close" onclick="closePopup()"><img src="/images/cross.png"></div>
     </div>
-</th:block>
 
-<!-- 타임리프 html 연결 코드 -->
-<th:block th:fragment="contentsMiddle">
     <!-- 팝업 중간부(사진 영역) -->
     <div id="popup_bottom_01" class="flex justify-center mt-[25px]">
         <div class="slidecontainer">
@@ -36,10 +27,7 @@
 <!--            </ul>-->
         </div>
     </div>
-</th:block>
 
-<!-- 타임리프 html 연결 코드 -->
-<th:block th:fragment="contentsBottom">
     <!-- 팝업 태그, 별점, 번개 묶음 -->
     <div id="popup_bottom_02" class="flex justify-between align-middle left-[50%] w-[896px] mt-[18px] mx-auto">
         <!-- 팝업 - 태그 영역 -->
