@@ -1,0 +1,95 @@
+/*폰트*/
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*노말라이즈*/
+body, ul, li {
+    margin:0;
+    padding:0;
+    list-style:none;
+    font-family: 'Cafe24SsurroundAir';
+}
+
+a {
+    color:inherit;
+    text-decoration:none;
+}
+
+/*배경*/
+#addCategory_background{
+    position: fixed;
+    background-color: #E8F8F5;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/*제목,input,버튼 포함하는 전체 div */
+#addCategory{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    width: 400px;
+    height: 207px;
+    border-radius: 5px;
+    outline-color: #7FD1AE;
+    outline-style: outset;
+    background-color: white;
+}
+
+/*제목*/
+#addCategory_title{
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Cafe24Ssurround';
+    width: 360px;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/*input*/
+#addCategory_input{
+    width: 360px;
+    height: 60px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/*버튼*/
+#addCategory_submitBtn{
+    width: 360px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #E8F8F5;
+    outline: 0;
+    border:0;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#addCategory_submitBtn:hover{
+    width: 360px;
+    height: 40px;
+    border-radius: 10px;
+    outline: 0;
+    border:0;
+    background-color: #7FD1AE;
+    margin-left: 20px;
+    margin-right: 20px;
+}

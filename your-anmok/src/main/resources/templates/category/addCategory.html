@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>카테고리 만들기</title>
+    <!--부트스트랩 CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!--부트스트랩 JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <!--CSS파일-->
+    <link rel="stylesheet" type="text/css" href="/css/category/addCategory.css">
 </head>
 <body>
 <script>
     function AddCategoryForm__submit(form) {
         form.categoryName.value = form.categoryName.value.trim();
 
-        if ( form.categoryName.value.length == 0 ) {
+        if (form.categoryName.value.length == 0) {
             alert("카테고리를 입력해주세요.");
             form.categoryName.focus();
             return;
@@ -20,14 +29,15 @@
 
 </script>
 
-<form th:action="@{/category/add}" method="POST" onsubmit="AddCategoryForm__submit(this); return false;">
-    <div>
-        <p>카테고리 만들기</p>
-        <input type="text" class="form-control" name="categoryName">
-    </div>
-
-    <button id="addCategorySubmitBtn" type="submit">만들기</button>
-</form>
+<div id="addCategory_background">
+    <form th:action="@{/category/add}" method="POST" onsubmit="AddCategoryForm__submit(this); return false;">
+        <div id="addCategory">
+                <p id="addCategory_title">📃카테고리 만들기</p>
+                <input id="addCategory_input" type="text" class="form-control" name="categoryName" placeholder="ex) 코딩하기 좋은 카페" autocomplete='off'>
+                <button id="addCategory_submitBtn" type="submit">만들기</button>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
