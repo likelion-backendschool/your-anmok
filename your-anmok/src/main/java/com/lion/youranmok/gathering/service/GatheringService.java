@@ -89,7 +89,10 @@ public class GatheringService {
         });
 
         previewDtos = previewDtos.stream().sorted(Comparator.comparing(GatheringPreviewDto::getCommentCnt).reversed()).collect(Collectors.toList());
-        previewDtos = previewDtos.subList(0, 7);
+
+        if (previewDtos.size() > 7) {
+            previewDtos = previewDtos.subList(0, 7);
+        }
 
         return previewDtos;
     }
