@@ -58,6 +58,17 @@ button{background: none; border: 0; cursor: pointer;
     top:0;
     display: inline-block;
 }
+.star-bar {
+    width:100%;
+}
+.star {
+    all: unset;
+    display: block;
+    margin:0;
+    padding:0;
+    width:25px;
+    height:25px;
+}
 
 .content_wrap{margin: 15px 30px;}
 

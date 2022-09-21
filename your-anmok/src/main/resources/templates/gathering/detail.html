@@ -175,17 +175,14 @@
                         총 인원 : <span th:text="${detailList.getTotalCnt()}"></span></p>
                 </div>
 
-                <div>
-                    <p>⭐️ 별점</p>
-
+                <div class="d-flex flex-row">
+                    <p class="text-nowrap">⭐️ 별점</p>
+                    <div class="star-bar d-flex flex-row align-self-center">
+                        <th:block th:each="i : ${detailList.getStar() > 5? #numbers.sequence(1, 5) : #numbers.sequence(1, detailList.getStar())}">
+                            <div class="m-1"><img src="/images/star.png" class="star m-0"></div>
+                        </th:block>
+                    </div>
                 </div>
-
-<!--                <div>-->
-<!--                    <p>상세 정보</p>-->
-<!--                    <p>-->
-<!--                        위치도 좋아 카공하기 좋은 카페로 추천합니다.-->
-<!--                    </p>-->
-<!--                </div>-->
             </div>
         </div>
     </div>
