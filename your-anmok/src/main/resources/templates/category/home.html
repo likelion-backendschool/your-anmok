@@ -4,6 +4,9 @@
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<link href="/css/category/home.css" rel="stylesheet">
+
 
 <head>
   <meta charset="UTF-8">
@@ -28,13 +31,46 @@
       font-family: "Cafe24SsurroundAir";
     }
 
-    #web_name {
+    #web_name, .sub_menu > div > a {
       font-family: "Cafe24Ssurround";
     }
 
   </style>
 </head>
-<body class="flex justify-center bg-[white] text-[black]">
+<body class="flex static justify-center bg-[white] text-[black]">
+
+<!--  사이드바 관련 화면  -->
+<div class="absolute top-[0] left-[0]">
+  <div id="menu">
+    <div class="close"></div>
+
+    <div id="categoryCard" class="flex flex-row my-3 " role="group">
+      <button id="hamburger_button" type="button" class="categoryBtn">
+        <i class="fas fa-bars fa-2x text-[#fff]"></i>
+      </button>
+    </div>
+
+
+    <div class="left_sub_menu">
+      <div class="sub_menu">
+        <div class="flex flex-row justify-between">
+          <a class="text-3xl" href="/">당신의 안목 👀</a>
+        </div>
+        <ul class="big_menu">
+          <li><a href="/">🗺 지도보기</a></li>
+
+        </ul>
+        <ul class="big_menu">
+          <li><a href="/gathering/list">⚡️ 번개모임</a></li>
+
+        </ul>
+        <ul class="big_menu">
+          <li><a sec:authorize="isAuthenticated()" href="/mypage">🛍 마이페이지</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="container" class="w-[1100px] flex-col justify-center bg-[inherit] p-[20px]">
 
@@ -220,20 +256,41 @@
 
   </div>
 
-  <div id="pop">
-    <article>
-      <h1>popup</h1>
-    </article>
-  </div>
-
-
 </div>
 
 
 
+<script>
+  let arr=[];
+  function onClick(id) {
+    var button = document.getElementById(id);
+    button.classList.toggle('active');
+    var idx = arr.indexOf(id);
+    if(idx > -1) {
+      arr.splice(idx, 1);
+    } else {
+      arr.push(id);
+    }
+  }
+
+  $(function () {
+    $(".left_sub_menu").hide();
+    $("#hamburger_button").click(function () {
+      $(".left_sub_menu").fadeToggle(300);
+    });
+
+    $('#gathering-main').on('click', function () {
+      $('.left_sub_menu').fadeOut();
+      $('.hide_sidemenu').fadeIn();
+    });
+  });
+</script>
+
 
 <script src="/js/category/bookmark.js">
 </script>
+
+
 
 </body>
 </html>
