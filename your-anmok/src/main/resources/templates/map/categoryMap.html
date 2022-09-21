@@ -83,6 +83,13 @@
                 </ul>
             </div>
         </div>
+
+    </div>
+    <div id="category_item_list_wrap">
+        <ul id="placeList">
+            <div class="recommendedTitle btn btn-primary">추천장소</div>
+
+        </ul>
     </div>
 </div>
 
@@ -153,6 +160,8 @@
 
         slide.reloadSlider();
     };
+
+    let placeList = document.getElementById('placeList');
 
     // 주소로 좌표를 검색한다. 테이블 주소 -> 좌표 -> 지도에 마커로 표시
     for (let i =0;i<allPlaceList.length;i++) {
@@ -274,6 +283,36 @@
             });
 
 
+            let listItem = document.createElement("div");
+            listItem.setAttribute("class","listItem btn btn-outline-primary");
+            let item="";
+            item+=`<div class="list_item_name">`+allPlaceList[i].name+`</div>`;
+            item+=`<div class="list_item_address">`+allPlaceList[i].address+`</div>`;
+
+
+            listItem.innerHTML=item;
+            placeList.appendChild(listItem);
+
+
+            (function(map, marker, customOverlay, listItem) {
+
+                kakao.maps.event.addListener(marker,'mouseover',function (){
+                    listItem.classList.toggle('bg-primary');
+                });
+
+                kakao.maps.event.addListener(marker,'mouseout',function (){
+                    listItem.classList.toggle('bg-primary');
+                });
+
+                listItem.onmouseover = function (){
+                }
+
+                listItem.onmouseout = function (){
+                }
+
+            })(map, marker, customOverlay, listItem);
+
+
             // kakao.maps.event.addEventListener(marker, 'mouseout', function () {
             //     // 마커에 마우스아웃 이벤트 발생하면 인포윈도우 제거
             //     infowindow.close();
@@ -281,6 +320,8 @@
             // });
 
         })
+
+
     }
 
         function locationLoadSuccess(pos) {
