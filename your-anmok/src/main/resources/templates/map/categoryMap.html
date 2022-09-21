@@ -19,9 +19,12 @@
             font-style: normal;
         }
 
-        #my_location_button{position: absolute;bottom:-150px;right:0;z-index: 100;}
+        /*내 위치 찾기 버튼 관련 CSS*/
+        #my_location_button{position: absolute;bottom:-440px;right:10px;z-index: 100; height: 50px; background-color: #7FD1AE}
+
         #searchMapFormByCategoryId{position: absolute;bottom:-100px;right:0;z-index: 100;}
         #makeMyCategory{position: absolute;bottom:-200px;right:0;z-index: 100;}
+
         /*슬라이드 버튼 관련 CSS*/
         /*#hamburger_button {*/
         /*    cursor:pointer;*/
@@ -53,7 +56,18 @@
             z-index: 200;
         }
 
-
+        /* 추가된 부분 */
+        .hamburger_line {
+            display: inline-block;
+            background:black;
+            margin: 2px !important;
+            width:56px;
+            height:7px;
+            border-radius:2px;
+            box-shadow:0 1px 3px rgba(0,0,0,.5);
+            position:relative;
+            z-index: 200;
+        }
 
         .left_sub_menu {
             position: fixed;
@@ -171,8 +185,6 @@
         }
 
         /* */
-        #my_location_button{position: absolute;bottom:0;right:0;z-index: 100}
-        #my_location_button1{position: absolute;bottom:0;right:0;z-index: 100}
 
         .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -214,7 +226,7 @@
     </div>
 
 
-    <button id="my_location_button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded fas fa-crosshairs" onclick="getCurrentPosBtn()">
+    <button id="my_location_button" class="text-white font-bold py px-4 rounded fas fa-crosshairs fa-3x" onclick="getCurrentPosBtn()">
     </button>
     <form th:action="@{/searchMap}" id="searchMapFormByCategoryId">
         <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
@@ -232,7 +244,6 @@
             </button>
             <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>
         </div>
-
 
         <div class="left_sub_menu">
             <div class="sub_menu">
