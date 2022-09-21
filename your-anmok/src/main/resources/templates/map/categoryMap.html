@@ -408,14 +408,16 @@
                         }
 
                         function imageDOM(placeImages){
-                            let ul='';
-                            ul+=`<ul class="bxslider">`;
-                            ul+=`    <tr>`;
-                            for (let i=0;i<imageSize;i++){
-                                ul+=`        <li><img class="usr_img" src="/placeimg/${placeImages[i].filePath}"></li>`
+                            let ul = '';
+                            if(imageSize!=0) {
+                                ul += `<ul class="bxslider">`;
+                                ul += `    <tr>`;
+                                for (let i = 0; i < imageSize; i++) {
+                                    ul += `        <li><img class="usr_img" src="/placeimg/${placeImages[i].filePath}"></li>`
+                                }
+                                ul += `    </tr>`;
+                                ul += `</ul>`;
                             }
-                            ul+=`    </tr>`;
-                            ul+=`</ul>`;
                             document.getElementById("place_info_imageList").innerHTML=ul;
                         }
 

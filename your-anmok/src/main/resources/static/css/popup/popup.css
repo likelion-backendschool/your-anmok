@@ -96,7 +96,7 @@ body{
 /* 사진(개별)*/
 .usr_img{
     width:280px;
-    height:210px;
+    height:200px;
 }
 
 .slidecontainer{
@@ -105,16 +105,6 @@ body{
     position: relative;
 }
 
-/*사진 리스트 좌우 이동 버튼*/
-.next_btn_img, .prev_btn_img{
-    position:absolute;
-    vertical-align:middle;
-    width:30px;
-    height:30px;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-}
 
 /*별점, 번개 박스*/
 .inner_contents_box{
