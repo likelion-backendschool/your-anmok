@@ -18,11 +18,14 @@ public class CategorySortingDto {
 
     private Integer bookmarkCnt;
 
+    private Integer totalPlaceCnt;
 
-    public CategorySortingDto(Integer id, String tagName, long bookmarkCnt) {
+
+    public CategorySortingDto(Integer id, String tagName, long bookmarkCnt, long totalPlaceCnt) {
         this.id = id;
         this.tagName = tagName;
         this.bookmarkCnt = (int) bookmarkCnt;
+        this.totalPlaceCnt = (int) totalPlaceCnt;
     }
 
 }

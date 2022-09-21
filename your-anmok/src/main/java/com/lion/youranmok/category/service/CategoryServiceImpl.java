@@ -79,7 +79,11 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<CategorySortingDto> getRecommendCategories(int userId) {
 
-        List<Category> categories = categoryRepository.findAll().subList(0, 6);
+        List<Category> categories = categoryRepository.findAll();
+
+        if (categories.size() > 6) {
+            categories = categories.subList(0, 6);
+        }
 
         List<CategorySortingDto> dtos = new ArrayList<>();
 
