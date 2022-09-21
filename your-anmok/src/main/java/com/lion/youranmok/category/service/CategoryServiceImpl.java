@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService{
         List<CategorySortingDto> categorySortingDtos;
 
         if (userId > 0) {
-            categorySortingDtos = categoryRepository.getCategoriesByUserContainigKeyword(userId, keyword);
+            categorySortingDtos = categoryRepository.getCategoriesByUserContainingKeyword(userId, keyword);
 
         } else {
             categorySortingDtos = categoryRepository.getSortingCategoriesContainingKeyword(keyword);
@@ -79,7 +79,15 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<CategorySortingDto> getRecommendCategories(int userId) {
 
-        List<Category> categories = categoryRepository.findAll();
+        List<CategorySortingDto> categories = new ArrayList<>();
+
+        if (userId > 0) {
+            categories = categoryRepository.getSortingCategories();
+            categories = categories.stream().sorted(Comparator.comparing(CategorySortingDto::getBookmarkCnt).reversed()).collect(Collectors.toList());
+        } else {
+            categories = categoryRepository.getSortingCategories();
+            categories = categories.stream().sorted(Comparator.comparing(CategorySortingDto::getTotalPlaceCnt).reversed()).collect(Collectors.toList());
+        }
 
         if (categories.size() > 6) {
             categories = categories.subList(0, 6);

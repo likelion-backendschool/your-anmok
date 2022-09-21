@@ -1,6 +1,5 @@
 package com.lion.youranmok.category.repository;
 
-import com.lion.youranmok.category.dto.CategoryDto;
 import com.lion.youranmok.category.dto.CategorySortingDto;
 import com.lion.youranmok.category.entity.Category;
 import org.springframework.data.domain.Page;
@@ -53,7 +52,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "(select count(b.id) from Bookmark b where b.categoryId = c.id and b.userId = :userId)," +
             "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id))" +
             "from Category c where c.tagName like %:keyword%")
-    List<CategorySortingDto> getCategoriesByUserContainigKeyword(int userId, String keyword);
+    List<CategorySortingDto> getCategoriesByUserContainingKeyword(int userId, String keyword);
 
 
     Optional<Category> findByTagName(String tagName);
