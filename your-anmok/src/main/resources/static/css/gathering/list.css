@@ -33,10 +33,20 @@ places{
     color: black; text-decoration: none;
 }
 
-button{
-    background: none; border: 0; cursor: pointer;
+button {
+    background: none;
+    cursor: pointer;
+    border: none;
 }
 
+html > body > .searchBtn {
+    border: 0 #7FD1AE;
+}
+
+html > body > .searchBtn:hover {
+    background: #00C385;
+    color: white;
+}
 
 #container{
     width: 1200px; margin: 0 auto;

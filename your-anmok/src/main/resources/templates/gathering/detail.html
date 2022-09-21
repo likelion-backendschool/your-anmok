@@ -1,31 +1,34 @@
-<!--폰트어썸-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-
-
 <!doctype html>
 <html lang="ko">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+          xmlns:sec="http://www.w3.org/1999/xhtml">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
+<!--    폰트 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 </head>
 <body>
 
 <div class="container my-3">
+    <div class="back">
+        <i class="fas fa-arrow-left fa-2x" onclick="location.href='/gathering/list'"></i>
+    </div>
     <div class="d-flex flex-row">
         <section class="content w-75">
             <div class="content_wrap">
-                <div class="title flex justify-between">
+                <div class="title d-flex justify-content-between">
                     <h2 th:text="${detailList.getTitle()}"></h2>
-                    <a th:href="@{|/gathering/modify/${id}|}" class="btn btn-sm btn-outline-secondary"
-                       sec:authorize="isAuthenticated()"
-                       th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
-                       th:text="수정"></a>
-                    <a th:href="@{|/gathering/delete/${id}|}" class="btn btn-sm btn-outline-secondary"
-                       sec:authorize="isAuthenticated()"
-                       th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
-                       onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:text="삭제"></a>
+                    <div>
+                        <a th:href="@{|/gathering/modify/${id}|}" class="btn btn-sm btn-outline-secondary"
+                           sec:authorize="isAuthenticated()"
+                           th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
+                           th:text="수정"></a>
+                        <a th:href="@{|/gathering/delete/${id}|}" class="btn btn-sm btn-outline-secondary"
+                           sec:authorize="isAuthenticated()"
+                           th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
+                           onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:text="삭제"></a>
+                    </div>
                 </div>
 
 <!--                </div>-->
@@ -59,6 +62,7 @@
                                     <div  th:text="${comment.comment}"></div>
                                     <div>
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${comment.commentId}|" th:field="|comment-btn-${comment.commentId}|"
+                                             sec:authorize="isAuthenticated()"
                                              th:reply="|reply-${comment.commentId}|" th:nick="${comment.nickname}" th:userId="${comment.userId}"
                                              onclick="doAction(this.id, this.getAttribute('reply'), this.getAttribute('nick'), this.getAttribute('userId'))">⤴️ 답장</div>
 
@@ -96,12 +100,13 @@
                                     </div>
                                     <div th:id="|origin2-${reply.commentId}|" class="d-block d-flex m-2 justify-content-between ">
                                         <div class="d-flex flex-row">
-                                            <div class="badge bg-primary rounded-pill m-0" name="mentionTo" th:text="|@ ${reply.tagTo}|" ></div>
+                                            <div class="badge bg-primary rounded-pill align-self-center" name="mentionTo" th:text="|@ ${reply.tagTo}|" ></div>
                                             <div th:text="${reply.comment}"></div>
                                         </div>
                                         <div>
                                             <div th:id="|${comment.commentId}|" th:replys="|reply-${comment.commentId}|" th:nick="${reply.nickname}" th:userId="${comment.userId}"
                                                  th:field="|comment-btn-${reply.commentId}|" class="btn bg-light text-dark btn-sm text-start rounded-pill"
+                                                 sec:authorize="isAuthenticated()"
                                                  onclick="doAction(this.id, this.getAttribute('replys'), this.getAttribute('nick'), this.getAttribute('userId'))">⤴️ 답장</div>
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill" th:id="|${reply.commentId}|"
                                                  sec:authorize="isAuthenticated()"
@@ -151,33 +156,33 @@
 
 
         <div class="map w-20">
-            <h2>번개모임 장소 정보</h2>
+            <h2>⚡️ 장소 정보</h2>
             <div id="map" style="width:100%; height:200px;"></div>
-            <div>
+            <div class="my-3">
                 <p th:text="${detailList.getPlaceName()}"></p>
-                <p th:text="${detailList.getAddress()}"></p>
+                <p><span th:text="${detailList.getAddress()}"></span></p>
 
+                <hr>
                 <div>
-                    <p>날짜</p>
+                    <p>📆 날짜</p>
                     <p th:text="${#temporals.format(detailList.getGatheringDate(), 'yyyy.MM.dd')}"></p>
                 </div>
 
                 <div>
-                    <p>인원</p>
-                    <p>&#40; <span th:text="${detailList.getGatherCnt()}"></span> / <span th:text="${detailList.getTotalCnt()}"></span> &#41;</p>
+                    <p>👥 인원</p>
+                    <p> 현재 인원 : <span th:text="${detailList.getGatherCnt()}"></span>
+                        <br>
+                        총 인원 : <span th:text="${detailList.getTotalCnt()}"></span></p>
                 </div>
 
-                <div>
-                    <p>별점</p>
-
+                <div class="d-flex flex-row">
+                    <p class="text-nowrap">⭐️ 별점</p>
+                    <div class="star-bar d-flex flex-row align-self-center">
+                        <th:block th:each="i : ${detailList.getStar() > 5? #numbers.sequence(1, 5) : #numbers.sequence(1, detailList.getStar())}">
+                            <div class="m-1"><img src="/images/star.png" class="star m-0"></div>
+                        </th:block>
+                    </div>
                 </div>
-
-<!--                <div>-->
-<!--                    <p>상세 정보</p>-->
-<!--                    <p>-->
-<!--                        위치도 좋아 카공하기 좋은 카페로 추천합니다.-->
-<!--                    </p>-->
-<!--                </div>-->
             </div>
         </div>
     </div>

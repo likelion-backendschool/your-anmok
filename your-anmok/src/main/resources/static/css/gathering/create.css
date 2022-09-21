@@ -44,7 +44,8 @@ button{background: none; border: 0; cursor: pointer;
 .content {
     border: 1px solid gray;
     border-radius: 15px;
-    margin-right: 10px;
+    padding : 30px;
+    /*margin-right: 10px;*/
     /*min-width: 1000px;*/
 }
 
@@ -58,16 +59,16 @@ button{background: none; border: 0; cursor: pointer;
     top:0;
     display: inline-block;
 }
-.star-bar {
-    width:100%;
+
+.submitBtn {
+    margin-bottom : 20px;
+    background: #7FD1AE;
+    border-color: #7FD1AE;
 }
-.star {
-    all: unset;
-    display: block;
-    margin:0;
-    padding:0;
-    width:25px;
-    height:25px;
+
+.submitBtn:hover {
+    background: #00C385;
+    border-color: #00C385;
 }
 
 .content_wrap{margin: 15px 30px;}
