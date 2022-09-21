@@ -32,9 +32,14 @@
 <div id="addCategory_background">
     <form th:action="@{/category/add}" method="POST" onsubmit="AddCategoryForm__submit(this); return false;">
         <div id="addCategory">
-                <p id="addCategory_title">📃카테고리 만들기</p>
-                <input id="addCategory_input" type="text" class="form-control" name="categoryName" placeholder="ex) 코딩하기 좋은 카페" autocomplete='off'>
-                <button id="addCategory_submitBtn" type="submit">만들기</button>
+            <p id="addCategory_title">📃카테고리 만들기</p>
+            <input id="addCategory_input" type="text" class="form-control" list="category_options" name="categoryName" placeholder="ex) 코딩하기 좋은 카페" autocomplete='off'>
+            <datalist id="category_options" name="categorySelect">
+                <tr th:each="categoryList : ${categoryList}" th:if="${categoryList != null}">
+                    <option th:value="${categoryList.tagName}"></option>
+                </tr>
+            </datalist>
+            <button id="addCategory_submitBtn" type="submit">만들기</button>
         </div>
     </form>
 </div>
