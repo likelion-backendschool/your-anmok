@@ -1,70 +1,74 @@
-<!--폰트어썸-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css">
-
-
 <!doctype html>
 <html lang="ko">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap.min.css"
+          xmlns:sec="http://www.w3.org/1999/xhtml">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!--    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>-->
+    <!--    폰트 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/gathering/create.css">
 </head>
 <body>
 
-<div class="container my-3">
-    <form method="post" th:action="@{/gathering/create}" id="f">
-    <div class="card mb-4">
-        <h5 class="card-header">번개모임 모집글</h5>
+<div class="container content my-3">
+    <div class="back">
+        <i class="fas fa-arrow-left fa-2x" onclick="location.href='/gathering/list'"></i>
+    </div>
+    <form method="post" th:action="@{/gathering/create}" onsubmit="WriteForm_submit(this); return false;">
+
+        <h5 class="card-header my-5 h2">📝 글쓰기</h5>
         <div class="card-body">
-            <div class="mb-3 row">
+            <div class="my-5 row">
                 <label for="title" class="col-md-2 col-form-label">제목</label>
                 <div class="col-md-10">
                     <input class="form-control" type="text" placeholder="제목을 입력하세요." id="title" name="title" />
                 </div>
             </div>
 
-            <div class="mb-3 row">
-                <label class="col-md-2 col-form-label">현재인원 / 총인원</label>
+            <div class="my-5 d-flex flex-row">
+                <label class="col-md-2 col-form-label text-nowrap">현재인원</label>
                 <div class="col-md-2 d-flex flex-row">
                     <input class="form-control" type="number" id="gatherCnt" name="gatherCnt"/>
-                    <div class = "m-3">/</div>
+                </div>
+            </div>
+            <div class="my-5 d-flex flex-row">
+                <label class="col-md-2 col-form-label text-nowrap">총인원</label>
+                <div class="col-md-2 d-flex flex-row">
                     <input class="form-control" type="number" id="totalCnt" name="totalCnt"/>
                 </div>
             </div>
-            <div class="mb-3 row">
+            <div class="my-5 row">
                 <label for="date" class="col-md-2 col-form-label">📆 날짜</label>
                 <div class="col-md-10">
                     <input class="form-control" type="date" value="2021-06-18" id="date" name="date"/>
                 </div>
             </div>
-            <div>
-                <div class="col-sm-6">
-                    <div class="form-group d-flex flex-row">
-                        <label class="col-sm-4 control-label" for="searchKeyword">장소</label>
-                        <div class="col-sm-7"><input type="text" name="searchKeyword" id="searchKeyword" placeholder="장소명 또는 주소" class="form-control"></div>
-                        <div class="col-sm-1"><input type="button" id="searchBtn" value="검색" class="btn btn-sm btn-info"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label" for="place"> </label>
-                        <div class="col-sm-11">
-                            <select class="select2_con form-control" name="placeId" id="place" tabindex="-1" aria-hidden="true">
-                                <option value="">선택</option>
-                            </select>
+            <div class="my-5">
+                <div class="col-sm-6 d-flex flex-row">
+                    <label class="col-sm-4 control-label my-2" for="searchKeyword">장소</label>
+                    <div>
+                        <div class="input-group mb-3">
+                            <input name="searchKeyword" id="searchKeyword" type="text" class="form-control" placeholder="장소명 또는 주소" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <input type="button" id="searchBtn" value="검색" class="btn btn-outline-secondary">
+                            </div>
                         </div>
+
+                        <select class="select2_con form-control" name="placeId" id="place" tabindex="-1" aria-hidden="true">
+                            <option value="">선택</option>
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
+
+            <div class="my-5">
                 <label for="content" class="form-label">내용을 입력하세요.</label>
                 <textarea class="form-control" id="content" name="content" rows="10"></textarea>
             </div>
-
         </div>
+        <button type="submit" class="submitBtn btn btn-primary">제출</button>
 
-    </div>
-    <button type="submit" class="btn btn-primary">제출</button>
     </form>
 
 </div>
@@ -106,6 +110,57 @@
                 }
             }
         });
+    }
+
+    function WriteForm_submit(form) {
+        form.title.value = form.title.value.trim();
+
+        if (form.title.value.length == 0) {
+            alert("제목을 입력해주세요.");
+            form.title.focus();
+            return;
+        }
+
+
+        if (form.gatherCnt.value.length == 0 || form.gatherCnt.value < 1) {
+            alert("현재인원 입력란을 확인해주세요");
+            form.gatherCnt.focus();
+            return;
+        }
+
+        if (form.totalCnt.value.length == 0 || form.totalCnt.value < 1) {
+            alert("총인원 입력란을 확인해주세요");
+            form.gatherCnt.focus();
+            return;
+        }
+
+        if (form.gatherCnt.value > form.totalCnt.value) {
+            alert("모집인원이 현재인원보다 클 수 없습니다.");
+            form.gatherCnt.focus();
+            return;
+        }
+
+        if(form.date.value < new Date()) {
+            alert("현재 날짜보다 이전의 날짜를 지정할 수 없습니다.");
+            form.date.focus();
+            return;
+        }
+
+        if(form.placeId.value.length == 0) {
+            alert("장소를 선택해주세요.");
+            form.placeId.focus();
+            return;
+        }
+
+        form.content.value = form.content.value.trim();
+
+        if (form.content.value.length == 0) {
+            alert("내용을 입력해주세요.");
+            form.content.focus();
+            return;
+        }
+
+        form.submit();
     }
 
 
