@@ -25,7 +25,7 @@
     <h2> 📚My Bookmark </h2>
 
     <div th:each="category, i : ${categories}">
-        <form action="/bookmark/removeByMypage" method="post">
+        <form onsubmit="return confirm('해당 카테고리를 북마크에서 해제하시겠습니까?');" action="/bookmark/removeByMypage" method="post">
             <a th:href="@{/category(id=${category.id})}"><div th:text="${category.tagName}"></div></a>
             <button type="submit" class="remove-btn">삭제</button>
             <input type="hidden" name="categoryId" th:value="${category.id}" th:classappend="category_id" />
