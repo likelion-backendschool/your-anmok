@@ -5,196 +5,12 @@
     <title>당신의 안목 메인페이지</title>
 
     <style>
-        @font-face {
+        .map_wrap, .map_wrap * {
+            margin:0;
+            padding:0;
             font-family: 'Cafe24SsurroundAir';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
+            font-size:12px;
         }
-
-        @font-face {
-            font-family: 'Cafe24Ssurround';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        /*내 위치 찾기 버튼 관련 CSS*/
-        #my_location_button{position: absolute;bottom:-440px;right:10px;z-index: 100; height: 50px; background-color: #7FD1AE}
-
-        #searchMapFormByCategoryId{position: absolute;bottom:-100px;right:0;z-index: 100;}
-        #makeMyCategory{position: absolute;bottom:-200px;right:0;z-index: 100;}
-
-        /*슬라이드 버튼 관련 CSS*/
-        /*#hamburger_button {*/
-        /*    cursor:pointer;*/
-        /*    position:absolute;*/
-        /*    top:0px;*/
-        /*    left:0px;*/
-        /*    z-index: 200;*/
-        /*}*/
-
-        html > body .categoryBtn {
-            /*all: unset;*/
-
-            background: #7FD1AE;
-            border-color: #7FD1AE;
-            border-right-color: white;
-            font-size:20px;
-            font-family: 'Cafe24SsurroundAir';
-        }
-
-        #categoryCard {
-            all: unset;
-            cursor:pointer;
-            display: flex;
-            flex-direction: row;
-            position:fixed;
-            top: 0px;
-            left: 0px;
-            width: 300px;
-            z-index: 200;
-        }
-
-        /* 추가된 부분 */
-        .hamburger_line {
-            display: inline-block;
-            background:black;
-            margin: 2px !important;
-            width:56px;
-            height:7px;
-            border-radius:2px;
-            box-shadow:0 1px 3px rgba(0,0,0,.5);
-            position:relative;
-            z-index: 200;
-        }
-
-        .left_sub_menu {
-            position: fixed;
-            top: 0px;
-            width: 300px;
-            z-index: 210;
-            left: 0px;
-            background: white;
-            border-right: 1px solid rgba(0, 0, 0, 0.07);
-            bottom: 50px;
-            height: 100%;
-            margin-bottom: -70px;
-            margin-top: 0px;
-            padding-bottom: 0px;
-            box-shadow: 0 0px 24px 0 rgb(0 0 0 / 6%), 0 1px 0px 0 rgb(0 0 0 / 2%);
-            color: black;
-        }
-
-        .sub_menu {
-            margin-top: 50px;
-        }
-
-        .left_sub_menu>.sub_menu li:hover {
-            color: #ff5858;
-            background-color: #e1e1e1;
-        }
-
-        .left_sub_menu>.sub_menu li {
-            color: #333;
-            font-size: 17px;
-            font-weight: 600;
-            padding: 20px 0px 8px 14px;
-            /*border-bottom: 1px solid #e1e1e1;*/
-        }
-
-        .sub_menu>div {
-            padding-bottom: 4px;
-            border-bottom: 3px solid #797979;
-            margin-top: 100px;
-            font-weight: 600;
-            color: #333;
-            margin-left: 10px;
-            margin-right: 10px;
-            font-size:20px;
-            font-family: 'Cafe24SsurroundAir';
-            line-height: 35px;
-        }
-
-        .sub_menu .fas {
-            color: #ff5858;
-            font-size: 20px;
-            line-height: 20px;
-            float: right;
-            margin-right: 20px;
-        }
-
-        .sub_menu>.big_menu a {
-            color: #333;
-            font-weight: 600;
-            margin-left: 14px;
-            padding-top: 8px;
-            font-size: 17px;
-            font-family: 'Cafe24SsurroundAir';
-        }
-
-        html > body .categoryBtn:hover {
-            /*all: unset;*/
-
-            background: #00C385;
-            border-color: #00C385;
-            border-right-color: white;
-            font-size:20px;
-            font-family: 'Cafe24SsurroundAir';
-        }
-
-        .big_menu {
-            cursor: pointer;
-        }
-
-        ul {
-            padding-inline-start: 0px;
-        }
-
-        a {
-            color: #797979;
-            text-decoration: none;
-            background-color: transparent;
-            display: block;
-            cursor: pointer;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        ol,
-        ul {
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        .has_sub {
-            width: 100%;
-        }
-
-        .overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        .hide_sidemenu {
-            display: none;
-        }
-
-        /* */
-
-        .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-        .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-        .map_wrap {position:relative;width:100%;height:500px;}
-        #search_wrap {position:absolute;top:0;right:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-        .bg_white {background:#fff;}
-        #search_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-        #search_wrap .option{text-align: center;}
-        #search_wrap .option p {margin:10px 0;}
-        #search_wrap .option button {margin-left:5px;}
     </style>
 
     <!--제이쿼리-->
@@ -217,6 +33,7 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89&libraries=services"></script>
     <!--CSS파일-->
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
+    <link rel="stylesheet" type="text/css" href="/css/map/map.css">
 </head>
 
 <body>
@@ -226,23 +43,23 @@
     </div>
 
 
-    <button id="my_location_button" class="text-white font-bold py px-4 rounded fas fa-crosshairs fa-3x" onclick="getCurrentPosBtn()">
+    <button id="my_location_button" onclick="getCurrentPosBtn()">
+        <i class="fas fa-crosshairs fa-2x"></i>
     </button>
     <form th:action="@{/searchMap}" id="searchMapFormByCategoryId">
         <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
-        <button class="btn btn-primary btn-lg" type="submit">현재 카테고리에 장소 추가하기</button>
+        <button id="addPlaceinCategory" type="submit">현재 카테고리에 장소 추가하기</button>
     </form>
-    <button id="makeMyCategory" class="btn btn-primary btn-lg" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
+    <button id="makeMyCategory" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
 
     <div id="menu">
         <div class="close"></div>
 
         <div id="categoryCard" class="d-flex flex-row btn-group my-3 " role="group">
-            <button id="hamburger_button" type="button" class="categoryBtn btn btn-secondary text-nowrap center-block">
-                <!--                <div class="fas fa-bars fa-2x"></div>-->
+            <button id="hamburger_button" type="button">
                 <i class="fas fa-bars fa-2x"></i>
             </button>
-            <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>
+            <div id="categoryNameTag" th:text="${categoryName}"></div>
         </div>
 
         <div class="left_sub_menu">
@@ -380,7 +197,7 @@
 
                             tr+=`<tr>`;
                             for (let i=0;i<categorySize;i++) {
-                                tr += `    <button class="categoryNameBtn" onclick="location.href='/?categoryId=${categoryList[i].id}'">${categoryList[i].tagName}</button>`
+                                tr += `    <button class="categoryNameBtn" onclick="location.href='/category?id=${categoryList[i].id}'">${categoryList[i].tagName}</button>`
                             }
 
                             tr+=`</tr>`;

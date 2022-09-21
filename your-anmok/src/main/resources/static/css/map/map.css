@@ -1,0 +1,247 @@
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*햄버거버튼*/
+#hamburger_button, #categoryNameTag{
+    background: #7FD1AE;
+    border-color: #7FD1AE;
+    border-right-color: white;
+    text-align: center;
+    padding-left: 7px;
+    padding-right: 7px;
+    height: 50px;
+    color: white;
+    font-size:20px;
+    font-family: 'Cafe24SsurroundAir';
+}
+
+/*카테고리명 나오는부분*/
+#categoryNameTag{
+    margin-right: 3px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    line-height: 50px;
+}
+
+#hamburger_button:hover{
+    background-color: #00c385;
+}
+
+/*카테고리 카드*/
+#categoryCard {
+    all: unset;
+    cursor:pointer;
+    display: flex;
+    flex-direction: row;
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    width: 300px;
+    z-index: 200;
+}
+
+/*내 위치 찾기 버튼 관련 CSS*/
+#my_location_button{
+    bottom:-300px;
+}
+
+/*카테고리 만들기, 카테고리에 장소 추가하기 버튼*/
+#addPlaceinCategory{
+    bottom:-100px;
+}
+
+#makeMyCategory{
+    bottom:-200px;
+}
+
+#my_location_button, #addPlaceinCategory, #makeMyCategory{
+    position: absolute;
+    height: 40px;
+    border-radius: 50px;
+    background: #7FD1AE;
+    outline: 0;
+    border:0;
+    font-family: 'Cafe24Ssurround';
+    font-size: 14px;
+    padding: 6px;
+    right:10px;
+    z-index: 100;
+    text-align: center;
+    color: white;
+}
+
+#my_location_button:hover, #addPlaceinCategory:hover, #makeMyCategory:hover{
+    background-color: #00c385;
+    position: absolute;
+    height: 40px;
+    border-radius: 50px;
+    outline: 0;
+    border:0;
+    font-family: 'Cafe24Ssurround';
+    font-size: 14px;
+    padding: 6px;
+    right:10px;
+    z-index: 100;
+    text-align: center;
+    color: white;
+}
+
+.left_sub_menu {
+    position: fixed;
+    top: 0px;
+    width: 300px;
+    z-index: 210;
+    left: 0px;
+    background: white;
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
+    bottom: 50px;
+    height: 100%;
+    margin-bottom: -70px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+    box-shadow: 0 0px 24px 0 rgb(0 0 0 / 6%), 0 1px 0px 0 rgb(0 0 0 / 2%);
+    color: black;
+}
+
+.sub_menu {
+    margin-top: 50px;
+}
+
+.left_sub_menu>.sub_menu li:hover {
+    color: #ff5858;
+    background-color: #e1e1e1;
+}
+
+.left_sub_menu>.sub_menu li {
+    color: #333;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 20px 0px 8px 14px;
+    /*border-bottom: 1px solid #e1e1e1;*/
+}
+
+.sub_menu>div {
+    padding-bottom: 4px;
+    border-bottom: 3px solid #797979;
+    margin-top: 100px;
+    font-weight: 600;
+    color: #333;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size:20px;
+    font-family: 'Cafe24SsurroundAir';
+    line-height: 35px;
+}
+
+.sub_menu>.big_menu a {
+    color: #333;
+    font-weight: 600;
+    margin-left: 14px;
+    padding-top: 8px;
+    font-size: 17px;
+    font-family: 'Cafe24SsurroundAir';
+}
+
+html > body {
+    /*all: unset;*/
+
+    background: #00C385;
+    border-color: #00C385;
+    border-right-color: white;
+    font-size:20px;
+    font-family: 'Cafe24SsurroundAir';
+}
+
+.big_menu {
+    cursor: pointer;
+}
+
+a {
+    color: #797979;
+    text-decoration: none;
+    background-color: transparent;
+    display: block;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding-inline-start: 0px;
+}
+
+ol, ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#search_wrap .option button {
+    margin-left:5px;
+}
+
+#search_wrap .option p {
+    margin:10px 0;
+}
+
+#search_wrap .option{
+    text-align: center;
+}
+
+#search_wrap hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 2px solid #5F5F5F;
+    margin:3px 0;
+}
+
+.bg_white {
+    background:#fff;
+}
+
+#search_wrap {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:250px;
+    margin:10px 0 30px 10px;
+    padding:5px;
+    overflow-y:auto;background:rgba(255, 255, 255, 0.7);
+    z-index: 1;
+    font-size:12px;
+    border-radius: 10px;
+}
+
+.map_wrap {
+    position:relative;
+    width:100%;
+    height:500px;
+}
+
+.map_wrap a, .map_wrap a:hover, .map_wrap a:active{
+    color:#000;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
