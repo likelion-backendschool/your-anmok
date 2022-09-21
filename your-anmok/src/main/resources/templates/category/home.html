@@ -82,10 +82,10 @@
     </div>
 
     <!-- header button(로그인, 로그아웃, 회원가입, 마이페이지 버튼 표시) -->
-    <div id="header-button" class="flex justify-end mr-[25px] mt-[25px]">
+    <div id="header-button" class="flex justify-end mr-[15px] mb-[20px]">
       <!--TODO 헤더로 따로 분리 필요 -->
       <div sec:authorize="!isAuthenticated()">
-        <button class="mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/auth/login">로그인</a></button>
+        <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white]"><a href="/auth/login">로그인</a></button>
       </div>
 
       <div sec:authorize="isAuthenticated()">
