@@ -22,6 +22,7 @@
 
         /*내 위치 찾기 버튼 관련 CSS*/
         #my_location_button{position: absolute;bottom:-440px;right:10px;z-index: 100; height: 50px; background-color: #7FD1AE}
+        #makeMyCategory{position: absolute;bottom:-200px;right:0;z-index: 100;}
 
         /*뒤로 가기 버튼 관련 CSS*/
         #backButton{position: absolute;top:10px;bottom:-150px;right:10px;z-index: 100; height: 40px; width: 200px; font-size: large; background-color: #7FD1AE; border-color: #7FD1AE; font-size: 20px;}
@@ -284,6 +285,8 @@
         <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
         <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
     </div>
+
+    <button id="makeMyCategory" class="btn btn-primary btn-lg" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
 
     <div id="menu">
         <div class="close"></div>

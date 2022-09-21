@@ -80,7 +80,7 @@ class GatheringTest {
             place.setName(placeNameList.get(i));
             //place.setRateCnt(30);
 
-            place.setStar(70);
+            place.setStar(4);
             place.setLat(33.450701);
             place.setLon(126.570667);
 

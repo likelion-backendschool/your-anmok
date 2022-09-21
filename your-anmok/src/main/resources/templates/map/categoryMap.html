@@ -230,7 +230,7 @@
     </button>
     <form th:action="@{/searchMap}" id="searchMapFormByCategoryId">
         <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
-        <button class="btn btn-primary btn-lg" type="submit">검색하기</button>
+        <button class="btn btn-primary btn-lg" type="submit">현재 카테고리에 장소 추가하기</button>
     </form>
     <button id="makeMyCategory" class="btn btn-primary btn-lg" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
 
@@ -354,6 +354,8 @@
             kakao.maps.event.addListener(marker, 'click', function (){
                // location.href="/place/"+allPlaceList[i].id+"#load";
 
+                $("#detail_popup_layer").modal('show');
+
                 $.ajax({
                     url : "/place/"+allPlaceList[i].id,
                     type : "GET",
@@ -417,14 +419,16 @@
                         }
 
                         function imageDOM(placeImages){
-                            let ul='';
-                            ul+=`<ul class="bxslider">`;
-                            ul+=`    <tr>`;
-                            for (let i=0;i<imageSize;i++){
-                                ul+=`        <li><img class="usr_img" src="/placeimg/${placeImages[i].filePath}"></li>`
+                            let ul = '';
+                            if(imageSize!=0) {
+                                ul += `<ul class="bxslider">`;
+                                ul += `    <tr>`;
+                                for (let i = 0; i < imageSize; i++) {
+                                    ul += `        <li><img class="usr_img" src="/placeimg/${placeImages[i].filePath}"></li>`
+                                }
+                                ul += `    </tr>`;
+                                ul += `</ul>`;
                             }
-                            ul+=`    </tr>`;
-                            ul+=`</ul>`;
                             document.getElementById("place_info_imageList").innerHTML=ul;
                         }
 
@@ -433,7 +437,6 @@
                         imageDOM(data.placeImages);
                         starDOM(data.place.star);
 
-                        document.getElementById("detail_popup_layer").style.display='block'
                         slider();
                     }
                 });
