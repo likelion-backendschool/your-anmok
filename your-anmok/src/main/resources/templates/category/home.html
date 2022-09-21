@@ -72,26 +72,27 @@
   </div>
 </div>
 
-<div id="container" class="w-[1100px] flex-col justify-center bg-[inherit] p-[20px]">
+<div id="container" class="w-[1200px] flex-col justify-center bg-[inherit]">
 
   <div id="header">
+
+    <!-- 웹 페이지 이름 -->
+    <div id="web_name" class="text-[40px] flex justify-start py-[50px]">
+      <a th:href="@{/category/home}" class="m-[0.5rem] text-[#343a40]"> 당신의 안목 👀</a>
+    </div>
+
     <!-- header button(로그인, 로그아웃, 회원가입, 마이페이지 버튼 표시) -->
     <div id="header-button" class="flex justify-end mr-[25px] mt-[25px]">
       <!--TODO 헤더로 따로 분리 필요 -->
       <div sec:authorize="!isAuthenticated()">
-        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/auth/login">로그인</a></div>
+        <button class="mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/auth/login">로그인</a></button>
       </div>
 
       <div sec:authorize="isAuthenticated()">
-        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a th:href="@{/mypage}">마이페이지</a></div>
-        <div class="badge badge-outline mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/logout">로그아웃</a></div>
+        <button class="mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a th:href="@{/mypage}">마이페이지</a></button>
+        <button class="mx-[5px] bg-[#01c9c6] border-[#01c9c6]"><a href="/logout">로그아웃</a></button>
       </div>
 
-    </div>
-
-    <!-- 웹 페이지 이름 -->
-    <div id="web_name" class="text-4xl flex justify-start">
-      <a th:href="@{/category/home}"> 당신의 안목 👀</a>
     </div>
 
   </div>
