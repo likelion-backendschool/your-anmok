@@ -234,7 +234,35 @@ ol, ul {
     text-decoration: none;
 }
 
+/* 인포윈도우 CSS */
+.customoverlay {
+    position:relative;
+    bottom:85px;
+}
+/*.customoverlay:nth-of-type(n) {*/
+/*    border: 0;*/
+/*    box-shadow: 0px 1px 2px #888;*/
+/*}*/
+.customoverlay .title {
+    display:block;
+    text-align:center;
+    background:#fff;
+    padding:10px 15px;
+    font-size:14px;
+    font-weight:bold;
+    border-radius: 10px;
+}
+.customoverlay:after {
+    content:'';
+    position:absolute;
+    margin-left:-12px;
+    left:50%;
+    bottom:-12px;
+    width:22px;
+    height:12px;
+    background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
 
+}
 
 
 
