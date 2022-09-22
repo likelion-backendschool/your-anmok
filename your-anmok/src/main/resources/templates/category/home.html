@@ -31,7 +31,7 @@
       font-family: "Cafe24SsurroundAir";
     }
 
-    #web_name, .sub_menu > div > a {
+    #web_name {
       font-family: "Cafe24Ssurround";
     }
 
@@ -82,15 +82,15 @@
     </div>
 
     <!-- header button(로그인, 로그아웃, 회원가입, 마이페이지 버튼 표시) -->
-    <div id="header-button" class="flex justify-end mr-[15px] mb-[20px]">
+    <div id="header-button" class="flex justify-end ">
       <!--TODO 헤더로 따로 분리 필요 -->
       <div sec:authorize="!isAuthenticated()">
         <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white]"><a href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">로그인</a></button>
       </div>
 
       <div sec:authorize="isAuthenticated()">
-        <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white]"><a th:href="@{/mypage}">마이페이지</a></button>
-        <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white]"><a href="/logout">로그아웃</a></button>
+        <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white] mr-[15px] mb-[20px]"><a href="/logout">로그아웃</a></button>
+        <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white] mr-[15px] mb-[20px]"><a th:href="@{/category/add}">나만의 카테고리 만들기 ✏️</a></button>
       </div>
 
     </div>
@@ -143,15 +143,14 @@
     <!-- 카테고리 -->
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
-      <!--TODO 카테고리명 클릭시 지도 이동 링크 수정 필요 -->
-      <div class="relative h-[200px] w-[250px] mx-[15px] my-[15px] rounded-[15px] tag_name bg-[#e8f8f5]" th:each="category : ${categories}">
+      <div class="category-div relative h-[200px] w-[250px] mx-[15px] my-[15px] rounded-[15px] tag_name bg-[#e8f8f5]" th:each="category : ${categories}">
         <a th:href="@{/category(id=${category.id})}">
           <!-- TODO image 부분 일부 키워드에 따라 사진 표시되게 구현 -->
-          <img class="h-[100%] w-[100%] rounded-[15px] opacity-50 align-middle"
+          <img class="category-img h-[100%] w-[100%] rounded-[15px] opacity-60 align-middle"
                th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
           <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
             <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
-            <div class="m-[10px] font-bold">[[${category.totalPlaceCnt}]]개의 장소</div>
+            <div class="place-cnt m-[10px] font-bold hidden">[[${category.totalPlaceCnt}]]개의 장소</div>
 
             <input type="hidden" value="${category.id}" >
 
@@ -226,29 +225,34 @@
       <div class="text-2xl m-[10px]">🤡 추천 카테고리</div>
 
       <div class="flex flex-row flex-wrap">
-        <div class="relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${recommendCategories}">
-          <a th:href="@{/map/category(id=${category.id})}">
-            <img class="h-[200px] w-[250px] rounded-[15px] "
+
+        <div class="category-div relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${recommendCategories}">
+          <a th:href="@{/category(id=${category.id})}">
+            <img class="category-img h-[200px] w-[250px] rounded-[15px] opacity-60 align-middle"
                  th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
-            <div class="absolute">
+            <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
               <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
 
+              <!-- TODO 장소 개수 필요 -->
+
               <input type="hidden" value="${category.id}" >
-              <div sec:authorize="isAuthenticated()">
+
+            </div>
+
+            <div sec:authorize="isAuthenticated()" class="justify-center absolute top-[-10%] right-[-10%] px-4 py-2 text-2xl undefined">
 
                 <th:block th:if="${category.isBookmark() == false}">
                   <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                    <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♡</span>
+                    <span class="bookmark-btn">♡</span>
                   </a>
                 </th:block>
                 <th:block th:if="${category.isBookmark() == true}">
                   <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                    <span class="bookmark-btn px-4 py-2  text-base rounded-full text-indigo-500 border border-indigo-500 undefined ">♥</span>
+                    <span class="bookmark-btn">♥</span>
                   </a>
                 </th:block>
-              </div>
-
             </div>
+
           </a>
         </div>
       </div>
@@ -280,7 +284,7 @@
       $(".left_sub_menu").fadeToggle(300);
     });
 
-    $('#gathering-main').on('click', function () {
+    $('#container').on('click', function () {
       $('.left_sub_menu').fadeOut();
       $('.hide_sidemenu').fadeIn();
     });

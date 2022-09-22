@@ -111,3 +111,11 @@ ul {
 .hide_sidemenu {
     display: none;
 }
+
+.category-div:hover .place-cnt {
+    display: block;
+}
+
+.category-div:hover .category-img {
+    filter: grayscale(0) blur(2px);
+}
