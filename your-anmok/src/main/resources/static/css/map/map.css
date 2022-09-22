@@ -288,7 +288,7 @@ ol, ul {
     top:54px;
     right:20px;
     bottom:-400px;
-    width:240px;
+    width:250px;
     margin:10px 0 30px 10px;
     padding:5px;
     overflow-y: auto;
@@ -307,16 +307,18 @@ ol, ul {
 .list_item_name{
     /*font-size:12px;*/
     font-family: 'Cafe24Ssurround';
-    font-size: 13px;
+    font-size: 16px;
+    width: 100%;
 }
 
 .list_item_address{
-    font-size: 10px;
+    font-size: 12px;
+    width: 100%;
 }
 
 .recommendedTitle{
-    width: 230px;
-    height: 50px;
+    width: 240px;
+    height: 60px;
     border-radius: 10px;
     background-color: #7FD1AE;
     text-align: center;
