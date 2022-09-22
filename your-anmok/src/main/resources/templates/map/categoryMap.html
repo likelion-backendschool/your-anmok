@@ -86,7 +86,7 @@
 
     </div>
     <div id="category_item_list_wrap">
-        <ul id="placeList">
+        <ul id="placeList" class="scrollbar">
             <div class="recommendedTitle">추천장소</div>
 
         </ul>
@@ -284,7 +284,7 @@
 
 
             let listItem = document.createElement("div");
-            listItem.setAttribute("class","listItem bg-white text-center py-2 rounded-[10px] h-[50px] my-[3px]");
+            listItem.setAttribute("class","listItem bg-white text-center py-2 rounded-[10px] h-[50px] my-[3px] w-[230px]");
             let item="";
             item+=`<div class="list_item_name">`+allPlaceList[i].name+`</div>`;
             item+=`<div class="list_item_address">`+allPlaceList[i].address+`</div>`;
