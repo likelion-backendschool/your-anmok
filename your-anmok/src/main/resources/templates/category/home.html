@@ -100,7 +100,7 @@
   <!-- 카테고리 검색, 전체보기 기능 버튼 -->
   <div id="search" class="flex items-center justify-start m-[25px]">
 
-    <div class="mr-[30px] font-bold mb-[8px]"><a th:href="@{/category/home}">🗂 카테고리</a></div>
+    <div class="mr-[30px] font-bold mb-[8px] text-[20px]"><a th:href="@{/category/home}">🗂 카테고리</a></div>
 
     <div class="search-div">
       <form action="/category/home"><fieldset><input class="search-input pr-[3px]" type="search" placeholder="키워드를 입력하세요..." name="keyword"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></fieldset></form>
@@ -140,12 +140,12 @@
 
             <th:block th:if="${category.isBookmark() == false}">
               <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                <span class="bookmark-btn">♡</span>
+                <span class="bookmark-btn text-[#00C385]">♡</span>
               </a>
             </th:block>
             <th:block th:if="${category.isBookmark() == true}">
               <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                <span class="bookmark-btn">♥</span>
+                <span class="bookmark-btn text-[#00C385]">♥</span>
               </a>
             </th:block>
 
@@ -171,38 +171,38 @@
 
   <!-- 번개 리스트 & 맞춤형 카테고리 부분 -->
 
-  <div class="gathering-and-recommend flex">
+  <div class="gathering-and-recommend flex justify-center">
 
     <!-- 번개 리스트 나열 부분 -->
-    <div id="gathering-list" class="w-[400px]">
+    <div id="gathering-list" class="w-[400px] mx-[50px]">
 
-      <div class="flex justify-between">
-        <div class="text-2xl mx-[10px] ">⚡️같이 놀 사람</div>
-        <a href="/gathering/list"><button type="button" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
+      <div class="flex justify-between items-center mb-[10px]">
+        <div class="font-bold text-[20px]">⚡️같이 놀 사람</div>
+        <a href="/gathering/list"><button type="button" class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white] mr-[15px]">
           전체보기
         </button></a>
       </div>
 
+      <div class="tag-name shadow-lg rounded-2xl p-4 bg-[#e8f8f5] mt-[20px] relative overflow-hidden mb-[15px] hover:bg-[#7FD1AE]" th:each="gathering : ${gatheringList}">
+        <a class="w-4/6" th:href="@{/gathering/{id}(id=${gathering.boardId})}">
+          <p class="text-gray-800 text-lg font-bold mb-2" th:text="${gathering.PlaceName}"></p>
+          <p class="text-gray-500 text-xm " th:text="${gathering.title}"></p>
+          <p class="text-[#00C385] text-xl font-bold" th:text="${gathering.gatheringDate}"></p>
 
-      <div class="tag_name"
-           th:each="gathering : ${gatheringList}">
+          <button type="button" class="absolute top-[5%] right-[2%] w-5 h-5 text-base  rounded-full text-white bg-[#00C385]">
+            <span class="text-xs" th:text="${gathering.commentCnt}">
+            </span>
+          </button>
 
-        <a th:href="@{/gathering/{id}(id=${gathering.boardId})}">
-          <div class="bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] items-center justify-center hover:bg-[#01c9c6]">
-            <div th:text="${gathering.title}"></div>
-            <div th:text="${gathering.gatheringDate}"></div>
-            <div th:text="${gathering.commentCnt}"></div>
-          </div>
         </a>
-
       </div>
 
     </div>
 
     <!-- 추천 카테고리 나열 부분 -->
-    <div id="recommend-category" class="w-[600px] ml-[50px]">
+    <div id="recommend-category" class="w-[600px] mx-[50px]">
 
-      <div class="text-2xl m-[10px]">🤡 추천 카테고리</div>
+      <div class="font-bold text-[20px] mt-[8px] mb-[10px]">🤡 추천 카테고리</div>
 
       <div class="flex flex-row flex-wrap">
 
@@ -223,12 +223,12 @@
 
                 <th:block th:if="${category.isBookmark() == false}">
                   <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                    <span class="bookmark-btn">♡</span>
+                    <span class="bookmark-btn text-[#00C385]">♡</span>
                   </a>
                 </th:block>
                 <th:block th:if="${category.isBookmark() == true}">
                   <a th:href="@{/bookmark/remove(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
-                    <span class="bookmark-btn">♥</span>
+                    <span class="bookmark-btn text-[#00C385]">♥</span>
                   </a>
                 </th:block>
             </div>
