@@ -21,16 +21,19 @@
         }
 
         /*뒤로 가기 버튼 관련 CSS*/
-        #backButton{position: absolute;top:10px;bottom:-150px;right:10px;z-index: 100; height: 40px; width: 200px; font-size: large; background-color: #7FD1AE; border-color: #7FD1AE; font-size: 20px;}
+        #backButton{position: absolute;font-family: 'Cafe24Ssurround';color: white;border-radius:10px;top:10px;bottom:-150px;right:10px;z-index: 100; height: 47px; width: 200px; font-size: 20px; background-color: #7FD1AE; border-color: #7FD1AE;}
 
         html > body #backButton:hover {
             /*all: unset;*/
-
+            height: 47px;
+            width: 200px;
             background: #00C385;
             border-color: #00C385;
             border-right-color: white;
             font-size:20px;
-            font-family: 'Cafe24SsurroundAir';
+            font-family: 'Cafe24Ssurround';
+            color: white;
+            border-radius:10px;
         }
 
         /*슬라이드 버튼 관련 CSS*/
@@ -331,7 +334,7 @@
         <i class="fas fa-crosshairs fa-2x"></i>
     </button>
 
-    <button id="backButton" class="btn btn-primary" onclick="location.href='/'">뒤로 가기</button>
+    <button id="backButton" onclick="location.href='/'">이전 페이지</button>
 
     <div id="search_wrap" class="bg_white" style="position: absolute; z-index: 90;">
         <div class="option">
