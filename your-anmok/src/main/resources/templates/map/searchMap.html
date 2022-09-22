@@ -21,12 +21,26 @@
         }
 
         /*뒤로 가기 버튼 관련 CSS*/
-        #backButton{position: absolute;font-family: 'Cafe24Ssurround';color: white;border-radius:10px;top:10px;bottom:-150px;right:10px;z-index: 100; height: 47px; width: 200px; font-size: 20px; background-color: #7FD1AE; border-color: #7FD1AE;}
+        #backButton{
+            position: absolute;
+            font-family: 'Cafe24Ssurround';
+            color: white;
+            border-radius:10px;
+            top:10px;
+            bottom:-150px;
+            right:10px;
+            z-index: 100;
+            width: 150px;
+            height: 40px;
+            font-size: 14px;
+            background-color: #7FD1AE;
+            border-color: #7FD1AE;
+        }
 
         html > body #backButton:hover {
             /*all: unset;*/
             height: 47px;
-            width: 200px;
+            width: 150px;
             background: #00C385;
             border-color: #00C385;
             border-right-color: white;
@@ -34,6 +48,9 @@
             font-family: 'Cafe24Ssurround';
             color: white;
             border-radius:10px;
+            width: 150px;
+            height: 40px;
+            font-size: 14px;
         }
 
         /*슬라이드 버튼 관련 CSS*/
@@ -201,35 +218,35 @@
 
         /*내 위치 찾기 버튼 관련 CSS*/
         #my_location_button{
-            bottom: -325px;
+            bottom: 20px;
             right: 25px;
         }
 
         #my_location_button:hover{
-            bottom: -325px;
+            bottom: 20px;
             right: 25px;
         }
 
         /*카테고리 만들기, 카테고리에 장소 추가하기 버튼*/
         #addPlaceinCategory{
-            bottom:-282px;
+            bottom: 65px;
             left: 25px;
             width: 200px;
         }
 
         #addPlaceinCategory:hover{
-            bottom:-282px;
+            bottom: 65px;
             left: 25px;
             width: 200px;
         }
 
         #makeMyCategory{
-            bottom:-325px;
+            bottom: 20px;
             left: 25px;
             width: 200px;
         }
         #makeMyCategory:hover{
-            bottom:-325px;
+            bottom: 20px;
             left: 25px;
             width: 200px;
         }
@@ -267,7 +284,7 @@
         .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
         .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
         .map_wrap {position:relative;width:100%;height:500px;}
-        #search_wrap {height: 650px;position:absolute;top:54px;right:10px;bottom:-400px;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+        #search_wrap {height: 70%;position:absolute;top:48px;right:10px;bottom:-400px;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
         .bg_white {background:#fff;}
         #search_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
         #search_wrap .option{text-align: center;}
@@ -329,28 +346,29 @@
 <div class="map_wrap" style="position: relative;">
     <div id="map" class="w-screen h-screen" >
 
-    </div>
-    <button id="my_location_button" onclick="getCurrentPosBtn()">
-        <i class="fas fa-crosshairs fa-2x"></i>
-    </button>
+        <button id="my_location_button" onclick="getCurrentPosBtn()">
+            <i class="fas fa-crosshairs fa-2x"></i>
+        </button>
 
-    <button id="backButton" onclick="location.href='/'">이전 페이지</button>
+        <button id="makeMyCategory" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
 
-    <div id="search_wrap" class="bg_white" style="position: absolute; z-index: 90;">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" th:text="${placeKeyword}" th:value="${placeKeyword}" id="keyword" size="15" />
-                    <button type="submit">검색하기</button>
-                </form>
+        <button id="backButton" onclick="location.href='/'">이전 페이지</button>
+
+        <div id="search_wrap" class="bg_white" style="position: absolute; z-index: 90;">
+            <div class="option">
+                <div>
+                    <form onsubmit="searchPlaces(); return false;">
+                        키워드 : <input type="text" th:text="${placeKeyword}" th:value="${placeKeyword}" id="keyword" size="15" />
+                        <button type="submit">검색하기</button>
+                    </form>
+                </div>
             </div>
+            <hr>
+            <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
+            <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
         </div>
-        <hr>
-        <ul id="placeList" style="position: absolute; top: 30px; right: 0; z-index: 90;"></ul>
-        <div id="pagination" style="position: absolute; top: 30px; right: 0; z-index: 90;"></div>
-    </div>
 
-    <button id="makeMyCategory" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
+    </div>
 
     <div id="menu">
         <div class="close"></div>
@@ -540,7 +558,7 @@
         // itemStr += '    <a class="btn btn-secondary btn-sm" onclick='+ hrefLink() +'>장소 등록</a>'
         //itemStr += '    <a class="btn btn-secondary btn-sm" href=/map/addPlace/'+ encodeURIComponent(places.place_name) +'/'+encodeURIComponent(places.address_name)+'>장소 등록</a>'
         if(hasAuth === 'Y') {
-            itemStr += '    <button onclick="selectPopUpPlace(this,\''+ places.place_name + '\',\'' + places.address_name + '\');" data-id="'+ places.id +'" data-lat="'+places.y+'" data-lon="'+places.x+'" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록 팝업</button>'
+            itemStr += '    <button onclick="selectPopUpPlace(this,\''+ places.place_name + '\',\'' + places.address_name + '\');" data-id="'+ places.id +'" data-lat="'+places.y+'" data-lon="'+places.x+'" class="btn btn-primary" data-toggle="modal" href="#addPlace_popup_layer">장소 등록</button>'
         } else {
             itemStr += '    <button class="btn btn-primary disabled" >로그인 후 등록가능</button>'
         }
