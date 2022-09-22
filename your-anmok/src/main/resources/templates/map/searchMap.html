@@ -350,11 +350,6 @@
             <i class="fas fa-crosshairs fa-2x"></i>
         </button>
 
-        <form th:action="@{/searchMap}" id="searchMapFormByCategoryId">
-            <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
-            <button id="addPlaceinCategory" type="submit">현재 카테고리에 장소 추가하기</button>
-        </form>
-
         <button id="makeMyCategory" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
 
         <button id="backButton" onclick="location.href='/'">이전 페이지</button>
