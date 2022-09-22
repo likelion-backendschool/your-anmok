@@ -108,25 +108,11 @@
 
   </div>
 
-<!--  &lt;!&ndash; 카테고리 추가 기능 -&ndash;&gt;
-  <div id="add" class="flex items-center justify-end m-[25px]">
-
-    <form>
-      <input type="text" placeholder="카테고리명을 입력하세요" name="tagName" class="tag-name input input-bordered bg-[#e8f8f5] border-[#e8f8f5] w-[200px] h-[50px] rounded-[15px]"/>
-      <input type="hidden" class="last-page" th:value="${categories.totalPages}">
-      <input type="hidden" class="number-of-elements" th:value="${categories.totalElements}">
-      <button type="button" class="add-category-btn btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
-        등록
-      </button>
-    </form>
-
-  </div>-->
-
   <!-- 카테고리 나열 부분 -->
-  <div id="category_container" class="flex items-center mt-[25px] font-bold">
+  <div id="category_container" class="flex mt-[25px] font-bold justify-between items-center">
 
     <!-- back 버튼 -->
-    <div id="back" class="h-[70px] w-[70px] flex text-center relative">
+    <div id="back" class="h-[70px] w-[70px] flex relative content-center">
       <th:block th:if="${categories.hasPrevious}">
         <a th:href="@{/category/home(page=${categories.number-1},keyword=${keyword})}">
         <img src="/images/back.png" class="prev_btn_img">
