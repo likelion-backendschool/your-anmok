@@ -283,13 +283,26 @@ ol, ul {
     margin: 5px !important;
 }
 
-#placeList .list_item_name{
+.list_item_name{
     /*font-size:12px;*/
-
+    font-family: 'Cafe24Ssurround';
+    font-size: 13px;
 }
 
-#placeList .list_item_address{
-    font-size: 8px;
+.list_item_address{
+    font-size: 10px;
+}
+
+.recommendedTitle{
+    width: 240px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #7FD1AE;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    line-height: 50px;
+    font-family: 'Cafe24Ssurround';
 }
 
 
