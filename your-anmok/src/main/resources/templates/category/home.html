@@ -103,7 +103,7 @@
     <div class="mr-[30px] font-bold mb-[8px] text-[20px]"><a th:href="@{/category/home}">🗂 카테고리</a></div>
 
     <div class="search-div">
-      <form action="/category/home"><fieldset><input class="search-input pr-[3px]" type="search" placeholder="키워드를 입력하세요..." name="keyword"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></fieldset></form>
+      <form action="/category/home"><fieldset><input class="search-input pl-[10px]" type="search" placeholder="키워드를 입력하세요..." name="keyword"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></fieldset></form>
     </div>
 
   </div>
@@ -123,7 +123,7 @@
     <!-- 카테고리 -->
     <div id="category" class="flex flex-wrap w-[900px] justify-center">
 
-      <div class="category-div relative h-[200px] w-[250px] mx-[15px] my-[15px] rounded-[15px] tag_name bg-[#e8f8f5]" th:each="category : ${categories}">
+      <div class="category-div relative h-[200px] w-[250px] mx-[15px] my-[15px] rounded-[15px] tag_name bg-[#e8f8f5] shadow-lg overflow-hidden" th:each="category : ${categories}">
         <a th:href="@{/category(id=${category.id})}">
           <!-- TODO image 부분 일부 키워드에 따라 사진 표시되게 구현 -->
           <img class="category-img h-[100%] w-[100%] rounded-[15px] opacity-60 align-middle"
@@ -178,16 +178,16 @@
 
       <div class="flex justify-between items-center mb-[10px]">
         <div class="font-bold text-[20px]">⚡️같이 놀 사람</div>
-        <a href="/gathering/list"><button type="button" class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white] mr-[15px]">
+        <a href="/gathering/list"><button type="button" class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white]">
           전체보기
         </button></a>
       </div>
 
       <div class="tag-name shadow-lg rounded-2xl p-4 bg-[#e8f8f5] mt-[20px] relative overflow-hidden mb-[15px] hover:bg-[#7FD1AE]" th:each="gathering : ${gatheringList}">
         <a class="w-4/6" th:href="@{/gathering/{id}(id=${gathering.boardId})}">
-          <p class="text-gray-800 text-lg font-bold mb-2" th:text="${gathering.PlaceName}"></p>
-          <p class="text-gray-500 text-xm " th:text="${gathering.title}"></p>
-          <p class="text-[#00C385] text-xl font-bold" th:text="${gathering.gatheringDate}"></p>
+          <p class="text-gray-800 text-lg font-bold mb-2">🛖 [[${gathering.PlaceName}]]</p>
+          <p class="text-gray-500 text-xm ">💬 [[${gathering.title}]]</p>
+          <p class="text-[#00C385] text-xm font-bold">🗓 [[${gathering.gatheringDate}]]</p>
 
           <button type="button" class="absolute top-[5%] right-[2%] w-5 h-5 text-base  rounded-full text-white bg-[#00C385]">
             <span class="text-xs" th:text="${gathering.commentCnt}">
@@ -206,7 +206,7 @@
 
       <div class="flex flex-row flex-wrap">
 
-        <div class="category-div relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${recommendCategories}">
+        <div class="category-div shadow-lg overflow-hidden relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${recommendCategories}">
           <a th:href="@{/category(id=${category.id})}">
             <img class="category-img h-[200px] w-[250px] rounded-[15px] opacity-60 align-middle"
                  th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">

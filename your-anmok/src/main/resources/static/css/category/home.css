@@ -118,6 +118,8 @@ ul {
 
 .category-div:hover .category-img {
     filter: grayscale(0) blur(2px);
+    transform: scale(1.5);
+    transition: .5s;
 }
 
 fieldset {
