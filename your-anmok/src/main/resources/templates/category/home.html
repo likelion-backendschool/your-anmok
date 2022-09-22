@@ -100,17 +100,11 @@
   <!-- 카테고리 검색, 전체보기 기능 버튼 -->
   <div id="search" class="flex items-center justify-start m-[25px]">
 
-    <div class="mr-[10px]">카테고리</div>
+    <div class="mr-[30px] font-bold mb-[8px]"><a th:href="@{/category/home}">🗂 카테고리</a></div>
 
-    <form action="/category/home">
-      <input type="text" placeholder="키워드를 입력하세요" name="keyword" class="input input-bordered bg-[#e8f8f5] border-[#e8f8f5] w-[200px] h-[50px] rounded-[15px]"/>
-      <button type="submit" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
-        검색
-      </button>
-      <a th:href="@{/category/home}"><button type="button" class="btn btn-square bg-[#01c9c6] border-[#01c9c6] text-[black] w-[100px] h-[50px] rounded-[15px]">
-        초기화
-      </button></a>
-    </form>
+    <div class="search-div">
+      <form action="/category/home"><fieldset><input class="search-input pr-[3px]" type="search" placeholder="키워드를 입력하세요..." name="keyword"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></fieldset></form>
+    </div>
 
   </div>
 
