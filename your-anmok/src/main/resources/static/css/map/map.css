@@ -53,35 +53,35 @@
 
 /*내 위치 찾기 버튼 관련 CSS*/
 #my_location_button{
-    bottom: -325px;
+    bottom: 20px;
     right: 25px;
 }
 
 #my_location_button:hover{
-    bottom: -325px;
+    bottom: 20px;
     right: 25px;
 }
 
 /*카테고리 만들기, 카테고리에 장소 추가하기 버튼*/
 #addPlaceinCategory{
-    bottom:-282px;
+    bottom: 65px;
     left: 25px;
     width: 200px;
 }
 
 #addPlaceinCategory:hover{
-    bottom:-282px;
+    bottom: 65px;
     left: 25px;
     width: 200px;
 }
 
 #makeMyCategory{
-    bottom:-325px;
+    bottom: 20px;
     left: 25px;
     width: 200px;
 }
 #makeMyCategory:hover{
-    bottom:-325px;
+    bottom: 20px;
     left: 25px;
     width: 200px;
 }
