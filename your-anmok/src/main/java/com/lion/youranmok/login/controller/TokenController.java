@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -133,10 +134,10 @@ public class TokenController {
 
             userService.saveKakaoUser(kakaoUserDto);
         }
-
+        //
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, kakaoProfile.getId() + ""));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        
         return "redirect:/";
 
     }
