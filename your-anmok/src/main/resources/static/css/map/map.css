@@ -53,29 +53,49 @@
 
 /*내 위치 찾기 버튼 관련 CSS*/
 #my_location_button{
-    bottom:-300px;
+    bottom: -325px;
+    right: 25px;
+}
+
+#my_location_button:hover{
+    bottom: -325px;
+    right: 25px;
 }
 
 /*카테고리 만들기, 카테고리에 장소 추가하기 버튼*/
 #addPlaceinCategory{
-    bottom:-100px;
+    bottom:-282px;
+    left: 25px;
+    width: 200px;
+}
+
+#addPlaceinCategory:hover{
+    bottom:-282px;
+    left: 25px;
+    width: 200px;
 }
 
 #makeMyCategory{
-    bottom:-200px;
+    bottom:-325px;
+    left: 25px;
+    width: 200px;
+}
+#makeMyCategory:hover{
+    bottom:-325px;
+    left: 25px;
+    width: 200px;
 }
 
 #my_location_button, #addPlaceinCategory, #makeMyCategory{
     position: absolute;
     height: 40px;
-    border-radius: 50px;
+    border-radius: 10px;
     background: #7FD1AE;
     outline: 0;
     border:0;
     font-family: 'Cafe24Ssurround';
     font-size: 14px;
     padding: 6px;
-    right:10px;
     z-index: 100;
     text-align: center;
     color: white;
@@ -85,13 +105,12 @@
     background-color: #00c385;
     position: absolute;
     height: 40px;
-    border-radius: 50px;
+    border-radius: 10px;
     outline: 0;
     border:0;
     font-family: 'Cafe24Ssurround';
     font-size: 14px;
     padding: 6px;
-    right:10px;
     z-index: 100;
     text-align: center;
     color: white;
@@ -269,27 +288,61 @@ ol, ul {
     top:54px;
     right:20px;
     bottom:-400px;
-    width:250px;
+    width:240px;
     margin:10px 0 30px 10px;
     padding:5px;
     overflow-y: auto;
     z-index: 1;
     display: flex;
     flex-direction: column;
+    height: 650px;
 }
-#placeList .list_item{
+
+.list_item{
     display: flex !important;
     flex-direction: column;
-    margin: 5px !important;
+    margin-right: 5px !important;
 }
 
-#placeList .list_item_name{
+.list_item_name{
     /*font-size:12px;*/
-
+    font-family: 'Cafe24Ssurround';
+    font-size: 13px;
 }
 
-#placeList .list_item_address{
-    font-size: 8px;
+.list_item_address{
+    font-size: 10px;
+}
+
+.recommendedTitle{
+    width: 230px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #7FD1AE;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    line-height: 50px;
+    font-family: 'Cafe24Ssurround';
+}
+
+.scrollbar{
+    overflow-x: hidden;
+    margin-right: 0;
+}
+
+.scrollbar::-webkit-scrollbar{
+    width: 0;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: none; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: none;  /*스크롤바 뒷 배경 색상*/
 }
 
 
