@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body{
+    font-family: 'Cafe24SsurroundAir';
+}
+
+#nickname-btn{
+    color : #00c385;
+    font-family: 'Cafe24SsurroundAir';
+    font-size: 17px;
+
+}
+
+#bookmark-container{
+    text-align: center;
+    font-family: 'Cafe24SsurroundAir';
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    font-size: 60px;
+    align-items: center;
+
+}
+
+#remove-btn{
+    color : #00c385;
+    font-family: 'Cafe24SsurroundAir';
+    font-size: 17px;
+
+}
+
+#gathering-container{
+    color : #00c385;
+    font-family: 'Cafe24SsurroundAir';
+    font-size: 17px;
+
+}
+
+#place-main{
+    color : #00c385;
+    font-family: 'Cafe24SsurroundAir';
+    font-size: 17px;
+
+}
+
+#comment-container{
+    color : #00c385;
+    font-family: 'Cafe24SsurroundAir';
+    font-size: 17px;
+
+}

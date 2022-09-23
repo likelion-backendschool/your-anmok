@@ -1,28 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+<link rel="stylesheet" type="text/css" href="/css/gathering/create.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My page</title>
+    <style>
+        @font-face {
+            font-family: 'Cafe24SsurroundAir';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .mypage-title{
+            text-align: center;
+            font-family: 'Cafe24SsurroundAir';
+            font-weight: bold;
+            font-size: 60px;
+            align-items: center;
+        }
+        .mypage-main{
+            text-align: center;
+            font-family: 'Cafe24SsurroundAir';
+            font-weight: 300;
+            font-size: 40px;
+        }
+        .bookmark-container{
+            font-family: 'Cafe24SsurroundAir';
+            font-size: 30px;
+            text-align: center;
+        }
+        .gathering-container{
+            font-family: 'Cafe24SsurroundAir';
+            font-size: 30px;
+            text-align: center;
+        }
+        .comment-container{
+            font-family: 'Cafe24SsurroundAir';
+            font-size: 30px;
+            text-align: center;
+        }
+        .back {
+            cursor:pointer;
+            display: flex;
+            flex-direction: row;
+            position:fixed;
+            top: 20px;
+            left: 20px;
+            width: 300px;
+            z-index: 200;
+        }
+    </style>
+
 
 </head>
 <body>
-
+    <div class="mypage-main">
+        <div class="mypage-title">
+            &nbsp;My page🌳
+        </div>
+    </div>
 <form>
-    <img th:src="${member.profilePicture}" class="w-[100px] h-[100px]">
-    <input type="text" th:value="${member.nickname}" id="nickname">
-    <input type="hidden" th:value="${member.id}" id="member-id">
-    <button type="button" id="nickname-btn">변경</button>
+    <br>
+    <div class = "flex justify-center">
+            <img th:src="${member.profilePicture}" class="w-[300px] h-[280px] ">
+    </div>
+    <div class="back">
+        <i class="fas fa-arrow-left fa-2x" onclick="location.href='/'"></i>
+    </div>
+    <br>
+    <div class = "flex justify-center">
+    <input class ="px-[4px] py-[10px] rounded-[10px]" type="text" th:value="${member.nickname}" id="nickname">
+    <input type="hidden" th:value="${member.id}" id="member-id"> &nbsp &nbsp &nbsp;
+        <button class=" hover:bg-[#00C385] px-[14px] py-[10px] bg-[#7FD1AE] rounded-[25px] text-[white]" id="nickname-btn"> 닉네임 변경</a></button>
+
+    </div>
 </form>
 
 <br>
 <br>
 <br>
 
-<div class="bookmark-container">
-
+<div class="bookmark-container"><br>
+    <div class="shadow-inner">
     <h2> 📚My Bookmark </h2>
+    </div>
 
     <div th:each="category, i : ${categories}">
         <form onsubmit="return confirm('해당 카테고리를 북마크에서 해제하시겠습니까?');" action="/bookmark/removeByMypage" method="post">
@@ -41,8 +106,9 @@
 
 
 <div class="gathering-container">
-
+    <div class="shadow-inner">
     <h2> ⌨️ My Gathering </h2>
+    </div>
 
     <div class="places">
         <div th:each="gathering,index:${gatheringList}">
@@ -55,10 +121,10 @@
 </div>
 
 
-<div class="comment-container">
-
+<div class="comment-container"><br>
+    <div class="shadow-inner">
     <h2> ⌨️ My Comment </h2>
-
+    </div>
     <div class="places">
         <div th:each="comment : ${commentList}">
             <a th:href="@{/gathering/{id}(id=${comment.boardId})}"><div th:text="${comment.comment}"></div></a>
