@@ -51,8 +51,12 @@ public class TokenController {
         Map<String, String> kakao_key = new HashMap<String,String>();
         kakao_key.put("key1",Kakao_Client);
         kakao_key.put("key2",Kakao_Callback);
-        return "login/LoginForm";
+        return "/auth/kakao/callback";
         }
+    @GetMapping("/logout")
+    public String logout() {
+        return "/";
+    }
 
     @GetMapping("/auth/kakao/callback")
     public String kakaoCallback(String code) throws JsonProcessingException {

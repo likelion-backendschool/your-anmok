@@ -20,7 +20,7 @@
     </div>
     <div class="flex justify-end mr-[25px] mt-[25px]">
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" th:href="@{/gathering/create}">모집하기⚡️</a></button>
-        <button sec:authorize="isAnonymous()" class="write-gather"><a class="text-white text-decoration-none" th:href="@{/auth/login}">로그인</a></button>
+        <button sec:authorize="isAnonymous()" class="write-gather"><a class="text-white text-decoration-none" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">로그인</a></button>
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></button>
     </div>
 
