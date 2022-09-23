@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -50,8 +51,12 @@ public class TokenController {
         Map<String, String> kakao_key = new HashMap<String,String>();
         kakao_key.put("key1",Kakao_Client);
         kakao_key.put("key2",Kakao_Callback);
-        return "login/LoginForm";
+        return "/auth/kakao/callback";
         }
+    @GetMapping("/logout")
+    public String logout() {
+        return "/";
+    }
 
     @GetMapping("/auth/kakao/callback")
     public String kakaoCallback(String code) throws JsonProcessingException {
@@ -133,10 +138,10 @@ public class TokenController {
 
             userService.saveKakaoUser(kakaoUserDto);
         }
-
+        //
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, kakaoProfile.getId() + ""));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
+        
         return "redirect:/";
 
     }
