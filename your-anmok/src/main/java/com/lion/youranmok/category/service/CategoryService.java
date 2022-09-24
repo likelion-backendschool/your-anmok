@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface CategoryService {
 
     List<CategoryDto> findAll();
-    Page<CategorySortingDto> findByTagNameContaining(int page, String keyword, int userId);
+    Page<CategorySortingDto> getListByKeyword(int page, String keyword, int userId);
 
-    Page<CategorySortingDto> getListByPaging(int page, int userId);
+    Page<CategorySortingDto> getList(int page, int userId);
 
     List<CategorySortingDto> getRecommendCategories(int userId);
 

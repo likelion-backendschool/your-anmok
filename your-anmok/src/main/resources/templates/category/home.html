@@ -127,7 +127,7 @@
         <a th:href="@{/category(id=${category.id})}">
           <!-- TODO image 부분 일부 키워드에 따라 사진 표시되게 구현 -->
           <img class="category-img h-[100%] w-[100%] rounded-[15px] opacity-60 align-middle"
-               th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
+               th:src="${category.getImagePath()}" alt="카테고리 사진">
           <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
             <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
             <div class="place-cnt m-[10px] font-bold hidden">[[${category.totalPlaceCnt}]]개의 장소</div>
@@ -136,7 +136,7 @@
 
           </div>
 
-          <div sec:authorize="isAuthenticated()" class="justify-center absolute top-[-10%] right-[-10%] px-4 py-2 text-2xl undefined">
+          <div sec:authorize="isAuthenticated()" class="justify-center absolute top-[-3%] right-[-3%] px-4 py-2 text-2xl undefined">
 
             <th:block th:if="${category.isBookmark() == false}">
               <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
@@ -209,9 +209,10 @@
         <div class="category-div shadow-lg overflow-hidden relative h-[200px] w-[250px] bg-[#e8f8f5] mx-[15px] my-[15px] rounded-[15px] flex items-center justify-center tag_name" th:each="category : ${recommendCategories}">
           <a th:href="@{/category(id=${category.id})}">
             <img class="category-img h-[200px] w-[250px] rounded-[15px] opacity-60 align-middle"
-                 th:src="@{/images/gathering-image-test.png}" alt="카테고리 사진">
+                 th:src="${category.getImagePath()}" alt="카테고리 사진">
             <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
               <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
+              <div class="place-cnt m-[10px] font-bold hidden">[[${category.totalPlaceCnt}]]개의 장소</div>
 
               <!-- TODO 장소 개수 필요 -->
 

@@ -6,14 +6,14 @@ import com.lion.youranmok.category.entity.Bookmark;
 import com.lion.youranmok.category.entity.Category;
 import com.lion.youranmok.category.repository.BookmarkRepository;
 import com.lion.youranmok.category.repository.CategoryRepository;
+import com.lion.youranmok.place.entity.PlaceImage;
+import com.lion.youranmok.place.repository.PlaceCategoryMapRepository;
+import com.lion.youranmok.place.repository.PlaceImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +22,10 @@ public class CategoryServiceImpl implements CategoryService{
 
     private final CategoryRepository categoryRepository;
     private final BookmarkRepository bookmarkRepository;
+
+    private final PlaceCategoryMapRepository placeCategoryMapRepository;
+
+    private final PlaceImageRepository placeImageRepository;
 
 
     @Override
@@ -38,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Page<CategorySortingDto> findByTagNameContaining(int page, String keyword, int userId) {
+    public Page<CategorySortingDto> getListByKeyword(int page, String keyword, int userId) {
 
         Pageable pageable = PageRequest.of(page, 9);
 
@@ -57,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public Page<CategorySortingDto> getListByPaging(int page, int userId) {
+    public Page<CategorySortingDto> getList(int page, int userId) {
 
         Pageable pageable = PageRequest.of(page, 9);
 
@@ -79,7 +83,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<CategorySortingDto> getRecommendCategories(int userId) {
 
-        List<CategorySortingDto> categories = new ArrayList<>();
+        List<CategorySortingDto> categories;
 
         if (userId > 0) {
             categories = categoryRepository.getSortingCategories();
@@ -98,7 +102,11 @@ public class CategoryServiceImpl implements CategoryService{
         categories.stream().forEach(category -> {
             CategorySortingDto dto = CategorySortingDto.builder()
                     .id(category.getId())
-                    .tagName(category.getTagName()).build();
+                    .tagName(category.getTagName())
+                    .bookmarkCnt(category.getBookmarkCnt())
+                    .imagePath(category.getImagePath())
+                    .totalPlaceCnt(category.getTotalPlaceCnt())
+                    .build();
 
             if (userId > 0) {
                 Optional<Bookmark> result = bookmarkRepository.findBookmarkByUserIdAndCategoryId(userId, dto.getId());
@@ -114,7 +122,34 @@ public class CategoryServiceImpl implements CategoryService{
 
         });
 
+        setImages(dtos);
+
         return dtos;
+    }
+
+    private void setImages(List<CategorySortingDto> dtos) {
+        dtos.stream().forEach(dto -> {
+
+            List<Integer> placeIdList = placeCategoryMapRepository.getPlaceByCategoryId(dto.getId());
+
+            for (int i = 0; i < placeIdList.size(); i++) {
+
+                List<PlaceImage> placeImages = placeImageRepository.getPlaceImagesByPlaceId(placeIdList.get(i));
+
+                if (placeImages.size() != 0) {
+                    dto.setExistImage(true);
+
+                    int index = (int) (Math.random() * (placeImages.size() - 1));
+
+                    dto.setImagePath("/placeimg/" + placeImages.get(index).getFilePath());
+
+                    System.out.println("dto = " + dto);
+                    break;
+                }
+
+            }
+
+        });
     }
 
     @Override
@@ -142,10 +177,10 @@ public class CategoryServiceImpl implements CategoryService{
     public Page<CategorySortingDto> getCategories(int page, String keyword, int userId) {
 
         if (keyword != null) {
-            return findByTagNameContaining(page, keyword, userId);
+            return getListByKeyword(page, keyword, userId);
         }
         else {
-            return getListByPaging(page, userId);
+            return getList(page, userId);
         }
 
     }
@@ -181,8 +216,12 @@ public class CategoryServiceImpl implements CategoryService{
                 } else {
                     dto.setBookmark(false);
                 }
+
+
             });
         }
+
+        setImages(categorySortingDtos);
 
         categorySortingDtos = categorySortingDtos.stream().sorted(Comparator.comparing(CategorySortingDto::getBookmarkCnt).reversed()).collect(Collectors.toList());
 
