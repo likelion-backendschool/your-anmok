@@ -103,7 +103,7 @@
     <div class="mr-[30px] font-bold mb-[8px] text-[20px]"><a th:href="@{/category/home}">🗂 카테고리</a></div>
 
     <div class="search-div">
-      <form action="/category/home"><fieldset><input class="search-input pl-[10px]" type="search" placeholder="키워드를 입력하세요..." name="keyword"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></fieldset></form>
+      <form action="/category/home"><fieldset><input class="search-input pl-[10px]" type="search" placeholder="키워드를 입력하세요..." name="keyword" th:value="${keyword}"/><button class="search-btn" type="submit"><i class="fa fa-search"></i></button></fieldset></form>
     </div>
 
   </div>
@@ -220,7 +220,7 @@
 
             </div>
 
-            <div sec:authorize="isAuthenticated()" class="justify-center absolute top-[-10%] right-[-10%] px-4 py-2 text-2xl undefined">
+            <div sec:authorize="isAuthenticated()" class="justify-center absolute top-[-3%] right-[-3%] px-4 py-2 text-2xl undefined">
 
                 <th:block th:if="${category.isBookmark() == false}">
                   <a th:href="@{/bookmark/register(categoryId=${category.id}, page=${categories.number}, keyword=${keyword})}">
