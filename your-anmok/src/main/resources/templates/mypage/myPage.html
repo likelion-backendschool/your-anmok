@@ -53,6 +53,75 @@
             width: 300px;
             z-index: 200;
         }
+        .places{
+            font-size: 17px;
+            font-family: 'Cafe24SsurroundAir';
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+        }
+        .places_in{
+            margin: 40px;
+            margin-right: 12px;
+            border: solid 1px #7FD1AE;
+            text-align: center;
+            background: #7FD1AE;
+            border-radius: 10px;
+            color: #ffffff;
+            padding-top: 24px;
+            font-weight: bolder;
+
+        }
+        .bookmark-data{
+            width: auto;
+            margin: 40px;
+            border: solid 1px #7FD1AE;
+            text-align: center;
+            background: #7FD1AE;
+            border-radius: 10px;
+            color: #ffffff;
+            padding-top: 24px;
+            font-weight: bolder;
+
+
+
+        }
+        .places_in2{
+            width: 500px;
+            height: auto;
+            margin: 40px;
+            margin-right: 12px;
+            border: solid 1px #000000;
+            border-radius: 10px;
+            text-align: center;
+            background: #ffffff;
+            border-radius: 10px;
+            color: #000000;
+            padding-top: 30px;
+
+
+        }
+        .places_in:hover {
+            background-color: #00c385;
+            transform: scale(1.3);
+            z-index: 1;
+        }
+        .places_in2:hover {
+            background-color: #ffffff;
+            transform: scale(1.3);
+            z-index: 1;
+        }
+        .bookmark-data:hover {
+            background-color: #00c385;
+            transform: scale(1.1);
+            z-index: 1;
+        }
+        .remove-btn{
+            color : #00c385;
+            font-family: 'Cafe24SsurroundAir';
+            font-size: 17px;
+        }
     </style>
 
 
@@ -60,7 +129,7 @@
 <body>
     <div class="mypage-main">
         <div class="mypage-title">
-            &nbsp;My page🌳
+            &nbsp;Hello My page🌳
         </div>
     </div>
 <form>
@@ -87,13 +156,16 @@
 <div class="bookmark-container"><br>
     <div class="shadow-inner">
     <h2> 📚My Bookmark </h2>
+        <br>
     </div>
 
     <div th:each="category, i : ${categories}">
         <form onsubmit="return confirm('해당 카테고리를 북마크에서 해제하시겠습니까?');" action="/bookmark/removeByMypage" method="post">
+            <div class="bookmark-data">
             <a th:href="@{/category(id=${category.id})}"><div th:text="${category.tagName}"></div></a>
-            <button type="submit" class="remove-btn">삭제</button>
+            <button type="submit" class="remove-btn text-[black]" >삭제</button>
             <input type="hidden" name="categoryId" th:value="${category.id}" th:classappend="category_id" />
+            </div>
         </form>
     </div>
 
@@ -109,12 +181,15 @@
     <div class="shadow-inner">
     <h2> ⌨️ My Gathering </h2>
     </div>
+    <br>
 
     <div class="places">
         <div th:each="gathering,index:${gatheringList}">
+            <div class="places_in">
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
             <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
             <br>
+            </div>
         </div>
     </div>
 
@@ -125,10 +200,13 @@
     <div class="shadow-inner">
     <h2> ⌨️ My Comment </h2>
     </div>
+    <br>
     <div class="places">
         <div th:each="comment : ${commentList}">
-            <a th:href="@{/gathering/{id}(id=${comment.boardId})}"><div th:text="${comment.comment}"></div></a>
+            <div class="places_in2">
+            <a th:href="@{/gathering/{id}(id=${comment.boardId})}"><div th:text="'⏩   '+${comment.comment}"></div></a>
             <br>
+            </div>
         </div>
     </div>
 
