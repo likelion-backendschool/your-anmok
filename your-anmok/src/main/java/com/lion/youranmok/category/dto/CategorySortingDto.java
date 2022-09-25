@@ -32,7 +32,7 @@ public class CategorySortingDto {
         this.totalPlaceCnt = (int) totalPlaceCnt;
         this.existImage = false;
 
-        this.imagePath = "/images/category/%s.jpg".formatted(((int) (Math.random() * 6) + 1));
+        this.imagePath = "/image/category/%s.jpg".formatted(((int) (Math.random() * 6) + 1));
     }
 
 }
