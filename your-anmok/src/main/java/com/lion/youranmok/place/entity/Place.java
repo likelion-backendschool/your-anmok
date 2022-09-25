@@ -20,10 +20,10 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 200)
+    @Column(length = 50)
     private String address;
 
-    @Column(length = 200)
+    @Column(length = 50)
     private String name;
 
     private Integer star;
