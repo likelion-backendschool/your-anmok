@@ -72,6 +72,34 @@
             font-family: 'Cafe24SsurroundAir';
         }
 
+        /*햄버거버튼*/
+        #hamburger_button, #categoryNameTag{
+            background: #7FD1AE;
+            border-color: #7FD1AE;
+            border-right-color: white;
+            text-align: center;
+            padding-left: 7px;
+            padding-right: 7px;
+            height: 50px;
+            color: white;
+            font-size:20px;
+            font-family: 'Cafe24SsurroundAir';
+        }
+
+        /*카테고리명 나오는부분*/
+        #categoryNameTag{
+            margin-right: 3px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            line-height: 50px;
+            white-space: nowrap;
+        }
+
+        #hamburger_button:hover{
+            background-color: #00c385;
+        }
+
+        /*카테고리 카드*/
         #categoryCard {
             all: unset;
             cursor:pointer;
@@ -374,11 +402,10 @@
         <div class="close"></div>
 
         <div id="categoryCard" class="d-flex flex-row btn-group my-3 " role="group">
-            <button id="hamburger_button" type="button" class="categoryBtn btn btn-secondary text-nowrap center-block">
-                <!--                <div class="fas fa-bars fa-2x"></div>-->
+            <button id="hamburger_button" type="button">
                 <i class="fas fa-bars fa-2x"></i>
             </button>
-            <button type="button" class="categoryBtn btn btn-secondary text-nowrap mr-3"  th:text="${categoryName}"></button>
+            <div id="categoryNameTag" th:text="${categoryName}"></div>
         </div>
 
         <input type="hidden" id="isAuthorized" th:value="${#authentication.getPrincipal() != 'anonymousUser'}?'Y':'N'"/>
