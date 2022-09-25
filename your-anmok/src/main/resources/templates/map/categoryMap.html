@@ -52,9 +52,11 @@
         <button id="makeMyCategory" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
 
         <div id="category_item_list_wrap">
-            <ul id="placeList" class="scrollbar">
+            <ul id="placeList">
                 <div class="recommendedTitle">추천장소</div>
+                <div id="list_item_container" class="scrollbar">
 
+                </div>
             </ul>
         </div>
 
@@ -163,7 +165,7 @@
         slide.reloadSlider();
     };
 
-    let placeList = document.getElementById('placeList');
+    let listItemContainer = document.getElementById('list_item_container');
 
     // 주소로 좌표를 검색한다. 테이블 주소 -> 좌표 -> 지도에 마커로 표시
     for (let i =0;i<allPlaceList.length;i++) {
@@ -177,11 +179,8 @@
                 position: coords
             });
 
-
-
-            kakao.maps.event.addListener(marker, 'click', function (){
-               // location.href="/place/"+allPlaceList[i].id+"#load";
-
+            // 팝업 띄우는 함수
+            function popUpPlaceDetail (){
                 $("#detail_popup_layer").modal('show');
 
                 $.ajax({
@@ -268,19 +267,25 @@
                         slider();
                     }
                 });
+            }
 
-            });
+            // let content = '<div class="customoverlay">' +
+            //
+            //     '   <span class="title">'+allPlaceList[i].name+'</span>' +
+            //
+            //     '</div>';
 
-            let content = '<div class="customoverlay">' +
+            // 마커의 이름을 보여주는 커스텀 오버레이 생성
+            let customoverlay =document.createElement("div");
+            customoverlay.setAttribute("class","bg-[#FFF] customoverlay")
+            let content = '<span class="title" id="customoverlay_title">'+allPlaceList[i].name+'</span>';
 
-                '   <span class="title">'+allPlaceList[i].name+'</span>' +
-
-                '</div>';
+            customoverlay.innerHTML=content;
 
             let customOverlay = new kakao.maps.CustomOverlay({
                 map:map,
                 position: coords,
-                content:content,
+                content: customoverlay,
                 yAnchor:0.2
             });
 
@@ -293,7 +298,14 @@
 
 
             listItem.innerHTML=item;
-            placeList.appendChild(listItem);
+            listItemContainer.appendChild(listItem);
+
+            // 마커 클릭시 상세 정보 팝업 생성
+            kakao.maps.event.addListener(marker, 'click', popUpPlaceDetail);
+
+            // 리스트 아이템 클릭시 상세 정보 팝업 생성
+            listItem.addEventListener('click', popUpPlaceDetail);
+
 
 
             (function(map, marker, customOverlay, listItem) {
@@ -308,11 +320,15 @@
                     listItem.classList.remove('bg-[#7FD1AE]');
                 });
 
-                listItem.onmouseover = function (){
-                }
+                listItem.addEventListener('mouseover',function (){
+                    customoverlay.classList.remove('bg-[#FFF]');
+                    customoverlay.classList.add('bg-[#7FD1AE]');
+                });
 
-                listItem.onmouseout = function (){
-                }
+                listItem.addEventListener('mouseout',function (){
+                    customoverlay.classList.remove('bg-[#7FD1AE]');
+                    customoverlay.classList.add('bg-[#FFF]');
+                });
 
             })(map, marker, customOverlay, listItem);
 
