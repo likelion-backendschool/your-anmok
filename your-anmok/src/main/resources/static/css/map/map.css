@@ -257,6 +257,7 @@ ol, ul {
 .customoverlay {
     position:relative;
     bottom:85px;
+    border-radius: 10px;
 }
 /*.customoverlay:nth-of-type(n) {*/
 /*    border: 0;*/
@@ -265,7 +266,6 @@ ol, ul {
 .customoverlay .title {
     display:block;
     text-align:center;
-    background:#fff;
     padding:10px 15px;
     font-size:14px;
     font-weight:bold;
