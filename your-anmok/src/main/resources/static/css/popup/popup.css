@@ -97,14 +97,22 @@ body{
 .usr_img{
     width:280px;
     height:200px;
+    border-radius: 10px;
 }
 
 .slidecontainer{
     width:895px;
     height:210px;
     position: relative;
+    outline-color: #7FD1AE;
+    outline-style: solid;
+    outline-width: 2px;
+    border-radius: 10px;
 }
 
+.bx-wrapper{
+    border-radius: 10px;
+}
 
 /*별점, 번개 박스*/
 .inner_contents_box{
@@ -264,4 +272,11 @@ body{
 
 .gathingTitleBtn, .gathingTitleBtn:hover{
     display: block;
+}
+
+#noImageInfo{
+    height:210px;
+    width: 100%;
+    line-height: 210px;
+    text-align: center;
 }

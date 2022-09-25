@@ -26,7 +26,7 @@ public class PlaceService {
             return place.get();
         }
         else{
-            throw new DataNotFoundException("question not found");
+            throw new DataNotFoundException("place not found");
         }
     }
 
