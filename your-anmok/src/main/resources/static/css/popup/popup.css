@@ -105,7 +105,6 @@ body{
     position: relative;
 }
 
-
 /*별점, 번개 박스*/
 .inner_contents_box{
     width:445px;
@@ -264,4 +263,11 @@ body{
 
 .gathingTitleBtn, .gathingTitleBtn:hover{
     display: block;
+}
+
+#noImageInfo{
+    height:210px;
+    width: 100%;
+    line-height: 210px;
+    text-align: center;
 }

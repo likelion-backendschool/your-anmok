@@ -256,6 +256,9 @@
                                 ul += `    </tr>`;
                                 ul += `</ul>`;
                             }
+                            else{
+                                ul += `<div id="noImageInfo">등록된 사진이 없습니다</div>`;
+                            }
                             document.getElementById("place_info_imageList").innerHTML=ul;
                         }
 
