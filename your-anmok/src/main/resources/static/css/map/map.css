@@ -32,6 +32,7 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     line-height: 50px;
+    white-space: nowrap;
 }
 
 #hamburger_button:hover{
