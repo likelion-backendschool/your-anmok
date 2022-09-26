@@ -66,6 +66,7 @@ public class CategoryController {
 
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/add")
     public String showAddCategory(Model model){
         List<CategoryDto> categoryList = categoryService.findAll();
