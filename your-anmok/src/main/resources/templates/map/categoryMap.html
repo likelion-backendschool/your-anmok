@@ -49,7 +49,15 @@
             <button id="addPlaceinCategory" type="submit">현재 카테고리에 장소 추가하기</button>
         </form>
 
-        <button id="makeMyCategory" onclick="location.href='/category/add'">나만의 카테고리 만들기</button>
+        <button id="makeMyCategory">나만의 카테고리 만들기</button>
+
+        <div sec:authorize="isAnonymous()">
+            <input type="hidden" class="isLogin" value="false">
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <input type="hidden" class="isLogin" value="true">
+        </div>
 
         <div id="category_item_list_wrap">
             <ul id="placeList">
@@ -374,7 +382,7 @@
     </div>
 </div>
 </body>
-<script>
 
-</script>
+<script src="/js/category/login.js"></script>
+
 </html>

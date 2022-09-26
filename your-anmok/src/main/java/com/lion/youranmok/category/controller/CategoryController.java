@@ -14,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,6 +78,7 @@ public class CategoryController {
     /**
      * 카테고리 추가하는 메서드
      */
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/add")
     public String addCategory(String categoryName) {
 
