@@ -76,6 +76,9 @@ h1{
     background: #00C385;
     border-radius: 25px;
 }
+.rightkakao{
+    float: right;
+}
 
 form {
     font-family: Cafe24SsurroundAir;
