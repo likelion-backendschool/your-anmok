@@ -355,20 +355,21 @@
 
     }
 
-        function locationLoadSuccess(pos) {
-            let currentPos = new kakao.maps.LatLng(
-                pos.coords.latitude,
-                pos.coords.longitude
-            );
+    function locationLoadSuccess(pos) {
+        let currentPos = new kakao.maps.LatLng(
+            pos.coords.latitude,
+            pos.coords.longitude
+        );
 
-            map.panTo(currentPos);
-            map.setLevel(4);
-        }
+        map.setLevel(4);
+        map.panTo(currentPos);
 
-        function getCurrentPosBtn() {
-            navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
-            console.log("현재위치 버튼 클릭됨");
-        }
+    }
+
+    function getCurrentPosBtn() {
+        navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
+        console.log("현재위치 버튼 클릭됨");
+    }
 
 </script>
 
