@@ -299,10 +299,8 @@ ol, ul {
     height: 70%;
 }
 
-.list_item{
-    display: flex !important;
-    flex-direction: column;
-    margin-right: 5px !important;
+.listItem{
+    cursor: pointer;
 }
 
 .list_item_name{
