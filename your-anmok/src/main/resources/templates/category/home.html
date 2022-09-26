@@ -85,7 +85,7 @@
     <div id="header-button" class="flex justify-end ">
       <!--TODO 헤더로 따로 분리 필요 -->
       <div sec:authorize="!isAuthenticated()">
-        <button class="px-[20px] py-[10px] bg-[#00C385] rounded-[25px] text-[white]"><a href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code">로그인</a></button>
+        <a sec:authorize="isAnonymous()" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
       </div>
 
       <div sec:authorize="isAuthenticated()">
