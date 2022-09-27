@@ -3,7 +3,7 @@
         form.placeName.value = form.placeName.value.trim();
 
         if ( form.placeName.value.length == 0 ) {
-            alert("장소명를 입력해주세요.");
+            swal("장소명를 입력해주세요.");
             form.placeName.focus();
             return;
         }
@@ -11,7 +11,7 @@
         form.address.value = form.address.value.trim();
 
         if ( form.address.value.length == 0 ) {
-            alert("주소를 입력해주세요.");
+            swal("주소를 입력해주세요.");
             form.address.focus();
             return;
         }
@@ -19,7 +19,7 @@
         form.categorySelect.value = form.categorySelect.value.trim();
 
         if ( form.categorySelect.value.length == 0 ) {
-            alert("카테고리를 선택해주세요.");
+            swal("카테고리를 선택해주세요.");
             form.categorySelect.focus();
             return;
         }

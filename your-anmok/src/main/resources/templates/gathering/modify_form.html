@@ -8,6 +8,10 @@
     <!--    폰트 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
     <link rel="stylesheet" type="text/css" href="/css/gathering/create.css">
+
+    <!-- alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/alert/alert.css">
 </head>
 <body>
 
@@ -85,7 +89,8 @@
             },
             success : function(data){
                 if(data.dataList.length == 0) {
-                    alert("검색 결과가 없습니다.");
+                    swal("검색 결과가 없습니다.");
+                    setTimeout(function(){}, 2000);
                 } else {
                     $('#place').empty();
                     $('#place').append("<option value=''>선택</option>");
@@ -102,38 +107,38 @@
         form.title.value = form.title.value.trim();
 
         if (form.title.value.length == 0) {
-            alert("제목을 입력해주세요.");
+            swal("제목을 입력해주세요.");
             form.title.focus();
             return;
         }
 
 
         if (form.gatherCnt.value.length == 0 || form.gatherCnt.value < 1) {
-            alert("현재인원 입력란을 확인해주세요");
+            swal("현재인원 입력란을 확인해주세요");
             form.gatherCnt.focus();
             return;
         }
 
         if (form.totalCnt.value.length == 0 || form.totalCnt.value < 1) {
-            alert("총인원 입력란을 확인해주세요");
+            swal("총인원 입력란을 확인해주세요");
             form.gatherCnt.focus();
             return;
         }
 
         if (form.gatherCnt.value > form.totalCnt.value) {
-            alert("모집인원이 현재인원보다 클 수 없습니다.");
+            swal("모집인원이 현재인원보다 클 수 없습니다.");
             form.gatherCnt.focus();
             return;
         }
 
         if(form.date.value < new Date()) {
-            alert("현재 날짜보다 이전의 날짜를 지정할 수 없습니다.");
+            swal("현재 날짜보다 이전의 날짜를 지정할 수 없습니다.");
             form.date.focus();
             return;
         }
 
         if(form.placeId.value.length == 0) {
-            alert("장소를 선택해주세요.");
+            swal("장소를 선택해주세요.");
             form.placeId.focus();
             return;
         }
@@ -141,7 +146,7 @@
         form.content.value = form.content.value.trim();
 
         if (form.content.value.length == 0) {
-            alert("내용을 입력해주세요.");
+            swal("내용을 입력해주세요.");
             form.content.focus();
             return;
         }
