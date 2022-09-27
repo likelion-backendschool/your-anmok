@@ -89,7 +89,7 @@
                 <div class="d-flex flex-row justify-between">
                     <a class="h3" href="/">당신의 안목 👀</a>
                         <form action="/auth/loginProc" method="post">
-                            <a sec:authorize="isAnonymous()" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
+                            <a sec:authorize="isAnonymous()" href="https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://your-anmok.site:8080/auth/kakao/callback&response_type=code"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
                             <div class="btn btn-warning" sec:authorize="isAuthenticated()"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></div>
                         </form>
                 </div>
