@@ -3,6 +3,8 @@
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.22.0/dist/full.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 <link rel="stylesheet" type="text/css" href="/css/gathering/create.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/alert/alert.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <head>
     <meta charset="UTF-8">
@@ -177,7 +179,7 @@
         <br>
     </div>
     <div class ="centerpick" th:each="category, i : ${categories}">
-        <form onsubmit="return confirm('해당 카테고리를 북마크에서 해제하시겠습니까?');" action="/bookmark/removeByMypage" method="post">
+        <form onsubmit="confirmFormAlert(this); return false" action="/bookmark/removeByMypage" method="post">
             <div class="bookmark-data">
                 <div class="datafont_size">
                     <a th:href="@{/category(id=${category.id})}"><div th:text="${category.tagName}"></div></a>
@@ -229,6 +231,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script src="/js/category/member.js">
+</script>
+
+<script>
+    const confirmFormAlert = async function (form) {
+        const sweetConfirm = await swal({
+            text: '해당 북마크를 해제하시겠습니까?',
+            buttons: true,
+        });
+        if (sweetConfirm) {
+            form.submit();
+        }
+        return sweetConfirm;
+    };
+
 </script>
 
 </body>

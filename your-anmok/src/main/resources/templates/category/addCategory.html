@@ -12,6 +12,10 @@
             crossorigin="anonymous"></script>
     <!--CSS파일-->
     <link rel="stylesheet" type="text/css" href="/css/category/addCategory.css">
+
+    <!-- alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/alert/alert.css">
 </head>
 <body>
 <script>
@@ -19,7 +23,7 @@
         form.categoryName.value = form.categoryName.value.trim();
 
         if (form.categoryName.value.length == 0) {
-            alert("카테고리를 입력해주세요.");
+            swal("카테고리를 입력해주세요.");
             form.categoryName.focus();
             return;
         }

@@ -34,6 +34,10 @@
     <!--CSS파일-->
     <link rel="stylesheet" type="text/css" href="/css/popup/popup.css">
     <link rel="stylesheet" type="text/css" href="/css/map/map.css">
+
+    <!-- alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/alert/alert.css">
 </head>
 
 <body>
@@ -44,9 +48,9 @@
             <i class="fas fa-crosshairs fa-2x"></i>
         </button>
 
-        <form th:action="@{/searchMap}" id="searchMapFormByCategoryId">
+        <form id="searchMapFormByCategoryId">
             <input type="text" name="categoryId" th:value="${categoryId}" id="searchMapButtonByCategoryId" size="15" style="display: none;" />
-            <button id="addPlaceinCategory" type="submit">현재 카테고리에 장소 추가하기</button>
+            <button id="addPlaceinCategory" type="button">현재 카테고리에 장소 추가하기</button>
         </form>
 
         <button id="makeMyCategory">나만의 카테고리 만들기</button>

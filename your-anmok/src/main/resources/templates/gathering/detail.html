@@ -7,6 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!--    폰트 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
+    <!-- alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/alert/alert.css">
 </head>
 <body>
 
@@ -24,10 +28,10 @@
                            sec:authorize="isAuthenticated()"
                            th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
                            th:text="수정"></a>
-                        <a th:href="@{|/gathering/delete/${id}|}" class="btn btn-sm btn-outline-secondary"
+                        <a class="btn btn-sm btn-outline-secondary"
                            sec:authorize="isAuthenticated()"
                            th:if="${#authentication.getPrincipal().getId() == detailList.getUserId()}"
-                           onClick="if(!confirm('정말로 삭제하시겠습니까?')) return false;" th:text="삭제"></a>
+                           th:onClick="confirmFormAlert(this, [[${id}]])" th:text="삭제"></a>
                     </div>
                 </div>
 
@@ -73,7 +77,7 @@
                                         <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
                                              sec:authorize="isAuthenticated()"
                                              th:if="${#authentication.getPrincipal().getId() == comment.userId}"
-                                             th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${comment.commentId}]])">삭제</div>
+                                             th:onclick="deleteConfirm([[${id}]],[[${comment.commentId}]])">삭제</div>
                                     </div>
                                 </div>
                                 <div th:id="|modify-${comment.commentId}|" class="d-none m-2 justify-content-between ">
@@ -115,7 +119,8 @@
                                             <div class="btn bg-light text-dark btn-sm text-start rounded-pill"
                                                  sec:authorize="isAuthenticated()"
                                                  th:if="${#authentication.getPrincipal().getId() == reply.userId}"
-                                                 th:onclick="if(confirm('정말로 삭제하시겠습니까?')) deleteById([[${id}]],[[${reply.commentId}]])">삭제</div>
+                                                 th:onclick="deleteConfirm([[${id}]], [[${reply.commentId}]])">삭제</div>
+                                            <!-- deleteById([[${id}]],[[${reply.commentId}]]) -->
                                         </div>
                                     </div>
                                     <div th:id="|modify2-${reply.commentId}|" class="d-none m-2 justify-content-between ">
@@ -188,7 +193,7 @@
     </div>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0faeb3dc4793a50259747d85fd7d9a89"></script>
-<script>
+<script th:inline="javascript">
     var lat = [[${detailList.getLat()}]];
     var lon = [[${detailList.getLon()}]];
 
@@ -302,13 +307,60 @@
             url : reqUrl,
 
             success : function(){
-                alert('댓글이 삭제되었습니다.');
-                location.reload();
+                alertCustom('댓글이 삭제되었습니다.');
+                setTimeout(function(){location.reload();}, 3000);
+
+                // location.reload();
             }, error(){
-                alert('ajax 실패')
+                alertCustom('ajax 실패')
+                setTimeout(function(){location.reload();}, 3000);
+
             }
         })
     }
+
+    const alertCustom = function (text) {
+
+        swal({
+            text: text,
+        }).then(value => {
+            if (value) {
+                location.reload();
+            }
+        });
+
+    };
+
+    const confirmFormAlert = function (form, id) {
+
+        event.preventDefault();
+
+        const sweetConfirm = swal({
+            text: '정말로 삭제하시겠습니까?',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                location.href = "/gathering/delete/" + id;
+            }
+            else {
+                swal.close();
+            }
+        });
+    };
+
+    function deleteConfirm(id, commentId) {
+        swal({
+            text: '정말로 삭제하시겠습니까?',
+            buttons: true,
+        }).then((result) => {
+            if (result) {
+                deleteById(id, commentId);
+            }
+            else {
+                swal.close();
+            }
+        });
+    };
 </script>
 </body>
 <head>

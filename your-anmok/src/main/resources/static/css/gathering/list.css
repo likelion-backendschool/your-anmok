@@ -304,6 +304,10 @@ html > body .categoryBtn {
     font-family: 'Cafe24SsurroundAir';
 }
 
+.left_sub_menu .sub_menu .menu_name {
+    font-family: 'Cafe24SsurroundAir';
+}
+
 
 html > body .categoryBtn:hover {
     /*all: unset;*/

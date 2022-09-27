@@ -5,6 +5,7 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
 <link href="/css/category/home.css" rel="stylesheet">
 
 
@@ -54,7 +55,7 @@
     <div class="left_sub_menu">
       <div class="sub_menu">
         <div class="flex flex-row justify-between">
-          <a class="text-3xl" href="/">당신의 안목 👀</a>
+          <a class="text-[1.725rem] mb-[8px]" href="/">당신의 안목 👀</a>
         </div>
         <ul class="big_menu">
           <li><a href="/">🗺 지도보기</a></li>
@@ -186,11 +187,11 @@
       <div class="tag-name shadow-lg rounded-2xl p-4 bg-[#e8f8f5] mt-[20px] relative overflow-hidden mb-[15px] hover:bg-[#7FD1AE]" th:each="gathering : ${gatheringList}">
         <a class="w-4/6" th:href="@{/gathering/{id}(id=${gathering.boardId})}">
           <p class="text-gray-800 text-lg font-bold mb-2">🛖 [[${gathering.PlaceName}]]</p>
-          <p class="text-gray-500 text-xm ">💬 [[${gathering.title}]]</p>
+          <p class="text-gray-500 text-xm ">✏️ [[${gathering.title}]]</p>
           <p class="text-[#00C385] text-xm font-bold">🗓 [[${gathering.gatheringDate}]]</p>
 
-          <button type="button" class="absolute top-[5%] right-[2%] w-5 h-5 text-base  rounded-full text-white bg-[#00C385]">
-            <span class="text-xs" th:text="${gathering.commentCnt}">
+          <button type="button" class="absolute top-[5%] right-[2%] text-base p-[4px]  rounded-full text-white bg-[#00C385]">
+            <span class="text-xs">[[${gathering.commentCnt}]]  💬
             </span>
           </button>
 
