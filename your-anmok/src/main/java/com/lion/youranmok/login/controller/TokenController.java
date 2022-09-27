@@ -18,11 +18,6 @@ public class TokenController {
         return "/auth/kakao/callback";
         }
 
-    @GetMapping("/logout")
-    public String logout() {
-        return "/";
-    }
-
     @GetMapping("/auth/kakao/callback")
     public String kakaoCallback(String code) throws JsonProcessingException {
         kakaoService.kakaoToken(code);
