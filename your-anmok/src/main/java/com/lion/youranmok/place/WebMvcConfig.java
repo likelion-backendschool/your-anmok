@@ -9,12 +9,14 @@ import java.io.File;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
+    //String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
 
+    @Value("${custom.genFileDirPath}")
+    private String genFileDirPath;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/placeimg/**")
-                .addResourceLocations("file:///" + absolutePath + "/");
+                .addResourceLocations("file:///" + genFileDirPath + "/");
     }
 }
