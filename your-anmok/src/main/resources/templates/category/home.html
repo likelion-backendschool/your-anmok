@@ -84,7 +84,6 @@
 
     <!-- header button(로그인, 로그아웃, 회원가입, 마이페이지 버튼 표시) -->
     <div id="header-button" class="flex justify-end ">
-      <!--TODO 헤더로 따로 분리 필요 -->
       <div sec:authorize="!isAuthenticated()">
         <a sec:authorize="isAnonymous()" th:href="|https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}&response_type=code|"><img width="70px" height="50px" src="/image/KakaoLoginBtn.jpg"></a>
       </div>
@@ -126,7 +125,6 @@
 
       <div class="category-div relative h-[200px] w-[250px] mx-[15px] my-[15px] rounded-[15px] tag_name bg-[#e8f8f5] shadow-lg overflow-hidden" th:each="category : ${categories}">
         <a th:href="@{/category(id=${category.id})}">
-          <!-- TODO image 부분 일부 키워드에 따라 사진 표시되게 구현 -->
           <img class="category-img h-[100%] w-[100%] rounded-[15px] opacity-60 align-middle"
                th:src="${category.getImagePath()}" alt="카테고리 사진">
           <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
@@ -214,8 +212,6 @@
             <div class="text-center absolute w-[100%] top-[50%] left-[0] translate-y-[-50%]">
               <div class="m-[10px] font-bold">[[${category.tagName}]]</div>
               <div class="place-cnt m-[10px] font-bold hidden">[[${category.totalPlaceCnt}]]개의 장소</div>
-
-              <!-- TODO 장소 개수 필요 -->
 
               <input type="hidden" value="${category.id}" >
 
