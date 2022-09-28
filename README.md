@@ -31,11 +31,11 @@
 
 <div align="center">
 
-<img width="500" alt="스크린샷 2022-09-29 오전 12 47 22" src="https://user-images.githubusercontent.com/80939285/192825559-50e3d084-4a80-46c0-a0a5-e8fdd9edb61a.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 47 22" src="https://user-images.githubusercontent.com/80939285/192825559-50e3d084-4a80-46c0-a0a5-e8fdd9edb61a.png">
 
-<img width="500" alt="스크린샷 2022-09-29 오전 12 48 42" src="https://user-images.githubusercontent.com/80939285/192825910-72d8b8b7-c1ae-4307-aadd-11a986380b2d.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 48 42" src="https://user-images.githubusercontent.com/80939285/192825910-72d8b8b7-c1ae-4307-aadd-11a986380b2d.png">
   
-<img width="500" alt="스크린샷 2022-09-29 오전 1 11 42" src="https://user-images.githubusercontent.com/80939285/192831317-a23a6a50-0848-4a28-95ed-0775d408b27b.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 1 11 42" src="https://user-images.githubusercontent.com/80939285/192831317-a23a6a50-0848-4a28-95ed-0775d408b27b.png">
 
 
 </div>
@@ -51,11 +51,11 @@
 
 <div align="center">
 
-<img width="500" alt="스크린샷 2022-09-29 오전 12 49 35" src="https://user-images.githubusercontent.com/80939285/192826109-bd3e701a-a070-4151-9634-e6efa55b1fe7.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 49 35" src="https://user-images.githubusercontent.com/80939285/192826109-bd3e701a-a070-4151-9634-e6efa55b1fe7.png">
   
-<img width="500" alt="스크린샷 2022-09-29 오전 12 37 11" src="https://user-images.githubusercontent.com/80939285/192823271-e41bb13a-1a47-445d-bb4f-2da39201ad3d.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 37 11" src="https://user-images.githubusercontent.com/80939285/192823271-e41bb13a-1a47-445d-bb4f-2da39201ad3d.png">
   
-<img width="500" alt="스크린샷 2022-09-29 오전 12 53 22" src="https://user-images.githubusercontent.com/80939285/192826939-d92e3a49-fdf9-40ad-aa69-c954a6a20808.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 53 22" src="https://user-images.githubusercontent.com/80939285/192826939-d92e3a49-fdf9-40ad-aa69-c954a6a20808.png">
 
 </div>
 
@@ -69,9 +69,9 @@
 
 <div align="center">
 
-<img width="500" alt="스크린샷 2022-09-29 오전 12 44 17" src="https://user-images.githubusercontent.com/80939285/192824865-ff1d7564-2c8e-4560-a72a-005a3b454dcc.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 44 17" src="https://user-images.githubusercontent.com/80939285/192824865-ff1d7564-2c8e-4560-a72a-005a3b454dcc.png">
   
-<img width="500" alt="스크린샷 2022-09-29 오전 1 08 13" src="https://user-images.githubusercontent.com/80939285/192830504-5f222b94-8426-4c9d-94a1-6d6942ed4204.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 1 08 13" src="https://user-images.githubusercontent.com/80939285/192830504-5f222b94-8426-4c9d-94a1-6d6942ed4204.png">
 
 </div>
 
@@ -86,9 +86,9 @@
 
 <div align="center">
 
-<img width="500" alt="스크린샷 2022-09-29 오전 12 27 59" src="https://user-images.githubusercontent.com/80939285/192821229-0d4fe8da-9f3b-40ff-b018-dca784e44801.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 27 59" src="https://user-images.githubusercontent.com/80939285/192821229-0d4fe8da-9f3b-40ff-b018-dca784e44801.png">
 
-<img width="500" alt="스크린샷 2022-09-29 오전 12 30 36" src="https://user-images.githubusercontent.com/80939285/192821529-114baee8-dcb5-4d90-8a8c-71554d44b641.png">
+<img width="300" alt="스크린샷 2022-09-29 오전 12 30 36" src="https://user-images.githubusercontent.com/80939285/192821529-114baee8-dcb5-4d90-8a8c-71554d44b641.png">
 
 </div>
 
