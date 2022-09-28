@@ -43,7 +43,7 @@ public class MyPageController {
         model.addAttribute("gatheringList", myGatheringList);
         model.addAttribute("commentList", myCommentList);
 
-        return "/mypage/myPage";
+        return "mypage/myPage";
 
     }
 
