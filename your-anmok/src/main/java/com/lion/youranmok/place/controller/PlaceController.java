@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,11 @@ public class PlaceController {
     private final GatheringService gatheringService;
     private final PlaceCategoryMapService placeCategoryMapService;
 
+    @Value("${Kakao_Client}")
+    private String Kakao_Client;
+    @Value("${Kakao_Callback}")
+    private String Kakao_Callback;
+
     @GetMapping("/")
     public String home(Model model){
         Integer mostPopularCategoryId = 1;
@@ -55,6 +61,8 @@ public class PlaceController {
         model.addAttribute("allPlaceList",categoryPlaceList);
         model.addAttribute("categoryId",mostPopularCategoryId);
         model.addAttribute("categoryName", category.getTagName());
+        model.addAttribute("callbackUrl", Kakao_Callback);
+        model.addAttribute("clientId", Kakao_Client);
 
         return "map/categoryMap";
 
@@ -147,6 +155,8 @@ public class PlaceController {
         model.addAttribute("categoryName", category.getTagName());
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("categoryObject",category);
+        model.addAttribute("clientId", Kakao_Client);
+        model.addAttribute("callbackUrl", Kakao_Callback);
 
         return "map/searchMap";
     }

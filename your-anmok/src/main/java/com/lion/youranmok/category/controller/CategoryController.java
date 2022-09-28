@@ -11,6 +11,7 @@ import com.lion.youranmok.user.entity.User;
 import com.lion.youranmok.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,11 @@ public class CategoryController {
     private final GatheringService gatheringService;
 
     private final UserService userService;
+
+    @Value("${Kakao_Client}")
+    private String Kakao_Client;
+    @Value("${Kakao_Callback}")
+    private String Kakao_Callback;
 
     /**
      * url 접속시 초기 화면
@@ -57,6 +63,8 @@ public class CategoryController {
         model.addAttribute("recommendCategories", recommendCategories);
         model.addAttribute("categories", categories);
         model.addAttribute("gatheringList", gatheringPreviewList);
+        model.addAttribute("callbackUrl", Kakao_Callback);
+        model.addAttribute("clientId", Kakao_Client);
 
         return "category/home";
 

@@ -16,6 +16,7 @@ import com.lion.youranmok.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -51,6 +52,11 @@ public class GatheringListController {
 
     private final UserService userService;
 
+    @Value("${Kakao_Client}")
+    private String Kakao_Client;
+    @Value("${Kakao_Callback}")
+    private String Kakao_Callback;
+
 
     @GetMapping("/list")
     public String getList(@AuthenticationPrincipal MemberContext member, Model model, @ModelAttribute GatheringListCriteria criteria) {
@@ -62,6 +68,8 @@ public class GatheringListController {
 
         model.addAttribute("categoryList", categoryList);
         model.addAttribute("gatheringList", gatheringBoardList);
+        model.addAttribute("callbackUrl", Kakao_Callback);
+        model.addAttribute("clientId", Kakao_Client);
 
         return "gathering/list";
     }
