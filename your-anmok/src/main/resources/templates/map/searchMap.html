@@ -95,6 +95,10 @@
             white-space: nowrap;
         }
 
+        #categoryNameTag:hover{
+            background: #00c385;
+        }
+
         #hamburger_button:hover{
             background-color: #00c385;
         }
@@ -398,7 +402,8 @@
             <input type="hidden" class="isLogin" value="true">
         </div>
 
-        <button id="backButton" onclick="location.href='/'">이전 페이지</button>
+
+        <button id="backButton" th:onclick="'location.href=\''+@{/category?id={id}(id=${categoryId})}+'\''">카테고리 지도보기</button>
 
         <div id="search_wrap" class="bg_white" style="position: absolute; z-index: 90;">
             <div class="option">
@@ -423,7 +428,8 @@
             <button id="hamburger_button" type="button">
                 <i class="fas fa-bars fa-2x"></i>
             </button>
-            <div id="categoryNameTag" th:text="${categoryName}"></div>
+            <button id="categoryNameTag" th:onclick="'location.href=\''+@{/category?id={id}(id=${categoryId})}+'\''" th:text="${categoryName}">이전 페이지</button>
+<!--            <div id="categoryNameTag" th:text="${categoryName}"></div>-->
         </div>
 
         <input type="hidden" id="isAuthorized" th:value="${#authentication.getPrincipal() != 'anonymousUser'}?'Y':'N'"/>

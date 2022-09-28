@@ -155,6 +155,7 @@ public class PlaceController {
         model.addAttribute("categoryName", category.getTagName());
         model.addAttribute("categoryList",categoryList);
         model.addAttribute("categoryObject",category);
+        model.addAttribute("categoryId", category.getId());
         model.addAttribute("clientId", Kakao_Client);
         model.addAttribute("callbackUrl", Kakao_Callback);
 

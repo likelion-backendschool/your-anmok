@@ -317,13 +317,13 @@ ol, ul {
 
 .recommendedTitle{
     width: 240px;
-    height: 60px;
+    height: 40px;
     border-radius: 10px;
     background-color: #7FD1AE;
     text-align: center;
     font-size: 18px;
     color: white;
-    line-height: 50px;
+    line-height: 40px;
     font-family: 'Cafe24Ssurround';
 }
 
