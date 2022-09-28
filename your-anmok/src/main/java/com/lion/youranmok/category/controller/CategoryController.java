@@ -51,18 +51,14 @@ public class CategoryController {
         List<GatheringPreviewDto> gatheringPreviewList = gatheringService.getPreview();
         Page<CategorySortingDto> categories = categoryService.getCategories(page, keyword, userId);
 
-        System.out.println("categories = " + categories.toList());
-
         List<CategorySortingDto> recommendCategories = categoryService.getRecommendCategories(userId);
-
-        System.out.println("recommendCategories = " + recommendCategories);
 
         model.addAttribute("keyword", keyword);
         model.addAttribute("recommendCategories", recommendCategories);
         model.addAttribute("categories", categories);
         model.addAttribute("gatheringList", gatheringPreviewList);
 
-        return "/category/home";
+        return "category/home";
 
     }
 
@@ -72,7 +68,7 @@ public class CategoryController {
         List<CategoryDto> categoryList = categoryService.findAll();
         model.addAttribute("categoryList",categoryList);
 
-        return "/category/addCategory";
+        return "category/addCategory";
     }
 
 
@@ -91,7 +87,6 @@ public class CategoryController {
         Integer categoryid = categoryService.addCategory(categoryService.entityToDto(category));
         //이미 등록된 카테고리의 id 가져오기
         if(categoryid==0){
-            System.out.println(categoryName);
             categoryid = categoryService.getCategoryByTagName(categoryName).getId();
         }
 

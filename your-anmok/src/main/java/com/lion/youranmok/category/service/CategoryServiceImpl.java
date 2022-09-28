@@ -143,7 +143,6 @@ public class CategoryServiceImpl implements CategoryService{
 
                     dto.setImagePath("/placeimg/" + placeImages.get(index).getFilePath());
 
-                    System.out.println("dto = " + dto);
                     break;
                 }
 
@@ -246,7 +245,6 @@ public class CategoryServiceImpl implements CategoryService{
     public Category getCategoryByTagName(String tagName) {
         String newtagName = tagName.replaceAll("#", "");
         tagName = "#"+newtagName;
-        System.out.println(tagName);
         return categoryRepository.getCategoryByTagName(tagName);
     }
 

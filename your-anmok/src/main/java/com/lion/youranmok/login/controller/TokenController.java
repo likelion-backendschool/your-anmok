@@ -21,6 +21,6 @@ public class TokenController {
     @GetMapping("/auth/kakao/callback")
     public String kakaoCallback(String code) throws JsonProcessingException {
         kakaoService.kakaoToken(code);
-        return "redirect:/";
+        return "redirect:/category/home";
     }
 }

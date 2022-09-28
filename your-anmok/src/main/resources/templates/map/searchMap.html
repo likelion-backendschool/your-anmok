@@ -511,7 +511,7 @@
 
     function getCurrentPosBtn() {
         navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
-        console.log("현재위치 버튼 클릭됨");
+        // console.log("현재위치 버튼 클릭됨");
     }
 
     function closePopup(){
@@ -532,9 +532,9 @@
     function selectPopUpPlace(places,name,address){
         // $("#addPlace_popup_layer #place-name").text(name);
         // $("#addPlace_popup_layer #place-address").text(address);
-        console.log("id값은"+$(places).data('id'));
-        console.log("lat값은 : "+$(places).data('lat'));
-        console.log("lon값은 : "+$(places).data('lon'));
+        // console.log("id값은"+$(places).data('id'));
+        // console.log("lat값은 : "+$(places).data('lat'));
+        // console.log("lon값은 : "+$(places).data('lon'));
 
 
         $('input[id=place-name]').attr('value',name);
@@ -544,7 +544,7 @@
 
 
         // $('#popup_box2').modal('show');
-        console.log("팝업 버튼 클릭!" + name + address);
+        // console.log("팝업 버튼 클릭!" + name + address);
     }
 
     // 키워드로 장소를 검색
@@ -563,14 +563,14 @@
             location: new kakao.maps.LatLng(37.550929, 126.990940),
             bounds: bounds,
         }); // keyword = 해운대맛집 => keywordSearch("해운대맛집",placeSearchCB);
-        console.log("ps.keywordSearch 작동중")
+        // console.log("ps.keywordSearch 작동중")
     }
 
     // 키워드로 검색 완료시 호출되는 콜백함수
     function placesSearchCB(data, status, pagination){
-        console.log("placeSearhCB들어옴")
+        // console.log("placeSearhCB들어옴")
         if(status === kakao.maps.services.Status.OK){
-            console.log("placeSearchCB status 일치");
+            // console.log("placeSearchCB status 일치");
             // 검색된 장소 위치를 기준으로 지도 범위 재설정하기 위해
             // LatLngBounds 객체에 좌표를 추가한다.
 
@@ -578,7 +578,7 @@
 
             displayPagination(pagination);
 
-            console.log("displayplaces 통과");
+            // console.log("displayplaces 통과");
 
         }
     }
@@ -586,8 +586,8 @@
     function getListItem(index, places){
         var hasAuth = document.getElementById("isAuthorized").value;
 
-        console.log("질문");
-        console.log("hasAuth:" +hasAuth);
+        // console.log("질문");
+        // console.log("hasAuth:" +hasAuth);
         let el = document.createElement('li'),
 
             itemStr = '<span class="markerbg1 marker_' + (index+1) + '"></span>' +
@@ -596,7 +596,7 @@
 
         if(places.address_name){
             itemStr += '    <span class="jibun gray">'+places.address_name+'</span>';
-            console.log("주소는 : "+places.address_name);
+            // console.log("주소는 : "+places.address_name);
         }
 
         // 아이템 내 button 추가
@@ -630,8 +630,8 @@
                 position: position, // 마커의 위치
                 image: markerImage
             });
-        console.log(marker);
-        console.log("가게이름은"+title);
+        // console.log(marker);
+        // console.log("가게이름은"+title);
         displayInfowindow(marker,title);
         // 지도 위에 마커 표출
         marker.setMap(map);
@@ -678,22 +678,22 @@
         removeMarker();
 
         for (let i=0;i<places.length;i++){
-            console.log(places[i]);
+            // console.log(places[i]);
 
         }
 
         for (let i=0;i<places.length;i++){
-            console.log(places[i]);
+            // console.log(places[i]);
             let placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
                 marker = addMarker(placePosition,i,places[i].place_name),
                 itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
 
             bounds.extend(placePosition);
 
-            console.log("여기까지 오나");
-            console.log(marker);
+            // console.log("여기까지 오나");
+            // console.log(marker);
             (function (){
-                console.log("익명함수 실행해보기");
+                // console.log("익명함수 실행해보기");
             })();
 
             (function(marker, title) {
@@ -709,7 +709,7 @@
 
                 itemEl.onmouseover =  function () {
                     displayInfowindow(marker, title);
-                    console.log(title);
+                    // console.log(title);
                 };
 
                 itemEl.onmouseout =  function () {
@@ -718,12 +718,12 @@
             })(marker, places[i].place_name);
 
             fragment.appendChild(itemEl);
-            console.log("반복문 도는지 확인");
+            // console.log("반복문 도는지 확인");
         }
 
-        console.log(fragment);
+        // console.log(fragment);
         listEl.appendChild(fragment);
-        console.log(listEl);
+        // console.log(listEl);
         menuEl.scrollTop = 0;
         // 검색된 장소 위치를 기준으로 지도 범위 설정
         map.setBounds(bounds);

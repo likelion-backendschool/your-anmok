@@ -49,7 +49,7 @@ public class PlaceController {
 
         for(int i=0;i<placeIdList.size();i++){
             categoryPlaceList.add(placeService.getPlace(placeIdList.get(i)));
-            System.out.println(placeService.getPlace(placeIdList.get(i)));
+//            System.out.println(placeService.getPlace(placeIdList.get(i)));
         }
 
         model.addAttribute("allPlaceList",categoryPlaceList);
@@ -128,7 +128,7 @@ public class PlaceController {
 
         for(int i=0;i<placeIdList.size();i++){
             categoryPlaceList.add(placeService.getPlace(placeIdList.get(i)));
-            System.out.println(placeService.getPlace(placeIdList.get(i)));
+//            System.out.println(placeService.getPlace(placeIdList.get(i)));
         }
 
         model.addAttribute("allPlaceList",categoryPlaceList);

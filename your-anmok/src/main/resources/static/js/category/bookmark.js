@@ -41,7 +41,7 @@ let index = {
             },
             error : function (error) {
 
-                console.log(JSON.stringify(error));
+                // console.log(JSON.stringify(error));
 
                 if(error.status == 409) {
                     alert("동일한 이름의 카테고리명이 존재합니다.");

@@ -48,7 +48,7 @@ let index = {
             },
             error : function (error) {
 
-                console.log(JSON.stringify(error));
+                // console.log(JSON.stringify(error));
 
                 alertCustom("실행이 정상적으로 완료되지 않았습니다. 다시 시도해주세요.");
 

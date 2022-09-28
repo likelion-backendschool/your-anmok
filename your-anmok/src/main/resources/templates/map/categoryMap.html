@@ -118,7 +118,7 @@
     /*<![CDATA[*/
 
     let allPlaceList = [[${allPlaceList}]];
-    console.log(allPlaceList);
+    // console.log(allPlaceList);
 
     /*]]>*/
 
@@ -200,8 +200,8 @@
                     type : "GET",
                     async: false,
                     success : function(data){
-                        console.log(data);
-                        console.log(data.place.name);
+                        // console.log(data);
+                        // console.log(data.place.name);
                         $('p[id=place_info_placeName]').text(data.place.name);
                         $('p[id=place_info_placeAddress]').text(data.place.address);
 
@@ -212,8 +212,8 @@
                         let starSize = data.place.star;
                         let emptyStarSize = 5-data.place.star;
 
-                        console.log("카테고리 사이즈는"+categorySize);
-                        console.log("카테고리 이름:"+data.categoryList[0].tagName);
+                        // console.log("카테고리 사이즈는"+categorySize);
+                        // console.log("카테고리 이름:"+data.categoryList[0].tagName);
                         function categoryDOM(categoryList){
                             let tr = '';
 
@@ -223,7 +223,7 @@
                             }
 
                             tr+=`</tr>`;
-                            console.log(tr);
+                            // console.log(tr);
                             document.getElementById("place_info_categoryList").innerHTML=tr;
                         }
 
@@ -235,7 +235,7 @@
                                 tr +=`    <button class="gathingTitleBtn" onclick="location.href='/gathering/${gatheringList[i].id}'">${gatheringList[i].title}</button>`
                             }
                             tr+=`</tr>`;
-                            console.log(tr);
+                            // console.log(tr);
                             document.getElementById("place_info_gatheringList").innerHTML=tr;
                         }
 
@@ -253,7 +253,7 @@
                                 tr +=`    <img src="/images/empty_star.png" class="star">`
                             }
                             tr+=`</tr>`;
-                            console.log(tr);
+                            // console.log(tr);
                             document.getElementById("star_box").innerHTML=tr;
                         }
 
@@ -372,7 +372,7 @@
 
     function getCurrentPosBtn() {
         navigator.geolocation.getCurrentPosition(locationLoadSuccess, null);
-        console.log("현재위치 버튼 클릭됨");
+        // console.log("현재위치 버튼 클릭됨");
     }
 
 </script>
