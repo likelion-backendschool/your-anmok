@@ -55,6 +55,9 @@
 
         <button id="makeMyCategory">나만의 카테고리 만들기</button>
 
+        <input type="hidden" id="clientId" th:value="${clientId}">
+        <input type="hidden" id="callbackUrl" th:value="${callbackUrl}">
+
         <div sec:authorize="isAnonymous()">
             <input type="hidden" class="isLogin" value="false">
         </div>

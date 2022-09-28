@@ -4,11 +4,13 @@ let index = {
 
             event.preventDefault();
 
+            var clientId = $("#clientId").val();
+            var callbackUrl = $("#callbackUrl").val();
 
             if ($(".isLogin").val() == "false") {
                 confirmAlertLogin("이 서비스는 로그인을 하셔야 사용 가능합니다. 로그인을 하시겠습니까?").then((result) => {
                     if (result == true) {
-                        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code";
+                        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + callbackUrl + "&response_type=code";
                     } else {
                         swal.close();
                     }
@@ -23,10 +25,13 @@ let index = {
 
             var categoryId = $("#searchMapButtonByCategoryId").val();
 
+            var clientId = $("#clientId").val();
+            var callbackUrl = $("#callbackUrl").val();
+
             if ($(".isLogin").val() == "false") {
                 confirmAlertLogin("이 서비스는 로그인을 하셔야 사용 가능합니다. 로그인을 하시겠습니까?").then((result) => {
                     if (result == true) {
-                        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=84bb53ddc4e742b0c6aa6c06a6372dbc&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code";
+                        location.href = "https://kauth.kakao.com/oauth/authorize?client_id=" + clientId + "&redirect_uri=" + callbackUrl + "&response_type=code";
                     } else {
                         swal.close();
                     }
