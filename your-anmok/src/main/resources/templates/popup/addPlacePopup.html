@@ -37,12 +37,12 @@
 
     function checkSize(input) {
         if(input.files.length>5){
-            swal("5개까지만 첨부 가능합니다.");
+            swal("5개까지만 첨부 가능합니다!");
             input.value = null;
         }else {
             for (var i = 0; i < input.files.length; i++) {
                 if (input.files && input.files[i].size > (5 * 1024 * 1024)) {
-                    swal("최대 5MB의 파일만 첨부 가능합니다.");
+                    swal("최대 5MB의 파일만 첨부 가능합니다!");
                     input.value = null;
                 }
             }
