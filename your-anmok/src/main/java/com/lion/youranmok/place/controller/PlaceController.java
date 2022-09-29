@@ -47,9 +47,9 @@ public class PlaceController {
 
     @GetMapping("/")
     public String home(Model model){
-        Integer mostPopularCategoryId = 1;
+        Integer mostPopularCategoryId = categoryService.getMostPopularCategory();
         List<Integer> placeIdList= placeCategoryMapService.getPlaceIdByCategoryId(mostPopularCategoryId);
-        Category category = categoryService.getCategoryById(1);
+        Category category = categoryService.getCategoryById(mostPopularCategoryId);
 
         List<Place> categoryPlaceList = new ArrayList<>();
 

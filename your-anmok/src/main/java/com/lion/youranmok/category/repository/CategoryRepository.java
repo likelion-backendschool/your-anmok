@@ -64,4 +64,5 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     Category getCategoryByTagName(String tagName);
 
     Category getCategoryById(Integer id);
+
 }

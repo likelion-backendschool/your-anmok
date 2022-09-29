@@ -248,5 +248,17 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepository.getCategoryByTagName(tagName);
     }
 
+    @Override
+    public Integer getMostPopularCategory() {
+
+        List<CategorySortingDto> categorySortingDtos = categoryRepository.getSortingCategories();
+
+        categorySortingDtos = categorySortingDtos.stream().sorted(Comparator.comparing(CategorySortingDto::getTotalPlaceCnt).reversed()).collect(Collectors.toList());
+
+
+        return categorySortingDtos.get(0).getId();
+
+    }
+
 
 }
