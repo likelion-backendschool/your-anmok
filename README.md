@@ -8,7 +8,7 @@
 <br>
 
 ## 📄 프로젝트 관련 문서
-Project Link : https://your-anmok.site/
+Project Url : https://your-anmok.site/
 | [🏠 Notion](https://www.notion.so/your-anmok/21c83fecd0b64b1f9d9c28541382106f) <br> | [📚 Backlog](https://docs.google.com/spreadsheets/d/115FoUWQduqa8-tBWbDBv3J5Y5EYxhj29ohYBuXjlrso/edit#gid=0) <br> | [💽 ERD](https://www.notion.so/your-anmok/ERD-29dc17fce6ea4197805febcd391fe3c5) <Br> | [📷 Wireframe](https://www.figma.com/file/F9vnpaCJEKHkirnCcxIIIi/%EB%8B%B9%EC%8B%A0%EC%9D%98-%EC%95%88%EB%AA%A9-team-library?node-id=0%3A1) | [🔑 API Specification](https://www.notion.so/your-anmok/API-a1184215d1f844feb14efb1065d0f337) |
 |:-----------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------:|
 
