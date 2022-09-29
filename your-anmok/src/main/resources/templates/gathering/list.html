@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <div th:replace="/common/gtag_fragment.html :: fragment-header"></div>
-
     <meta charset="UTF-8">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-anmok.site/gathering/list">
-    <meta property="og:title" content="당신의 안목 | ⚡️ 번개모임 게시판">
-    <meta property="og:image" content="https://your-anmok.site/image/meta_img.png">
-    <meta property="og:site_name" content="당신의 안목">
 
     <title>당신의 안목 | ⚡️ 번개모임 게시판</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -31,7 +24,7 @@
     </div>
     <div class="flex justify-end mr-[25px] mt-[25px]">
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" th:href="@{/gathering/create}">모집하기⚡️</a></button>
-        <a sec:authorize="isAnonymous()" class="rightkakao" th:href="|https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}&response_type=code|"><img width="70px" height="40px" src="/image/KakaoLoginBtn.jpg"></a>
+        <a sec:authorize="isAnonymous()" class="rightkakao" th:href="|https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${callbackUrl}&response_type=code|"><img class="kakaoImg" src="/image/KakaoLoginBtn.jpg"></a>
         <button sec:authorize="isAuthenticated()" class="write-gather"><a class="text-white text-decoration-none" href="/logout">로그아웃</a></button>
     </div>
 
@@ -66,7 +59,7 @@
 
     <div class="places">
         <div th:each="gathering,index:${gatheringList}" id="gatheringList" th:onclick="'location.href=\''+@{/gathering/{id}(id=${gathering.boardId})}+'\''">
-            <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><img src="/images/gathering-image-test.png" alt="이미지"/></a>
+            <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><img th:src="@{|${gathering.filePath}|}" alt="이미지"/></a>
             <a th:href="@{/gathering/{id}(id=${gathering.boardId})}"><div class="place-main" th:text="${gathering.store}+' | '+${gathering.title}"></div></a>
             <div th:text="'📆'+${gathering.meetAt}+'  👥'+${gathering.gatherCnt}+'/'+${gathering.totalCnt}+'명'"></div>
         </div>

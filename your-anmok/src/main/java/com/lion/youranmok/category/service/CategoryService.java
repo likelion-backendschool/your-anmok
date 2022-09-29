@@ -32,6 +32,7 @@ public interface CategoryService {
         Category entity = Category.builder()
                 .id(dto.getId())
                 .tagName(dto.getTagName())
+                .imgPath(dto.getImgPath())
                 .build();
 
         return entity;
@@ -43,6 +44,7 @@ public interface CategoryService {
         CategoryDto dto = CategoryDto.builder()
                 .id(entity.getId())
                 .tagName(entity.getTagName())
+                .imgPath(entity.getImgPath())
                 .build();
 
         return dto;

@@ -156,12 +156,16 @@ form {
 .places>div:hover{
     background: #7FD1AE;
 }
+.kakaoImg {
+    width : 70px;
+}
 
 .places >div img{
     width: 300px;
     height: 150px;
     margin: 25px 35px;
     float: left;
+    object-fit: cover;
 }
 
 .places>div>a>.place-main{

@@ -20,7 +20,9 @@ import static com.lion.youranmok.category.entity.QCategory.category;
 import static com.lion.youranmok.gathering.entity.QGatheringBoard.gatheringBoard;
 import static com.lion.youranmok.place.entity.QPlace.place;
 import static com.lion.youranmok.place.entity.QPlaceCategoryMap.placeCategoryMap;
+import static com.lion.youranmok.place.entity.QPlaceImage.placeImage;
 import static com.lion.youranmok.user.entity.QUser.user;
+import static com.querydsl.jpa.JPAExpressions.select;
 
 @RequiredArgsConstructor
 public class GatheringRepositoryImpl implements GatheringRepositoryCustom {
@@ -33,17 +35,31 @@ public class GatheringRepositoryImpl implements GatheringRepositoryCustom {
     @Override
     public List<GatheringListDetailDto> listByCriteria(GatheringListCriteria criteria) {
         return queryFactory
-                .select(Projections.constructor(GatheringListDetailDto.class, gatheringBoard.id, place.name, gatheringBoard.title, gatheringBoard.date, gatheringBoard.totalCnt, gatheringBoard.gatherCnt, gatheringBoard.createdAt))
+                .select(Projections.constructor(GatheringListDetailDto.class, gatheringBoard.id, place.name, gatheringBoard.title, gatheringBoard.date, gatheringBoard.totalCnt, gatheringBoard.gatherCnt, gatheringBoard.createdAt, placeImage.filePath, category.imgPath))
                 .distinct()
                 .from(gatheringBoard)
                 .innerJoin(placeCategoryMap).on(placeCategoryMap.placeId.eq(gatheringBoard.place.id))
                 .innerJoin(place).on(place.id.eq(placeCategoryMap.placeId))
                 .innerJoin(user).on(user.id.eq(gatheringBoard.userId))
+                .leftJoin(placeImage).on(placeImage.placeId.eq(place.id))
+                .leftJoin(category).on(category.id.eq(placeCategoryMap.categoryId))
                 .where(inCategories(criteria.getCategory()),
                         keywordLike(criteria.getClassification(), criteria.getSearchKeyword()))
                 .orderBy(gatheringBoard.createdAt.desc())
+                .groupBy(gatheringBoard.id)
                 .fetch();
     }
+
+//    private String getImg(Integer placeId) {
+//        return queryFactory
+//                .select(category.imgPath)
+//                .from(category)
+//                .innerJoin(placeCategoryMap).on(placeCategoryMap.categoryId.eq(category.id))
+//                .where(placeCategoryMap.placeId.eq(placeId))
+//                .groupBy(placeCategoryMap.placeId)
+//                .fetch().;
+//    }
+
 
     private BooleanExpression inCategories(List<Integer> categories) {
         if(categories == null || categories.size() == 0) {

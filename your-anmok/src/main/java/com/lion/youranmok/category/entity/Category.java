@@ -22,4 +22,7 @@ public class Category {
     @Column(name = "tag_name", nullable = false)
     private String tagName;
 
+    @Column
+    private String imgPath;
+
 }

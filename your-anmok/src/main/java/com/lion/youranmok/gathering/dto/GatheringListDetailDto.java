@@ -21,7 +21,12 @@ public class GatheringListDetailDto {
     private Integer gatherCnt;
     private LocalDateTime createdAt;
 
-    public GatheringListDetailDto(Integer boardId, String store, String title, LocalDate meetAt, Integer totalCnt, Integer gatherCnt, LocalDateTime createdAt) {
+    private String filePath;
+
+    private String categoryImg;
+
+
+    public GatheringListDetailDto(Integer boardId, String store, String title, LocalDate meetAt, Integer totalCnt, Integer gatherCnt, LocalDateTime createdAt, String filePath, String categoryImg) {
         this.boardId = boardId;
         this.store = store;
         this.title = title;
@@ -29,6 +34,8 @@ public class GatheringListDetailDto {
         this.totalCnt = totalCnt;
         this.gatherCnt = gatherCnt;
         this.createdAt = createdAt;
+        this.filePath = filePath;
+        this.categoryImg = categoryImg;
     }
 
     public void setMeetAt(LocalDate meetAt) {

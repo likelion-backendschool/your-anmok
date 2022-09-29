@@ -64,6 +64,14 @@ public class GatheringListController {
 //        System.out.println(criteria.toString());
 
         List<GatheringListDetailDto> gatheringBoardList = gatheringService.listByCriteria(criteria);
+        for(GatheringListDetailDto gathering: gatheringBoardList) {
+            if(gathering.getFilePath() == null) {
+                gathering.setFilePath("/image/category/%s".formatted(gathering.getCategoryImg()));
+            } else {
+                gathering.setFilePath("/placeimg/%s".formatted(gathering.getFilePath()));
+            }
+        }
+
         List<CategoryDto> categoryList = categoryService.findAll();
 
         model.addAttribute("categoryList", categoryList);

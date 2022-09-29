@@ -89,12 +89,13 @@ public class CategoryController {
 
         Category category = Category.builder()
                 .tagName(categoryName)
+                .imgPath("random%d.jpg".formatted((int)(Math.random() * 10) + 1))
                 .build();
 
         //카테고리 등록
         Integer categoryid = categoryService.addCategory(categoryService.entityToDto(category));
         //이미 등록된 카테고리의 id 가져오기
-        if(categoryid==0){
+        if(categoryid==0) {
             categoryid = categoryService.getCategoryByTagName(categoryName).getId();
         }
 

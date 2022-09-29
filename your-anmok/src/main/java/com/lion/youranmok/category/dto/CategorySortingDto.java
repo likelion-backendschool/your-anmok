@@ -25,14 +25,18 @@ public class CategorySortingDto {
     private String imagePath;
 
 
-    public CategorySortingDto(Integer id, String tagName, long bookmarkCnt, long totalPlaceCnt) {
+    public CategorySortingDto(Integer id, String tagName, long bookmarkCnt, long totalPlaceCnt, String imagePath) {
         this.id = id;
         this.tagName = tagName;
         this.bookmarkCnt = (int) bookmarkCnt;
         this.totalPlaceCnt = (int) totalPlaceCnt;
         this.existImage = false;
 
-        this.imagePath = "/image/category/%s.jpg".formatted(((int) (Math.random() * 6) + 1));
+//        if(imagePath == null) {
+//            this.imagePath = "/image/category/%s.jpg".formatted(((int) (Math.random() * 6) + 1));
+//        } else {
+            this.imagePath = "/image/category/%s".formatted(imagePath);
+//        }
     }
 
 }

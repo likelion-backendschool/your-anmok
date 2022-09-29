@@ -44,8 +44,10 @@ public interface GatheringRepository extends JpaRepository<GatheringBoard, Integ
             "gb.date, " +
             "gb.totalCnt, " +
             "gb.gatherCnt,"+
-            "gb.createdAt "+
-            ") from GatheringBoard gb inner join Place as p on gb.place.id = p.id where gb.userId = :userId")
+            "gb.createdAt, "+
+            "pl.filePath,"+
+            "c.imgPath" +
+            ") from GatheringBoard gb inner join Place as p on gb.place.id = p.id left join PlaceImage as pl on pl.placeId = p.id left join PlaceCategoryMap as pcm on pcm.placeId = p.id left join Category as c on c.id = pcm.categoryId where gb.userId = :userId")
     List<GatheringListDetailDto> getDetailByUserId(int userId);
 
     @Query("select new com.lion.youranmok.gathering.dto.CreateSearchDto (" +

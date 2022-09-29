@@ -22,16 +22,18 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "c.id," +
             "c.tagName," +
             "(select count(b.id) from Bookmark b where b.categoryId = c.id)," +
-            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id))" +
-            "from Category c")
+            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id), " +
+            "c.imgPath" +
+            ") from Category c")
     List<CategorySortingDto> getSortingCategories();
 
     @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
             "c.id," +
             "c.tagName," +
             "(select count(b.id) from Bookmark b where b.categoryId = c.id)," +
-            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id))" +
-            "from Category c where c.tagName like %:keyword%")
+            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id)," +
+            "c.imgPath" +
+            ") from Category c where c.tagName like %:keyword%")
     List<CategorySortingDto> getSortingCategoriesContainingKeyword(String keyword);
 
 
@@ -42,16 +44,18 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
             "c.id," +
             "c.tagName," +
             "(select count(b.id) from Bookmark b where b.categoryId = c.id and b.userId = :userId)," +
-            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id))" +
-            "from Category c")
+            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id), " +
+            "c.imgPath "+
+            ") from Category c")
     List<CategorySortingDto> getCategoriesByUser(int userId);
 
     @Query("select new com.lion.youranmok.category.dto.CategorySortingDto (" +
             "c.id," +
             "c.tagName," +
             "(select count(b.id) from Bookmark b where b.categoryId = c.id and b.userId = :userId)," +
-            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id))" +
-            "from Category c where c.tagName like %:keyword%")
+            "(select count(p.id) from PlaceCategoryMap p where p.categoryId = c.id), " +
+            "c.imgPath "+
+            ") from Category c where c.tagName like %:keyword%")
     List<CategorySortingDto> getCategoriesByUserContainingKeyword(int userId, String keyword);
 
 
