@@ -21,8 +21,8 @@ import java.util.List;
 public class FileHandler {
     private final PlaceImageService placeImageService;
 
-//    @Value("${custom.genFileDirPath}")
-//    private String genFileDirPath;
+    @Value("${custom.genFileDirPath}")
+    private String genFileDirPath;
 
     public List<PlaceImage> parseFileInfo(PlaceReview placeReview, List<MultipartFile> multipartFiles) throws Exception {
         List<PlaceImage> fileList = new ArrayList<>();
@@ -41,7 +41,7 @@ public class FileHandler {
 
             // 파일을 저장할 세부 경로 지정
             String path = "placeimages" + File.separator + current_date;
-            File file = new File(path);
+            File file = new File(genFileDirPath+"/"+path);
 
             // 디렉터리가 존재하지 않을 경우
             if (!file.exists()) {
@@ -93,7 +93,7 @@ public class FileHandler {
                 fileList.add(placeImage);
 
                 // 업로드 한 파일 데이터를 지정한 파일에 저장
-                file = new File(absolutePath + path + File.separator + new_file_name);
+                file = new File(genFileDirPath + File.separator + path + File.separator + new_file_name);
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)
