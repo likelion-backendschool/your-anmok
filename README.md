@@ -15,6 +15,12 @@ Project Url : https://your-anmok.site/
 
 <br>
 
+## 🎥 데모 영상
+
+[![Video Label](http://img.youtube.com/vi/ke2waabVuZM/0.jpg)](https://youtu.be/ke2waabVuZM)
+
+<br>
+
 ## 🦁 팀원 & 역할 소개
 
 | [<img src="https://avatars.githubusercontent.com/himJJong" width="200">](https://github.com/himJJong) | [<img src="https://avatars.githubusercontent.com/lion0913" width="200">](https://github.com/lion0913) | [<img src="https://avatars.githubusercontent.com/joong2043" width="200">](https://github.com/joong2043) | [<img src="https://avatars.githubusercontent.com/Aruming" width="200">](https://github.com/Aruming) | [<img src="https://avatars.githubusercontent.com/ap3334" width="200">](https://github.com/ap3334) |
